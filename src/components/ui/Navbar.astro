@@ -127,25 +127,78 @@ const isActive = (href: string) =>
   .nav-link[aria-current="page"]::after {
     width: 100%;
   }
+
+  /* Hamburguesa animada: tres barras que se transforman en una X. */
+  .hamburger-box {
+    position: relative;
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+  .hamburger-bar {
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition:
+      transform 0.3s var(--ease-out-quart),
+      opacity 0.2s linear;
+  }
+  .hamburger-bar:nth-child(1) {
+    top: 5px;
+  }
+  .hamburger-bar:nth-child(2) {
+    top: 11px;
+  }
+  .hamburger-bar:nth-child(3) {
+    top: 17px;
+  }
+  .hamburger.is-open .hamburger-bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .hamburger.is-open .hamburger-bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.is-open .hamburger-bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* Despliegue suave del panel móvil (sin medir la altura). */
+  @media (max-width: 1023px) {
+    .mobile-menu {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s var(--ease-out-quart);
+    }
+    .mobile-menu.is-open {
+      grid-template-rows: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hamburger-bar,
+    .mobile-menu {
+      transition: none;
+    }
+  }
 </style>
 
 <script>
   const toggle = document.getElementById("menu-toggle")!;
   const menu = document.getElementById("mobile-menu")!;
-  const iconOpen = document.getElementById("icon-open")!;
-  const iconClose = document.getElementById("icon-close")!;
   const navbar = document.getElementById("navbar")!;
 
   const setOpen = (open: boolean) => {
-    menu.classList.toggle("hidden", !open);
-    iconOpen.classList.toggle("hidden", open);
-    iconClose.classList.toggle("hidden", !open);
+    menu.classList.toggle("is-open", open);
+    toggle.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", String(open));
     toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
   };
 
   toggle.addEventListener("click", () =>
-    setOpen(menu.classList.contains("hidden")),
+    setOpen(!menu.classList.contains("is-open")),
   );
   menu
     .querySelectorAll(".mobile-link")
