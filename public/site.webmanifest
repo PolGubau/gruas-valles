@@ -1,0 +1,25 @@
+{
+  "name": "Grúas del Vallès",
+  "short_name": "Grúas del Vallès",
+  "description": "Alquiler de grúas móviles autopropulsadas de 40 a 500 Tn en Cataluña. Servicio de emergencia 24/365.",
+  "lang": "es-ES",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#d60b0c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

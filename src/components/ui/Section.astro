@@ -1,0 +1,56 @@
+---
+interface Props {
+  id?: string;
+  bg?: "white" | "alt" | "ink";
+  title?: string;
+  class?: string;
+  labelledby?: string;
+}
+
+const { id, bg = "white", title, class: extra = "", labelledby } = Astro.props;
+
+const backgrounds = {
+  white: "bg-surface text-ink",
+  alt: "bg-surface-alt text-ink",
+  ink: "bg-ink text-white",
+};
+
+const headingId = labelledby ?? (id ? `${id}-title` : undefined);
+const hasIntro = Astro.slots.has("intro");
+const hasHeader = Boolean(title || hasIntro);
+---
+
+<section
+  id={id}
+  class={`section-padding ${backgrounds[bg]} ${extra}`}
+  aria-labelledby={title ? headingId : undefined}
+>
+  <div class="container-wide">
+    {
+      hasHeader && (
+        <div class="mb-12 flex flex-col gap-4 lg:mb-16 lg:flex-row lg:items-end lg:justify-between">
+          <div class="max-w-2xl" data-reveal>
+            {title && (
+              <h2
+                id={headingId}
+                class="text-3xl font-black leading-tight sm:text-4xl"
+              >
+                {title}
+              </h2>
+            )}
+          </div>
+          {hasIntro && (
+            <div
+              class={`max-w-sm text-sm leading-relaxed ${bg === "ink" ? "text-muted" : "text-ink-secondary"}`}
+              data-reveal
+              data-reveal-delay="1"
+            >
+              <slot name="intro" />
+            </div>
+          )}
+        </div>
+      )
+    }
+    <slot />
+  </div>
+</section>

@@ -1,0 +1,293 @@
+---
+import contacto from "../../data/contacto.json";
+import Button from "../ui/Button.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<section id="contacto" class="section-padding bg-surface-alt">
+  <div class="container-wide">
+    <div class="grid gap-12 lg:grid-cols-2">
+      <!-- Form -->
+      <div>
+        <p
+          class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent"
+        >
+          Contacto
+        </p>
+        <h2 class="mb-6 text-3xl font-black sm:text-4xl">
+          Solicite su<br />presupuesto
+        </h2>
+        <p class="mb-8 text-sm text-ink-secondary">
+          Rellene los datos y se abrirá su gestor de correo con la solicitud
+          lista para enviar. Nuestro equipo técnico le responde en menos de 24
+          horas con una propuesta detallada.
+        </p>
+
+        <form
+          id="presupuesto-form"
+          data-email={contacto.email}
+          class="space-y-4"
+          novalidate
+        >
+          <!-- Honeypot anti-spam: oculto para humanos -->
+          <div class="absolute h-0 w-0 overflow-hidden" aria-hidden="true">
+            <label for="empresa-web">No rellenar</label>
+            <input
+              id="empresa-web"
+              name="empresa-web"
+              type="text"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label
+                class="mb-1 block text-xs font-semibold uppercase tracking-wider"
+                for="nombre">Empresa / Nombre</label
+              >
+              <input
+                id="nombre"
+                name="nombre"
+                type="text"
+                required
+                class="w-full border-2 border-muted bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-accent"
+                placeholder="Constructora García S.L."
+              />
+            </div>
+            <div>
+              <label
+                class="mb-1 block text-xs font-semibold uppercase tracking-wider"
+                for="telefono">Teléfono</label
+              >
+              <input
+                id="telefono"
+                name="telefono"
+                type="tel"
+                required
+                class="w-full border-2 border-muted bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-accent"
+                placeholder="93 XXX XX XX"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label
+              class="mb-1 block text-xs font-semibold uppercase tracking-wider"
+              for="email">Email</label
+            >
+            <input
+              id="email"
+              name="email"
+              type="email"
+              class="w-full border-2 border-muted bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-accent"
+              placeholder="contacto@empresa.com"
+            />
+          </div>
+
+          <div>
+            <label
+              class="mb-1 block text-xs font-semibold uppercase tracking-wider"
+              for="tonelaje">Tonelaje necesario (aprox.)</label
+            >
+            <select
+              id="tonelaje"
+              name="tonelaje"
+              class="w-full border-2 border-muted bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-accent"
+            >
+              <option value="">Seleccione...</option>
+              <option>Hasta 50 Tn</option>
+              <option>50 – 100 Tn</option>
+              <option>100 – 200 Tn</option>
+              <option>200 – 400 Tn</option>
+              <option>+400 Tn / Gran tonelaje</option>
+              <option>No lo sé, necesito asesoramiento</option>
+            </select>
+          </div>
+
+          <div>
+            <label
+              class="mb-1 block text-xs font-semibold uppercase tracking-wider"
+              for="mensaje">Descripción del trabajo</label
+            >
+            <textarea
+              id="mensaje"
+              name="mensaje"
+              rows="4"
+              class="w-full border-2 border-muted bg-white px-4 py-3 text-sm outline-none transition-colors focus:border-accent resize-none"
+              placeholder="Indique el tipo de maniobra, ubicación, fechas aproximadas..."
+            ></textarea>
+          </div>
+
+          <Button
+            type="submit"
+            icon="lucide:send"
+            class="w-full justify-center"
+          >
+            Enviar por email
+          </Button>
+
+          <p class="text-xs text-ink-secondary">
+            ¿No se abre el correo? Escríbanos directamente a{" "}
+            <a
+              href={`mailto:${contacto.email}`}
+              class="font-semibold text-accent hover:underline"
+              >{contacto.email}</a
+            >
+          </p>
+
+          <p
+            id="presupuesto-status"
+            role="status"
+            aria-live="polite"
+            class="hidden text-sm font-medium text-accent"
+          >
+          </p>
+        </form>
+      </div>
+
+      <!-- Info de contacto -->
+      <div class="flex flex-col gap-8">
+        <!-- Datos -->
+        <div class="bg-ink p-6 text-white sm:p-8">
+          <h3 class="mb-6 text-lg font-bold">Información de contacto</h3>
+          <dl class="space-y-4 text-sm">
+            <div class="flex items-start gap-3">
+              <Icon
+                name="lucide:map-pin"
+                class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                aria-hidden="true"
+              />
+              <div>
+                <dt class="text-xs text-muted mb-0.5">Dirección</dt>
+                <dd>{contacto.direccion}</dd>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <Icon
+                name="lucide:phone"
+                class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                aria-hidden="true"
+              />
+              <div>
+                <dt class="text-xs text-muted mb-0.5">Teléfono</dt>
+                <dd>
+                  <a
+                    href={`tel:${contacto.telefono}`}
+                    class="hover:text-accent transition-colors"
+                    >{contacto.telefono}</a
+                  >
+                </dd>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <Icon
+                name="lucide:triangle-alert"
+                class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                aria-hidden="true"
+              />
+              <div>
+                <dt class="text-xs text-muted mb-0.5">Emergencias 24/365</dt>
+                <dd class="flex flex-col gap-1">
+                  {
+                    contacto.emergencias.map((tel: string) => (
+                      <a
+                        href={`tel:+34${tel.replace(/\s/g, "")}`}
+                        class="font-semibold text-accent hover:underline"
+                      >
+                        {tel}
+                      </a>
+                    ))
+                  }
+                </dd>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <Icon
+                name="lucide:mail"
+                class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                aria-hidden="true"
+              />
+              <div>
+                <dt class="text-xs text-muted mb-0.5">Email</dt>
+                <dd>
+                  <a
+                    href={`mailto:${contacto.email}`}
+                    class="hover:text-accent transition-colors break-all"
+                    >{contacto.email}</a
+                  >
+                </dd>
+              </div>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Mapa embed -->
+        <div class="aspect-video overflow-hidden bg-surface-alt">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2981.5!2d2.2915!3d41.6097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sAvda.%20San%20Juli%C3%A1n%2064-66%2C%20Granollers!5e0!3m2!1ses!2ses!4v1"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById(
+    "presupuesto-form",
+  ) as HTMLFormElement | null;
+
+  if (form) {
+    const status = document.getElementById("presupuesto-status");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      // Honeypot: si está relleno, es un bot → no hacemos nada.
+      const honeypot = form.querySelector<HTMLInputElement>("#empresa-web");
+      if (honeypot && honeypot.value.trim() !== "") return;
+
+      if (!form.reportValidity()) return;
+
+      const data = new FormData(form);
+      const get = (key: string) => (data.get(key)?.toString() ?? "").trim();
+
+      const nombre = get("nombre");
+      const telefono = get("telefono");
+      const email = get("email");
+      const tonelaje = get("tonelaje");
+      const mensaje = get("mensaje");
+
+      const to = form.dataset.email ?? "";
+      const subject = `Solicitud de presupuesto${nombre ? ` — ${nombre}` : ""}`;
+      const body = [
+        `Empresa / Nombre: ${nombre || "—"}`,
+        `Teléfono: ${telefono || "—"}`,
+        `Email: ${email || "—"}`,
+        `Tonelaje aproximado: ${tonelaje || "—"}`,
+        "",
+        "Descripción del trabajo:",
+        mensaje || "—",
+      ].join("\n");
+
+      const mailto = `mailto:${to}?subject=${encodeURIComponent(
+        subject,
+      )}&body=${encodeURIComponent(body)}`;
+
+      window.location.href = mailto;
+
+      if (status) {
+        status.textContent =
+          "Abriendo su gestor de correo… Si no se abre, escríbanos directamente al email indicado.";
+        status.classList.remove("hidden");
+      }
+    });
+  }
+</script>

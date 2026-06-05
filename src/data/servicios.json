@@ -1,0 +1,33 @@
+{
+  "principales": [
+    "Alquiler de grúas móviles autopropulsadas (de 40 a 500 Tn) y camiones grúa auto-cargante hasta 96 Tn, trailers y otros transportes",
+    "Alquiler de transportes especiales (cargas que superan las medidas genéricas legales)",
+    "Alquiler de carretillas elevadoras, toros mecánicos, gatos, tanquetas y utillajes para manipulación en interiores",
+    "Alquiler de equipos de montaje (muros, naves e infraestructuras de prefabricado)",
+    "Alquiler de cestas homologadas para subir personal a alturas o difícil acceso",
+    "Colocación de maquinaria pesada mediante gatos hidráulicos y tanquetas",
+    "Montaje de estructuras de prefabricado de hormigón (naves, puentes, viaductos, edificios)",
+    "Desmontaje integral y traslado de industrias o maquinaria",
+    "Servicio en toda Catalunya y zonas colindantes"
+  ],
+  "departamento_de_estudios": "Técnicos cualificados que presentan opciones de maniobras y emplazamientos. Trabajan con programas CAD/CAM, software de fabricantes y planos 3D, complementado con visitas técnicas personalizadas.",
+  "asesoramiento": {
+    "tecnico": "Estudios y planos de maniobras para determinar la maquinaria adecuada y analizar percances.",
+    "atencion_cliente": "Consultas y presupuestos sin compromiso.",
+    "emergencia": "24 horas, 365 días al año. Teléfonos: 669 29 69 54 y 669 29 69 49"
+  },
+  "tramites": [
+    "Tramitación de permisos urbanos (ocupación de vía pública / corte de calles) y permisos especiales de circulación",
+    "Tramitación de seguros y reaseguros",
+    "Presentación del Plan de Seguridad e informes personalizados de riesgos",
+    "Dirección y ejecución del montaje con técnicos y operarios especializados"
+  ],
+  "sectores": [
+    "Industria química", "Industria farmacéutica", "Industria naval", "Industria de automoción",
+    "Industria de alimentación", "Jardinería y medio ambiente", "Distribución y logística",
+    "Ingenierías industriales", "Estaciones aeroportuarias", "Constructoras", "Empresas de prefabricados",
+    "Montaje de estructuras metálicas", "Eléctricas", "Cementeras", "Siderúrgicas", "Talleres mecánicos",
+    "Casas modulares", "Empresas de clima, gas y renovables", "Centros deportivos", "Organismos oficiales",
+    "Actos y spots publicitarios", "Organización de eventos", "Demolición y derribo", "Particulares"
+  ]
+}

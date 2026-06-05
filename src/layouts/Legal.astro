@@ -1,0 +1,62 @@
+---
+import Page from "./Page.astro";
+import Breadcrumb from "../components/ui/Breadcrumb.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  updated?: string;
+}
+
+const { title, description, updated } = Astro.props;
+---
+
+<Page title={`${title} | Grúas del Vallès`} description={description}>
+  <section class="border-b border-muted/40 bg-surface-alt">
+    <div class="container-narrow py-12 lg:py-16">
+      <Breadcrumb
+        items={[{ label: "Inicio", href: "/" }, { label: title }]}
+        class="mb-8"
+      />
+      <h1 class="text-3xl font-black leading-tight sm:text-4xl">{title}</h1>
+      {
+        updated && (
+          <p class="mt-4 text-xs text-muted-dark">
+            Última actualización: {updated}
+          </p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section-padding bg-surface">
+    <div class="container-narrow">
+      <article class="legal-prose">
+        <slot />
+      </article>
+    </div>
+  </section>
+</Page>
+
+<style is:global>
+  @reference "../styles/global.css";
+
+  .legal-prose h2 {
+    @apply mt-10 mb-3 text-xl font-bold first:mt-0;
+  }
+  .legal-prose h3 {
+    @apply mt-6 mb-2 text-base font-bold;
+  }
+  .legal-prose p {
+    @apply mb-4 text-sm leading-relaxed text-ink-secondary;
+  }
+  .legal-prose ul {
+    @apply mb-4 ml-5 list-disc space-y-1 text-sm leading-relaxed text-ink-secondary;
+  }
+  .legal-prose a {
+    @apply text-accent underline underline-offset-2 hover:text-accent-dark;
+  }
+  .legal-prose .placeholder {
+    @apply my-4 border-l-2 border-accent bg-accent-soft px-4 py-3 text-sm text-ink-secondary;
+  }
+</style>

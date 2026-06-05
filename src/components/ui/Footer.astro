@@ -1,0 +1,148 @@
+---
+import { Icon } from "astro-icon/components";
+
+const year = new Date().getFullYear();
+
+const navLinks = [
+  { href: "/flota", label: "Flota" },
+  { href: "/servicios", label: "Servicios" },
+  { href: "/maniobras", label: "Maniobras" },
+  { href: "/galeria", label: "Galería" },
+  { href: "/nosotros", label: "Nosotros" },
+  { href: "/blog", label: "Noticias" },
+  { href: "/contacto", label: "Contacto" },
+];
+
+const legalLinks = [
+  { href: "/legal/aviso-legal", label: "Aviso legal" },
+  { href: "/legal/privacidad", label: "Política de privacidad" },
+  { href: "/legal/politica-cookies", label: "Política de cookies" },
+];
+---
+
+<footer class="bg-ink text-muted">
+  <div class="container-wide py-12">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+      <!-- Brand -->
+      <div class="lg:col-span-2">
+        <a
+          href="/"
+          class="mb-4 inline-block"
+          aria-label="Grúas del Vallès — inicio"
+        >
+          <img
+            src="/logo.png"
+            alt="Grúas del Vallès"
+            class="h-12 w-auto brightness-0 invert"
+            loading="lazy"
+          />
+        </a>
+        <p class="text-sm leading-relaxed">
+          Empresa líder en alquiler de grúas industriales en Cataluña desde
+          1968. Certificados ISO 9001. Cobertura 24h/365 días.
+        </p>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <p
+          class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
+        >
+          Navegación
+        </p>
+        <ul class="space-y-2 text-sm">
+          {
+            navLinks.map(({ href, label }) => (
+              <li>
+                <a href={href} class="hover:text-accent transition-colors">
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Contacto rápido -->
+      <div>
+        <p
+          class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
+        >
+          Contacto rápido
+        </p>
+        <ul class="space-y-3 text-sm">
+          <li>
+            <a
+              href="tel:+34938497022"
+              class="flex items-center gap-2 hover:text-accent transition-colors"
+            >
+              <Icon
+                name="lucide:phone"
+                class="h-4 w-4 flex-shrink-0 text-accent"
+                aria-hidden="true"
+              />
+              93 849 70 22
+            </a>
+          </li>
+          <li class="text-xs text-muted-dark">Emergencias 24/365:</li>
+          <li>
+            <a
+              href="tel:+34669296954"
+              class="flex items-center gap-2 text-accent hover:underline"
+            >
+              669 29 69 54
+            </a>
+          </li>
+          <li>
+            <a
+              href="tel:+34669296949"
+              class="flex items-center gap-2 text-accent hover:underline"
+            >
+              669 29 69 49
+            </a>
+          </li>
+          <li class="pt-2">
+            <a
+              href="mailto:gruasdelvalles@gruasdelvalles.com"
+              class="flex items-center gap-2 text-xs hover:text-accent transition-colors break-all"
+            >
+              <Icon
+                name="lucide:mail"
+                class="h-4 w-4 flex-shrink-0 text-accent"
+                aria-hidden="true"
+              />
+              gruasdelvalles@gruasdelvalles.com
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <p
+          class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
+        >
+          Legal
+        </p>
+        <ul class="space-y-2 text-sm">
+          {
+            legalLinks.map(({ href, label }) => (
+              <li>
+                <a href={href} class="hover:text-accent transition-colors">
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs sm:flex-row"
+    >
+      <p>© {year} Grúas del Vallès, S.A. · CIF A08603888</p>
+      <p>Avda. San Julián 64-66 · Polígono Congost · 08403 Granollers</p>
+    </div>
+  </div>
+</footer>

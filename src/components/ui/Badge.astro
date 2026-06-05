@@ -1,0 +1,19 @@
+---
+interface Props {
+  variant?: 'solid' | 'soft' | 'outline' | 'neutral';
+  class?: string;
+}
+
+const { variant = 'soft', class: extra = '' } = Astro.props;
+
+const variants = {
+  solid: 'bg-accent text-white',
+  soft: 'bg-accent-soft text-accent',
+  outline: 'border border-accent text-accent',
+  neutral: 'bg-surface-alt text-ink-secondary',
+};
+---
+
+<span class={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold ${variants[variant]} ${extra}`}>
+  <slot />
+</span>

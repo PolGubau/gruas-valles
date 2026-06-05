@@ -1,0 +1,129 @@
+---
+import Button from "../ui/Button.astro";
+
+// Hero usa la foto más impactante de la flota
+const heroImage = "/assets/images/flota-liebherr-ltm1400-7-1-01.avif";
+---
+
+<section
+  id="hero"
+  class="relative flex min-h-svh items-end overflow-hidden bg-ink pt-16"
+>
+  <!-- Background image -->
+  <div class="absolute inset-0">
+    <img
+      src={heroImage}
+      alt="Grúa Liebherr LTM 1400 de Grúas del Vallès en operación"
+      class="h-full w-full object-cover object-center opacity-60"
+      fetchpriority="high"
+      decoding="async"
+    />
+    <!-- Gradient overlay -->
+    <div
+      class="absolute inset-0 bg-linear-to-t from-ink via-ink/60 to-transparent"
+    >
+    </div>
+    <!-- Vignette to anchor the composition and add depth -->
+    <div
+      class="pointer-events-none absolute inset-0"
+      style="background: radial-gradient(125% 110% at 30% 10%, transparent 50%, rgb(10 10 10 / 0.6) 100%);"
+    >
+    </div>
+    <!-- Red accent line top -->
+    <div class="absolute top-16 left-0 h-1 w-24 bg-accent"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="container-wide relative z-10 section-padding pb-24">
+    <div class="max-w-3xl">
+      <!-- Headline -->
+      <h1
+        class="mb-6 text-4xl font-black leading-[0.95] text-white sm:text-6xl lg:text-7xl"
+        data-reveal
+        data-reveal-delay="1"
+      >
+        Alquiler de<br />
+        <span class="text-accent">grúas industriales</span><br />
+        hasta 500 Tn
+      </h1>
+
+      <!-- Subheadline -->
+      <p
+        class="mb-10 max-w-xl text-lg text-muted"
+        data-reveal
+        data-reveal-delay="2"
+      >
+        Más de 30 unidades propias. Cobertura en toda Cataluña. <br />
+        Servicio de emergencia <strong class="text-white"
+          >24 horas, 365 días</strong
+        >.
+      </p>
+
+      <!-- CTAs -->
+      <div
+        class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4"
+        data-reveal
+        data-reveal-delay="3"
+      >
+        <Button
+          href="#contacto"
+          icon="lucide:arrow-right"
+          class="w-full sm:w-auto"
+        >
+          Solicitar presupuesto
+        </Button>
+        <Button
+          href="tel:+34938497022"
+          variant="outline"
+          icon="lucide:phone"
+          iconPosition="start"
+          class="w-full border-white text-white hover:bg-white hover:text-ink! sm:w-auto"
+        >
+          93 849 70 22
+        </Button>
+      </div>
+
+      <!-- Stats row -->
+      <dl
+        class="mt-12 grid max-w-2xl grid-cols-3 gap-px bg-white/10 sm:mt-16"
+        data-reveal
+      >
+        {
+          [
+            { value: "+55", label: "Años de experiencia" },
+            { value: "30+", label: "Unidades propias" },
+            { value: "500 Tn", label: "Capacidad máxima" },
+          ].map(({ value, label }) => (
+            <div class="border-t-2 border-accent bg-ink/60 px-3 py-4 backdrop-blur-sm sm:px-5 sm:py-5">
+              <dt class="sr-only">{label}</dt>
+              <dd>
+                <span class="block text-2xl font-black tracking-tight text-white sm:text-3xl">
+                  {value}
+                </span>
+                <span class="mt-1 block text-xs uppercase tracking-wider text-muted">
+                  {label}
+                </span>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <a
+    href="#flota"
+    class="absolute bottom-7 right-7 z-10 hidden items-center gap-3 text-xs font-semibold uppercase tracking-widest text-muted transition-colors hover:text-white lg:inline-flex"
+    aria-label="Desplazarse a la flota"
+  >
+    Scroll
+    <span
+      class="relative block h-9 w-px overflow-hidden bg-white/20"
+      aria-hidden="true"
+    >
+      <span class="animate-scroll-cue absolute inset-x-0 top-0 h-1/2 bg-accent"
+      ></span>
+    </span>
+  </a>
+</section>

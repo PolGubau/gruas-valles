@@ -1,0 +1,109 @@
+---
+import { getCollection } from "astro:content";
+import Section from "../ui/Section.astro";
+import Button from "../ui/Button.astro";
+import FlotaCard from "../flota/FlotaCard.astro";
+
+// Fuente única: colección «flota» (ver src/content.config.ts)
+const entries = await getCollection("flota");
+const allModels = entries
+  .map((e) => ({ slug: e.id, ...e.data }))
+  .sort((a, b) => a.orden - b.orden);
+
+const categorias = [...new Set(allModels.map((m) => m.categoria))];
+---
+
+<Section
+  id="flota"
+  bg="alt"
+  title="Maquinaria para cualquier maniobra"
+>
+  <p slot="intro">
+    Más de 30 unidades propias, siempre actualizadas. Si necesita una
+    configuración específica,
+    <a href="#contacto" class="font-medium text-accent underline">consúltenos</a
+    >.
+  </p>
+
+  <!-- Filtros -->
+  <div
+    class="mb-8 flex flex-wrap gap-2"
+    id="flota-filters"
+    role="group"
+    aria-label="Filtrar flota por categoría"
+  >
+    <button
+      type="button"
+      data-filter="all"
+      aria-pressed="true"
+      class="filter-btn active-filter text-xs font-semibold uppercase tracking-wider px-4 py-2 border-2 border-accent bg-accent text-white transition-colors"
+    >
+      Todas
+    </button>
+    {
+      categorias.map((cat) => (
+        <button
+          type="button"
+          data-filter={cat}
+          aria-pressed="false"
+          class="filter-btn text-xs font-semibold uppercase tracking-wider px-4 py-2 border-2 border-muted text-ink-secondary transition-colors hover:border-accent hover:text-accent"
+        >
+          {cat}
+        </button>
+      ))
+    }
+  </div>
+
+  <!-- Grid -->
+  <div
+    class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3"
+    id="flota-grid"
+  >
+    {allModels.slice(0, 6).map((model) => <FlotaCard model={model} />)}
+  </div>
+
+  <!-- CTA bottom -->
+  <div class="mt-12 flex flex-wrap justify-center gap-4">
+    <Button href="/flota" variant="outline" icon="lucide:list">
+      Ver toda la flota
+    </Button>
+    <Button href="#contacto" icon="lucide:arrow-right">
+      Consultar disponibilidad
+    </Button>
+  </div>
+</Section>
+
+<script>
+  const filters = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const cards = document.querySelectorAll<HTMLElement>(".flota-card");
+
+  filters.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const filter = btn.dataset.filter!;
+
+      filters.forEach((b) => {
+        b.classList.remove(
+          "active-filter",
+          "bg-accent",
+          "text-white",
+          "border-accent",
+        );
+        b.classList.add("border-muted", "text-ink-secondary");
+        b.setAttribute("aria-pressed", "false");
+      });
+      btn.classList.add(
+        "active-filter",
+        "bg-accent",
+        "text-white",
+        "border-accent",
+      );
+      btn.classList.remove("border-muted", "text-ink-secondary");
+      btn.setAttribute("aria-pressed", "true");
+
+      cards.forEach((card) => {
+        const show = filter === "all" || card.dataset.categoria === filter;
+        card.style.display = show ? "" : "none";
+      });
+    });
+  });
+</script>

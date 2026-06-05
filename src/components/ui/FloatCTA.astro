@@ -1,0 +1,77 @@
+---
+const email = "gruasdelvalles@gruasdelvalles.com";
+const subject = "Solicitud de presupuesto";
+const body =
+  "Hola,\n\nMe gustaría solicitar un presupuesto para:\n\n- Tipo de trabajo:\n- Tonelaje aproximado:\n- Fecha prevista:\n- Ubicación:\n\nGracias.";
+const href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+---
+
+<a
+  href={href}
+  id="float-cta"
+  aria-label="Pedir presupuesto por email"
+  data-hidden
+  class="group fixed bottom-6 right-6 z-50 flex translate-y-24 items-center gap-3 bg-accent px-5 py-3.5 text-white opacity-0 shadow-pop transition-all duration-300 ease-[var(--ease-out-quart)] hover:bg-accent-dark hover:shadow-[0_16px_48px_-12px_rgba(214,11,12,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-accent data-[hidden]:pointer-events-none"
+>
+  <!-- Mail icon -->
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    class="shrink-0"
+  >
+    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+  </svg>
+
+  <span class="text-sm font-semibold uppercase tracking-wider leading-none">
+    Pedir presupuesto
+  </span>
+
+  <!-- Arrow animation -->
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    class="shrink-0 transition-transform duration-200 group-hover:translate-x-0.5"
+  >
+    <path d="M5 12h14M12 5l7 7-7 7"></path>
+  </svg>
+</a>
+
+<script>
+  const btn = document.getElementById("float-cta");
+
+  // Hide the button entirely when user is already on /contacto
+  if (btn && window.location.pathname.startsWith("/contacto")) {
+    btn.hidden = true;
+  } else if (btn) {
+    // Reveal the floating CTA only after the user scrolls past the hero,
+    // so it doesn't compete with the hero's own "Solicitar presupuesto".
+    const reveal = () => {
+      const threshold = window.innerHeight * 0.6;
+      const visible = window.scrollY > threshold;
+      btn.classList.toggle("translate-y-24", !visible);
+      btn.classList.toggle("opacity-0", !visible);
+      btn.toggleAttribute("data-hidden", !visible);
+    };
+
+    reveal();
+    window.addEventListener("scroll", reveal, { passive: true });
+    window.addEventListener("resize", reveal, { passive: true });
+  }
+</script>

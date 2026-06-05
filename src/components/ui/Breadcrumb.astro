@@ -1,0 +1,37 @@
+---
+import { breadcrumbList, type Crumb } from "../../lib/schema";
+
+interface Props {
+  items: Crumb[];
+  class?: string;
+}
+
+const { items, class: extra = "" } = Astro.props;
+const jsonLd = breadcrumbList(items, Astro.site);
+---
+
+<nav
+  class={`flex flex-wrap items-center gap-2 text-xs text-ink-secondary ${extra}`}
+  aria-label="Migas de pan"
+>
+  {
+    items.map((item, i) => {
+      const isLast = i === items.length - 1;
+      return (
+        <>
+          {item.href && !isLast ? (
+            <a href={item.href} class="transition-colors hover:text-accent">
+              {item.label}
+            </a>
+          ) : (
+            <span class="text-ink" aria-current="page">
+              {item.label}
+            </span>
+          )}
+          {!isLast && <span aria-hidden="true">/</span>}
+        </>
+      );
+    })
+  }
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

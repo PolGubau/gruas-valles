@@ -1,0 +1,248 @@
+---
+import Page from "../layouts/Page.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import Contacto from "../components/sections/Contacto.astro";
+import contacto from "../data/contacto.json";
+import { Icon } from "astro-icon/components";
+
+const garantias = [
+  { icon: "lucide:clock", texto: "Respuesta en menos de 24 h" },
+  { icon: "lucide:file-text", texto: "Presupuesto sin compromiso" },
+  { icon: "lucide:headset", texto: "Asesoramiento técnico incluido" },
+  { icon: "lucide:shield-check", texto: "Emergencias 24 h / 365 días" },
+];
+
+const telHref = `tel:${contacto.telefono.replace(/\s/g, "")}`;
+const emergenciaHref = `tel:+34${contacto.emergencias[0].replace(/\s/g, "")}`;
+
+const acciones = [
+  {
+    icon: "lucide:phone",
+    label: "Llámenos",
+    valor: contacto.telefono,
+    href: telHref,
+    nota: "Lun–Vie · Atención comercial",
+  },
+  {
+    icon: "lucide:mail",
+    label: "Escríbanos",
+    valor: contacto.email,
+    href: `mailto:${contacto.email}`,
+    nota: "Respuesta en menos de 24 h",
+  },
+  {
+    icon: "lucide:triangle-alert",
+    label: "Emergencias 24/365",
+    valor: contacto.emergencias.join(" · "),
+    href: emergenciaHref,
+    nota: "Servicio de urgencia permanente",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿En qué zonas prestáis servicio de alquiler de grúas?",
+    a: "Operamos en toda Catalunya y zonas colindantes, con base en Granollers (Barcelona), a dos minutos del Circuito de Montmeló y con acceso directo a la N-152 y la AP-7.",
+  },
+  {
+    q: "¿Ofrecéis servicio de emergencia fuera del horario laboral?",
+    a: "Sí. Disponemos de servicio de emergencia 24 horas, 365 días al año. Puede contactar con los teléfonos de urgencia 669 29 69 54 y 669 29 69 49.",
+  },
+  {
+    q: "¿Qué capacidad de elevación tienen vuestras grúas?",
+    a: "Disponemos de flota propia de grúas móviles autopropulsadas de 40 a 500 Tn, además de camiones grúa, grúas para construcción y vehículos auxiliares.",
+  },
+  {
+    q: "¿El presupuesto tiene algún coste o compromiso?",
+    a: "No. Elaboramos presupuestos sin compromiso y le respondemos en menos de 24 horas con una propuesta técnica detallada.",
+  },
+  {
+    q: "¿Os encargáis de los permisos y trámites de la maniobra?",
+    a: "Sí. Gestionamos permisos de ocupación de vía pública, permisos especiales de circulación, seguros, Plan de Seguridad e informes de riesgos personalizados.",
+  },
+  {
+    q: "¿Disponéis de asesoramiento técnico previo?",
+    a: "Sí. Nuestro Departamento de Estudios elabora planos y estudios de maniobra con software CAD/CAM y planos 3D, complementados con visitas técnicas a la ubicación.",
+  },
+];
+
+const site = Astro.site ?? new URL("https://www.gruasdelvalles.com");
+const pageUrl = new URL(Astro.url.pathname, site).href;
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contacto y presupuesto | Grúas del Vallès",
+    url: pageUrl,
+    mainEntity: {
+      "@type": "Organization",
+      name: contacto.empresa,
+      url: site.href,
+      email: contacto.email,
+      telephone: "+34938497022",
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          telephone: "+34938497022",
+          contactType: "customer service",
+          areaServed: "ES",
+          availableLanguage: ["es", "ca"],
+        },
+        {
+          "@type": "ContactPoint",
+          telephone: "+34669296954",
+          contactType: "emergency",
+          areaServed: "ES",
+          availableLanguage: ["es", "ca"],
+        },
+      ],
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+];
+---
+
+<Page
+  title="Contacto y presupuesto | Grúas del Vallès"
+  description="Solicite presupuesto sin compromiso para su maniobra. Respuesta en menos de 24 horas. Servicio de emergencia 24/365 en toda Cataluña."
+  schema={schema}
+>
+  <PageHero
+    eyebrow="Contacto"
+    title="Solicite su presupuesto sin compromiso"
+    lede="Cuéntenos su proyecto y nuestro equipo técnico le propondrá la solución de elevación más adecuada."
+    crumbs={[{ label: "Inicio", href: "/" }, { label: "Contacto" }]}
+  />
+
+  <!-- Garantías -->
+  <section class="border-b border-muted/40 bg-surface">
+    <div class="container-wide grid grid-cols-2 gap-px lg:grid-cols-4">
+      {
+        garantias.map((g) => (
+          <div class="flex items-center gap-3 px-6 py-6">
+            <Icon
+              name={g.icon}
+              class="h-5 w-5 shrink-0 text-accent"
+              aria-hidden="true"
+            />
+            <p class="text-sm font-medium">{g.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Acciones rápidas de contacto -->
+  <section class="section-padding pb-0">
+    <div class="container-wide">
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          acciones.map((a) => (
+            <a
+              href={a.href}
+              class="group flex flex-col gap-3 border-2 border-muted bg-surface p-6 transition-colors hover:border-accent"
+            >
+              <span class="flex h-11 w-11 items-center justify-center bg-accent-soft text-accent">
+                <Icon name={a.icon} class="h-5 w-5" aria-hidden="true" />
+              </span>
+              <span class="text-xs font-semibold uppercase tracking-wider text-ink-secondary">
+                {a.label}
+              </span>
+              <span class="text-lg font-bold text-ink transition-colors group-hover:text-accent">
+                {a.valor}
+              </span>
+              <span class="text-xs text-ink-secondary">{a.nota}</span>
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Horario y cobertura -->
+      <div class="mt-4 grid gap-4 md:grid-cols-2">
+        <div
+          class="flex items-start gap-3 border-2 border-muted bg-surface p-6"
+        >
+          <Icon
+            name="lucide:clock"
+            class="mt-0.5 h-5 w-5 shrink-0 text-accent"
+            aria-hidden="true"
+          />
+          <div>
+            <p
+              class="text-xs font-semibold uppercase tracking-wider text-ink-secondary"
+            >
+              Horario de atención
+            </p>
+            <p class="mt-1 text-sm font-medium">
+              Lunes a viernes · 8:00 – 18:00 h
+            </p>
+            <p class="mt-1 text-sm font-semibold text-accent">
+              Emergencias: 24 horas / 365 días
+            </p>
+          </div>
+        </div>
+        <div
+          class="flex items-start gap-3 border-2 border-muted bg-surface p-6"
+        >
+          <Icon
+            name="lucide:map-pin"
+            class="mt-0.5 h-5 w-5 shrink-0 text-accent"
+            aria-hidden="true"
+          />
+          <div>
+            <p
+              class="text-xs font-semibold uppercase tracking-wider text-ink-secondary"
+            >
+              Cobertura
+            </p>
+            <p class="mt-1 text-sm font-medium">{contacto.cobertura}</p>
+            <p class="mt-1 text-sm text-ink-secondary">
+              {contacto.referencia} · Accesos {contacto.accesos}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formulario + info (sección reutilizada) -->
+  <Contacto />
+
+  <!-- Preguntas frecuentes -->
+  <section class="section-padding bg-surface" aria-labelledby="faq-title">
+    <div class="container-narrow">
+      <p class="eyebrow">Dudas habituales</p>
+      <h2 id="faq-title" class="mb-8 text-3xl font-black sm:text-4xl">
+        Preguntas frecuentes
+      </h2>
+      <div class="divide-y divide-muted/60 border-y border-muted/60">
+        {
+          faqs.map((f) => (
+            <details class="group py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold">
+                {f.q}
+                <Icon
+                  name="lucide:plus"
+                  class="h-5 w-5 shrink-0 text-accent transition-transform group-open:rotate-45"
+                  aria-hidden="true"
+                />
+              </summary>
+              <p class="mt-3 text-sm leading-relaxed text-ink-secondary">
+                {f.a}
+              </p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Page>

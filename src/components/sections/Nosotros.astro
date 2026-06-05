@@ -1,0 +1,167 @@
+---
+import nosotros from "../../data/nosotros.json";
+import { Icon } from "astro-icon/components";
+---
+
+<section id="nosotros" class="section-padding bg-ink text-white">
+  <div class="container-wide">
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 items-start">
+      <!-- Left: quiénes somos -->
+      <div class="lg:sticky lg:top-32">
+        <p
+          class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent"
+        >
+          Quiénes somos
+        </p>
+        <h2 class="mb-6 text-3xl font-black sm:text-4xl">
+          Más de 55 años<br />
+          <span class="text-accent">moviendo lo imposible</span>
+        </h2>
+        <p class="mb-8 text-muted leading-relaxed max-w-md">
+          Fundados en {nosotros.fundacion} por {nosotros.fundador}, somos la
+          referencia en alquiler de grúas industriales en Cataluña. Con sede en
+          Granollers, a dos minutos del Circuit de Montmeló.
+        </p>
+
+        <!-- Por qué elegirnos -->
+        <ul class="space-y-4">
+          {
+            nosotros.por_que_elegirnos.map((razon: string) => (
+              <li class="flex items-start gap-3 text-sm text-muted">
+                <Icon
+                  name="lucide:check-circle-2"
+                  class="mt-0.5 h-5 w-5 shrink-0 text-accent"
+                  aria-hidden="true"
+                />
+                <span class="leading-snug">{razon}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <!-- Badges certificaciones -->
+        <div class="mt-12 flex flex-wrap gap-3">
+          {
+            [
+              "ISO 9001",
+              `REA ${nosotros.seguridad.rea}`,
+              `REIC ${nosotros.seguridad.reic}`,
+              "Cruz Roja · Colaborador",
+            ].map((cert) => (
+              <span class="border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-muted-dark transition-colors hover:border-accent/40 hover:text-white">
+                {cert}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Right: Timeline -->
+      <div class="relative py-4">
+        <p
+          class="mb-10 text-xs font-semibold uppercase tracking-[0.2em] text-muted-dark lg:text-right"
+        >
+          Nuestra historia
+        </p>
+        <div class="relative">
+          <!-- Background line -->
+          <div
+            class="absolute left-3 top-0 h-full w-px bg-white/10"
+            aria-hidden="true"
+          >
+          </div>
+          <!-- Animated progress line -->
+          <div
+            id="timeline-line"
+            class="absolute left-3 top-0 w-px bg-accent transition-all duration-500 ease-out"
+            style="height: 0%"
+            aria-hidden="true"
+          >
+          </div>
+
+          <ol class="space-y-12 pl-12">
+            {
+              nosotros.historia.map((hito: any, i: number) => (
+                <li class="timeline-item relative" data-reveal>
+                  <span
+                    class="timeline-dot absolute -left-[41px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full border-2 border-accent bg-ink transition-transform duration-500"
+                    aria-hidden="true"
+                  >
+                    <span class="h-1.5 w-1.5 rounded-full bg-accent" />
+                  </span>
+                  <div class="transition-transform duration-500 hover:translate-x-1">
+                    <p class="text-sm font-black text-accent uppercase tracking-widest">
+                      {hito.anio}
+                    </p>
+                    <p class="mt-2 text-base font-bold text-white leading-tight">
+                      {hito.hito.split(":")[0]}
+                    </p>
+                    {hito.hito.includes(":") && (
+                      <p class="mt-1 text-sm text-muted leading-relaxed">
+                        {hito.hito.split(":").slice(1).join(":")}
+                      </p>
+                    )}
+                    {!hito.hito.includes(":") && (
+                      <p class="mt-1 text-sm text-muted leading-relaxed">
+                        {hito.hito}
+                      </p>
+                    )}
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const line = document.getElementById("timeline-line");
+  const items = document.querySelectorAll(".timeline-item");
+  const dots = document.querySelectorAll(".timeline-dot");
+
+  const updateTimeline = () => {
+    if (!line) return;
+
+    let lastVisibleIndex = -1;
+
+    items.forEach((item, index) => {
+      const rect = item.getBoundingClientRect();
+      const dot = dots[index];
+
+      // Si el item está en la mitad superior de la pantalla
+      if (rect.top < window.innerHeight * 0.7) {
+        lastVisibleIndex = index;
+        if (dot) {
+          dot.classList.add("bg-accent");
+          dot.classList.add("scale-125");
+        }
+      } else {
+        if (dot) {
+          dot.classList.remove("bg-accent");
+          dot.classList.remove("scale-125");
+        }
+      }
+    });
+
+    if (lastVisibleIndex >= 0) {
+      const lastItem = items[lastVisibleIndex] as HTMLElement;
+      const firstItem = items[0] as HTMLElement;
+      const container = line.parentElement!;
+      const containerRect = container.getBoundingClientRect();
+      const lastRect = lastItem.getBoundingClientRect();
+
+      const progress =
+        ((lastRect.top - containerRect.top + 10) / containerRect.height) * 100;
+      line.style.height = `${Math.min(100, progress)}%`;
+    } else {
+      line.style.height = "0%";
+    }
+  };
+
+  window.addEventListener("scroll", updateTimeline);
+  window.addEventListener("resize", updateTimeline);
+  updateTimeline();
+</script>

@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import Page from "../../layouts/Page.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import BlogCard from "../../components/blog/BlogCard.astro";
+import { collectionPageSchema } from "../../lib/schema";
+
+const entries = await getCollection("blog");
+const posts = entries
+  .map((e) => ({ slug: e.id, ...e.data }))
+  .sort((a, b) => a.orden - b.orden);
+
+const description =
+  "Últimas incorporaciones a nuestra flota, colaboraciones y trabajos destacados de Grúas del Vallès.";
+const schema = collectionPageSchema(
+  {
+    name: "Noticias y actualidad",
+    description,
+    url: "/blog",
+    items: posts.map((p) => ({ name: p.titulo, url: `/blog/${p.slug}` })),
+  },
+  Astro.site,
+);
+
+const crumbs = [
+  { label: "Inicio", href: "/" },
+  { label: "Noticias", href: "/blog" },
+];
+---
+
+<Page
+  title="Noticias y actualidad | Grúas del Vallès"
+  description={description}
+  schema={schema}
+>
+  <section class="section-padding bg-surface-alt">
+    <div class="container-wide">
+      <Breadcrumb items={crumbs} class="mb-8" />
+
+      <header class="mb-12 max-w-2xl">
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Actualidad
+        </p>
+        <h1 class="text-3xl font-black leading-tight sm:text-4xl">
+          Noticias y trabajos destacados
+        </h1>
+        <p class="mt-4 text-sm leading-relaxed text-ink-secondary">
+          Nuevas incorporaciones a la flota, colaboraciones y proyectos
+          singulares en los que hemos participado.
+        </p>
+      </header>
+
+      <!-- Grid -->
+      <div class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => <BlogCard post={post} />)}
+      </div>
+    </div>
+  </section>
+</Page>

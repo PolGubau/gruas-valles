@@ -1,0 +1,101 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Badge from "../ui/Badge.astro";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  model: CollectionEntry<"flota">["data"] & { slug: string };
+}
+
+const { model } = Astro.props;
+const capacidad = model.capacidad_max_t ?? model.capacidad_tm;
+---
+
+<a
+  href={`/flota/${model.slug}`}
+  data-categoria={model.categoria}
+  class="flota-card group relative block border-t-2 border-transparent bg-white p-6 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-card"
+>
+  <!-- Imagen o placeholder -->
+  <div class="mb-4 aspect-4/3 overflow-hidden bg-surface-alt">
+    {
+      model.imagenes.length > 0 ? (
+        <img
+          src={model.imagenes[0]}
+          alt={model.modelo}
+          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="flex h-full items-center justify-center">
+          <Icon
+            name="lucide:construction"
+            class="h-16 w-16 text-muted"
+            aria-hidden="true"
+          />
+        </div>
+      )
+    }
+  </div>
+
+  <!-- Badges -->
+  <div class="mb-3 flex flex-wrap gap-2">
+    {capacidad && <Badge variant="solid">{capacidad} Tn</Badge>}
+    {model.nuevo && <Badge variant="outline">Nueva</Badge>}
+    <Badge variant="neutral">{model.categoria}</Badge>
+  </div>
+
+  <h3
+    class="mb-3 text-base font-bold leading-tight transition-colors group-hover:text-accent"
+  >
+    {model.modelo}
+  </h3>
+
+  <!-- Specs -->
+  <dl class="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+    {
+      model.pluma_telescopica_m && (
+        <>
+          <dt class="text-muted-dark">Pluma</dt>
+          <dd class="font-semibold">{model.pluma_telescopica_m} m</dd>
+        </>
+      )
+    }
+    {
+      model.ejes && (
+        <>
+          <dt class="text-muted-dark">Ejes</dt>
+          <dd class="font-semibold">{model.ejes}</dd>
+        </>
+      )
+    }
+    {
+      model.plumin_abatible_m && (
+        <>
+          <dt class="text-muted-dark">Plumín abat.</dt>
+          <dd class="font-semibold">{model.plumin_abatible_m} m</dd>
+        </>
+      )
+    }
+  </dl>
+
+  {
+    model.nota && (
+      <p class="mt-3 text-xs italic text-ink-secondary">{model.nota}</p>
+    )
+  }
+
+  <span
+    class="mt-4 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-accent"
+  >
+    Ver ficha
+    <Icon
+      name="lucide:arrow-right"
+      width={14}
+      height={14}
+      class="transition-transform duration-300 group-hover:translate-x-1"
+      aria-hidden="true"
+    />
+  </span>
+</a>

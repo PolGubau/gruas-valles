@@ -1,0 +1,38 @@
+---
+import contacto from '../../data/contacto.json';
+import Legal from '../../layouts/Legal.astro';
+---
+
+<Legal
+  title="Política de privacidad"
+  description="Política de privacidad y protección de datos de Grúas del Vallès, S.A."
+>
+  <h2>1. Responsable del tratamiento</h2>
+  <ul>
+    <li><strong>Responsable:</strong> {contacto.empresa}</li>
+    <li><strong>CIF:</strong> {contacto.cif}</li>
+    <li><strong>Domicilio:</strong> {contacto.direccion}</li>
+    <li><strong>Email:</strong> {contacto.email}</li>
+  </ul>
+
+  <h2>2. Finalidad del tratamiento</h2>
+  <p class="placeholder">[Pendiente de contenido — para qué se usan los datos del formulario de contacto/presupuesto.]</p>
+
+  <h2>3. Legitimación</h2>
+  <p class="placeholder">[Pendiente de contenido — base jurídica del tratamiento (consentimiento, interés legítimo, etc.).]</p>
+
+  <h2>4. Conservación de los datos</h2>
+  <p class="placeholder">[Pendiente de contenido — plazo de conservación de los datos.]</p>
+
+  <h2>5. Destinatarios</h2>
+  <p class="placeholder">[Pendiente de contenido — cesiones y encargados de tratamiento.]</p>
+
+  <h2>6. Derechos de las personas usuarias</h2>
+  <p class="placeholder">[Pendiente de contenido — acceso, rectificación, supresión, oposición, portabilidad y limitación.]</p>
+
+  <h2>7. Cómo ejercer sus derechos</h2>
+  <p>
+    Puede ejercer sus derechos enviando una solicitud a
+    <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.
+  </p>
+</Legal>

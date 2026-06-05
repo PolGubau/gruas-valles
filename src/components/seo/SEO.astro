@@ -1,0 +1,99 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image: string;
+  schema?: object | object[];
+}
+
+const { title, description, image, schema } = Astro.props;
+
+const extraSchema = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+
+const site = Astro.site ?? new URL("https://www.gruasdelvalles.com");
+const canonical = new URL(Astro.url.pathname, site).href;
+const imageUrl = new URL(image, site).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": `${site.href}#business`,
+      name: "Grúas del Vallès, S.A.",
+      url: site.href,
+      image: imageUrl,
+      logo: new URL("/logo.png", site).href,
+      telephone: "+34938497022",
+      email: "gruasdelvalles@gruasdelvalles.com",
+      priceRange: "€€",
+      foundingDate: "1968",
+      description,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Avda. San Julián 64-66, Polígono Industrial Congost",
+        addressLocality: "Granollers",
+        addressRegion: "Barcelona",
+        postalCode: "08403",
+        addressCountry: "ES",
+      },
+      geo: { "@type": "GeoCoordinates", latitude: 41.6097, longitude: 2.2915 },
+      areaServed: { "@type": "AdministrativeArea", name: "Cataluña" },
+      openingHoursSpecification: {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ],
+        opens: "00:00",
+        closes: "23:59",
+      },
+      makesOffer: {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Alquiler de grúas móviles autopropulsadas de 40 a 500 Tn",
+        },
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.href}#website`,
+      url: site.href,
+      name: "Grúas del Vallès",
+      inLanguage: "es-ES",
+      publisher: { "@id": `${site.href}#business` },
+    },
+  ],
+};
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Grúas del Vallès" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content="es_ES" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+{
+  extraSchema.map((node) => (
+    <script type="application/ld+json" set:html={JSON.stringify(node)} />
+  ))
+}

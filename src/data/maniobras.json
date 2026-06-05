@@ -1,0 +1,129 @@
+[
+  {
+    "id": 3369,
+    "titulo": "Rescate embarcación accidentada en Premià",
+    "descripcion": "Maniobra muy delicada al tratarse de una embarcación antigua de madera que se hundió por completo a varios metros de la orilla, con lo cual añadía unos riesgos que precisaron de un estudio previo por parte de nuestro equipo técnico. El peso a izar se calculó en 150 toneladas, y se tuvieron que utilizar 2 grúas de grandes dimensiones para realizar la extracción con máximas garantías. Nuestras grúas Liebherr LTM 1500 – 8.1 equipada con 165 ton de contrapesos, y Liebherr LTM 1400 – 7.1 equipada con 140 ton de contrapesos ocuparon parte del protagonismo en dicho rescate. Además, se requirieron horas de trabajos previos con buzos especialistas encargados del balizado y enganche de la embarcación. Para satisfacción de todos los implicados la operación fue un éxito.",
+    "gruas_utilizadas": ["LIEBHERR LTM 1500-8.1 (165 t contrapesos)", "LIEBHERR LTM 1400-7.1 (140 t contrapesos)"],
+    "imagenes": [],
+    "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3369"
+  },
+  {
+    "id": 3364,
+    "titulo": "Colaboración para el REGGAETON BEACH FESTIVAL",
+    "descripcion": "Colaboramos con una de nuestras grúas en el montaje de escenario para el REGGAETON BEACH FESTIVAL que se ha celebrado recientemente en el recinto del Forum de Barcelona.",
+    "imagenes": [],
+    "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3364"
+  },
+  {
+    "id": 3362,
+    "titulo": "Subiendo equipos en el Hospital de Granollers",
+    "descripcion": "Nuestra empresa participa en la instalación de nuevos equipos de aire en el Hospital de Granollers, con el izado de 3 unidades modernas que ha aportado nuestro cliente para la adecuación del complejo. En esta ocasión hemos utilizado nuestra grúa Liebherr LTM 1090 4.2 para izar los equipos.",
+    "gruas_utilizadas": ["LIEBHERR LTM 1090-4.2"],
+    "imagenes": [],
+    "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3362"
+  },
+  {
+    "id": 3359,
+    "titulo": "Montaje de grúa torre a 88 metros de altura",
+    "descripcion": "Maniobra de ejemplo en trabajo de montaje de grúa torre a 88 metros de altura con nuestra grúa LTM 1350, equipada con 120 toneladas de contrapesos y 30 metros de plumín fijo.",
+    "gruas_utilizadas": ["LIEBHERR LTM 1350 (120 t contrapesos, 30 m plumín fijo)"],
+    "imagenes": [],
+    "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3359"
+  },
+  {
+    "id": 3355,
+    "titulo": "Colocar máquina de pilotes 65Tn",
+    "descripcion": "Colocar máquina de pilotes con un peso 65 toneladas, grúa equipada con 100 toneladas de contrapesos.",
+    "peso_carga_t": 65,
+    "contrapesos_t": 100,
+    "imagenes": [],
+    "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3355"
+  },
+  {
+    "id": 3356,
+    "titulo": "Reparaciones en parque eólico",
+    "descripcion": "Movimiento de aspas y equipos auxiliares para molino de viento, se requiere utilizar una grúa configurada con 70 toneladas de contrapesos y 28 metros de plumines.",
+    "contrapesos_t": 70,
+    "plumin_m": 28,
+    "imagenes": [],
+    "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3356"
+  },
+  {
+    "id": 3354,
+    "titulo": "Montaje de grúa torre de 112 mts",
+    "descripcion": "Montaje de grúa torre de 112 mts de altura, se requiere equipar nuestra grúa móvil con 100 toneladas de contrapesos y 77 metros de plumín arriostrado.",
+    "altura_m": 112,
+    "contrapesos_t": 100,
+    "plumin_arriostrado_m": 77,
+    "imagenes": [],
+    "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3354"
+  },
+  {
+    "id": 3351,
+    "titulo": "Colocar módulos de 6 toneladas de peso",
+    "descripcion": "Colocación de módulos a un radio de 88 metros, se requiere equipar la grúa con 140 toneladas de contrapesos y 82 metros de plumín abatible (full equip).",
+    "radio_m": 88,
+    "contrapesos_t": 140,
+    "plumin_abatible_m": 82,
+    "imagenes": [
+      "/assets/images/maniobra-modulos-6tn-01.avif",
+      "/assets/images/maniobra-modulos-6tn-02.avif"
+    ],
+    "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3351"
+  },
+  {
+    "id": 3349,
+    "titulo": "Colocar equipo de 25 toneladas de peso",
+    "descripcion": "Colocar un equipo de 25 toneladas de peso a un radio de 61 metros. Se requieren 140 toneladas de contrapesos y 63 metros de plumines para equipar nuestra grúa.",
+    "peso_carga_t": 25,
+    "radio_m": 61,
+    "contrapesos_t": 140,
+    "plumin_m": 63,
+    "imagenes": [
+      "/assets/images/maniobra-equipo-25tn-01.avif",
+      "/assets/images/maniobra-equipo-25tn-02.avif",
+      "/assets/images/maniobra-equipo-25tn-03.avif"
+    ],
+    "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3349"
+  },
+  {
+    "id": 3346,
+    "titulo": "Colocación maquinaria 15 toneladas",
+    "descripcion": "Colocar maquinaria de 15 toneladas de peso a 32 metros de radio. Se utiliza pluma normal.",
+    "peso_carga_t": 15,
+    "radio_m": 32,
+    "imagenes": [
+      "/assets/images/maniobra-maquinaria-15tn-01.avif"
+    ],
+    "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3346"
+  },
+  {
+    "id": 3348,
+    "titulo": "Colocar jácenas de 14 toneladas de peso",
+    "descripcion": "Colocar jácenas de 14 toneladas de peso a 48 metros de radio. Se utiliza 140 toneladas de contrapesos, pluma normal con superlift y 7 metros de plumín fijo.",
+    "peso_carga_t": 14,
+    "radio_m": 48,
+    "contrapesos_t": 140,
+    "plumin_fijo_m": 7,
+    "imagenes": [
+      "/assets/images/maniobra-jacenas-14tn-01.avif",
+      "/assets/images/maniobra-jacenas-14tn-02.avif"
+    ],
+    "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3348"
+  },
+  {
+    "id": 3347,
+    "titulo": "Colocación tramel de 15 Tn",
+    "descripcion": "Colocar tramel de 15 toneladas de peso a 48 metros de radio. Se utiliza 140 toneladas de contrapesos, 60 metros de pluma y superlift.",
+    "peso_carga_t": 15,
+    "radio_m": 48,
+    "contrapesos_t": 140,
+    "pluma_m": 60,
+    "imagenes": [
+      "/assets/images/maniobra-tramel-15tn-01.avif",
+      "/assets/images/maniobra-tramel-15tn-02.avif",
+      "/assets/images/maniobra-tramel-15tn-03.avif"
+    ],
+    "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3347"
+  }
+]

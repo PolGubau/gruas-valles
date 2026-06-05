@@ -1,0 +1,136 @@
+---
+import { getCollection } from "astro:content";
+import Page from "../../layouts/Page.astro";
+import Button from "../../components/ui/Button.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import FlotaCard from "../../components/flota/FlotaCard.astro";
+import { collectionPageSchema } from "../../lib/schema";
+
+const entries = await getCollection("flota");
+const allModels = entries
+  .map((e) => ({ slug: e.id, ...e.data }))
+  .sort((a, b) => a.orden - b.orden);
+
+const categorias = [...new Set(allModels.map((m) => m.categoria))];
+
+const description =
+  "Catálogo completo de nuestra flota: grúas móviles autopropulsadas, gran tonelaje, construcción y camiones grúa de 40 a 500 toneladas.";
+const schema = collectionPageSchema(
+  {
+    name: "Flota completa de grúas",
+    description,
+    url: "/flota",
+    items: allModels.map((m) => ({ name: m.modelo, url: `/flota/${m.slug}` })),
+  },
+  Astro.site,
+);
+
+const crumbs = [
+  { label: "Inicio", href: "/" },
+  { label: "Flota", href: "/flota" },
+];
+---
+
+<Page
+  title="Flota completa de grúas | Grúas del Vallès"
+  description={description}
+  schema={schema}
+>
+  <section class="section-padding bg-surface-alt">
+    <div class="container-wide">
+      <Breadcrumb items={crumbs} class="mb-8" />
+
+      <header class="mb-12 max-w-2xl">
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Nuestra flota
+        </p>
+        <h1 class="text-3xl font-black leading-tight sm:text-4xl">
+          {allModels.length} unidades propias para cualquier maniobra
+        </h1>
+        <p class="mt-4 text-sm leading-relaxed text-ink-secondary">
+          Maquinaria propia y actualizada, de 40 a 500 toneladas. Filtre por
+          categoría para encontrar la grúa que necesita.
+        </p>
+      </header>
+
+      <!-- Filtros -->
+      <div
+        class="mb-8 flex flex-wrap gap-2"
+        id="flota-filters"
+        role="group"
+        aria-label="Filtrar flota por categoría"
+      >
+        <button
+          type="button"
+          data-filter="all"
+          aria-pressed="true"
+          class="filter-btn active-filter px-4 py-2 text-xs font-semibold uppercase tracking-wider border-2 border-accent bg-accent text-white transition-colors"
+        >
+          Todas
+        </button>
+        {
+          categorias.map((cat) => (
+            <button
+              type="button"
+              data-filter={cat}
+              aria-pressed="false"
+              class="filter-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider border-2 border-muted text-ink-secondary transition-colors hover:border-accent hover:text-accent"
+            >
+              {cat}
+            </button>
+          ))
+        }
+      </div>
+
+      <!-- Grid -->
+      <div
+        class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3"
+        id="flota-grid"
+      >
+        {allModels.map((model) => <FlotaCard model={model} />)}
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-12 text-center">
+        <Button href="/#contacto" icon="lucide:arrow-right">
+          Consultar disponibilidad
+        </Button>
+      </div>
+    </div>
+  </section>
+</Page>
+
+<script>
+  const filters = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const cards = document.querySelectorAll<HTMLElement>(".flota-card");
+
+  filters.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const filter = btn.dataset.filter!;
+
+      filters.forEach((b) => {
+        b.classList.remove(
+          "active-filter",
+          "bg-accent",
+          "text-white",
+          "border-accent",
+        );
+        b.classList.add("border-muted", "text-ink-secondary");
+        b.setAttribute("aria-pressed", "false");
+      });
+      btn.classList.add(
+        "active-filter",
+        "bg-accent",
+        "text-white",
+        "border-accent",
+      );
+      btn.classList.remove("border-muted", "text-ink-secondary");
+      btn.setAttribute("aria-pressed", "true");
+
+      cards.forEach((card) => {
+        const show = filter === "all" || card.dataset.categoria === filter;
+        card.style.display = show ? "" : "none";
+      });
+    });
+  });
+</script>

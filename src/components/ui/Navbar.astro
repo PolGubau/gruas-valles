@@ -1,0 +1,168 @@
+---
+import { Icon } from "astro-icon/components";
+
+const links = [
+  { href: "/flota", label: "Flota" },
+  { href: "/servicios", label: "Servicios" },
+  { href: "/maniobras", label: "Maniobras" },
+  { href: "/galeria", label: "Galería" },
+  { href: "/nosotros", label: "Nosotros" },
+  { href: "/blog", label: "Noticias" },
+];
+
+const { pathname } = Astro.url;
+const isActive = (href: string) =>
+  href === "/" ? pathname === "/" : pathname.startsWith(href);
+---
+
+<header
+  id="navbar"
+  class="fixed top-0 z-50 w-full border-b border-transparent bg-white/90 backdrop-blur-md transition-[box-shadow,border-color] duration-300"
+>
+  <div class="container-wide flex h-16 items-center justify-between">
+    <!-- Logo -->
+    <a
+      href="/"
+      class="flex items-center"
+      aria-label="Grúas del Vallès — inicio"
+    >
+      <img
+        src="/logo.png"
+        alt="Grúas del Vallès"
+        class="h-10 w-auto"
+        loading="eager"
+      />
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="Principal">
+      {
+        links.map(({ href, label }) => (
+          <a
+            href={href}
+            aria-current={isActive(href) ? "page" : undefined}
+            class="nav-link relative text-sm font-medium text-ink-secondary transition-colors hover:text-accent aria-[current=page]:text-accent"
+          >
+            {label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- CTA -->
+    <div class="hidden items-center gap-5 lg:flex">
+      <a
+        href="tel:+34938497022"
+        class="inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors hover:text-accent"
+      >
+        <Icon name="lucide:phone" width={16} height={16} aria-hidden="true" />
+        93 849 70 22
+      </a>
+      <a
+        href="/contacto"
+        class="btn btn-sm bg-accent text-white hover:bg-accent-dark"
+      >
+        Presupuesto
+      </a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button
+      id="menu-toggle"
+      type="button"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      class="p-2 text-ink lg:hidden"
+    >
+      <Icon
+        id="icon-open"
+        name="lucide:menu"
+        width={24}
+        height={24}
+        aria-hidden="true"
+      />
+      <Icon
+        id="icon-close"
+        name="lucide:x"
+        width={24}
+        height={24}
+        aria-hidden="true"
+        class="hidden"
+      />
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden border-t border-muted/60 bg-white lg:hidden"
+  >
+    <nav class="container-wide flex flex-col py-4" aria-label="Móvil">
+      {
+        links.map(({ href, label }) => (
+          <a
+            href={href}
+            aria-current={isActive(href) ? "page" : undefined}
+            class="mobile-link border-b border-muted/40 py-3 text-sm font-medium text-ink transition-colors last:border-0 hover:text-accent aria-[current=page]:text-accent"
+          >
+            {label}
+          </a>
+        ))
+      }
+      <a
+        href="/contacto"
+        class="btn btn-sm mt-4 justify-center bg-accent text-white hover:bg-accent-dark"
+      >
+        Solicitar presupuesto
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 2px;
+    width: 0;
+    background: var(--color-accent);
+    transition: width 0.25s var(--ease-out-quart);
+  }
+  .nav-link:hover::after,
+  .nav-link[aria-current="page"]::after {
+    width: 100%;
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById("menu-toggle")!;
+  const menu = document.getElementById("mobile-menu")!;
+  const iconOpen = document.getElementById("icon-open")!;
+  const iconClose = document.getElementById("icon-close")!;
+  const navbar = document.getElementById("navbar")!;
+
+  const setOpen = (open: boolean) => {
+    menu.classList.toggle("hidden", !open);
+    iconOpen.classList.toggle("hidden", open);
+    iconClose.classList.toggle("hidden", !open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+  };
+
+  toggle.addEventListener("click", () =>
+    setOpen(menu.classList.contains("hidden")),
+  );
+  menu
+    .querySelectorAll(".mobile-link")
+    .forEach((link) => link.addEventListener("click", () => setOpen(false)));
+
+  // Scroll shadow
+  window.addEventListener("scroll", () => {
+    const scrolled = window.scrollY > 10;
+    navbar.classList.toggle("shadow-sm", scrolled);
+    navbar.classList.toggle("border-muted/40", scrolled);
+  });
+</script>

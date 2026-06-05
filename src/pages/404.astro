@@ -1,0 +1,54 @@
+---
+import Page from "../layouts/Page.astro";
+import Button from "../components/ui/Button.astro";
+
+const links = [
+  { href: "/flota", label: "Flota" },
+  { href: "/servicios", label: "Servicios" },
+  { href: "/maniobras", label: "Maniobras" },
+  { href: "/contacto", label: "Contacto" },
+];
+---
+
+<Page
+  title="Página no encontrada (404) | Grúas del Vallès"
+  description="La página que buscas no existe o ha cambiado de dirección. Vuelve al inicio o explora nuestra flota y servicios."
+>
+  <section class="section-padding bg-surface-alt">
+    <div class="container-narrow flex flex-col items-center text-center">
+      <p class="eyebrow justify-center">
+        <span class="h-px w-8 bg-accent"></span>Error 404
+      </p>
+      <p class="text-7xl font-black leading-none text-accent sm:text-8xl">404</p>
+      <h1 class="mt-4 text-3xl font-black leading-tight sm:text-4xl">
+        Esta página no existe
+      </h1>
+      <p class="mt-4 max-w-md text-sm leading-relaxed text-ink-secondary">
+        Es posible que el enlace esté roto o que la página se haya movido.
+        Vuelve al inicio o accede directamente a lo que buscas.
+      </p>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <Button href="/" icon="lucide:arrow-left" iconPosition="start">
+          Volver al inicio
+        </Button>
+        <Button href="/contacto" variant="outline" icon="lucide:arrow-right">
+          Contactar
+        </Button>
+      </div>
+
+      <nav
+        class="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-semibold uppercase tracking-wider text-ink-secondary"
+        aria-label="Enlaces útiles"
+      >
+        {
+          links.map(({ href, label }) => (
+            <a href={href} class="transition-colors hover:text-accent">
+              {label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </section>
+</Page>

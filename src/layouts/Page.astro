@@ -1,0 +1,22 @@
+---
+import Base from "./Base.astro";
+import Navbar from "../components/ui/Navbar.astro";
+import Footer from "../components/ui/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  schema?: object | object[];
+}
+
+const { title, description, image, schema } = Astro.props;
+---
+
+<Base title={title} description={description} image={image} schema={schema}>
+  <Navbar />
+  <main class="pt-16">
+    <slot />
+  </main>
+  <Footer />
+</Base>

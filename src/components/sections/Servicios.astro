@@ -1,0 +1,147 @@
+---
+import servicios from "../../data/servicios.json";
+import Section from "../ui/Section.astro";
+import { Icon } from "astro-icon/components";
+
+const iconos: string[] = [
+  "lucide:building-2",
+  "lucide:truck",
+  "lucide:zap",
+  "lucide:package",
+  "lucide:users",
+  "lucide:shield-check",
+  "lucide:building",
+  "lucide:clock",
+  "lucide:map-pin",
+];
+---
+
+<Section
+  id="servicios"
+  bg="white"
+  title="Todo lo que necesitas en una sola empresa"
+>
+  <!-- Grid de servicios principales -->
+  <div class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3" data-reveal>
+    {
+      servicios.principales.map((servicio: string, i: number) => (
+        <div class="group flex items-start gap-4 border-t-2 border-transparent bg-white p-6 transition-colors duration-200 hover:border-accent hover:bg-surface-alt">
+          <Icon
+            name={iconos[i] ?? iconos[0]}
+            class="h-6 w-6 shrink-0 text-accent"
+            aria-hidden="true"
+          />
+          <p class="text-sm font-medium leading-snug text-ink">{servicio}</p>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Destacados: Dpto. Estudios + Emergencia -->
+  <div class="mt-px grid gap-px bg-muted sm:grid-cols-2">
+    <!-- Departamento de estudios -->
+    <div class="bg-ink p-6 text-white sm:p-8">
+      <p
+        class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent"
+      >
+        Departamento de estudios
+      </p>
+      <h3 class="mb-3 text-xl font-bold">Ingeniería antes de la maniobra</h3>
+      <p class="text-sm text-muted leading-relaxed">
+        {servicios.departamento_de_estudios}
+      </p>
+    </div>
+
+    <!-- Emergencias -->
+    <div class="bg-accent p-6 text-white sm:p-8">
+      <p
+        class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/60"
+      >
+        Disponibilidad
+      </p>
+      <h3 class="mb-3 text-xl font-bold">24 horas · 365 días</h3>
+      <p class="mb-6 text-sm text-white/80">
+        {servicios.asesoramiento.emergencia}
+      </p>
+      <div class="flex flex-col gap-2">
+        {
+          [servicios.asesoramiento.emergencia.match(/[\d\s]{9,}/g)]
+            .flat()
+            .filter(Boolean)
+            .map((tel: any) => (
+              <a
+                href={`tel:+34${tel.replace(/\s/g, "")}`}
+                class="inline-flex items-center gap-2 font-bold underline underline-offset-4"
+              >
+                <Icon
+                  name="lucide:phone"
+                  class="h-4 w-4 shrink-0"
+                  aria-hidden="true"
+                />
+                {tel.trim()}
+              </a>
+            ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Sectores destacados con iconos -->
+  <div class="mt-20">
+    <p
+      class="mb-8 text-xs font-semibold uppercase tracking-[0.2em] text-muted-dark"
+    >
+      Sectores que atendemos
+    </p>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal>
+      {
+        [
+          {
+            nombre: "Industria",
+            items: "Química, Farmacéutica, Automoción, Alimentación",
+            icon: "lucide:factory",
+          },
+          {
+            nombre: "Construcción",
+            items: "Edificación, Prefabricados, Estructuras metálicas",
+            icon: "lucide:construction",
+          },
+          {
+            nombre: "Infraestructuras",
+            items: "Puentes, Viaductos, Aeropuertos, Puertos",
+            icon: "lucide:landmark",
+          },
+          {
+            nombre: "Energía",
+            items: "Parques eólicos, Eléctricas, Renovables",
+            icon: "lucide:zap",
+          },
+          {
+            nombre: "Eventos",
+            items: "Montajes efímeros, Festivales, Publicidad",
+            icon: "lucide:ticket",
+          },
+          {
+            nombre: "Logística",
+            items: "Traslado de maquinaria, Distribución, Almacenes",
+            icon: "lucide:truck",
+          },
+        ].map((sector) => (
+          <div class="flex items-start gap-4 border-2 border-surface-alt bg-surface-alt p-5 transition-colors hover:border-accent/20 hover:bg-white">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center bg-white text-accent shadow-sm">
+              <Icon name={sector.icon} class="h-5 w-5" aria-hidden="true" />
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-ink uppercase tracking-wide">
+                {sector.nombre}
+              </h4>
+              <p class="mt-1 text-xs leading-relaxed text-ink-secondary">
+                {sector.items}
+              </p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Section>

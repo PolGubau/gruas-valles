@@ -1,0 +1,22 @@
+---
+import Page from '../layouts/Page.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import Galeria from '../components/sections/Galeria.astro';
+import CtaBand from '../components/ui/CtaBand.astro';
+---
+
+<Page
+  title="Galería de trabajos | Grúas del Vallès"
+  description="Imágenes reales de nuestras maniobras: industria, puentes y pasarelas, eventos, rescates y construcción. Más de 55 años elevando proyectos en Cataluña."
+>
+  <PageHero
+    eyebrow="Galería de trabajos"
+    title="Proyectos reales, maniobras reales"
+    lede="Una selección de trabajos realizados por sectores. Cada imagen es una maniobra ejecutada por nuestro equipo."
+    crumbs={[{ label: 'Inicio', href: '/' }, { label: 'Galería' }]}
+  />
+
+  <Galeria />
+
+  <CtaBand />
+</Page>

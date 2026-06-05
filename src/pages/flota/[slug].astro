@@ -1,0 +1,193 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+import Badge from "../../components/ui/Badge.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import Page from "../../layouts/Page.astro";
+import { productSchema } from "../../lib/schema";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("flota");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+type Props = { entry: CollectionEntry<"flota"> };
+const { entry } = Astro.props;
+const m = entry.data;
+const capacidad = m.capacidad_max_t ?? m.capacidad_tm;
+
+// Configuración ordenada de specs (clave → etiqueta + unidad). Escalable.
+const SPEC_FIELDS: [keyof typeof m, string, string][] = [
+  ["capacidad_max_t", "Capacidad máxima", " t"],
+  ["capacidad_tm", "Capacidad", " tm"],
+  ["pluma_telescopica_m", "Pluma telescópica", " m"],
+  ["pluma_horizontal_m", "Pluma horizontal", " m"],
+  ["pluma_m", "Pluma", " m"],
+  ["pluma_con_jib_m", "Pluma con jib", " m"],
+  ["pluma_jib_m", "Pluma + jib", " m"],
+  ["plumin_m", "Plumín", " m"],
+  ["plumin_fijo_m", "Plumín fijo", " m"],
+  ["plumin_fijo_hasta_m", "Plumín fijo (hasta)", " m"],
+  ["plumin_abatible_m", "Plumín abatible", " m"],
+  ["plumin_abatible_hasta_m", "Plumín abatible (hasta)", " m"],
+  ["plumin_angulado_m", "Plumín angulado", " m"],
+  ["plumin_angulable_deg", "Plumín angulable", "º"],
+  ["plumin_abatible_deg", "Plumín abatible", "º"],
+  ["doble_jib_m", "Doble jib", " m"],
+  ["altura_maxima_m", "Altura máxima", " m"],
+  ["peso_punta_kg", "Peso en punta", " kg"],
+  ["ejes", "Ejes", ""],
+  ["ejes_motrices", "Ejes motrices", ""],
+  ["tara_kg", "Tara", " kg"],
+  ["mma_kg", "MMA", " kg"],
+  ["alto_m", "Alto", " m"],
+  ["ancho_m", "Ancho", " m"],
+  ["largo_m", "Largo", " m"],
+  ["camion", "Camión", ""],
+  ["grua", "Grúa", ""],
+  ["modelo_maquina", "Modelo de máquina", ""],
+];
+
+const specs = SPEC_FIELDS.flatMap(([key, label, unit]) => {
+  const value = m[key];
+  return value === undefined || value === null
+    ? []
+    : [{ label, value: `${value}${unit}` }];
+});
+
+const description = m.nota ?? `${m.modelo}. ${m.categoria}.`;
+const schema = productSchema(
+  {
+    name: m.modelo,
+    description,
+    category: m.categoria,
+    brand: m.modelo.split(" ")[0],
+    images: m.imagenes,
+    specs,
+  },
+  Astro.site,
+);
+
+const crumbs = [
+  { label: "Inicio", href: "/" },
+  { label: "Flota", href: "/flota" },
+  { label: m.modelo, href: `/flota/${entry.id}` },
+];
+---
+
+<Page
+  title={`${m.modelo} | Flota — Grúas del Vallès`}
+  description={description}
+  schema={schema}
+>
+  <article class="section-padding bg-surface">
+    <div class="container-wide">
+      <Breadcrumb items={crumbs} class="mb-8" />
+
+      <div class="grid gap-10 lg:grid-cols-2">
+        <!-- Galería -->
+        <div>
+          {
+            m.imagenes.length > 0 ? (
+              <div class="grid gap-px bg-muted">
+                <div class="aspect-4/3 overflow-hidden bg-surface-alt">
+                  <img
+                    src={m.imagenes[0]}
+                    alt={m.modelo}
+                    class="h-full w-full cursor-zoom-in object-cover"
+                    data-zoomable
+                  />
+                </div>
+                {m.imagenes.length > 1 && (
+                  <div class="grid grid-cols-3 gap-px">
+                    {m.imagenes.slice(1).map((src) => (
+                      <div class="aspect-4/3 overflow-hidden bg-surface-alt">
+                        <img
+                          src={src}
+                          alt={m.modelo}
+                          class="h-full w-full cursor-zoom-in object-cover"
+                          loading="lazy"
+                          data-zoomable
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div class="flex aspect-4/3 items-center justify-center bg-surface-alt">
+                <Icon
+                  name="lucide:construction"
+                  class="h-20 w-20 text-muted"
+                  aria-hidden="true"
+                />
+              </div>
+            )
+          }
+        </div>
+
+        <!-- Info -->
+        <div>
+          <p class="eyebrow">
+            <span class="h-px w-8 bg-accent"></span>{m.categoria}
+          </p>
+          <h1 class="mb-4 text-3xl font-black leading-tight sm:text-4xl">
+            {m.modelo}
+          </h1>
+
+          <div class="mb-6 flex flex-wrap gap-2">
+            {
+              capacidad && (
+                <Badge variant="solid">
+                  {capacidad} {m.capacidad_max_t ? "Tn" : "tm"}
+                </Badge>
+              )
+            }
+            {m.nuevo && <Badge variant="outline">Nueva</Badge>}
+          </div>
+
+          {
+            (m.nota || m.extra || m.tipo) && (
+              <p class="mb-6 border-l-2 border-accent pl-4 text-sm italic text-ink-secondary">
+                {m.nota ?? m.extra ?? m.tipo}
+              </p>
+            )
+          }
+
+          <dl
+            class="grid grid-cols-2 gap-x-6 gap-y-3 border-t border-muted pt-6"
+          >
+            {
+              specs.map((s) => (
+                <div class="flex flex-col border-b border-muted/60 pb-2">
+                  <dt class="text-xs uppercase tracking-wider text-muted-dark">
+                    {s.label}
+                  </dt>
+                  <dd class="text-sm font-semibold">{s.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+
+          <div class="mt-8 flex flex-wrap gap-4">
+            <Button href="/#contacto" icon="lucide:arrow-right"
+              >Consultar disponibilidad</Button
+            >
+            <Button
+              href="/flota"
+              variant="outline"
+              icon="lucide:arrow-left"
+              iconPosition="start"
+            >
+              Volver a la flota
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</Page>

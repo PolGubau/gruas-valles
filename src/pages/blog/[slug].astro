@@ -1,0 +1,104 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Page from "../../layouts/Page.astro";
+import Button from "../../components/ui/Button.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import { blogPostingSchema } from "../../lib/schema";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("blog");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+type Props = { entry: CollectionEntry<"blog"> };
+const { entry } = Astro.props;
+const post = entry.data;
+
+const description = post.contenido.slice(0, 160);
+const url = `/blog/${entry.id}`;
+const schema = blogPostingSchema(
+  {
+    headline: post.titulo,
+    description,
+    articleBody: post.contenido,
+    url,
+    images: post.imagenes,
+  },
+  Astro.site,
+);
+
+const crumbs = [
+  { label: "Inicio", href: "/" },
+  { label: "Noticias", href: "/blog" },
+  { label: post.titulo, href: url },
+];
+---
+
+<Page
+  title={`${post.titulo} | Noticias — Grúas del Vallès`}
+  description={description}
+  image={post.imagenes[0]}
+  schema={schema}
+>
+  <article class="section-padding bg-surface">
+    <div class="container-narrow">
+      <Breadcrumb items={crumbs} class="mb-8" />
+
+      <header class="mb-8 max-w-3xl">
+        <p class="eyebrow"><span class="h-px w-8 bg-accent"></span>Noticia</p>
+        <h1 class="text-3xl font-black leading-tight sm:text-4xl">
+          {post.titulo}
+        </h1>
+      </header>
+
+      {
+        post.imagenes.length > 0 && (
+          <div class="mb-8 grid gap-px bg-muted">
+            <div class="aspect-video overflow-hidden bg-surface-alt">
+              <img
+                src={post.imagenes[0]}
+                alt={post.titulo}
+                class="h-full w-full object-cover"
+              />
+            </div>
+            {post.imagenes.length > 1 && (
+              <div class="grid grid-cols-3 gap-px">
+                {post.imagenes.slice(1).map((src) => (
+                  <div class="aspect-video overflow-hidden bg-surface-alt">
+                    <img
+                      src={src}
+                      alt={post.titulo}
+                      class="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )
+      }
+
+      <p class="max-w-3xl text-base leading-relaxed text-ink-secondary">
+        {post.contenido}
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <Button href="/#contacto" icon="lucide:arrow-right"
+          >Solicitar presupuesto</Button
+        >
+        <Button
+          href="/blog"
+          variant="outline"
+          icon="lucide:arrow-left"
+          iconPosition="start"
+        >
+          Ver todas las noticias
+        </Button>
+      </div>
+    </div>
+  </article>
+</Page>

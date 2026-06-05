@@ -1,0 +1,37 @@
+---
+import contacto from '../../data/contacto.json';
+import Legal from '../../layouts/Legal.astro';
+---
+
+<Legal
+  title="Aviso legal"
+  description="Aviso legal y condiciones de uso del sitio web de Grúas del Vallès, S.A."
+>
+  <h2>1. Datos identificativos</h2>
+  <p>
+    En cumplimiento del artículo 10 de la Ley 34/2002 (LSSI-CE), se informa de los
+    datos identificativos del titular de este sitio web:
+  </p>
+  <ul>
+    <li><strong>Titular:</strong> {contacto.empresa}</li>
+    <li><strong>CIF:</strong> {contacto.cif}</li>
+    <li><strong>Domicilio:</strong> {contacto.direccion}</li>
+    <li><strong>Teléfono:</strong> {contacto.telefono}</li>
+    <li><strong>Email:</strong> {contacto.email}</li>
+  </ul>
+
+  <h2>2. Objeto</h2>
+  <p class="placeholder">[Pendiente de contenido — objeto y condiciones de uso del sitio web.]</p>
+
+  <h2>3. Condiciones de uso</h2>
+  <p class="placeholder">[Pendiente de contenido — obligaciones del usuario y uso permitido.]</p>
+
+  <h2>4. Propiedad intelectual e industrial</h2>
+  <p class="placeholder">[Pendiente de contenido — titularidad de marcas, contenidos e imágenes.]</p>
+
+  <h2>5. Exclusión de responsabilidad</h2>
+  <p class="placeholder">[Pendiente de contenido — limitación de responsabilidad sobre el contenido y enlaces.]</p>
+
+  <h2>6. Legislación aplicable y jurisdicción</h2>
+  <p class="placeholder">[Pendiente de contenido — ley aplicable y fuero.]</p>
+</Legal>

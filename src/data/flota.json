@@ -1,0 +1,352 @@
+[
+  {
+    "categoria": "Grúas gran tonelaje",
+    "modelos": [
+      {
+        "modelo": "LIEBHERR LTM 1500-8.1",
+        "capacidad_max_t": 500,
+        "nuevo": true,
+        "nota": "El mayor vehículo de la flota.",
+        "pluma_telescopica_m": 84,
+        "plumin_abatible_m": 91,
+        "plumin_fijo_m": 56,
+        "ejes": 8,
+        "alto_m": 4,
+        "ancho_m": 3,
+        "largo_m": 21.38,
+        "imagenes": []
+      },
+      {
+        "modelo": "LIEBHERR LTM 1400-7.1",
+        "capacidad_max_t": 400,
+        "pluma_telescopica_m": 60,
+        "plumin_abatible_m": 84,
+        "plumin_fijo_m": 63,
+        "ejes": 7,
+        "imagenes": [
+          "/assets/images/flota-liebherr-ltm1400-7-1-01.avif",
+          "/assets/images/flota-liebherr-ltm1400-7-1-02.avif",
+          "/assets/images/flota-liebherr-ltm1400-7-1-03.avif",
+          "/assets/images/flota-liebherr-ltm1400-7-1-04.avif"
+        ]
+      },
+      {
+        "modelo": "LIEBHERR LTM 1350-6.1",
+        "capacidad_max_t": 350,
+        "nota": "El modelo de 6 ejes más potente del mercado.",
+        "pluma_telescopica_m": 70,
+        "plumin_abatible_hasta_m": 78,
+        "plumin_fijo_hasta_m": 42,
+        "ejes": 6,
+        "imagenes": []
+      },
+      {
+        "modelo": "GROVE GMK 5250XL-1",
+        "capacidad_max_t": 250,
+        "pluma_telescopica_m": 78,
+        "plumin_m": 25.8,
+        "plumin_angulable_deg": 50,
+        "ejes": 5,
+        "imagenes": []
+      }
+    ]
+  },
+  {
+    "categoria": "Grúas móviles autopropulsadas",
+    "modelos": [
+      {
+        "modelo": "GROVE GMT 5150L",
+        "capacidad_max_t": 150,
+        "pluma_telescopica_m": 60,
+        "plumin_angulado_m": 25,
+        "ejes": 5,
+        "ejes_motrices": 4,
+        "alto_m": 3.98,
+        "ancho_m": 2.75,
+        "largo_m": 14.57,
+        "imagenes": []
+      },
+      {
+        "modelo": "LIEBHERR LTM 1110-5.2",
+        "capacidad_max_t": 110,
+        "pluma_telescopica_m": 60,
+        "plumin_angulado_m": 19,
+        "ejes": 5,
+        "alto_m": 3.95,
+        "ancho_m": 2.75,
+        "largo_m": 13.84,
+        "imagenes": []
+      },
+      {
+        "modelo": "LIEBHERR LTM 1100-5.3",
+        "capacidad_max_t": 100,
+        "nuevo": true,
+        "pluma_telescopica_m": 62,
+        "plumin_angulado_m": 16,
+        "ejes": 5,
+        "alto_m": 3.95,
+        "ancho_m": 2.55,
+        "largo_m": 14.93,
+        "imagenes": []
+      },
+      {
+        "modelo": "LIEBHERR LTM 1090-4.2",
+        "capacidad_max_t": 90,
+        "pluma_telescopica_m": 60,
+        "plumin_angulado_m": 16,
+        "ejes": 4,
+        "alto_m": 3.95,
+        "ancho_m": 2.53,
+        "largo_m": 13.90,
+        "imagenes": [
+          "/assets/images/flota-liebherr-ltm1090-4-2-01.avif"
+        ]
+      },
+      {
+        "modelo": "LIEBHERR LTM 1090-4.1",
+        "capacidad_max_t": 90,
+        "pluma_telescopica_m": 50,
+        "plumin_angulado_m": 19,
+        "ejes": 4,
+        "alto_m": 3.95,
+        "ancho_m": 2.75,
+        "largo_m": 12.65,
+        "imagenes": []
+      },
+      {
+        "modelo": "GROVE GMK 4080L",
+        "capacidad_max_t": 80,
+        "nuevo": true,
+        "pluma_telescopica_m": 60,
+        "plumin_angulado_m": 15,
+        "ejes": 4,
+        "alto_m": 3.75,
+        "ancho_m": 2.55,
+        "largo_m": 13.08,
+        "imagenes": [
+          "/assets/images/flota-grove-gmk4080l-01.avif",
+          "/assets/images/flota-grove-gmk4080l-02.avif"
+        ]
+      },
+      {
+        "modelo": "DEMAG AC 80-2",
+        "capacidad_max_t": 80,
+        "pluma_telescopica_m": 50,
+        "plumin_fijo_m": 17.6,
+        "plumin_abatible_deg": "20-40",
+        "ejes": 4,
+        "ejes_motrices": 4,
+        "alto_m": 3.80,
+        "ancho_m": 2.75,
+        "largo_m": 12.11,
+        "imagenes": []
+      },
+      {
+        "modelo": "GROVE GMK 3060L",
+        "capacidad_max_t": 60,
+        "pluma_telescopica_m": 48,
+        "plumin_angulado_m": 15,
+        "ejes": 3,
+        "alto_m": 3.66,
+        "ancho_m": 2.55,
+        "largo_m": 11.2,
+        "imagenes": [
+          "/assets/images/flota-grove-gmk3060l-01.avif",
+          "/assets/images/flota-grove-gmk3060l-02.avif"
+        ]
+      },
+      {
+        "modelo": "DEMAG AC 50-1",
+        "capacidad_max_t": 50,
+        "pluma_telescopica_m": 40,
+        "plumin_fijo_m": 17.6,
+        "plumin_abatible_deg": "20-40",
+        "ejes": 3,
+        "ejes_motrices": 3,
+        "alto_m": 3.53,
+        "ancho_m": 2.55,
+        "largo_m": 11.2,
+        "imagenes": []
+      },
+      {
+        "modelo": "LIEBHERR LTC 1050-3.1",
+        "capacidad_max_t": 50,
+        "pluma_telescopica_m": 36,
+        "plumin_m": 13,
+        "extra": "Cabina telescópica con elevación hasta 8 m",
+        "ejes": 3,
+        "ejes_motrices": 3,
+        "alto_m": 3.53,
+        "ancho_m": 2.55,
+        "largo_m": 8.88,
+        "imagenes": []
+      },
+      {
+        "modelo": "LIEBHERR LTM 1040-2.1",
+        "capacidad_max_t": 40,
+        "pluma_telescopica_m": 35,
+        "plumin_fijo_m": 9.5,
+        "plumin_abatible_deg": "20-40-60",
+        "extra": "Equipada con runner",
+        "ejes": 2,
+        "ejes_motrices": 2,
+        "alto_m": 3.419,
+        "ancho_m": 2.50,
+        "largo_m": 10.71,
+        "imagenes": []
+      }
+    ]
+  },
+  {
+    "categoria": "Grúas para Construcción",
+    "modelos": [
+      {
+        "modelo": "Spierings SK1265-AT6",
+        "pluma_horizontal_m": 60,
+        "peso_punta_kg": 1700,
+        "ejes": 6,
+        "alto_m": 4,
+        "ancho_m": 3,
+        "largo_m": 16.28,
+        "imagenes": []
+      },
+      {
+        "modelo": "LIEBHERR MK 88-4.1",
+        "pluma_horizontal_m": 45,
+        "peso_punta_kg": 2200,
+        "ejes": 4,
+        "alto_m": 4,
+        "ancho_m": 2.75,
+        "largo_m": 15.94,
+        "imagenes": [
+          "/assets/images/flota-liebherr-mk88-4-1-01.avif",
+          "/assets/images/flota-liebherr-mk88-4-1-02.avif",
+          "/assets/images/flota-liebherr-mk88-4-1-03.avif"
+        ]
+      }
+    ]
+  },
+  {
+    "categoria": "Camiones y Vehículos auxiliares",
+    "modelos": [
+      {
+        "modelo": "Camión-grúa 200 tm (doble jib)",
+        "nuevo": true,
+        "grua": "PALFINGER PK200002L SH",
+        "capacidad_tm": 200,
+        "tara_kg": 53500,
+        "mma_kg": 53500,
+        "ejes": 5,
+        "altura_maxima_m": 54,
+        "doble_jib_m": 20,
+        "extra": "Cesta homologada",
+        "ancho_m": 2.65,
+        "largo_m": 10.40,
+        "alto_m": 3.90,
+        "imagenes": []
+      },
+      {
+        "modelo": "Camión-grúa 165 tm y 45 m",
+        "camion": "MAN Truck & Bus SE",
+        "grua": "Fassi F1650RAL.2.28 HXE-Dynamic",
+        "capacidad_tm": 165,
+        "pluma_m": 45,
+        "tara_kg": 35060,
+        "mma_kg": 44000,
+        "ejes": 4,
+        "extra": "Cesta homologada",
+        "ancho_m": 2.55,
+        "largo_m": 10.33,
+        "alto_m": 4.10,
+        "imagenes": []
+      },
+      {
+        "modelo": "Camión-grúa 110 tm y 36 m",
+        "camion": "Volvo FM13",
+        "grua": "PALFINGER PK 11002SH",
+        "capacidad_tm": 110,
+        "pluma_m": 36,
+        "tara_kg": 31000,
+        "mma_kg": 44000,
+        "ejes": 4,
+        "extra": "Cesta homologada",
+        "ancho_m": 2.55,
+        "largo_m": 9.55,
+        "imagenes": []
+      },
+      {
+        "modelo": "Camión-grúa 80 tm y 23 m",
+        "camion": "Volvo S-405",
+        "grua": "PALFINGER PK 78002",
+        "capacidad_tm": 80,
+        "pluma_m": 23,
+        "tara_kg": 25280,
+        "mma_kg": 32000,
+        "ejes": 4,
+        "ancho_m": 2.5,
+        "largo_m": 10,
+        "imagenes": []
+      },
+      {
+        "modelo": "Camión-grúa 60 tm y 30 m",
+        "grua": "Palfinger PK 580 TEC",
+        "capacidad_tm": 60,
+        "pluma_jib_m": 30,
+        "tara_kg": 21187,
+        "mma_kg": 36000,
+        "ejes": 3,
+        "ancho_m": 2.55,
+        "largo_m": 8.5,
+        "imagenes": []
+      },
+      {
+        "modelo": "Camión-grúa jib 55 tm y 29 m",
+        "nuevo": true,
+        "camion": "Volvo FM",
+        "grua": "FASSI F545 RA.2.26 XE DYNAMIC",
+        "capacidad_tm": 55,
+        "pluma_con_jib_m": 29,
+        "extra": "Dispone de cabrestante",
+        "tara_kg": 19500,
+        "mma_kg": 29000,
+        "ejes": 3,
+        "ancho_m": 2.55,
+        "largo_m": 8.50,
+        "imagenes": []
+      },
+      {
+        "modelo": "Camión-grúa 55 tm y 30 m",
+        "camion": "Volvo FM",
+        "grua": "FASSI F545 RA2.26",
+        "capacidad_tm": 55,
+        "pluma_con_jib_m": 30,
+        "tara_kg": 19620,
+        "mma_kg": 35000,
+        "ejes": 3,
+        "ancho_m": 2.55,
+        "largo_m": 7.80,
+        "imagenes": []
+      },
+      {
+        "modelo": "Camión-grúa 36 tm y 23 m",
+        "camion": "Volvo FE F3C",
+        "grua": "FASSI F365 RA2.28 DYNAMIC",
+        "capacidad_tm": 36,
+        "pluma_m": 23,
+        "tara_kg": 15695,
+        "mma_kg": 26700,
+        "ejes": 3,
+        "ancho_m": 2.55,
+        "largo_m": 9.92,
+        "imagenes": []
+      },
+      {
+        "modelo": "Carretilla diésel 9 toneladas",
+        "nuevo": true,
+        "modelo_maquina": "Linde H80/900 D",
+        "tipo": "Vehículo auxiliar para descarga de equipos pesados y material diverso",
+        "imagenes": []
+      }
+    ]
+  }
+]

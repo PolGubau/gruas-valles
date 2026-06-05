@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+@theme {
+	/* Brand */
+	--color-accent: #d60b0c;
+	--color-accent-dark: #a80909;
+	--color-accent-soft: #fdecec;
+	--color-muted: #c3c3c3;
+	--color-muted-dark: #6b6b6b;
+
+	/* Neutrals */
+	--color-surface: #ffffff;
+	--color-surface-alt: #f6f6f7;
+	--color-ink: #121212;
+	--color-ink-secondary: #4b4b4b;
+
+	/* Typography */
+	--font-sans: "Inter", system-ui, -apple-system, sans-serif;
+
+	/* Radii — squared-off industrial language, soft only where it helps */
+	--radius-none: 0px;
+	--radius-sm: 2px;
+	--radius: 4px;
+
+	/* Shadows */
+	--shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -12px rgb(0 0 0 / 0.18);
+	--shadow-pop: 0 12px 40px -12px rgb(0 0 0 / 0.28);
+
+	/* Motion */
+	--ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@layer base {
+	html {
+		scroll-behavior: smooth;
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+		/* offset for sticky header on anchor jumps */
+		scroll-padding-top: 5rem;
+	}
+
+	body {
+		@apply bg-surface text-ink font-sans antialiased;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		@apply font-bold tracking-tight text-balance;
+	}
+
+	p,
+	blockquote {
+		@apply text-pretty;
+	}
+
+	/* Accessible, consistent focus ring across all interactive elements */
+	:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+		@apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-surface;
+	}
+
+	::selection {
+		@apply bg-accent text-white;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+		*,
+		*::before,
+		*::after {
+			animation-duration: 0.01ms !important;
+			transition-duration: 0.01ms !important;
+		}
+	}
+}
+
+@layer components {
+	.btn {
+		@apply inline-flex items-center justify-center gap-2 font-semibold uppercase tracking-widest
+           transition-[background-color,color,border-color,transform] duration-200
+           active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+	}
+	.btn-md {
+		@apply px-6 py-3 text-sm;
+	}
+	.btn-sm {
+		@apply px-4 py-2 text-xs;
+	}
+
+	/* Section heading eyebrow */
+	.eyebrow {
+		@apply mb-2 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent;
+	}
+
+	/* Surface card — hairline border, restrained lift on hover */
+	.surface-card {
+		@apply relative bg-surface transition-[transform,box-shadow,border-color] duration-300;
+	}
+	.surface-card:hover {
+		@apply -translate-y-0.5 shadow-card;
+	}
+}
+
+@layer utilities {
+	.section-padding {
+		@apply px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-28;
+	}
+
+	.container-wide {
+		@apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+	}
+
+	.container-narrow {
+		@apply mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8;
+	}
+
+	.sr-only {
+		@apply absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0;
+		clip: rect(0, 0, 0, 0);
+	}
+
+	/* Scroll-reveal — only active once JS adds `.reveal` to <html>,
+     so content is never hidden if scripting fails. */
+	.reveal [data-reveal] {
+		opacity: 0;
+		transform: translateY(1.25rem);
+		transition: opacity 0.7s var(--ease-out-quart), transform 0.7s
+			var(--ease-out-quart);
+	}
+	.reveal [data-reveal].is-visible {
+		opacity: 1;
+		transform: none;
+	}
+	.reveal [data-reveal][data-reveal-delay="1"] {
+		transition-delay: 0.09s;
+	}
+	.reveal [data-reveal][data-reveal-delay="2"] {
+		transition-delay: 0.18s;
+	}
+	.reveal [data-reveal][data-reveal-delay="3"] {
+		transition-delay: 0.27s;
+	}
+}
+
+/* Forward-motion cue: trailing arrows nudge right on intent. */
+svg[data-icon*="arrow-right"] {
+	transition: transform 0.25s var(--ease-out-quart);
+}
+.btn:hover svg[data-icon*="arrow-right"],
+.group:hover svg[data-icon*="arrow-right"] {
+	transform: translateX(0.2rem);
+}
+
+/* Vertical scroll indicator used in the hero. */
+@keyframes scroll-cue {
+	0% {
+		transform: translateY(-110%);
+	}
+	100% {
+		transform: translateY(220%);
+	}
+}
+.animate-scroll-cue {
+	animation: scroll-cue 1.9s var(--ease-out-quart) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.reveal [data-reveal] {
+		opacity: 1 !important;
+		transform: none !important;
+		transition: none !important;
+	}
+	.animate-scroll-cue {
+		animation: none;
+	}
+}

@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Badge from '../ui/Badge.astro';
+
+interface Props {
+  maniobra: CollectionEntry<'maniobras'>['data'] & { slug: string };
+}
+
+const { maniobra: m } = Astro.props;
+---
+
+<a
+  href={`/maniobras/${m.slug}`}
+  class="group block bg-white p-6 transition-shadow hover:shadow-md"
+>
+  {m.imagenes.length > 0 && (
+    <div class="mb-4 aspect-video overflow-hidden bg-surface-alt">
+      <img
+        src={m.imagenes[0]}
+        alt={m.titulo}
+        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        loading="lazy"
+      />
+    </div>
+  )}
+
+  <!-- Parámetros técnicos -->
+  <div class="mb-3 flex flex-wrap gap-1">
+    {m.peso_carga_t && <Badge variant="soft">{m.peso_carga_t} Tn carga</Badge>}
+    {m.contrapesos_t && <Badge variant="neutral">{m.contrapesos_t} Tn cp.</Badge>}
+    {m.radio_m && <Badge variant="neutral">R {m.radio_m} m</Badge>}
+  </div>
+
+  <h3 class="mb-2 text-sm font-bold leading-snug transition-colors group-hover:text-accent">
+    {m.titulo}
+  </h3>
+  <p class="line-clamp-3 text-xs leading-relaxed text-ink-secondary">{m.descripcion}</p>
+</a>

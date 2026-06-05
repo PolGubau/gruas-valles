@@ -1,0 +1,47 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'outline' | 'ghost';
+  size?: 'md' | 'sm';
+  icon?: string;
+  iconPosition?: 'start' | 'end';
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  icon,
+  iconPosition = 'end',
+  class: extra = '',
+  ...rest
+} = Astro.props;
+
+const variants = {
+  primary: 'bg-accent text-white hover:bg-accent-dark',
+  outline: 'border-2 border-accent text-accent hover:bg-accent hover:text-white',
+  ghost: 'text-ink hover:text-accent',
+};
+
+const sizes = {
+  md: 'px-6 py-3 text-sm',
+  sm: 'px-4 py-2 text-xs',
+};
+
+const base =
+  'btn inline-flex items-center justify-center gap-2 font-semibold uppercase tracking-widest transition-[background-color,color,border-color,transform] duration-200 active:scale-[0.98]';
+const classes = `${base} ${variants[variant]} ${sizes[size]} ${extra}`;
+
+const Tag = href ? 'a' : 'button';
+const iconSize = size === 'sm' ? 16 : 18;
+---
+
+<Tag href={href} class={classes} {...rest}>
+  {icon && iconPosition === 'start' && <Icon name={icon} width={iconSize} height={iconSize} aria-hidden="true" />}
+  <slot />
+  {icon && iconPosition === 'end' && <Icon name={icon} width={iconSize} height={iconSize} aria-hidden="true" />}
+</Tag>
