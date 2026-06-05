@@ -1,9 +1,9 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
-import Page from "../../layouts/Page.astro";
-import Button from "../../components/ui/Button.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import { type CollectionEntry, getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import Page from "../../layouts/Page.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection("maniobras");
@@ -69,7 +69,8 @@ const crumbs = [
                   <img
                     src={m.imagenes[0]}
                     alt={m.titulo}
-                    class="h-full w-full object-cover"
+                    class="h-full w-full cursor-zoom-in object-cover"
+                    data-zoomable
                   />
                 </div>
                 {m.imagenes.length > 1 && (
@@ -79,8 +80,9 @@ const crumbs = [
                         <img
                           src={src}
                           alt={m.titulo}
-                          class="h-full w-full object-cover"
+                          class="h-full w-full cursor-zoom-in object-cover"
                           loading="lazy"
+                          data-zoomable
                         />
                       </div>
                     ))}
