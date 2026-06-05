@@ -73,50 +73,42 @@ const isActive = (href: string) =>
       aria-label="Abrir menú"
       aria-expanded="false"
       aria-controls="mobile-menu"
-      class="p-2 text-ink lg:hidden"
+      class="hamburger p-2 text-ink lg:hidden"
     >
-      <Icon
-        id="icon-open"
-        name="lucide:menu"
-        width={24}
-        height={24}
-        aria-hidden="true"
-      />
-      <Icon
-        id="icon-close"
-        name="lucide:x"
-        width={24}
-        height={24}
-        aria-hidden="true"
-        class="hidden"
-      />
+      <span class="hamburger-box" aria-hidden="true">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </span>
     </button>
   </div>
 
   <!-- Mobile menu -->
-  <div
-    id="mobile-menu"
-    class="hidden border-t border-muted/60 bg-white lg:hidden"
-  >
-    <nav class="container-wide flex flex-col py-4" aria-label="Móvil">
-      {
-        links.map(({ href, label }) => (
-          <a
-            href={href}
-            aria-current={isActive(href) ? "page" : undefined}
-            class="mobile-link border-b border-muted/40 py-3 text-sm font-medium text-ink transition-colors last:border-0 hover:text-accent aria-[current=page]:text-accent"
-          >
-            {label}
-          </a>
-        ))
-      }
-      <a
-        href="/contacto"
-        class="btn btn-sm mt-4 justify-center bg-accent text-white hover:bg-accent-dark"
+  <div id="mobile-menu" class="mobile-menu bg-white lg:hidden">
+    <div class="min-h-0 overflow-hidden">
+      <nav
+        class="container-wide flex flex-col border-t border-muted/60 py-4"
+        aria-label="Móvil"
       >
-        Solicitar presupuesto
-      </a>
-    </nav>
+        {
+          links.map(({ href, label }) => (
+            <a
+              href={href}
+              aria-current={isActive(href) ? "page" : undefined}
+              class="mobile-link border-b border-muted/40 py-3 text-sm font-medium text-ink transition-colors last:border-0 hover:text-accent aria-[current=page]:text-accent"
+            >
+              {label}
+            </a>
+          ))
+        }
+        <a
+          href="/contacto"
+          class="btn btn-sm mt-4 justify-center bg-accent text-white hover:bg-accent-dark"
+        >
+          Solicitar presupuesto
+        </a>
+      </nav>
+    </div>
   </div>
 </header>
 
