@@ -153,3 +153,62 @@ const crumbs = [
     </div>
   </article>
 </Page>
+
+<style>
+  /* Estilos del cuerpo Markdown de cada noticia. Usa los tokens del proyecto
+     para mantener coherencia con el resto del sitio. */
+  .blog-prose :global(p) {
+    margin-block: 1rem;
+  }
+  .blog-prose :global(p:first-child) {
+    margin-top: 0;
+  }
+  .blog-prose :global(h2),
+  .blog-prose :global(h3) {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-ink);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .blog-prose :global(h2) {
+    font-size: 1.5rem;
+  }
+  .blog-prose :global(h3) {
+    font-size: 1.25rem;
+  }
+  .blog-prose :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .blog-prose :global(strong) {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+  .blog-prose :global(ul),
+  .blog-prose :global(ol) {
+    margin-block: 1rem;
+    padding-left: 1.5rem;
+  }
+  .blog-prose :global(ul) {
+    list-style: disc;
+  }
+  .blog-prose :global(ol) {
+    list-style: decimal;
+  }
+  .blog-prose :global(li) {
+    margin-block: 0.375rem;
+  }
+  .blog-prose :global(blockquote) {
+    margin-block: 1.25rem;
+    border-left: 3px solid var(--color-accent);
+    padding-left: 1rem;
+    color: var(--color-ink-secondary);
+    font-style: italic;
+  }
+  .blog-prose :global(img) {
+    margin-block: 1.5rem;
+    width: 100%;
+  }
+</style>
