@@ -312,7 +312,7 @@ Tras completar el despliegue del nuevo sitio web estático desarrollado con Astr
     Gruasdelvalles.com. Alquiler de gruas auto-propulsadas. Granollers (Barcelona) Spain, https://www.gruasdelvalles.com/
     Astro vs Next.js for SaaS marketing sites in 2026 - SolvSpot, https://solvspot.com/blog/astro-vs-nextjs-saas-marketing-sites-2026
     ▷ Grúas en Terrassa 24 Horas | Servicio de Grúa Particular ✔️ - Grúas en Barcelona, https://gruaenbarcelona.com/gruas-terrassa/
-    Vigatana de Asistencia – Asistencia en carretera 24/7, https://vigatanadeasistencia.com/
+    Vigatana de Asistencia - Asistencia en carretera 24/7, https://vigatanadeasistencia.com/
     SEO para empresas de maquinaria pesada - Industria WEB, https://industria-web.es/seo-b2b/seo-empresas-maquinaria-pesada/
     Alquiler De Camiones Grúa | Servicios De Elevación De Cargas, https://transgruma.com/
     Astro vs Next.js 2026: Pros, Cons & Benchmarks - Senorit, https://senorit.de/en/blog/astro-vs-nextjs-2025

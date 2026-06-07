@@ -1,16 +1,34 @@
 ---
-import servicios from '../data/servicios.json';
-import Page from '../layouts/Page.astro';
-import PageHero from '../components/ui/PageHero.astro';
-import Servicios from '../components/sections/Servicios.astro';
-import CtaBand from '../components/ui/CtaBand.astro';
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
+import ServiciosGrid from "../components/sections/ServiciosGrid.astro";
+import CtaBand from "../components/ui/CtaBand.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import servicios from "../data/servicios.json";
+import Page from "../layouts/Page.astro";
 
 const proceso = [
-  { icon: 'lucide:clipboard-list', titulo: 'Estudio técnico', texto: 'Analizamos la carga, el emplazamiento y los accesos con software CAD/CAM y planos 3D.' },
-  { icon: 'lucide:route', titulo: 'Planificación', texto: 'Definimos la grúa, los contrapesos y la configuración óptima para la maniobra.' },
-  { icon: 'lucide:file-check-2', titulo: 'Permisos y seguridad', texto: 'Tramitamos permisos, seguros y presentamos el Plan de Seguridad.' },
-  { icon: 'lucide:construction', titulo: 'Ejecución', texto: 'Dirigimos el montaje con técnicos y operarios especializados.' },
+  {
+    icon: "lucide:clipboard-list",
+    titulo: "Estudio técnico",
+    texto:
+      "Analizamos la carga, el emplazamiento y los accesos con software CAD/CAM y planos 3D.",
+  },
+  {
+    icon: "lucide:route",
+    titulo: "Planificación",
+    texto:
+      "Definimos la grúa, los contrapesos y la configuración óptima para la maniobra.",
+  },
+  {
+    icon: "lucide:file-check-2",
+    titulo: "Permisos y seguridad",
+    texto: "Tramitamos permisos, seguros y presentamos el Plan de Seguridad.",
+  },
+  {
+    icon: "lucide:construction",
+    titulo: "Ejecución",
+    texto: "Dirigimos el montaje con técnicos y operarios especializados.",
+  },
 ];
 ---
 
@@ -19,37 +37,46 @@ const proceso = [
   description="Alquiler de grúas, transportes especiales, montaje de prefabricados, departamento de estudios y tramitación de permisos. Soluciones integrales de elevación en Cataluña."
 >
   <PageHero
-    eyebrow="Qué hacemos"
     title="Soluciones integrales de elevación y transporte"
     lede="Desde el estudio técnico hasta la ejecución de la maniobra, cubrimos todo el proceso con maquinaria propia y un equipo especializado."
-    crumbs={[{ label: 'Inicio', href: '/' }, { label: 'Servicios' }]}
+    crumbs={[{ label: "Inicio", href: "/" }, { label: "Servicios" }]}
   />
 
   <!-- Servicios principales (sección reutilizada) -->
-  <Servicios />
+  <ServiciosGrid />
 
   <!-- Cómo trabajamos -->
   <section class="section-padding bg-surface-alt">
     <div class="container-wide">
       <div class="mb-12 max-w-2xl">
-        <p class="eyebrow"><span class="h-px w-8 bg-accent"></span>Cómo trabajamos</p>
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Cómo trabajamos
+        </p>
         <h2 class="text-3xl font-black leading-tight sm:text-4xl">
           Ingeniería antes de cada maniobra
         </h2>
       </div>
       <ol class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-4">
-        {proceso.map((paso, i) => (
-          <li class="bg-surface p-8">
-            <div class="mb-5 flex items-center justify-between">
-              <span class="flex h-10 w-10 items-center justify-center border-2 border-muted">
-                <Icon name={paso.icon} class="h-5 w-5 text-accent" aria-hidden="true" />
-              </span>
-              <span class="text-3xl font-black text-muted">0{i + 1}</span>
-            </div>
-            <h3 class="mb-2 text-base font-bold">{paso.titulo}</h3>
-            <p class="text-sm leading-relaxed text-ink-secondary">{paso.texto}</p>
-          </li>
-        ))}
+        {
+          proceso.map((paso, i) => (
+            <li class="bg-surface p-8">
+              <div class="mb-5 flex items-center justify-between">
+                <span class="flex h-10 w-10 items-center justify-center border-2 border-muted">
+                  <Icon
+                    name={paso.icon}
+                    class="h-5 w-5 text-accent"
+                    aria-hidden="true"
+                  />
+                </span>
+                <span class="text-3xl font-black text-muted">0{i + 1}</span>
+              </div>
+              <h3 class="mb-2 text-base font-bold">{paso.titulo}</h3>
+              <p class="text-sm leading-relaxed text-ink-secondary">
+                {paso.texto}
+              </p>
+            </li>
+          ))
+        }
       </ol>
     </div>
   </section>
@@ -59,34 +86,54 @@ const proceso = [
     <div class="container-wide grid gap-12 lg:grid-cols-2">
       <!-- Trámites -->
       <div>
-        <p class="eyebrow"><span class="h-px w-8 bg-accent"></span>Trámites y gestiones</p>
-        <h2 class="mb-6 text-2xl font-black sm:text-3xl">Nos ocupamos del papeleo</h2>
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Trámites y gestiones
+        </p>
+        <h2 class="mb-6 text-2xl font-black sm:text-3xl">
+          Nos ocupamos del papeleo
+        </h2>
         <ul class="space-y-3">
-          {servicios.tramites.map((t: string) => (
-            <li class="flex items-start gap-3 text-sm leading-relaxed text-ink-secondary">
-              <Icon name="lucide:check" class="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-              {t}
-            </li>
-          ))}
+          {
+            servicios.tramites.map((t: string) => (
+              <li class="flex items-start gap-3 text-sm leading-relaxed text-ink-secondary">
+                <Icon
+                  name="lucide:check"
+                  class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                  aria-hidden="true"
+                />
+                {t}
+              </li>
+            ))
+          }
         </ul>
       </div>
 
       <!-- Asesoramiento -->
       <div>
-        <p class="eyebrow"><span class="h-px w-8 bg-accent"></span>Asesoramiento y soporte</p>
-        <h2 class="mb-6 text-2xl font-black sm:text-3xl">Acompañamiento técnico</h2>
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Asesoramiento y soporte
+        </p>
+        <h2 class="mb-6 text-2xl font-black sm:text-3xl">
+          Acompañamiento técnico
+        </h2>
         <dl class="space-y-6">
           <div class="border-l-2 border-accent pl-4">
             <dt class="mb-1 text-sm font-bold">Asesoramiento técnico</dt>
-            <dd class="text-sm leading-relaxed text-ink-secondary">{servicios.asesoramiento.tecnico}</dd>
+            <dd class="text-sm leading-relaxed text-ink-secondary">
+              {servicios.asesoramiento.tecnico}
+            </dd>
           </div>
           <div class="border-l-2 border-accent pl-4">
             <dt class="mb-1 text-sm font-bold">Atención al cliente</dt>
-            <dd class="text-sm leading-relaxed text-ink-secondary">{servicios.asesoramiento.atencion_cliente}</dd>
+            <dd class="text-sm leading-relaxed text-ink-secondary">
+              {servicios.asesoramiento.atencion_cliente}
+            </dd>
           </div>
           <div class="border-l-2 border-accent pl-4">
             <dt class="mb-1 text-sm font-bold">Servicio de emergencia</dt>
-            <dd class="text-sm leading-relaxed text-ink-secondary">{servicios.asesoramiento.emergencia}</dd>
+            <dd class="text-sm leading-relaxed text-ink-secondary">
+              {servicios.asesoramiento.emergencia}
+            </dd>
           </div>
         </dl>
       </div>

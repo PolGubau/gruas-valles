@@ -1,23 +1,23 @@
 ---
-import nosotros from '../data/nosotros.json';
-import Page from '../layouts/Page.astro';
-import PageHero from '../components/ui/PageHero.astro';
-import Nosotros from '../components/sections/Nosotros.astro';
-import CtaBand from '../components/ui/CtaBand.astro';
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
+import NosotrosSection from "../components/sections/NosotrosSection.astro";
+import CtaBand from "../components/ui/CtaBand.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import nosotros from "../data/nosotros.json";
+import Page from "../layouts/Page.astro";
 
 const anios = new Date().getFullYear() - nosotros.fundacion;
 const stats = [
-  { valor: `${anios}+`, label: 'Años de experiencia' },
-  { valor: '500 Tn', label: 'Capacidad máxima' },
-  { valor: '24/365', label: 'Servicio de emergencia' },
-  { valor: '5.000 m²', label: 'Instalaciones propias' },
+  { valor: `${anios}+`, label: "Años de experiencia" },
+  { valor: "500 Tn", label: "Capacidad máxima" },
+  { valor: "24/365", label: "Servicio de emergencia" },
+  { valor: "5.000 m²", label: "Instalaciones propias" },
 ];
 const certificaciones = [
-  { titulo: 'ISO 9001', detalle: nosotros.seguridad.iso },
-  { titulo: 'REA', detalle: nosotros.seguridad.rea },
-  { titulo: 'REIC', detalle: nosotros.seguridad.reic },
-  { titulo: 'LOPD', detalle: nosotros.seguridad.lopd },
+  { titulo: "ISO 9001", detalle: nosotros.seguridad.iso },
+  { titulo: "REA", detalle: nosotros.seguridad.rea },
+  { titulo: "REIC", detalle: nosotros.seguridad.reic },
+  { titulo: "LOPD", detalle: nosotros.seguridad.lopd },
 ];
 ---
 
@@ -26,42 +26,57 @@ const certificaciones = [
   description="Empresa familiar fundada en 1968 en Granollers. Más de 55 años moviendo lo imposible con maquinaria propia, certificaciones ISO 9001 y un equipo especializado."
 >
   <PageHero
-    eyebrow="Quiénes somos"
     title="Empresa familiar de referencia en elevación desde 1968"
     lede="Tres generaciones especializadas en alquiler de grúas y maniobras de gran tonelaje en Cataluña, con maquinaria propia y un compromiso firme con la seguridad."
-    crumbs={[{ label: 'Inicio', href: '/' }, { label: 'Nosotros' }]}
+    crumbs={[{ label: "Inicio", href: "/" }, { label: "Nosotros" }]}
   />
 
   <!-- Stats band -->
   <section class="bg-ink text-white">
     <div class="container-wide grid grid-cols-2 gap-px lg:grid-cols-4">
-      {stats.map((s) => (
-        <div class="px-6 py-10 text-center">
-          <p class="text-3xl font-black text-accent sm:text-4xl">{s.valor}</p>
-          <p class="mt-1 text-xs font-medium uppercase tracking-wider text-muted">{s.label}</p>
-        </div>
-      ))}
+      {
+        stats.map((s) => (
+          <div class="px-6 py-10 text-center">
+            <p class="text-3xl font-black text-accent sm:text-4xl">{s.valor}</p>
+            <p class="mt-1 text-xs font-medium uppercase tracking-wider text-muted">
+              {s.label}
+            </p>
+          </div>
+        ))
+      }
     </div>
   </section>
 
   <!-- Historia + por qué elegirnos (sección reutilizada) -->
-  <Nosotros />
+  <NosotrosSection />
 
   <!-- Certificaciones -->
   <section class="section-padding bg-surface">
     <div class="container-wide">
       <div class="mb-12 max-w-2xl">
-        <p class="eyebrow"><span class="h-px w-8 bg-accent"></span>Certificaciones y seguridad</p>
-        <h2 class="text-3xl font-black leading-tight sm:text-4xl">Trabajamos con todas las garantías</h2>
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Certificaciones y seguridad
+        </p>
+        <h2 class="text-3xl font-black leading-tight sm:text-4xl">
+          Trabajamos con todas las garantías
+        </h2>
       </div>
       <div class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-4">
-        {certificaciones.map((c) => (
-          <div class="bg-surface p-8">
-            <Icon name="lucide:badge-check" class="mb-4 h-7 w-7 text-accent" aria-hidden="true" />
-            <h3 class="mb-1 text-lg font-bold">{c.titulo}</h3>
-            <p class="text-sm leading-relaxed text-ink-secondary">{c.detalle}</p>
-          </div>
-        ))}
+        {
+          certificaciones.map((c) => (
+            <div class="bg-surface p-8">
+              <Icon
+                name="lucide:badge-check"
+                class="mb-4 h-7 w-7 text-accent"
+                aria-hidden="true"
+              />
+              <h3 class="mb-1 text-lg font-bold">{c.titulo}</h3>
+              <p class="text-sm leading-relaxed text-ink-secondary">
+                {c.detalle}
+              </p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -70,27 +85,47 @@ const certificaciones = [
   <section class="section-padding bg-surface-alt">
     <div class="container-wide grid gap-12 lg:grid-cols-2">
       <div>
-        <p class="eyebrow"><span class="h-px w-8 bg-accent"></span>Instalaciones</p>
-        <h2 class="mb-6 text-2xl font-black sm:text-3xl">5.000 m² de medios propios</h2>
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Instalaciones
+        </p>
+        <h2 class="mb-6 text-2xl font-black sm:text-3xl">
+          5.000 m² de medios propios
+        </h2>
         <ul class="grid gap-2 sm:grid-cols-2">
-          {nosotros.instalaciones.map((i: string) => (
-            <li class="flex items-center gap-2 text-sm text-ink-secondary">
-              <Icon name="lucide:check" class="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-              {i}
-            </li>
-          ))}
+          {
+            nosotros.instalaciones.map((i: string) => (
+              <li class="flex items-center gap-2 text-sm text-ink-secondary">
+                <Icon
+                  name="lucide:check"
+                  class="h-4 w-4 shrink-0 text-accent"
+                  aria-hidden="true"
+                />
+                {i}
+              </li>
+            ))
+          }
         </ul>
       </div>
       <div>
-        <p class="eyebrow"><span class="h-px w-8 bg-accent"></span>Asociaciones</p>
-        <h2 class="mb-6 text-2xl font-black sm:text-3xl">Miembros activos del sector</h2>
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Asociaciones
+        </p>
+        <h2 class="mb-6 text-2xl font-black sm:text-3xl">
+          Miembros activos del sector
+        </h2>
         <ul class="space-y-3">
-          {nosotros.organismos.map((o: string) => (
-            <li class="flex items-start gap-3 text-sm leading-relaxed text-ink-secondary">
-              <Icon name="lucide:users" class="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-              {o}
-            </li>
-          ))}
+          {
+            nosotros.organismos.map((o: string) => (
+              <li class="flex items-start gap-3 text-sm leading-relaxed text-ink-secondary">
+                <Icon
+                  name="lucide:users"
+                  class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                  aria-hidden="true"
+                />
+                {o}
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>
@@ -100,15 +135,27 @@ const certificaciones = [
   <section class="section-padding bg-surface">
     <div class="container-wide grid gap-10 lg:grid-cols-2 lg:items-center">
       <div>
-        <p class="eyebrow"><span class="h-px w-8 bg-accent"></span>Dónde estamos</p>
-        <h2 class="mb-6 text-2xl font-black sm:text-3xl">A 2 minutos del Circuit de Montmeló</h2>
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Dónde estamos
+        </p>
+        <h2 class="mb-6 text-2xl font-black sm:text-3xl">
+          A 2 minutos del Circuit de Montmeló
+        </h2>
         <dl class="space-y-4 text-sm">
           <div class="flex items-start gap-3">
-            <Icon name="lucide:map-pin" class="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+            <Icon
+              name="lucide:map-pin"
+              class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+              aria-hidden="true"
+            />
             <dd>{nosotros.ubicacion.direccion}</dd>
           </div>
           <div class="flex items-start gap-3">
-            <Icon name="lucide:milestone" class="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+            <Icon
+              name="lucide:milestone"
+              class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+              aria-hidden="true"
+            />
             <dd>Accesos directos: {nosotros.ubicacion.accesos}</dd>
           </div>
         </dl>

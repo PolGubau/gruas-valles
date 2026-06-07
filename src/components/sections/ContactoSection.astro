@@ -1,7 +1,7 @@
 ---
+import { Icon } from "astro-icon/components";
 import contacto from "../../data/contacto.json";
 import Button from "../ui/Button.astro";
-import { Icon } from "astro-icon/components";
 ---
 
 <section id="contacto" class="section-padding bg-surface-alt">
@@ -98,9 +98,9 @@ import { Icon } from "astro-icon/components";
             >
               <option value="">Seleccione...</option>
               <option>Hasta 50 Tn</option>
-              <option>50 – 100 Tn</option>
-              <option>100 – 200 Tn</option>
-              <option>200 – 400 Tn</option>
+              <option>50 - 100 Tn</option>
+              <option>100 - 200 Tn</option>
+              <option>200 - 400 Tn</option>
               <option>+400 Tn / Gran tonelaje</option>
               <option>No lo sé, necesito asesoramiento</option>
             </select>
@@ -266,15 +266,15 @@ import { Icon } from "astro-icon/components";
       const mensaje = get("mensaje");
 
       const to = form.dataset.email ?? "";
-      const subject = `Solicitud de presupuesto${nombre ? ` — ${nombre}` : ""}`;
+      const subject = `Solicitud de presupuesto${nombre ? ` - ${nombre}` : ""}`;
       const body = [
-        `Empresa / Nombre: ${nombre || "—"}`,
-        `Teléfono: ${telefono || "—"}`,
-        `Email: ${email || "—"}`,
-        `Tonelaje aproximado: ${tonelaje || "—"}`,
+        `Empresa / Nombre: ${nombre || "-"}`,
+        `Teléfono: ${telefono || "-"}`,
+        `Email: ${email || "-"}`,
+        `Tonelaje aproximado: ${tonelaje || "-"}`,
         "",
         "Descripción del trabajo:",
-        mensaje || "—",
+        mensaje || "-",
       ].join("\n");
 
       const mailto = `mailto:${to}?subject=${encodeURIComponent(

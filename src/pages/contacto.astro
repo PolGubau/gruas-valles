@@ -1,9 +1,9 @@
 ---
-import Page from "../layouts/Page.astro";
-import PageHero from "../components/ui/PageHero.astro";
-import Contacto from "../components/sections/Contacto.astro";
-import contacto from "../data/contacto.json";
 import { Icon } from "astro-icon/components";
+import ContactoSection from "../components/sections/ContactoSection.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import contacto from "../data/contacto.json";
+import Page from "../layouts/Page.astro";
 
 const garantias = [
   { icon: "lucide:clock", texto: "Respuesta en menos de 24 h" },
@@ -21,7 +21,7 @@ const acciones = [
     label: "Llámenos",
     valor: contacto.telefono,
     href: telHref,
-    nota: "Lun–Vie · Atención comercial",
+    nota: "Lun-Vie · Atención comercial",
   },
   {
     icon: "lucide:mail",
@@ -117,7 +117,6 @@ const schema = [
   schema={schema}
 >
   <PageHero
-    eyebrow="Contacto"
     title="Solicite su presupuesto sin compromiso"
     lede="Cuéntenos su proyecto y nuestro equipo técnico le propondrá la solución de elevación más adecuada."
     crumbs={[{ label: "Inicio", href: "/" }, { label: "Contacto" }]}
@@ -183,7 +182,7 @@ const schema = [
               Horario de atención
             </p>
             <p class="mt-1 text-sm font-medium">
-              Lunes a viernes · 8:00 – 18:00 h
+              Lunes a viernes · 8:00 - 18:00 h
             </p>
             <p class="mt-1 text-sm font-semibold text-accent">
               Emergencias: 24 horas / 365 días
@@ -215,12 +214,11 @@ const schema = [
   </section>
 
   <!-- Formulario + info (sección reutilizada) -->
-  <Contacto />
+  <ContactoSection />
 
   <!-- Preguntas frecuentes -->
   <section class="section-padding bg-surface" aria-labelledby="faq-title">
     <div class="container-narrow">
-      <p class="eyebrow">Dudas habituales</p>
       <h2 id="faq-title" class="mb-8 text-3xl font-black sm:text-4xl">
         Preguntas frecuentes
       </h2>

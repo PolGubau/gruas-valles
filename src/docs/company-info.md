@@ -43,7 +43,7 @@ Dónde estamos
     Dónde estamos
 
 Dónde estamos
-Encontrará las instalaciones de ** Grúas del Vallés**, en la avenida San Julián 64 – 66 en el polígono industrial del Congost de Granollers (Barcelona). A dos minutos del Circuito de Montmeló.
+Encontrará las instalaciones de ** Grúas del Vallés**, en la avenida San Julián 64 - 66 en el polígono industrial del Congost de Granollers (Barcelona). A dos minutos del Circuito de Montmeló.
 Estamos ubicados en un emplazamiento de cómodo acceso desde la carretera N-152 y la AP-7 desde cualquier punto del Vallés Oriental, Vallés Occidental, el Barcelonés y Baix Llobregat y Ripollés. Así como de poblaciones colindantes como Mollet del Vallés, Mataró, Sabadell, Terrassa, Cerdanyola y Sant Cugat del Vallés, Les Franqueses y la Roca del Vallès, Cardedeu, a pocos minutos Barcelona y Baix Llobregat, también de Vic, Ripoll, Manresa e incluso de Girona o Tarragona.
 En el siguiente mapa de Google le mostramos la situación de Grúas del Vallés. Puede navegar en él para localizar la mejor manera de llegar.
 Ver mapa más grande

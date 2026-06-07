@@ -15,7 +15,7 @@
 	--color-ink-secondary: #4b4b4b;
 
 	/* Typography */
-	--font-sans: "Inter", system-ui, -apple-system, sans-serif;
+	--font-sans: var(--font-jakarta), system-ui, -apple-system, sans-serif;
 
 	/* Radii — squared-off industrial language, soft only where it helps */
 	--radius-none: 0px;

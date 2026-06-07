@@ -1,0 +1,122 @@
+---
+import { Icon } from "astro-icon/components";
+import CtaBand from "../../components/ui/CtaBand.astro";
+import PageHero from "../../components/ui/PageHero.astro";
+import contacto from "../../data/contacto.json";
+import localidades from "../../data/localidades.json";
+import nosotros from "../../data/nosotros.json";
+import servicios from "../../data/servicios.json";
+import Page from "../../layouts/Page.astro";
+import { localServiceSchema } from "../../lib/schema";
+
+export async function getStaticPaths() {
+  return localidades.map((loc) => ({
+    params: { localidad: loc.slug },
+    props: { loc },
+  }));
+}
+
+const { loc } = Astro.props;
+
+const title = `Alquiler de grúas en ${loc.nombre} | Grúas del Vallès`;
+const description = `Alquiler de grúas móviles autopropulsadas de 40 a 500 Tn y transportes especiales en ${loc.nombre} (${loc.comarca}). +55 años de experiencia, emergencias 24/365 y estudio técnico de cada maniobra.`;
+const url = `/alquiler-gruas/${loc.slug}`;
+
+const schema = localServiceSchema(
+  { locality: loc.nombre, description, url, areaServed: loc.comarca },
+  Astro.site,
+);
+---
+
+<Page title={title} description={description} schema={schema}>
+  <PageHero
+    title={`Alquiler de grúas en ${loc.nombre}`}
+    lede={loc.intro}
+    crumbs={[
+      { label: "Inicio", href: "/" },
+      { label: "Alquiler de grúas", href: "/alquiler-gruas" },
+      { label: loc.nombre },
+    ]}
+  />
+
+  <!-- Servicios disponibles en la localidad -->
+  <section class="section-padding bg-surface">
+    <div class="container-wide">
+      <div class="mb-10 max-w-2xl">
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Qué ofrecemos en {loc.nombre}
+        </p>
+        <h2 class="text-2xl font-black sm:text-3xl">
+          Soluciones de elevación y transporte
+        </h2>
+      </div>
+      <ul class="grid gap-px bg-muted sm:grid-cols-2">
+        {
+          servicios.principales.map((s: string) => (
+            <li class="flex items-start gap-3 bg-surface p-6 text-sm leading-relaxed text-ink-secondary">
+              <Icon
+                name="lucide:check"
+                class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                aria-hidden="true"
+              />
+              {s}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Por qué elegirnos + accesos -->
+  <section class="section-padding bg-surface-alt">
+    <div class="container-wide grid gap-12 lg:grid-cols-2">
+      <div>
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Por qué elegirnos
+        </p>
+        <h2 class="mb-6 text-2xl font-black sm:text-3xl">
+          Tu grúa en {loc.nombre}, sin imprevistos
+        </h2>
+        <ul class="space-y-3">
+          {
+            nosotros.por_que_elegirnos.map((p: string) => (
+              <li class="flex items-start gap-3 text-sm leading-relaxed text-ink-secondary">
+                <Icon
+                  name="lucide:badge-check"
+                  class="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                  aria-hidden="true"
+                />
+                {p}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-6">
+        <div class="border-l-2 border-accent pl-4">
+          <p class="mb-1 text-sm font-bold">Accesos directos</p>
+          <p class="text-sm leading-relaxed text-ink-secondary">
+            Llegamos a {loc.nombre} por {loc.accesos} desde nuestra base de Granollers.
+          </p>
+        </div>
+        <div class="border-l-2 border-accent pl-4">
+          <p class="mb-1 text-sm font-bold">Emergencias 24/365</p>
+          <p class="text-sm leading-relaxed text-ink-secondary">
+            {contacto.servicio_emergencia}. Disponibilidad inmediata para
+            maniobras urgentes.
+          </p>
+        </div>
+        <div class="border-l-2 border-accent pl-4">
+          <p class="mb-1 text-sm font-bold">Estudio técnico previo</p>
+          <p class="text-sm leading-relaxed text-ink-secondary">
+            Planificamos cada izado con software CAD/CAM y visita técnica antes
+            de actuar en {loc.nombre}.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Page>

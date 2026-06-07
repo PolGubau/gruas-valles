@@ -1,17 +1,21 @@
 ---
 import { Icon } from "astro-icon/components";
+import localidades from "../../data/localidades.json";
 
 const year = new Date().getFullYear();
 
 const navLinks = [
   { href: "/flota", label: "Flota" },
   { href: "/servicios", label: "Servicios" },
+  { href: "/alquiler-gruas", label: "Cobertura" },
   { href: "/maniobras", label: "Maniobras" },
   { href: "/galeria", label: "Galería" },
   { href: "/nosotros", label: "Nosotros" },
   { href: "/blog", label: "Noticias" },
   { href: "/contacto", label: "Contacto" },
 ];
+
+const zonas = localidades.slice(0, 6);
 
 const legalLinks = [
   { href: "/legal/aviso-legal", label: "Aviso legal" },
@@ -22,13 +26,13 @@ const legalLinks = [
 
 <footer class="bg-ink text-muted">
   <div class="container-wide py-12">
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-6">
       <!-- Brand -->
       <div class="lg:col-span-2">
         <a
           href="/"
           class="mb-4 inline-block"
-          aria-label="Grúas del Vallès — inicio"
+          aria-label="Grúas del Vallès - inicio"
         >
           <img
             src="/logo.png"
@@ -56,6 +60,29 @@ const legalLinks = [
               <li>
                 <a href={href} class="hover:text-accent transition-colors">
                   {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Zonas -->
+      <div>
+        <p
+          class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
+        >
+          Zonas
+        </p>
+        <ul class="space-y-2 text-sm">
+          {
+            zonas.map((z) => (
+              <li>
+                <a
+                  href={`/alquiler-gruas/${z.slug}`}
+                  class="hover:text-accent transition-colors"
+                >
+                  Grúas en {z.nombre}
                 </a>
               </li>
             ))

@@ -167,7 +167,7 @@ Datos extraídos de la web actual de Grúas del Vallès (www.gruasdelvalles.com)
         "1969-1970": "Adquisición de 3 unidades más; grúas de hasta 30 Tn; ámbito regional.",
         "1973": "D. Juan Pratginestós Congost entra como socio; grúas de hasta 50 Tn.",
         "1975": "Traslado a las instalaciones actuales (5.000 m2); parque hasta 100 Tn, camiones pluma y trailers.",
-        "1979": "Constitución como Sociedad Anónima — GRÚAS DEL VALLÉS, S.A. (CIF A08603888).",
+        "1979": "Constitución como Sociedad Anónima - GRÚAS DEL VALLÉS, S.A. (CIF A08603888).",
         "1992-1999": "Adaptación Ley de Sociedades Anónimas; registros REIC, Automantenedora y Transporte Público.",
         "2002": "Inicio de trámites para Certificado ISO 9001.",
         "2004": "Adaptación LOPD; creación de la web corporativa; cursos OGMA-A/B.",
@@ -189,7 +189,7 @@ Datos extraídos de la web actual de Grúas del Vallès (www.gruasdelvalles.com)
 --------------------------------------------------------------------------------
 5. JSON de Datos: Maniobras Ejemplo (Casos de Éxito)
 
-Cada maniobra incluye título, descripción completa (extraída de su página de detalle) y las fotos asociadas. Las maniobras más recientes (3369–3354) son entradas de texto sin galería propia en la ficha de detalle.
+Cada maniobra incluye título, descripción completa (extraída de su página de detalle) y las fotos asociadas. Las maniobras más recientes (3369-3354) son entradas de texto sin galería propia en la ficha de detalle.
 
 ```json
 {
@@ -197,7 +197,7 @@ Cada maniobra incluye título, descripción completa (extraída de su página de
     {
       "id": 3369,
       "titulo": "Rescate embarcación accidentada en Premià",
-      "descripcion": "Maniobra muy delicada al tratarse de una embarcación antigua de madera que se hundió por completo a varios metros de la orilla, con lo cual añadía unos riesgos que precisaron de un estudio previo por parte de nuestro equipo técnico. El peso a izar se calculó en 150 toneladas, y se tuvieron que utilizar 2 grúas de grandes dimensiones para realizar la extracción con máximas garantías. Nuestras grúas Liebherr LTM 1500 – 8.1 equipada con 165 ton de contrapesos, y Liebherr LTM 1400 – 7.1 equipada con 140 ton de contrapesos ocuparon parte del protagonismo en dicho rescate. Además, se requirieron horas de trabajos previos con buzos especialistas encargados del balizado y enganche de la embarcación. Para satisfacción de todos los implicados la operación fue un éxito. Orgullosos como siempre de nuestro equipo humano, que dirigido por nuestro técnico curtido en mil batallas pudo añadir una hazaña más a nuestra larga trayectoria en el sector.",
+      "descripcion": "Maniobra muy delicada al tratarse de una embarcación antigua de madera que se hundió por completo a varios metros de la orilla, con lo cual añadía unos riesgos que precisaron de un estudio previo por parte de nuestro equipo técnico. El peso a izar se calculó en 150 toneladas, y se tuvieron que utilizar 2 grúas de grandes dimensiones para realizar la extracción con máximas garantías. Nuestras grúas Liebherr LTM 1500 - 8.1 equipada con 165 ton de contrapesos, y Liebherr LTM 1400 - 7.1 equipada con 140 ton de contrapesos ocuparon parte del protagonismo en dicho rescate. Además, se requirieron horas de trabajos previos con buzos especialistas encargados del balizado y enganche de la embarcación. Para satisfacción de todos los implicados la operación fue un éxito. Orgullosos como siempre de nuestro equipo humano, que dirigido por nuestro técnico curtido en mil batallas pudo añadir una hazaña más a nuestra larga trayectoria en el sector.",
       "imagenes": [],
       "href": "main.asp?pagina=pdetall&pdetall=3369"
     },

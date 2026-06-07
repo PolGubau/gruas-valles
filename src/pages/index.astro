@@ -1,15 +1,15 @@
 ---
-import Base from "../layouts/Base.astro";
-import Navbar from "../components/ui/Navbar.astro";
-import Footer from "../components/ui/Footer.astro";
-import Hero from "../components/sections/Hero.astro";
+import ContactoSection from "../components/sections/ContactoSection.astro";
 import Flota from "../components/sections/Flota.astro";
-import Servicios from "../components/sections/Servicios.astro";
+import GaleriaGrid from "../components/sections/GaleriaGrid.astro";
+import Hero from "../components/sections/Hero.astro";
 import Maniobras from "../components/sections/Maniobras.astro";
-import Galeria from "../components/sections/Galeria.astro";
 import Nosotros from "../components/sections/Nosotros.astro";
-import Contacto from "../components/sections/Contacto.astro";
+import ServiciosGrid from "../components/sections/ServiciosGrid.astro";
 import Testimonials from "../components/sections/Testimonials.astro";
+import Footer from "../components/ui/Footer.astro";
+import Navbar from "../components/ui/Navbar.astro";
+import Base from "../layouts/Base.astro";
 ---
 
 <Base>
@@ -17,12 +17,12 @@ import Testimonials from "../components/sections/Testimonials.astro";
   <main id="main">
     <Hero />
     <Flota />
-    <Servicios />
+    <ServiciosGrid />
     <Maniobras />
-    <Galeria />
+    <GaleriaGrid />
     <Nosotros />
     <Testimonials />
-    <Contacto />
+    <ContactoSection />
   </main>
   <Footer />
 </Base>

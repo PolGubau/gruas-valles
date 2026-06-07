@@ -7,21 +7,17 @@ interface Crumb {
 }
 
 interface Props {
-  eyebrow?: string;
-  title: string;
+   title: string;
   lede?: string;
   crumbs: Crumb[];
 }
 
-const { eyebrow, title, lede, crumbs } = Astro.props;
+const { title, lede, crumbs } = Astro.props;
 ---
 
 <section class="border-b border-muted/40 bg-surface-alt">
   <div class="container-wide py-12 lg:py-16">
     <Breadcrumb items={crumbs} class="mb-8" />
-    {eyebrow && (
-      <p class="eyebrow"><span class="h-px w-8 bg-accent"></span>{eyebrow}</p>
-    )}
     <h1 class="max-w-3xl text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">
       {title}
     </h1>

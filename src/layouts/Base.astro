@@ -1,6 +1,8 @@
 ---
+import { Font } from "astro:assets";
 import SEO from "../components/seo/SEO.astro";
 import FloatCTA from "../components/ui/FloatCTA.astro";
+import WhatsAppFAB from "../components/ui/WhatsAppFAB.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -42,13 +44,8 @@ const {
       schema={schema}
     />
 
-    <!-- Inter font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-    />
+    <!-- Plus Jakarta Sans — self-hosted via Astro experimental fonts -->
+    <Font cssVariable="--font-jakarta" preload />
   </head>
   <body>
     <a
@@ -59,6 +56,7 @@ const {
     </a>
     <slot />
     <FloatCTA />
+    <WhatsAppFAB />
 
     <script>
       // Reveal elements as they enter the viewport (one-shot per element).

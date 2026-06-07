@@ -1,0 +1,67 @@
+---
+import { Icon } from "astro-icon/components";
+import CtaBand from "../../components/ui/CtaBand.astro";
+import PageHero from "../../components/ui/PageHero.astro";
+import localidades from "../../data/localidades.json";
+import Page from "../../layouts/Page.astro";
+import { collectionPageSchema } from "../../lib/schema";
+
+const description =
+  "Alquiler de grúas móviles autopropulsadas y transportes especiales en Granollers, el Vallès, Barcelona y comarcas colindantes. Consulta nuestra cobertura por localidad.";
+
+const schema = collectionPageSchema(
+  {
+    name: "Alquiler de grúas por localidad",
+    description,
+    url: "/alquiler-gruas",
+    items: localidades.map((l) => ({
+      name: `Alquiler de grúas en ${l.nombre}`,
+      url: `/alquiler-gruas/${l.slug}`,
+    })),
+  },
+  Astro.site,
+);
+---
+
+<Page
+  title="Alquiler de grúas por localidad | Grúas del Vallès"
+  description={description}
+  schema={schema}
+>
+  <PageHero
+    title="Alquiler de grúas por localidad"
+    lede="Desplazamos grúas de 40 a 500 Tn y transportes especiales a toda Cataluña desde nuestra base de Granollers. Consulta nuestra cobertura por municipio."
+    crumbs={[{ label: "Inicio", href: "/" }, { label: "Alquiler de grúas" }]}
+  />
+
+  <section class="section-padding bg-surface">
+    <div class="container-wide">
+      <ul class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3">
+        {
+          localidades.map((l) => (
+            <li>
+              <a
+                href={`/alquiler-gruas/${l.slug}`}
+                class="group flex h-full flex-col bg-surface p-6 transition-colors hover:bg-surface-alt"
+              >
+                <span class="mb-1 text-xs uppercase tracking-wider text-accent">
+                  {l.comarca}
+                </span>
+                <span class="flex items-center justify-between text-lg font-bold">
+                  Grúas en {l.nombre}
+                  <Icon
+                    name="lucide:arrow-right"
+                    class="h-4 w-4 text-accent transition-transform group-hover:translate-x-0.5"
+                    aria-hidden="true"
+                  />
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand />
+</Page>

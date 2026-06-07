@@ -2,8 +2,11 @@
   {
     "id": 3369,
     "titulo": "Rescate embarcación accidentada en Premià",
-    "descripcion": "Maniobra muy delicada al tratarse de una embarcación antigua de madera que se hundió por completo a varios metros de la orilla, con lo cual añadía unos riesgos que precisaron de un estudio previo por parte de nuestro equipo técnico. El peso a izar se calculó en 150 toneladas, y se tuvieron que utilizar 2 grúas de grandes dimensiones para realizar la extracción con máximas garantías. Nuestras grúas Liebherr LTM 1500 – 8.1 equipada con 165 ton de contrapesos, y Liebherr LTM 1400 – 7.1 equipada con 140 ton de contrapesos ocuparon parte del protagonismo en dicho rescate. Además, se requirieron horas de trabajos previos con buzos especialistas encargados del balizado y enganche de la embarcación. Para satisfacción de todos los implicados la operación fue un éxito.",
-    "gruas_utilizadas": ["LIEBHERR LTM 1500-8.1 (165 t contrapesos)", "LIEBHERR LTM 1400-7.1 (140 t contrapesos)"],
+    "descripcion": "Maniobra muy delicada al tratarse de una embarcación antigua de madera que se hundió por completo a varios metros de la orilla, con lo cual añadía unos riesgos que precisaron de un estudio previo por parte de nuestro equipo técnico. El peso a izar se calculó en 150 toneladas, y se tuvieron que utilizar 2 grúas de grandes dimensiones para realizar la extracción con máximas garantías. Nuestras grúas Liebherr LTM 1500 - 8.1 equipada con 165 ton de contrapesos, y Liebherr LTM 1400 - 7.1 equipada con 140 ton de contrapesos ocuparon parte del protagonismo en dicho rescate. Además, se requirieron horas de trabajos previos con buzos especialistas encargados del balizado y enganche de la embarcación. Para satisfacción de todos los implicados la operación fue un éxito.",
+    "gruas_utilizadas": [
+      "LIEBHERR LTM 1500-8.1 (165 t contrapesos)",
+      "LIEBHERR LTM 1400-7.1 (140 t contrapesos)"
+    ],
     "imagenes": [],
     "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3369"
   },
@@ -18,7 +21,9 @@
     "id": 3362,
     "titulo": "Subiendo equipos en el Hospital de Granollers",
     "descripcion": "Nuestra empresa participa en la instalación de nuevos equipos de aire en el Hospital de Granollers, con el izado de 3 unidades modernas que ha aportado nuestro cliente para la adecuación del complejo. En esta ocasión hemos utilizado nuestra grúa Liebherr LTM 1090 4.2 para izar los equipos.",
-    "gruas_utilizadas": ["LIEBHERR LTM 1090-4.2"],
+    "gruas_utilizadas": [
+      "LIEBHERR LTM 1090-4.2"
+    ],
     "imagenes": [],
     "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3362"
   },
@@ -26,7 +31,9 @@
     "id": 3359,
     "titulo": "Montaje de grúa torre a 88 metros de altura",
     "descripcion": "Maniobra de ejemplo en trabajo de montaje de grúa torre a 88 metros de altura con nuestra grúa LTM 1350, equipada con 120 toneladas de contrapesos y 30 metros de plumín fijo.",
-    "gruas_utilizadas": ["LIEBHERR LTM 1350 (120 t contrapesos, 30 m plumín fijo)"],
+    "gruas_utilizadas": [
+      "LIEBHERR LTM 1350 (120 t contrapesos, 30 m plumín fijo)"
+    ],
     "imagenes": [],
     "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3359"
   },
