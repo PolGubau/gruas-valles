@@ -1,7 +1,7 @@
 ---
+import { Icon } from "astro-icon/components";
 import servicios from "../../data/servicios.json";
 import Section from "../ui/Section.astro";
-import { Icon } from "astro-icon/components";
 
 const iconos: string[] = [
   "lucide:building-2",
@@ -21,6 +21,44 @@ const iconos: string[] = [
   bg="white"
   title="Todo lo que necesitas en una sola empresa"
 >
+  <!-- Featured Categories -->
+  <div class="mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      servicios.categorias.map((cat: any) => (
+        <a
+          href={`/servicios/${cat.slug}`}
+          class="group relative flex flex-col bg-surface-alt p-8 transition-all hover:bg-white hover:shadow-xl"
+        >
+          <div class="mb-6 flex h-12 w-12 items-center justify-center bg-white text-accent shadow-sm group-hover:bg-accent group-hover:text-white transition-colors">
+            <Icon name="lucide:arrow-up-right" class="h-6 w-6" />
+          </div>
+          <h3 class="mb-3 text-lg font-black leading-tight group-hover:text-accent transition-colors">
+            {cat.titulo}
+          </h3>
+          <p class="text-xs leading-relaxed text-ink-secondary line-clamp-3">
+            {cat.descripcion}
+          </p>
+          <span class="mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-accent">
+            Ver detalles{" "}
+            <Icon
+              name="lucide:move-right"
+              class="h-3 w-3 transition-transform group-hover:translate-x-1"
+            />
+          </span>
+        </a>
+      ))
+    }
+  </div>
+
+  <div class="mb-8 flex items-center gap-4">
+    <div class="h-px flex-1 bg-muted"></div>
+    <span
+      class="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-dark"
+      >Otros servicios especializados</span
+    >
+    <div class="h-px flex-1 bg-muted"></div>
+  </div>
+
   <!-- Grid de servicios principales -->
   <div class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3" data-reveal>
     {

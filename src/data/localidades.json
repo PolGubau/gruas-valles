@@ -68,5 +68,26 @@
     "comarca": "Osona",
     "intro": "Desplazamos grúas móviles y transportes especiales a Vic y la comarca de Osona para montaje de naves, estructuras metálicas y colocación de maquinaria industrial, con cobertura de emergencia 24/365.",
     "accesos": "C-17"
+  },
+  {
+    "slug": "barbera-del-valles",
+    "nombre": "Barberà del Vallès",
+    "comarca": "Vallès Occidental",
+    "intro": "Servicios de elevación y alquiler de grúas en Barberà del Vallès. Atendemos con rapidez los polígonos industriales de Santiga y Can Salvatella, gestionando permisos y ocupación de vía rápidamente.",
+    "accesos": "AP-7 y C-58"
+  },
+  {
+    "slug": "polinya",
+    "nombre": "Polinyà",
+    "comarca": "Vallès Occidental",
+    "intro": "Alquiler de grúas autopropulsadas en Polinyà para montajes industriales y transportes especiales. Cobertura inmediata para empresas del sector metalúrgico y logístico de la zona.",
+    "accesos": "AP-7 y B-142"
+  },
+  {
+    "slug": "les-franqueses-del-valles",
+    "nombre": "Les Franqueses del Vallès",
+    "comarca": "Vallès Oriental",
+    "intro": "Damos soporte técnico y grúas de gran tonelaje en Les Franqueses del Vallès. Especialistas en maniobras de precisión para la industria local y montajes de estructuras.",
+    "accesos": "C-17 y C-352"
   }
 ]

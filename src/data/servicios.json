@@ -1,4 +1,50 @@
 {
+  "categorias": [
+    {
+      "slug": "gruas-moviles-autopropulsadas",
+      "titulo": "Alquiler de grúas móviles autopropulsadas",
+      "descripcion": "Flota propia de grúas de 40 a 500 toneladas para todo tipo de maniobras de elevación. Grúas todo terreno, grúas compactas y grúas de celosía para proyectos industriales y de construcción.",
+      "detalles": [
+        "Capacidades desde 40 hasta 500 toneladas",
+        "Maquinaria de última generación (Liebherr, Grove, Demag)",
+        "Operarios altamente cualificados y certificados",
+        "Servicio de emergencia 24/7 disponible"
+      ]
+    },
+    {
+      "slug": "transportes-especiales",
+      "titulo": "Transportes especiales",
+      "descripcion": "Especialistas en el transporte de mercancías que superan las medidas y pesos legales. Gestión integral de permisos y coches piloto para traslados en toda la península.",
+      "detalles": [
+        "Góndolas y plataformas de gran capacidad",
+        "Gestión de permisos especiales de circulación",
+        "Servicio de coche piloto propio",
+        "Transporte de maquinaria, depósitos y estructuras"
+      ]
+    },
+    {
+      "slug": "montaje-estructuras-prefabricado",
+      "titulo": "Montaje de estructuras de prefabricado",
+      "descripcion": "Líderes en el montaje de naves, puentes y viaductos mediante elementos prefabricados de hormigón. Coordinamos la logística y la elevación de piezas de gran tonelaje.",
+      "detalles": [
+        "Montaje integral de naves industriales",
+        "Colocación de jácenas, pilares y paneles",
+        "Especialistas en obra civil (viaductos y pasos elevados)",
+        "Seguridad garantizada con planes de prevención específicos"
+      ]
+    },
+    {
+      "slug": "ingenieria-de-maniobra",
+      "titulo": "Departamento de estudios e ingeniería",
+      "descripcion": "Planificación técnica avanzada de cada izado. Utilizamos software CAD/CAM y modelos 3D para garantizar la viabilidad y seguridad de las maniobras más complejas.",
+      "detalles": [
+        "Estudios de maniobra en 2D y 3D",
+        "Simulación de cargas y radios de acción",
+        "Visitas técnicas preventivas a la ubicación",
+        "Informes de riesgos y planes de seguridad personalizados"
+      ]
+    }
+  ],
   "principales": [
     "Alquiler de grúas móviles autopropulsadas (de 40 a 500 Tn) y camiones grúa auto-cargante hasta 96 Tn, trailers y otros transportes",
     "Alquiler de transportes especiales (cargas que superan las medidas genéricas legales)",
@@ -23,11 +69,29 @@
     "Dirección y ejecución del montaje con técnicos y operarios especializados"
   ],
   "sectores": [
-    "Industria química", "Industria farmacéutica", "Industria naval", "Industria de automoción",
-    "Industria de alimentación", "Jardinería y medio ambiente", "Distribución y logística",
-    "Ingenierías industriales", "Estaciones aeroportuarias", "Constructoras", "Empresas de prefabricados",
-    "Montaje de estructuras metálicas", "Eléctricas", "Cementeras", "Siderúrgicas", "Talleres mecánicos",
-    "Casas modulares", "Empresas de clima, gas y renovables", "Centros deportivos", "Organismos oficiales",
-    "Actos y spots publicitarios", "Organización de eventos", "Demolición y derribo", "Particulares"
+    "Industria química",
+    "Industria farmacéutica",
+    "Industria naval",
+    "Industria de automoción",
+    "Industria de alimentación",
+    "Jardinería y medio ambiente",
+    "Distribución y logística",
+    "Ingenierías industriales",
+    "Estaciones aeroportuarias",
+    "Constructoras",
+    "Empresas de prefabricados",
+    "Montaje de estructuras metálicas",
+    "Eléctricas",
+    "Cementeras",
+    "Siderúrgicas",
+    "Talleres mecánicos",
+    "Casas modulares",
+    "Empresas de clima, gas y renovables",
+    "Centros deportivos",
+    "Organismos oficiales",
+    "Actos y spots publicitarios",
+    "Organización de eventos",
+    "Demolición y derribo",
+    "Particulares"
   ]
 }

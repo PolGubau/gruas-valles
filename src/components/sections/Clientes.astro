@@ -1,0 +1,148 @@
+---
+// Carrusel (marquee) de logos de clientes — prueba social para mejorar conversión.
+// Los SVG de src/assets/logos se cargan automáticamente; basta con añadir nuevos
+// archivos a esa carpeta para que aparezcan aquí.
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  /** Fondo de la sección, alineado con el sistema de Section.astro. */
+  bg?: "white" | "alt";
+  /** Título visible. Si es null, solo se muestra para lectores de pantalla. */
+  title?: string;
+}
+
+const { bg = "white", title = "Empresas que confían en nosotros" } =
+  Astro.props;
+
+const surface = bg === "alt" ? "bg-surface-alt" : "bg-surface";
+
+// Nombres legibles por slug de archivo (para alt e indexación SEO).
+const NOMBRES: Record<string, string> = {
+  acciona: "Acciona",
+  "el-corte-ingles": "El Corte Inglés",
+  "elecnor-vector": "Elecnor",
+  grifols: "Grifols",
+  henkel: "Henkel",
+  mango: "Mango",
+  mercadona: "Mercadona",
+};
+
+const modules = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/logos/*.svg",
+  { eager: true },
+);
+
+const logos = Object.entries(modules)
+  .map(([path, mod]) => {
+    const file = path.split("/").pop() ?? path;
+    const slug = file.replace(/\.svg$/, "");
+    return { src: mod.default.src, nombre: NOMBRES[slug] ?? slug };
+  })
+  .sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
+
+// Duplicamos la lista para lograr el bucle infinito sin saltos.
+const track = [...logos, ...logos];
+---
+
+<section class={`section-padding ${surface}`} aria-labelledby="clientes-title">
+  <div class="container-wide">
+    <h2
+      id="clientes-title"
+      class="mb-10 text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-dark sm:mb-12"
+      data-reveal
+    >
+      {title}
+    </h2>
+  </div>
+
+  <div class="logos-marquee group relative" data-reveal data-reveal-delay="1">
+    <ul class="logos-track flex w-max items-center">
+      {
+        track.map((logo, i) => (
+          <li
+            class="flex h-12 w-40 shrink-0 items-center justify-center px-4 sm:w-48"
+            aria-hidden={i >= logos.length ? "true" : undefined}
+          >
+            <img
+              src={logo.src}
+              alt={i < logos.length ? `Logo de ${logo.nombre}` : ""}
+              width="160"
+              height="48"
+              loading="lazy"
+              decoding="async"
+              class="logo-img max-h-9 w-auto max-w-full object-contain"
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .logos-marquee {
+    overflow: hidden;
+    /* Difuminado en los bordes para una entrada/salida limpia. */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+  }
+
+  .logos-track {
+    animation: logos-scroll 38s linear infinite;
+  }
+
+  /* Pausa al pasar el ratón para permitir leer cada marca. */
+  .logos-marquee:hover .logos-track {
+    animation-play-state: paused;
+  }
+
+  .logo-img {
+    filter: grayscale(100%);
+    opacity: 0.55;
+    transition:
+      filter 0.3s var(--ease-out-quart),
+      opacity 0.3s var(--ease-out-quart);
+  }
+  .logo-img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+
+  @keyframes logos-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      /* Se desplaza exactamente una copia de la lista. */
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logos-track {
+      animation: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+    /* Sin animación no necesitamos la copia duplicada del bucle. */
+    .logos-track > [aria-hidden="true"] {
+      display: none;
+    }
+    .logo-img {
+      opacity: 0.7;
+    }
+  }
+</style>
