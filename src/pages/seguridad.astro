@@ -1,0 +1,136 @@
+---
+import { Icon } from "astro-icon/components";
+import reaPdf from "../assets/docs/certificado_rea.pdf";
+import dunsPdf from "../assets/docs/duns.pdf";
+import CtaBand from "../components/ui/CtaBand.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import Page from "../layouts/Page.astro";
+
+const certificaciones = [
+  {
+    icon: "lucide:shield-check",
+    titulo: "REIC · Empresa conservadora",
+    subtitulo: "Nº 08/157.364 — desde 1997",
+    descripcion:
+      "Grúas del Vallès se estableció como Empresa Conservadora o Auto-mantenedora de Grúas Autopropulsadas según el RECGA 12/06/1997, garantizando que toda la flota supera todas las inspecciones técnicas obligatorias.",
+    pdf: null,
+  },
+  {
+    icon: "lucide:building-2",
+    titulo: "REA · Registro Empresas Acreditadas",
+    subtitulo: "Nº 0900006812 — desde 2008 · renovado 08/08/2011",
+    descripcion:
+      "Acreditación que homologa a Grúas del Vallès para intervenir en cualquier proceso de contratación o subcontratación dentro del sector de la construcción.",
+    pdf: reaPdf,
+  },
+  {
+    icon: "lucide:lock",
+    titulo: "LOPD · Protección de datos",
+    subtitulo: "L.O. 15/1999, de 13 de diciembre — adaptación en 2010",
+    descripcion:
+      "En cumplimiento de los artículos 5 y 6 de la Ley Orgánica 15/1999, Grúas del Vallès S.A. se adaptó a la Ley Orgánica de Protección de Datos (LOPD).",
+    pdf: null,
+  },
+  {
+    icon: "lucide:badge-check",
+    titulo: "DUNS · Solvencia empresarial",
+    subtitulo: "Dun & Bradstreet — acreditación internacional",
+    descripcion:
+      "Certificado DUNS (Data Universal Numbering System) que acredita la solvencia e identidad empresarial de Grúas del Vallès ante clientes y organismos internacionales.",
+    pdf: dunsPdf,
+  },
+  {
+    icon: "lucide:wrench",
+    titulo: "Taller mecánico propio",
+    subtitulo: "Mantenimiento preventivo y correctivo",
+    descripcion:
+      "Disponemos de taller mecánico propio para garantizar que toda la flota se mantiene en perfecto estado y condiciones de funcionamiento en todo momento.",
+    pdf: null,
+  },
+];
+---
+
+<Page
+  title="Seguridad | Grúas del Vallès"
+  description="La seguridad es primordial en cada trabajo. Conoce nuestras certificaciones REIC, REA y LOPD que garantizan las máximas garantías en cada maniobra."
+>
+  <PageHero
+    title="La seguridad, en el centro de cada maniobra"
+    lede="Desde los inicios de nuestra actividad, la seguridad rige la política de empresa. Toda la flota pasa las inspecciones técnicas obligatorias y disponemos de taller mecánico propio."
+    crumbs={[{ label: "Inicio", href: "/" }, { label: "Seguridad" }]}
+  />
+
+  <!-- Intro -->
+  <section class="section-padding bg-surface">
+    <div class="container-wide max-w-3xl">
+      <p class="eyebrow">
+        <span class="h-px w-8 bg-accent"></span>Nuestra política
+      </p>
+      <h2 class="mb-6 text-2xl font-black sm:text-3xl">
+        Seguridad como principio, no como trámite
+      </h2>
+      <p class="leading-relaxed text-ink-secondary">
+        La seguridad en cada uno de los trabajos que realizamos es primordial y
+        rige nuestra política de empresa desde los inicios de nuestra incursión
+        en el sector de las grúas móviles autopropulsadas. Es por este motivo
+        por el que hemos obtenido y mantenido todas las acreditaciones
+        sectoriales pertinentes, operando con plenas garantías legales y
+        técnicas para nuestros clientes.
+      </p>
+    </div>
+  </section>
+
+  <!-- Certificaciones -->
+  <section class="section-padding bg-surface-alt">
+    <div class="container-wide">
+      <div class="mb-12 max-w-2xl">
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Acreditaciones y certificados
+        </p>
+        <h2 class="text-3xl font-black leading-tight sm:text-4xl">
+          Todas las garantías, verificadas
+        </h2>
+      </div>
+
+      <div class="grid gap-px bg-muted sm:grid-cols-2">
+        {
+          certificaciones.map((c) => (
+            <div class="flex flex-col gap-4 bg-surface p-8">
+              <Icon
+                name={c.icon}
+                class="h-8 w-8 text-accent"
+                aria-hidden="true"
+              />
+              <div>
+                <h3 class="text-lg font-bold">{c.titulo}</h3>
+                <p class="mt-0.5 text-xs font-medium uppercase tracking-wider text-accent">
+                  {c.subtitulo}
+                </p>
+              </div>
+              <p class="flex-1 text-sm leading-relaxed text-ink-secondary">
+                {c.descripcion}
+              </p>
+              {c.pdf && (
+                <a
+                  href={c.pdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:underline"
+                >
+                  <Icon
+                    name="lucide:download"
+                    class="h-4 w-4"
+                    aria-hidden="true"
+                  />
+                  Descargar PDF
+                </a>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Page>

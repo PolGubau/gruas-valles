@@ -48,7 +48,7 @@ const track = [...logos, ...logos];
   <div class="container-wide">
     <h2
       id="clientes-title"
-      class="mb-10 text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-dark sm:mb-12"
+      class="mb-10 text-center text-xs font-semibold uppercase tracking-wider text-muted-dark sm:mb-12"
       data-reveal
     >
       {title}
@@ -60,17 +60,17 @@ const track = [...logos, ...logos];
       {
         track.map((logo, i) => (
           <li
-            class="flex h-12 w-40 shrink-0 items-center justify-center px-4 sm:w-48"
+            class="flex h-16 w-40 shrink-0 items-center justify-center px-6 sm:w-52"
             aria-hidden={i >= logos.length ? "true" : undefined}
           >
             <img
               src={logo.src}
               alt={i < logos.length ? `Logo de ${logo.nombre}` : ""}
               width="160"
-              height="48"
+              height="64"
               loading="lazy"
               decoding="async"
-              class="logo-img max-h-9 w-auto max-w-full object-contain"
+              class="logo-img max-h-12 w-auto max-w-28 object-contain"
             />
           </li>
         ))

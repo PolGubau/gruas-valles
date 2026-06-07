@@ -1,6 +1,6 @@
 ---
-import nosotros from "../../data/nosotros.json";
 import { Icon } from "astro-icon/components";
+import nosotros from "../../data/nosotros.json";
 ---
 
 <section id="nosotros" class="section-padding bg-ink text-white">
@@ -9,7 +9,7 @@ import { Icon } from "astro-icon/components";
       <!-- Left: quiénes somos -->
       <div class="lg:sticky lg:top-32">
         <p
-          class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent"
+          class="mb-2 text-xs font-semibold uppercase tracking-wider text-accent"
         >
           Quiénes somos
         </p>
@@ -17,10 +17,17 @@ import { Icon } from "astro-icon/components";
           Más de 55 años<br />
           <span class="text-accent">moviendo lo imposible</span>
         </h2>
+        <p class="mb-6 text-muted leading-relaxed max-w-md">
+          A finales de los años 60 nace Grúas del Vallés, fundada por {
+            nosotros.fundador
+          }. Con la voluntad de dar servicio a una necesidad creciente en el
+          sector, la empresa se expandió rápidamente adaptándose a la constante
+          evolución del mercado.
+        </p>
         <p class="mb-8 text-muted leading-relaxed max-w-md">
-          Fundados en {nosotros.fundacion} por {nosotros.fundador}, somos la
-          referencia en alquiler de grúas industriales en Cataluña. Con sede en
-          Granollers, a dos minutos del Circuit de Montmeló.
+          Hoy somos una de las empresas líderes en alquiler de maquinaria de
+          elevación en Catalunya, brindando asistencia personalizada a cada uno
+          de nuestros clientes desde nuestras instalaciones en Granollers.
         </p>
 
         <!-- Por qué elegirnos -->
@@ -59,7 +66,7 @@ import { Icon } from "astro-icon/components";
       <!-- Right: Timeline -->
       <div class="relative py-4">
         <p
-          class="mb-10 text-xs font-semibold uppercase tracking-[0.2em] text-muted-dark lg:text-right"
+          class="mb-10 text-xs font-semibold uppercase tracking-wider text-muted-dark lg:text-right"
         >
           Nuestra historia
         </p>

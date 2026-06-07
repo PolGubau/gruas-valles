@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 
 interface Props {
   eyebrow?: string;
@@ -9,17 +9,21 @@ interface Props {
 }
 
 const {
-  eyebrow = 'Presupuesto sin compromiso',
-  title = '¿Tiene una maniobra entre manos?',
-  text = 'Nuestro equipo técnico estudia su proyecto y le responde en menos de 24 horas con una propuesta detallada.',
-  class: extra = '',
+  eyebrow = "Presupuesto sin compromiso",
+  title = "¿Tiene una maniobra entre manos?",
+  text = "Nuestro equipo técnico estudia su proyecto y le responde en menos de 24 horas con una propuesta detallada.",
+  class: extra = "",
 } = Astro.props;
 ---
 
 <section class={`bg-accent text-white ${extra}`}>
-  <div class="container-wide flex flex-col gap-8 py-16 lg:flex-row lg:items-center lg:justify-between lg:py-20">
+  <div
+    class="container-wide flex flex-col gap-8 py-16 lg:flex-row lg:items-center lg:justify-between lg:py-20"
+  >
     <div class="max-w-2xl">
-      <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+      <p
+        class="mb-2 text-xs font-semibold uppercase tracking-wider text-white/70"
+      >
         {eyebrow}
       </p>
       <h2 class="text-3xl font-black leading-tight sm:text-4xl">{title}</h2>
@@ -31,7 +35,12 @@ const {
         href="/contacto"
         class="btn btn-md justify-center bg-white text-accent hover:bg-ink hover:text-white"
       >
-        <Icon name="lucide:file-text" width={18} height={18} aria-hidden="true" />
+        <Icon
+          name="lucide:file-text"
+          width={18}
+          height={18}
+          aria-hidden="true"
+        />
         Solicitar presupuesto
       </a>
       <a

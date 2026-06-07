@@ -17,7 +17,7 @@
 	/* Typography */
 	--font-sans: var(--font-jakarta), system-ui, -apple-system, sans-serif;
 
-	/* Radii — squared-off industrial language, soft only where it helps */
+	/* Radii - squared-off industrial language, soft only where it helps */
 	--radius-none: 0px;
 	--radius-sm: 2px;
 	--radius: 4px;
@@ -92,10 +92,10 @@
 
 	/* Section heading eyebrow */
 	.eyebrow {
-		@apply mb-2 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent;
+		@apply mb-2 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-accent;
 	}
 
-	/* Surface card — hairline border, restrained lift on hover */
+	/* Surface card - hairline border, restrained lift on hover */
 	.surface-card {
 		@apply relative bg-surface transition-[transform,box-shadow,border-color] duration-300;
 	}
@@ -122,7 +122,7 @@
 		clip: rect(0, 0, 0, 0);
 	}
 
-	/* Scroll-reveal — only active once JS adds `.reveal` to <html>,
+	/* Scroll-reveal - only active once JS adds `.reveal` to <html>,
      so content is never hidden if scripting fails. */
 	.reveal [data-reveal] {
 		opacity: 0;

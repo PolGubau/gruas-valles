@@ -1,6 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
+import Clientes from "../components/sections/Clientes.astro";
 import ContactoSection from "../components/sections/ContactoSection.astro";
+import DondeEstamos from "../components/sections/DondeEstamos.astro";
 import PageHero from "../components/ui/PageHero.astro";
 import contacto from "../data/contacto.json";
 import Page from "../layouts/Page.astro";
@@ -140,6 +142,9 @@ const schema = [
     </div>
   </section>
 
+  <!-- Prueba social: empresas que confían en nosotros -->
+  <Clientes bg="alt" />
+
   <!-- Acciones rápidas de contacto -->
   <section class="section-padding pb-0">
     <div class="container-wide">
@@ -212,6 +217,9 @@ const schema = [
       </div>
     </div>
   </section>
+
+  <!-- Dónde estamos (Nueva sección con copy antiguo) -->
+  <DondeEstamos />
 
   <!-- Formulario + info (sección reutilizada) -->
   <ContactoSection />

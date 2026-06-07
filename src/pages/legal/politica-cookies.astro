@@ -1,10 +1,12 @@
 ---
+import contacto from "../../data/contacto.json";
 import Legal from "../../layouts/Legal.astro";
 ---
 
 <Legal
   title="Política de cookies"
   description="Información sobre el uso de cookies en el sitio web de Grúas del Vallès, S.A."
+  updated="7 de junio de 2026"
 >
   <h2>1. ¿Qué son las cookies?</h2>
   <p>
@@ -13,24 +15,105 @@ import Legal from "../../layouts/Legal.astro";
     visita.
   </p>
 
-  <h2>2. Tipos de cookies que utilizamos</h2>
-  <p class="placeholder">
-    [Pendiente de contenido - clasificación de cookies: técnicas, analíticas, de
-    personalización y publicitarias.]
+  <h2>2. ¿Por qué utilizamos cookies en este sitio?</h2>
+  <p>
+    Este sitio web es una página estática de carácter informativo. <strong
+      >No utilizamos cookies propias de análisis, personalización ni publicidad</strong
+    >, ni elaboramos perfiles de las personas usuarias. Las tipografías se
+    sirven desde nuestro propio servidor, por lo que tampoco generan cookies de
+    terceros.
+  </p>
+  <p>
+    Las únicas cookies que pueden instalarse son cookies de terceros procedentes
+    del mapa de <strong>Google Maps</strong> que mostramos en las páginas de <a
+      href="/contacto">Contacto</a
+    > y <a href="/nosotros">Nosotros</a>, y que solo se cargan al visitar dichas
+    páginas.
   </p>
 
-  <h2>3. Cookies utilizadas en este sitio</h2>
-  <p class="placeholder">
-    [Pendiente de contenido - tabla con nombre, proveedor, finalidad y caducidad
-    de cada cookie.]
+  <h2>3. Tipos de cookies</h2>
+  <p>
+    Con carácter general, las cookies pueden clasificarse de la siguiente forma:
+  </p>
+  <ul>
+    <li>
+      <strong>Según su duración:</strong> cookies de sesión (se eliminan al cerrar
+      el navegador) y cookies persistentes (permanecen durante un período de tiempo
+      determinado).
+    </li>
+    <li>
+      <strong>Según su titularidad:</strong> cookies propias (gestionadas por el editor
+      del sitio) y cookies de terceros (gestionadas por una entidad ajena, como Google).
+    </li>
+    <li>
+      <strong>Según su finalidad:</strong> cookies técnicas, de personalización, de
+      análisis y publicitarias.
+    </li>
+  </ul>
+
+  <h2>4. Cookies utilizadas en este sitio</h2>
+  <p>
+    Este sitio <strong>no instala cookies propias</strong>. Las únicas cookies
+    que pueden almacenarse en su dispositivo son cookies de terceros que Google
+    instala al cargar el mapa de Google Maps incrustado en las páginas de
+    Contacto y Nosotros:
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Cookie</th>
+        <th>Titular / Dominio</th>
+        <th>Finalidad</th>
+        <th>Caducidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>NID</td>
+        <td>Google (.google.com)</td>
+        <td>
+          Almacena las preferencias de la persona usuaria (como el idioma) para
+          personalizar los servicios y mapas de Google.
+        </td>
+        <td>6 meses</td>
+      </tr>
+      <tr>
+        <td>CONSENT</td>
+        <td>Google (.google.com)</td>
+        <td>
+          Registra el estado del consentimiento respecto a los servicios de
+          Google mostrados en la página.
+        </td>
+        <td>Persistente (hasta 2 años)</td>
+      </tr>
+      <tr>
+        <td>SOCS</td>
+        <td>Google (.google.com)</td>
+        <td>
+          Almacena el estado de la sesión y las preferencias de consentimiento
+          en los servicios de Google.
+        </td>
+        <td>13 meses</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    Grúas del Vallès no controla la instalación ni la duración de estas cookies,
+    ya que son gestionadas por Google como tercero. Los nombres y plazos pueden
+    variar según las actualizaciones de Google.
   </p>
 
-  <h2>4. Consentimiento</h2>
-  <p class="placeholder">
-    [Pendiente de contenido - cómo se obtiene y gestiona el consentimiento.]
+  <h2>5. Consentimiento</h2>
+  <p>
+    Dado que el sitio no instala cookies propias de análisis ni publicitarias,
+    no se muestra un panel de configuración de cookies. Las cookies de terceros
+    de Google Maps únicamente se cargan en las páginas que incluyen el mapa. Si
+    no desea que se instalen, puede no acceder a dichas páginas o bloquear las
+    cookies de terceros desde la configuración de su navegador, tal y como se
+    indica en el apartado siguiente.
   </p>
 
-  <h2>5. Cómo gestionar o desactivar las cookies</h2>
+  <h2>6. Cómo gestionar o desactivar las cookies</h2>
   <p>
     Puede configurar o deshabilitar las cookies desde las opciones de su
     navegador. A continuación se enlazan las instrucciones de los navegadores
@@ -41,25 +124,71 @@ import Legal from "../../layouts/Legal.astro";
       <a
         href="https://support.google.com/chrome/answer/95647"
         rel="noopener"
-        target="_blank">Google Chrome</a>
+        target="_blank">Google Chrome</a
+      >
     </li>
     <li>
       <a
         href="https://support.mozilla.org/es/kb/Borrar%20cookies"
         rel="noopener"
-        target="_blank">Mozilla Firefox</a>
+        target="_blank">Mozilla Firefox</a
+      >
     </li>
     <li>
       <a
         href="https://support.apple.com/es-es/guide/safari/sfri11471/mac"
         rel="noopener"
-        target="_blank">Safari</a>
+        target="_blank">Safari</a
+      >
     </li>
     <li>
       <a
         href="https://support.microsoft.com/es-es/microsoft-edge"
         rel="noopener"
-        target="_blank">Microsoft Edge</a>
+        target="_blank">Microsoft Edge</a
+      >
     </li>
   </ul>
+
+  <h2>7. Más información</h2>
+  <p>
+    Para más información sobre cómo Google utiliza las cookies en sus servicios,
+    puede consultar la <a
+      href="https://policies.google.com/technologies/cookies"
+      rel="noopener"
+      target="_blank">Política de cookies de Google</a
+    >. También puede ampliar información sobre el uso y bloqueo de cookies en <a
+      href="https://www.allaboutcookies.org"
+      rel="noopener"
+      target="_blank">allaboutcookies.org</a
+    > y <a
+      href="https://www.youronlinechoices.eu"
+      rel="noopener"
+      target="_blank">youronlinechoices.eu</a
+    >.
+  </p>
+  <p>
+    Si tiene cualquier duda sobre nuestra política de cookies, puede contactar
+    con nosotros en <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.
+  </p>
 </Legal>
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+  }
+  th,
+  td {
+    border: 1px solid var(--color-muted);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  thead th {
+    background: var(--color-surface-alt);
+    font-weight: 700;
+  }
+</style>

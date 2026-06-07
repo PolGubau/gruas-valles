@@ -1,38 +1,150 @@
 ---
-import contacto from '../../data/contacto.json';
-import Legal from '../../layouts/Legal.astro';
+import contacto from "../../data/contacto.json";
+import Legal from "../../layouts/Legal.astro";
 ---
 
 <Legal
   title="Política de privacidad"
   description="Política de privacidad y protección de datos de Grúas del Vallès, S.A."
+  updated="junio de 2025"
 >
-  <h2>1. Responsable del tratamiento</h2>
+  <p>
+    A través de la presente política de privacidad {contacto.empresa} desea informar
+    a todas las personas que naveguen y accedan al sitio web <a
+      href={contacto.web}>{contacto.web}</a
+    > sobre los tratamientos de datos personales realizados.
+  </p>
+  <p>
+    El acceso al sitio web no requiere un registro previo. En todo caso, el
+    Usuario con su navegación acepta en su totalidad la presente política de
+    privacidad y política de cookies.
+  </p>
+  <p>
+    Antes del envío de cualquier solicitud de información a través del
+    formulario de contacto de esta página web, el usuario debe aceptar la
+    política de privacidad, con el fin de prestar el consentimiento expreso e
+    informado por el tratamiento de los datos con las finalidades indicadas.
+  </p>
+  <p>
+    {contacto.empresa}, de conformidad con el Reglamento (UE) 2016/679, de 27 de
+    abril de 2016, relativo a la protección de las personas físicas en lo que
+    respecta al tratamiento de datos personales y a la libre circulación de
+    estos datos, así como la Ley Orgánica 3/2018, de 5 de diciembre, de
+    Protección de Datos Personales y garantía de derechos digitales, en calidad
+    de Responsable del Tratamiento de los datos personales proporcionados le
+    facilita la siguiente información:
+  </p>
+
+  <h2>Responsable del Tratamiento</h2>
   <ul>
-    <li><strong>Responsable:</strong> {contacto.empresa}</li>
-    <li><strong>CIF:</strong> {contacto.cif}</li>
+    <li><strong>Razón Social:</strong> {contacto.empresa}</li>
+    <li><strong>NIF:</strong> {contacto.cif}</li>
     <li><strong>Domicilio:</strong> {contacto.direccion}</li>
-    <li><strong>Email:</strong> {contacto.email}</li>
+    <li>
+      <strong>Correo electrónico:</strong>{" "}
+      <a href={`mailto:${contacto.email}`}>{contacto.email}</a>
+    </li>
   </ul>
 
-  <h2>2. Finalidad del tratamiento</h2>
-  <p class="placeholder">[Pendiente de contenido — para qué se usan los datos del formulario de contacto/presupuesto.]</p>
-
-  <h2>3. Legitimación</h2>
-  <p class="placeholder">[Pendiente de contenido — base jurídica del tratamiento (consentimiento, interés legítimo, etc.).]</p>
-
-  <h2>4. Conservación de los datos</h2>
-  <p class="placeholder">[Pendiente de contenido — plazo de conservación de los datos.]</p>
-
-  <h2>5. Destinatarios</h2>
-  <p class="placeholder">[Pendiente de contenido — cesiones y encargados de tratamiento.]</p>
-
-  <h2>6. Derechos de las personas usuarias</h2>
-  <p class="placeholder">[Pendiente de contenido — acceso, rectificación, supresión, oposición, portabilidad y limitación.]</p>
-
-  <h2>7. Cómo ejercer sus derechos</h2>
+  <h2>Finalidad del tratamiento y conservación de los datos</h2>
   <p>
-    Puede ejercer sus derechos enviando una solicitud a
+    Tratamos los datos y la información que nos facilitan las personas
+    interesadas con la finalidad de:
+  </p>
+  <p>
+    1. Gestionar el uso de las funcionalidades puestas a disposición a través
+    del Sitio Web, entre ellas, la respuesta a solicitudes y/o consultas
+    realizadas, así como la preparación de presupuestos.
+  </p>
+  <p>
+    Los datos tratados con esta finalidad se conservarán mientras se mantenga la
+    relación contractual y/o negocial entre el Usuario y {contacto.empresa}.
+    Para el caso de que las solicitudes efectuadas por un usuario no mantengan
+    una relación contractual, los datos se conservarán hasta haber resuelto
+    dicha solicitud.
+  </p>
+
+  <h2>Legitimación</h2>
+  <p>
+    El tratamiento de dichos datos está legitimado por el consentimiento del
+    interesado y, en tal caso, por la ejecución de las obligaciones
+    contractuales y/o negociales.
+  </p>
+
+  <h2>Comunicación de los datos</h2>
+  <p>
+    No se comunicarán a otros terceros, excepto obligación legal o con el
+    consentimiento expreso del interesado.
+  </p>
+
+  <h2>Transferencias internacionales de datos</h2>
+  <p>
+    No se realizan Transferencias Internacionales de datos a terceros países
+    fuera de la Unión Europea.
+  </p>
+
+  <h2>Derechos que asisten al Interesado</h2>
+  <p>
+    El interesado tiene derecho a retirar el consentimiento en cualquier
+    momento. Asimismo, le informamos que podrá ejercer sus derechos de acceso,
+    rectificación y supresión (Derecho al olvido), limitación de los datos,
+    portabilidad de los datos y oposición, enviando un escrito a {
+      contacto.direccion
+    }, o correo electrónico a <a href={`mailto:${contacto.email}`}
+      >{contacto.email}</a
+    >.
+  </p>
+  <p>
+    Asimismo, se informa al interesado que podrá revocar el consentimiento del
+    envío de comunicaciones comerciales enviando un correo electrónico a{" "}
     <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.
+  </p>
+  <p>
+    La persona interesada puede presentar una reclamación ante la autoridad de
+    control en materia de protección de datos competente, que actualmente es la
+    Agencia Española de Protección de Datos (AEPD), a través de su sede
+    electrónica:{" "}
+    <a
+      href="https://www.sedeagpd.gob.es/sede-electronica-web"
+      rel="noopener"
+      target="_blank"
+    >
+      www.sedeagpd.gob.es/sede-electronica-web
+    </a>, o enviando un escrito a C/ Jorge Juan nº6 – 28001 MADRID.
+  </p>
+
+  <h2>
+    ¿Es obligatorio proporcionar toda la información solicitada en el apartado
+    de contacto?
+  </h2>
+  <p>
+    En cuanto a los formularios del Sitio Web, el Usuario tiene que cumplimentar
+    los marcados como "requerido". No completar los datos personales requeridos
+    o hacerlo parcialmente puede suponer que{" "}
+    {contacto.empresa} no pueda atender sus solicitudes y, en consecuencia, {
+      contacto.empresa
+    } quedará exonerada de toda responsabilidad por la no prestación o la prestación
+    incompleta de los servicios solicitados.
+  </p>
+  <p>
+    Los datos personales que el Usuario facilita a {contacto.empresa} tienen que ser
+    actuales para que la información de los registros esté actualizada y sin errores.
+    El Usuario responderá de la veracidad de los datos facilitados.
+  </p>
+
+  <h2>¿Qué medidas de seguridad tiene implantada la empresa?</h2>
+  <p>
+    {contacto.empresa} informa que el tratamiento que realiza de datos personales
+    se realiza en todo momento de conformidad con la normativa aplicable en materia
+    de protección de datos y de los servicios de la sociedad de la información.
+  </p>
+  <p>
+    {contacto.empresa} informa que tiene implantadas las medidas de seguridad de índole
+    técnica y organizativas necesarias que garanticen la seguridad de los datos de
+    carácter personal del Usuario y eviten su alteración, pérdida, tratamiento y/o
+    acceso no autorizado de acuerdo con el estado de la tecnología, la naturaleza
+    de los datos almacenados y los riesgos a los que están expuestos, ya provengan
+    de la acción humana o del medio físico o natural, en conformidad con el que prevé
+    la normativa vigente.
   </p>
 </Legal>

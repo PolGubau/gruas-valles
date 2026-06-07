@@ -4,13 +4,17 @@ import localidades from "../../data/localidades.json";
 
 const year = new Date().getFullYear();
 
-const navLinks = [
+const serviciosLinks = [
   { href: "/flota", label: "Flota" },
   { href: "/servicios", label: "Servicios" },
-  { href: "/alquiler-gruas", label: "Cobertura" },
   { href: "/maniobras", label: "Maniobras" },
   { href: "/galeria", label: "Galería" },
+];
+
+const empresaLinks = [
   { href: "/nosotros", label: "Nosotros" },
+  { href: "/seguridad", label: "Seguridad" },
+  { href: "/organismos", label: "Organismos" },
   { href: "/blog", label: "Noticias" },
   { href: "/contacto", label: "Contacto" },
 ];
@@ -45,6 +49,17 @@ const legalLinks = [
           Empresa líder en alquiler de grúas industriales en Cataluña desde
           1968. Certificados ISO 9001. Cobertura 24h/365 días.
         </p>
+        <div class="mt-4 flex items-center gap-3">
+          <a
+            href="https://www.youtube.com/channel/UCGAXK9VBR-OSxCsV3k2Ntkg"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Canal de YouTube de Grúas del Vallès"
+            class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-muted transition-colors hover:bg-[#FF0000] hover:text-white"
+          >
+            <Icon name="lucide:youtube" class="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
       </div>
 
       <!-- Links -->
@@ -57,6 +72,26 @@ const legalLinks = [
         <ul class="space-y-2 text-sm">
           {
             navLinks.map(({ href, label }) => (
+              <li>
+                <a href={href} class="hover:text-accent transition-colors">
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Institucional -->
+      <div>
+        <p
+          class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
+        >
+          Empresa
+        </p>
+        <ul class="space-y-2 text-sm">
+          {
+            institutionalLinks.map(({ href, label }) => (
               <li>
                 <a href={href} class="hover:text-accent transition-colors">
                   {label}
@@ -168,8 +203,23 @@ const legalLinks = [
     <div
       class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs sm:flex-row"
     >
-      <p>© {year} Grúas del Vallès, S.A. · CIF A08603888</p>
-      <p>Avda. San Julián 64-66 · Polígono Congost · 08403 Granollers</p>
+      <div class="flex flex-col gap-2 sm:flex-row sm:gap-6">
+        <p>© {year} Grúas del Vallès, S.A. · CIF A08603888</p>
+        <p>Avda. San Julián 64-66 · Polígono Congost · 08403 Granollers</p>
+      </div>
+      <p class="text-[10px] opacity-40 transition-opacity hover:opacity-100">
+        Programado por <a
+          href="https://doscientos.es"
+          target="_blank"
+          rel="noopener"
+          class="hover:text-white">Doscientos</a
+        > · <a
+          href="https://polgubau.com"
+          target="_blank"
+          rel="noopener"
+          class="hover:text-white">Pol Gubau</a
+        >
+      </p>
     </div>
   </div>
 </footer>

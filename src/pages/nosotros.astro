@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import Clientes from "../components/sections/Clientes.astro";
 import NosotrosSection from "../components/sections/NosotrosSection.astro";
 import CtaBand from "../components/ui/CtaBand.astro";
 import PageHero from "../components/ui/PageHero.astro";
@@ -9,7 +10,7 @@ import Page from "../layouts/Page.astro";
 const anios = new Date().getFullYear() - nosotros.fundacion;
 const stats = [
   { valor: `${anios}+`, label: "Años de experiencia" },
-  { valor: "500 Tn", label: "Capacidad máxima" },
+  { valor: "450 Tn", label: "Capacidad máxima" },
   { valor: "24/365", label: "Servicio de emergencia" },
   { valor: "5.000 m²", label: "Instalaciones propias" },
 ];
@@ -23,7 +24,7 @@ const certificaciones = [
 
 <Page
   title="Sobre nosotros | Grúas del Vallès"
-  description="Empresa familiar fundada en 1968 en Granollers. Más de 55 años moviendo lo imposible con maquinaria propia, certificaciones ISO 9001 y un equipo especializado."
+  description={`Empresa familiar fundada en 1968 en Granollers. Más de ${anios} años moviendo lo imposible con maquinaria propia, certificaciones ISO 9001 y un equipo especializado.`}
 >
   <PageHero
     title="Empresa familiar de referencia en elevación desde 1968"
@@ -49,6 +50,9 @@ const certificaciones = [
 
   <!-- Historia + por qué elegirnos (sección reutilizada) -->
   <NosotrosSection />
+
+  <!-- Prueba social: empresas que confían en nosotros -->
+  <Clientes bg="alt" />
 
   <!-- Certificaciones -->
   <section class="section-padding bg-surface">

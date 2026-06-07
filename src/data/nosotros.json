@@ -15,23 +15,71 @@
     "Agilidad y eficacia administrativa"
   ],
   "historia": [
-    { "anio": "1968", "hito": "Fundación. Primera grúa hidráulica autopropulsada de 15 Tn." },
-    { "anio": "1969-1970", "hito": "Adquisición de 3 unidades más; grúas de hasta 30 Tn; ámbito regional." },
-    { "anio": "1973", "hito": "D. Juan Pratginestós Congost entra como socio; grúas de hasta 50 Tn." },
-    { "anio": "1975", "hito": "Traslado a instalaciones actuales (5.000 m2); parque hasta 100 Tn." },
-    { "anio": "1979", "hito": "Constitución como Sociedad Anónima — GRÚAS DEL VALLÉS, S.A." },
-    { "anio": "1992-1999", "hito": "Registros REIC, Automantenedora y Transporte Público." },
-    { "anio": "2002", "hito": "Inicio trámites Certificado ISO 9001." },
-    { "anio": "2004", "hito": "Adaptación LOPD; creación web corporativa; cursos OGMA-A/B." },
-    { "anio": "2005", "hito": "Homologada como centro formador OGMA por la Generalitat." },
-    { "anio": "2006", "hito": "Certificación ISO 9001:2000 (nº EC-5828/10)." },
-    { "anio": "2008", "hito": "Registro REA nº 09000036812 (sector construcción)." },
-    { "anio": "2009", "hito": "Puesta en marcha de la central fotovoltaica." },
-    { "anio": "Actualidad", "hito": "Parque de grúas móviles autopropulsadas de 40 a 450 Tn, transportes, camiones grúa, trailers, góndolas, remolques y plataformas." }
+    {
+      "anio": "1968",
+      "hito": "Fundación. Primera grúa hidráulica autopropulsada de 15 Tn."
+    },
+    {
+      "anio": "1969-1970",
+      "hito": "Adquisición de 3 unidades más; grúas de hasta 30 Tn; ámbito regional."
+    },
+    {
+      "anio": "1973",
+      "hito": "D. Juan Pratginestós Congost entra como socio; grúas de hasta 50 Tn."
+    },
+    {
+      "anio": "1975",
+      "hito": "Traslado a instalaciones actuales (5.000 m2); parque hasta 100 Tn."
+    },
+    {
+      "anio": "1979",
+      "hito": "Constitución como Sociedad Anónima - GRÚAS DEL VALLÉS, S.A."
+    },
+    {
+      "anio": "1992-1999",
+      "hito": "Registros REIC, Automantenedora y Transporte Público."
+    },
+    {
+      "anio": "2002",
+      "hito": "Inicio trámites Certificado ISO 9001."
+    },
+    {
+      "anio": "2004",
+      "hito": "Adaptación LOPD; creación web corporativa; cursos OGMA-A/B."
+    },
+    {
+      "anio": "2005",
+      "hito": "Centro formador homologado OGMA por la Generalitat; titulación de Recurso Preventivo para todo el personal."
+    },
+    {
+      "anio": "2006",
+      "hito": "Certificación ISO 9001:2000 (nº EC-5828/10)."
+    },
+    {
+      "anio": "2007",
+      "hito": "Trámites administrativos para la instalación de placas fotovoltaicas en la cubierta."
+    },
+    {
+      "anio": "2008",
+      "hito": "Registro REA nº 09000036812 (sector construcción)."
+    },
+    {
+      "anio": "2009",
+      "hito": "Puesta en marcha de la central fotovoltaica."
+    },
+    {
+      "anio": "Actualidad",
+      "hito": "Parque de grúas móviles autopropulsadas de 40 a 450 Tn, transportes, camiones grúa, trailers, góndolas, remolques y plataformas."
+    }
   ],
   "instalaciones": [
-    "Taller mecánico", "Almacén de recambios", "Depósito de combustible",
-    "Túnel de lavado", "Parque de estacionamiento", "Oficinas centrales", "Comedor y vestuarios"
+    "Taller mecánico",
+    "Almacén de recambios",
+    "Depósito de combustible",
+    "Túnel de lavado",
+    "Parque de estacionamiento",
+    "Oficinas centrales",
+    "Comedor y vestuarios"
   ],
   "organismos": [
     "ANAGRUAL (Junta Directiva autonómica)",
@@ -39,10 +87,10 @@
     "Cruz Roja (Socio Colaborador desde 1997)"
   ],
   "seguridad": {
-    "reic": "08/157.364 (1997)",
-    "rea": "0900006812 (2008, renovado 2011)",
+    "reic": "08-135994 (1997)",
+    "rea": "09000036812 (2008)",
     "iso": "ISO 9001:2000 (nº EC-5828/10)",
-    "lopd": "Adaptada en 2010"
+    "lopd": "Ley Orgánica 15/1999"
   },
   "ubicacion": {
     "direccion": "Avda. San Julián 64-66, Polígono Industrial Congost, 08403 Granollers (Barcelona)",

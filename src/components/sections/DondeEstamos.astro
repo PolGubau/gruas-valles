@@ -1,0 +1,80 @@
+---
+import { Icon } from "astro-icon/components";
+import contacto from "../../data/contacto.json";
+---
+
+<section id="donde-estamos" class="section-padding bg-surface overflow-hidden">
+  <div class="container-wide">
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+      <!-- Left: Content -->
+      <div data-reveal>
+        <p
+          class="mb-2 text-xs font-semibold uppercase tracking-wider text-accent"
+        >
+          Ubicación estratégica
+        </p>
+        <h2 class="mb-6 text-3xl font-black sm:text-4xl">Dónde estamos</h2>
+
+        <div
+          class="prose prose-sm space-y-4 leading-relaxed text-ink-secondary"
+        >
+          <p>
+            Encontrará las instalaciones de <strong>Grúas del Vallès</strong>,
+            en la <span class="font-semibold text-ink"
+              >avenida San Julián 64 – 66</span
+            > en el polígono industrial del Congost de Granollers (Barcelona). A solo
+            <span class="font-semibold text-accent"
+              >dos minutos del Circuito de Montmeló</span
+            >.
+          </p>
+
+          <p>
+            Estamos ubicados en un emplazamiento de <strong
+              >cómodo acceso</strong
+            > desde la carretera <span class="font-medium text-ink">N-152</span>
+            y la <span class="font-medium text-ink">AP-7</span> desde cualquier punto
+            del Vallés Oriental, Vallés Occidental, el Barcelonés, Baix Llobregat
+            y Ripollés.
+          </p>
+
+          <p class="border-l-2 border-muted pl-4 text-xs italic">
+            Así como de poblaciones colindantes como Mollet del Vallés, Mataró,
+            Sabadell, Terrassa, Cerdanyola y Sant Cugat del Vallés, Les
+            Franqueses y la Roca del Vallès, Cardedeu, a pocos minutos Barcelona
+            y Baix Llobregat, también de Vic, Ripoll, Manresa e incluso de
+            Girona o Tarragona.
+          </p>
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a
+            href="https://www.google.com/maps/dir//Grúas+del+Vallès,+S.A.,+Avinguda+de+Sant+Julià,+64,+66,+08403+Granollers,+Barcelona"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-sm border-2 border-muted hover:border-accent hover:text-accent"
+          >
+            <Icon name="lucide:map-pin" class="h-4 w-4" />
+            Cómo llegar
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Map -->
+      <div
+        class="relative aspect-square border-2 border-muted bg-surface-alt transition-[filter] duration-500 hover:grayscale-0 lg:aspect-auto lg:h-125"
+        data-reveal
+        data-reveal-delay="1"
+      >
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2981.58434311002!2d2.290547177241258!3d41.609536871272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4b88616f05971%3A0xe5a3c0e359d9c294!2zR3LDunFzIGRlbCBWYWxsw6hzLCBTLkEu!5e0!3m2!1ses!2ses!4v1717758000000!5m2!1ses!2ses"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="absolute inset-0"></iframe>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,37 +1,185 @@
 ---
-import contacto from '../../data/contacto.json';
-import Legal from '../../layouts/Legal.astro';
+import contacto from "../../data/contacto.json";
+import Legal from "../../layouts/Legal.astro";
 ---
 
 <Legal
   title="Aviso legal"
   description="Aviso legal y condiciones de uso del sitio web de Grúas del Vallès, S.A."
+  updated="junio de 2025"
 >
   <h2>1. Datos identificativos</h2>
   <p>
-    En cumplimiento del artículo 10 de la Ley 34/2002 (LSSI-CE), se informa de los
-    datos identificativos del titular de este sitio web:
+    En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la
+    Sociedad de la Información y de Comercio Electrónico, se informa al Usuario
+    que el titular de la página web <a href={contacto.web}>{contacto.web}</a> es la
+    sociedad {contacto.empresa}, cuyos datos de identificación son los
+    siguientes:
   </p>
   <ul>
-    <li><strong>Titular:</strong> {contacto.empresa}</li>
-    <li><strong>CIF:</strong> {contacto.cif}</li>
-    <li><strong>Domicilio:</strong> {contacto.direccion}</li>
-    <li><strong>Teléfono:</strong> {contacto.telefono}</li>
-    <li><strong>Email:</strong> {contacto.email}</li>
+    <li><strong>Responsable:</strong> {contacto.empresa}</li>
+    <li><strong>NIF:</strong> {contacto.cif}</li>
+    <li><strong>Domicilio social:</strong> Av. San Julián, 64-66</li>
+    <li><strong>Código Postal:</strong> 08403</li>
+    <li><strong>Localidad:</strong> Granollers</li>
+    <li><strong>Provincia:</strong> Barcelona</li>
+    <li>
+      <strong>Correo electrónico:</strong>
+      <a href={`mailto:${contacto.email}`}>{contacto.email}</a>
+    </li>
+    <li>
+      <strong>Datos del registro:</strong> Inscrita en el Registro Mercantil de Barcelona,
+      Tomo 4058, folio 144, hoja número 42861.
+    </li>
   </ul>
 
-  <h2>2. Objeto</h2>
-  <p class="placeholder">[Pendiente de contenido — objeto y condiciones de uso del sitio web.]</p>
+  <h2>2. Acceso a la página web</h2>
+  <p>
+    El aviso legal regula el acceso y uso de los Usuarios a la página web y
+    tiene por objeto dar a conocer los servicios de la entidad y permitir el
+    acceso general de todos los usuarios de Internet.
+  </p>
+  <p>
+    El acceso y/o uso de la Web atribuye a quien lo realiza la condición de
+    Usuario y la aceptación, sin reservas de ninguna clase, de todas y cada una
+    de las presentes condiciones generales, así como de aquellas otras
+    particulares que, si procede, rijan la utilización del Portal o de los
+    servicios vinculados al mismo.
+  </p>
+  <p>
+    El usuario tiene que leer atentamente el Aviso Legal y las Políticas de
+    Privacidad y de Cookies cuando se proponga utilizar la Página Web, puesto
+    que {contacto.empresa} se reserva la facultad de realizar, en cualquier momento
+    y sin necesidad de ningún preaviso, cualquier modificación o actualización de
+    los contenidos y servicios, de las presentes disposiciones de acceso y uso y,
+    en general, de cuántos elementos integren el diseño y configuración de su Web.
+    Si no acepta las condiciones de acceso y uso, le rogamos se abstenga de utilizar
+    el Web y su contenido.
+  </p>
 
-  <h2>3. Condiciones de uso</h2>
-  <p class="placeholder">[Pendiente de contenido — obligaciones del usuario y uso permitido.]</p>
+  <h2>3. Utilización de la página web</h2>
+  <p>
+    El Usuario se compromete a hacer un uso diligente de la Página Web, así como
+    de la información relativa a sus servicios y actividades, con total sujeción
+    tanto a la normativa aplicable, como a la moral y las buenas costumbres
+    generalmente aceptadas y el orden público, las condiciones de acceso y uso y
+    cualesquiera otras condiciones establecidas en la Página Web.
+  </p>
+  <p>
+    Además, se compromete a abstenerse de utilizar cualquiera de los contenidos
+    con finalidades o efectos ilícitos, prohibidos en el presente texto, lesivos
+    de los derechos e intereses de terceros, o que de cualquier forma puedan
+    dañar, inutilizar, sobrecargar, deteriorar o impedir la normal utilización
+    de los contenidos, otros Usuarios o de cualquier usuario de Internet
+    (hardware y software).
+  </p>
 
-  <h2>4. Propiedad intelectual e industrial</h2>
-  <p class="placeholder">[Pendiente de contenido — titularidad de marcas, contenidos e imágenes.]</p>
+  <h2>4. Funcionamiento de la página web</h2>
+  <p>
+    En caso de incumplimiento de las condiciones del Aviso Legal, o las
+    Políticas de Privacidad y Cookies, {contacto.empresa} se reserva el derecho a
+    limitar, suspender y/o excluir el acceso a su Página Web, adoptando cualquier
+    medida técnica necesaria al respecto.
+  </p>
+  <p>
+    {contacto.empresa} hará lo posible para mantener la Página Web en buen funcionamiento,
+    evitando errores, o bien reparándolos y manteniendo los contenidos actualizados.
+    No obstante, {contacto.empresa} no garantiza la disponibilidad y continuidad en
+    el acceso a la Página Web ni la inexistencia de errores en el contenido.
+  </p>
 
-  <h2>5. Exclusión de responsabilidad</h2>
-  <p class="placeholder">[Pendiente de contenido — limitación de responsabilidad sobre el contenido y enlaces.]</p>
+  <h2>5. Responsabilidad</h2>
+  <p>
+    El Usuario es el único responsable del uso que se pueda hacer de cualquier
+    información o mecanismo de la Página Web.
+  </p>
+  <p>
+    {contacto.empresa} no se hará responsable de ningún daño en el hardware y/o software
+    del Usuario que se derive del acceso y uso de la Página Web. Asimismo, tampoco
+    se responsabilizará de los daños y/o perjuicios que se puedan ocasionar por el
+    acceso y/o uso de la información de la Página Web, y en concreto de los que se
+    puedan producir en sistemas informáticos o los provocados por virus y/o ataques
+    informáticos, caídas, interrupciones, ausencia o defecto en las comunicaciones
+    y/o Internet.
+  </p>
+  <p>
+    El Usuario será responsable de los daños y/o perjuicios que {
+      contacto.empresa
+    } pueda sufrir como consecuencia del incumplimiento de cualquiera de las obligaciones
+    a las que queda sometido a través del presente Aviso Legal, la normativa aplicable
+    y la Política de Privacidad y de Cookies.
+  </p>
 
-  <h2>6. Legislación aplicable y jurisdicción</h2>
-  <p class="placeholder">[Pendiente de contenido — ley aplicable y fuero.]</p>
+  <h2>6. Política en materia de enlaces</h2>
+  <h3>a) Web enlazante</h3>
+  <p>
+    Los terceros que tengan la intención de incluir en una página web un enlace
+    a la presente página deberán cumplir con la legislación vigente y no podrán
+    alojar contenidos que sean inapropiados, ilícitos, pornográficos, violentos,
+    etc.
+  </p>
+  <p>
+    En ningún caso {contacto.empresa} se hace responsable del contenido de la Página
+    Web enlazante, ni promueve, garantiza, supervisa ni recomienda los contenidos
+    de esta. Si la Web enlazante incumple alguno de los aspectos anteriores estará
+    obligada a suprimir el enlace de manera inmediata.
+  </p>
+  <h3>b) Web enlazada</h3>
+  <p>
+    En esta Página Web se pueden incluir enlaces a páginas web de terceros que
+    permitan al Usuario acceder a otros sitios. No obstante, {contacto.empresa} no
+    se hace responsable del contenido de estas páginas web enlazadas, siendo el Usuario
+    el encargado de aceptar y comprobar los accesos cada vez que acceda a ellas.
+  </p>
+  <p>
+    Tales enlaces o menciones tienen una finalidad informativa que no implica el
+    apoyo, la aprobación, comercialización o relación alguna entre esta página y
+    las personas o entidades titulares de los sitios enlazados.
+  </p>
+
+  <h2>7. Propiedad intelectual e industrial</h2>
+  <p>
+    {contacto.empresa}, o sus licenciantes, son titulares de todos los derechos
+    de propiedad intelectual sobre los Contenidos de la Página Web, entendiendo
+    como tal todos los diseños, bases de datos, programas de ordenadores
+    subyacentes (código fuente incluido), así como los diferentes elementos que
+    integran la Página Web (textos, gráficos, fotografías, vídeos, colores,
+    estructura, orden, etc.). Las marcas y nombres comerciales son igualmente
+    titularidad de {contacto.empresa} o sus licenciantes.
+  </p>
+  <p>
+    El uso de la Página Web por parte del Usuario no supone la cesión de ningún
+    derecho de propiedad intelectual ni industrial. El Usuario tiene totalmente
+    prohibido reproducir, copiar, distribuir, poner a disposición o de cualquier
+    otra forma comunicar públicamente, transformar o modificar los Contenidos o
+    los Signos distintivos, salvo que se cuente con la autorización expresa del
+    titular de los correspondientes derechos o esto resulte legalmente
+    permitido.
+  </p>
+
+  <h2>8. Publicidad</h2>
+  <p>
+    En la Página Web podrá alojarse contenido publicitario o patrocinado. Los
+    anunciantes o patrocinadores son los únicos responsables de asegurarse de
+    que el material remitido para su inclusión en la Web cumple con las leyes
+    que en cada caso puedan ser aplicables.
+    {contacto.empresa} no será responsable de ningún error, inexactitud o irregularidad
+    que puedan contener los contenidos publicitarios o de los patrocinadores.
+  </p>
+
+  <h2>9. Legislación aplicable y jurisdicción</h2>
+  <p>
+    El presente Aviso Legal se regirá e interpretará de conformidad con la
+    legislación española. Para la resolución de cualquier conflicto que pudiera
+    derivarse del acceso al sitio web, las partes se someterán a los juzgados o
+    tribunales pertinentes de conformidad con la normativa de consumidores y
+    usuarios.
+  </p>
+
+  <h2>10. Contacto</h2>
+  <p>
+    Para cualquier pregunta o comentario sobre el presente Aviso Legal puede
+    ponerse en contacto con nosotros a través del correo electrónico{" "}
+    <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.
+  </p>
 </Legal>
