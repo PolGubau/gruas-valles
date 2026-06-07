@@ -29,13 +29,13 @@ const legalLinks = [
 ---
 
 <footer class="bg-ink text-muted">
-  <div class="container-wide py-12">
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-6">
-      <!-- Brand -->
-      <div class="lg:col-span-2">
+  <div class="container-wide py-14">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-8">
+      <!-- Brand + contacto -->
+      <div class="lg:col-span-5">
         <a
           href="/"
-          class="mb-4 inline-block"
+          class="mb-5 inline-block"
           aria-label="Grúas del Vallès - inicio"
         >
           <img
@@ -45,11 +45,52 @@ const legalLinks = [
             loading="lazy"
           />
         </a>
-        <p class="text-sm leading-relaxed">
+        <p class="max-w-sm text-sm leading-relaxed">
           Empresa líder en alquiler de grúas industriales en Cataluña desde
           1968. Certificados ISO 9001. Cobertura 24h/365 días.
         </p>
-        <div class="mt-4 flex items-center gap-3">
+
+        <div class="mt-8 space-y-4">
+          <a
+            href="tel:+34938497022"
+            class="inline-flex items-center gap-2.5 text-lg font-bold text-white transition-colors hover:text-accent"
+          >
+            <Icon
+              name="lucide:phone"
+              class="h-5 w-5 shrink-0 text-accent"
+              aria-hidden="true"
+            />
+            93 849 70 22
+          </a>
+
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+            <span
+              class="text-xs font-semibold uppercase tracking-wider text-muted-dark"
+            >
+              Emergencias 24/365
+            </span>
+            <a href="tel:+34669296954" class="text-accent hover:underline">
+              669 29 69 54
+            </a>
+            <a href="tel:+34669296949" class="text-accent hover:underline">
+              669 29 69 49
+            </a>
+          </div>
+
+          <a
+            href="mailto:gruasdelvalles@gruasdelvalles.com"
+            class="inline-flex items-center gap-2.5 text-sm transition-colors hover:text-accent"
+          >
+            <Icon
+              name="lucide:mail"
+              class="h-4 w-4 shrink-0 text-accent"
+              aria-hidden="true"
+            />
+            gruasdelvalles@gruasdelvalles.com
+          </a>
+        </div>
+
+        <div class="mt-8 flex items-center gap-3">
           <a
             href="https://www.youtube.com/channel/UCGAXK9VBR-OSxCsV3k2Ntkg"
             target="_blank"
@@ -62,164 +103,118 @@ const legalLinks = [
         </div>
       </div>
 
-      <!-- Links -->
-      <div>
-        <p
-          class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
-        >
-          Navegación
-        </p>
-        <ul class="space-y-2 text-sm">
-          {
-            navLinks.map(({ href, label }) => (
-              <li>
-                <a href={href} class="hover:text-accent transition-colors">
-                  {label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+      <!-- Columnas de enlaces -->
+      <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7">
+        <!-- Servicios -->
+        <div>
+          <p
+            class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
+          >
+            Servicios
+          </p>
+          <ul class="space-y-2.5 text-sm">
+            {
+              serviciosLinks.map(({ href, label }) => (
+                <li>
+                  <a href={href} class="transition-colors hover:text-accent">
+                    {label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
 
-      <!-- Institucional -->
-      <div>
-        <p
-          class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
-        >
-          Empresa
-        </p>
-        <ul class="space-y-2 text-sm">
-          {
-            institutionalLinks.map(({ href, label }) => (
-              <li>
-                <a href={href} class="hover:text-accent transition-colors">
-                  {label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+        <!-- Empresa -->
+        <div>
+          <p
+            class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
+          >
+            Empresa
+          </p>
+          <ul class="space-y-2.5 text-sm">
+            {
+              empresaLinks.map(({ href, label }) => (
+                <li>
+                  <a href={href} class="transition-colors hover:text-accent">
+                    {label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
 
-      <!-- Zonas -->
-      <div>
-        <p
-          class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
-        >
-          Zonas
-        </p>
-        <ul class="space-y-2 text-sm">
-          {
-            zonas.map((z) => (
-              <li>
-                <a
-                  href={`/alquiler-gruas/${z.slug}`}
-                  class="hover:text-accent transition-colors"
-                >
-                  Grúas en {z.nombre}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <!-- Contacto rápido -->
-      <div>
-        <p
-          class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
-        >
-          Contacto rápido
-        </p>
-        <ul class="space-y-3 text-sm">
-          <li>
-            <a
-              href="tel:+34938497022"
-              class="flex items-center gap-2 hover:text-accent transition-colors"
-            >
-              <Icon
-                name="lucide:phone"
-                class="h-4 w-4 flex-shrink-0 text-accent"
-                aria-hidden="true"
-              />
-              93 849 70 22
-            </a>
-          </li>
-          <li class="text-xs text-muted-dark">Emergencias 24/365:</li>
-          <li>
-            <a
-              href="tel:+34669296954"
-              class="flex items-center gap-2 text-accent hover:underline"
-            >
-              669 29 69 54
-            </a>
-          </li>
-          <li>
-            <a
-              href="tel:+34669296949"
-              class="flex items-center gap-2 text-accent hover:underline"
-            >
-              669 29 69 49
-            </a>
-          </li>
-          <li class="pt-2">
-            <a
-              href="mailto:gruasdelvalles@gruasdelvalles.com"
-              class="flex items-center gap-2 text-xs hover:text-accent transition-colors break-all"
-            >
-              <Icon
-                name="lucide:mail"
-                class="h-4 w-4 flex-shrink-0 text-accent"
-                aria-hidden="true"
-              />
-              gruasdelvalles@gruasdelvalles.com
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Legal -->
-      <div>
-        <p
-          class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
-        >
-          Legal
-        </p>
-        <ul class="space-y-2 text-sm">
-          {
-            legalLinks.map(({ href, label }) => (
-              <li>
-                <a href={href} class="hover:text-accent transition-colors">
-                  {label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+        <!-- Cobertura -->
+        <div class="col-span-2 sm:col-span-1">
+          <p
+            class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
+          >
+            Cobertura
+          </p>
+          <ul class="space-y-2.5 text-sm">
+            {
+              zonas.map((z) => (
+                <li>
+                  <a
+                    href={`/alquiler-gruas/${z.slug}`}
+                    class="transition-colors hover:text-accent"
+                  >
+                    Grúas en {z.nombre}
+                  </a>
+                </li>
+              ))
+            }
+            <li>
+              <a
+                href="/alquiler-gruas"
+                class="font-semibold text-accent hover:underline"
+              >
+                Ver toda la cobertura →
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 
+    <!-- Barra inferior -->
     <div
-      class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs sm:flex-row"
+      class="mt-14 flex flex-col gap-6 border-t border-white/10 pt-8 text-xs lg:flex-row lg:items-center lg:justify-between"
     >
-      <div class="flex flex-col gap-2 sm:flex-row sm:gap-6">
+      <div class="space-y-1.5">
         <p>© {year} Grúas del Vallès, S.A. · CIF A08603888</p>
-        <p>Avda. San Julián 64-66 · Polígono Congost · 08403 Granollers</p>
+        <p class="text-muted-dark">
+          Avda. San Julián 64-66 · Polígono Congost · 08403 Granollers
+        </p>
       </div>
-      <p class="text-[10px] opacity-40 transition-opacity hover:opacity-100">
-        Programado por <a
-          href="https://doscientos.es"
-          target="_blank"
-          rel="noopener"
-          class="hover:text-white">Doscientos</a
-        > · <a
-          href="https://polgubau.com"
-          target="_blank"
-          rel="noopener"
-          class="hover:text-white">Pol Gubau</a
-        >
-      </p>
+
+      <nav
+        class="flex flex-wrap items-center gap-x-5 gap-y-2"
+        aria-label="Enlaces legales"
+      >
+        {
+          legalLinks.map(({ href, label }) => (
+            <a href={href} class="transition-colors hover:text-white">
+              {label}
+            </a>
+          ))
+        }
+      </nav>
     </div>
+
+    <p class="mt-6 text-[10px] opacity-40 transition-opacity hover:opacity-100">
+      Programado por <a
+        href="https://doscientos.es"
+        target="_blank"
+        rel="noopener"
+        class="hover:text-white">Doscientos</a
+      > · <a
+        href="https://polgubau.com"
+        target="_blank"
+        rel="noopener"
+        class="hover:text-white">Pol Gubau</a
+      >
+    </p>
   </div>
 </footer>
