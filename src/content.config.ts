@@ -1,5 +1,5 @@
 import { defineCollection, z } from "astro:content";
-import blogRaw from "./data/blog.json";
+import { glob } from "astro/loaders";
 import flotaRaw from "./data/flota.json";
 import maniobrasRaw from "./data/maniobras.json";
 import { slugify } from "./lib/slugify";
@@ -90,14 +90,16 @@ const maniobras = defineCollection({
 });
 
 const blog = defineCollection({
-	loader: () =>
-		blogRaw.map((b, orden) => ({ ...b, id: slugify(b.titulo), orden })),
+	loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
 	schema: z.object({
 		titulo: z.string(),
-		contenido: z.string(),
-		orden: z.number(),
-		href: z.string().url().optional(),
+		resumen: z.string(),
+		orden: z.number().default(0),
+		fecha: z.coerce.date().optional(),
 		imagenes,
+		documentos: z
+			.array(z.object({ titulo: z.string(), archivo: z.string() }))
+			.default([]),
 	}),
 });
 
