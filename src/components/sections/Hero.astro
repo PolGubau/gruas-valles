@@ -1,4 +1,5 @@
 ---
+import { catalogo } from "../../lib/docs";
 import { resolveImage } from "../../lib/images";
 import Button from "../ui/Button.astro";
 
@@ -83,6 +84,16 @@ const heroImage = resolveImage(
           class="w-full border-white text-white hover:bg-white hover:text-ink! sm:w-auto"
         >
           93 849 70 22
+        </Button>
+        <Button
+          href={catalogo.url}
+          download={catalogo.filename}
+          variant="ghost"
+          icon="lucide:download"
+          iconPosition="start"
+          class="w-full text-white hover:text-accent sm:w-auto"
+        >
+          {catalogo.label}
         </Button>
       </div>
 

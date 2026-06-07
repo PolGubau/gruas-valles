@@ -1,9 +1,10 @@
 ---
 import { getCollection } from "astro:content";
-import Page from "../../layouts/Page.astro";
-import Button from "../../components/ui/Button.astro";
-import Breadcrumb from "../../components/ui/Breadcrumb.astro";
 import FlotaCard from "../../components/flota/FlotaCard.astro";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import Page from "../../layouts/Page.astro";
+import { catalogo } from "../../lib/docs";
 import { collectionPageSchema } from "../../lib/schema";
 
 const entries = await getCollection("flota");
@@ -91,9 +92,20 @@ const crumbs = [
       </div>
 
       <!-- CTA -->
-      <div class="mt-12 text-center">
+      <div
+        class="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
+      >
         <Button href="/#contacto" icon="lucide:arrow-right">
           Consultar disponibilidad
+        </Button>
+        <Button
+          href={catalogo.url}
+          download={catalogo.filename}
+          variant="outline"
+          icon="lucide:download"
+          iconPosition="start"
+        >
+          {catalogo.label}
         </Button>
       </div>
     </div>

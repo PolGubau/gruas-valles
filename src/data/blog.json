@@ -3,21 +3,27 @@
     "id": 3371,
     "titulo": "Nueva Grúa GMK 4080L (80 T)",
     "contenido": "Nueva adquisición que se incorpora a nuestra flota de Grúas móviles autopropulsadas. Pluma de 60m. Pluma angulado de 15m. Chasis de 4 ejes. Dimensiones: Alto: 3,75m. / Ancho: 2,55m. / Largo: 13,08m",
-    "imagenes": ["/assets/images/flota-grove-gmk4080l-01.avif"],
+    "imagenes": [
+      "/assets/images/flota-grove-gmk4080l-01.avif"
+    ],
     "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3371"
   },
   {
     "id": 3370,
     "titulo": "Nueva adquisición: Grúa GROVE GMK 80 T",
     "contenido": "Nueva adquisición de grúa GROVE GMK 80 T con una pluma telescópica de 60 mts y plumín de 15 metros angulable hidráulicamente hasta 40ºc.",
-    "imagenes": [],
+    "imagenes": [
+      "/assets/images/flota-grove-gmk4080l-02.avif"
+    ],
     "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3370"
   },
   {
     "id": 3366,
     "titulo": "Nueva Grúa Spierings SK1265-AT6",
     "contenido": "Grúa Spierings SK1265-AT6. Pluma de 60m. en horizontal. Peso en punta de 1.700Kg. Chasis de 6 ejes. Dimensiones: Alto 4m / Ancho 3m / Largo 16,28m.",
-    "imagenes": [],
+    "imagenes": [
+      "/assets/images/flota-spierings-sk1265-at6-01.avif"
+    ],
     "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3366"
   },
   {
@@ -74,42 +80,54 @@
     "id": 3337,
     "titulo": "Grúas del Vallés inscrita en el RELI",
     "contenido": "Desde el 24 de julio de 2013 Grúas del Vallés está inscrita en el RELI (Registro Electrónico de Empresas Licitadoras de la Generalitat de Cataluña), con número de registro NB1327485.",
-    "imagenes": ["/assets/images/blog-inscripcion-reli-01.avif"],
+    "imagenes": [
+      "/assets/images/blog-inscripcion-reli-01.avif"
+    ],
     "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3337"
   },
   {
     "id": 3336,
     "titulo": "Colocación módulos en Hospitalet",
     "contenido": "Grúas del Vallés colabora en la construcción del edificio de oficinas 'Caixa Catalunya Torre Puig' en l'Hospitalet de Llobregat (obra de Comsa). Se utilizan grúas móviles con plumines especiales para llegar a casi 100 mts de altura para colocar la fachada de vidrio.",
-    "imagenes": ["/assets/images/blog-modulos-hospitalet-01.avif"],
+    "imagenes": [
+      "/assets/images/blog-modulos-hospitalet-01.avif"
+    ],
     "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3336"
   },
   {
     "id": 3335,
     "titulo": "Colocación paneles Novartis",
     "contenido": "Grúas del Vallés colaboró en la ampliación y modernización de la planta de Novartis en Barberà del Vallès. Trabajos con grúas móviles y camiones pluma: montaje de robots para almacén inteligente y colocación de paneles ignífugos en la nueva nave.",
-    "imagenes": ["/assets/images/blog-paneles-novartis-01.avif"],
+    "imagenes": [
+      "/assets/images/blog-paneles-novartis-01.avif"
+    ],
     "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3335"
   },
   {
     "id": 3334,
     "titulo": "Desmontaje Mercat dels Encants",
     "contenido": "Grúas del Vallés realizó el desmontaje de una grúa-torre Liebherr instalada para la construcción del 'Mercat dels Encants' junto a Plaza Glòries de Barcelona. 3 días de trabajo con la grúa LTM 1400 (400 toneladas).",
-    "imagenes": ["/assets/images/blog-desmontaje-encants-bcn-01.avif"],
+    "imagenes": [
+      "/assets/images/blog-desmontaje-encants-bcn-01.avif"
+    ],
     "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3334"
   },
   {
     "id": 3358,
     "titulo": "Colaboración en proyecto con ADELTE",
     "contenido": "Colaboración con grúas móviles en la ejecución de un proyecto de ADELTE en el Puerto de Barcelona. Trabajos de premontaje de grandes estructuras metálicas y movimientos de rotación con grúas de 250 y 400 T para posicionar equipos a pie de muelle.",
-    "imagenes": ["/assets/images/blog-adelte-puerto-barcelona-01.avif"],
+    "imagenes": [
+      "/assets/images/blog-adelte-puerto-barcelona-01.avif"
+    ],
     "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3358"
   },
   {
     "id": 3357,
     "titulo": "Colaboración Polo Music Festival 2019",
     "contenido": "Colaboración con grúas en el montaje de escenario para el Polo Music Festival en el Real Club de Polo de Barcelona (31 mayo al 10 junio 2019). Actuaron Pablo López, David Bisbal, Luz Casal, Jason Derulo, entre otros.",
-    "imagenes": ["/assets/images/blog-polo-music-festival-2019-01.avif"],
+    "imagenes": [
+      "/assets/images/blog-polo-music-festival-2019-01.avif"
+    ],
     "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3357"
   },
   {
@@ -135,7 +153,9 @@
     "id": 3350,
     "titulo": "Participamos en festival FADfest 2017 de Barcelona",
     "contenido": "GRÚAS DEL VALLES participa en el FADfest 2017 (Fomento de las Artes y del Diseño) en el Hub de Plaça Glòries. Se utilizó una grúa móvil para sostener durante una semana una carpa de grandes dimensiones con diseño innovador.",
-    "imagenes": ["/assets/images/blog-fadfest-barcelona-2017-01.avif"],
+    "imagenes": [
+      "/assets/images/blog-fadfest-barcelona-2017-01.avif"
+    ],
     "href": "https://www.gruasdelvalles.com/main.asp?pagina=pdetall&pdetall=3350"
   },
   {
