@@ -24,6 +24,7 @@ const acciones = [
     valor: contacto.telefono,
     href: telHref,
     nota: "Lun-Vie · Atención comercial",
+    valorClase: "text-lg",
   },
   {
     icon: "lucide:mail",
@@ -31,6 +32,7 @@ const acciones = [
     valor: contacto.email,
     href: `mailto:${contacto.email}`,
     nota: "Respuesta en menos de 24 h",
+    valorClase: "text-sm sm:text-base",
   },
   {
     icon: "lucide:triangle-alert",
@@ -38,6 +40,7 @@ const acciones = [
     valor: contacto.emergencias.join(" · "),
     href: emergenciaHref,
     nota: "Servicio de urgencia permanente",
+    valorClase: "text-lg",
   },
 ];
 
@@ -161,7 +164,12 @@ const schema = [
               <span class="text-xs font-semibold uppercase tracking-wider text-ink-secondary">
                 {a.label}
               </span>
-              <span class="break-all text-lg font-bold text-ink transition-colors group-hover:text-accent">
+              <span
+                class:list={[
+                  "font-bold text-ink transition-colors group-hover:text-accent wrap-anywhere",
+                  a.valorClase,
+                ]}
+              >
                 {a.valor}
               </span>
               <span class="text-xs text-ink-secondary">{a.nota}</span>
