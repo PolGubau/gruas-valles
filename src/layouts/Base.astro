@@ -15,8 +15,7 @@ interface Props {
 const {
   title = "Grúas del Vallès | Alquiler de Grúas Industriales en Barcelona",
   description = "Empresa líder en alquiler de grúas móviles autopropulsadas de 40 a 500 Tn en Cataluña. +55 años de experiencia. Servicio de emergencia 24/365.",
-  // OG por defecto. Sustituir por /og-image.jpg (1200×630) cuando se disponga de la imagen social.
-  image = "/logo.png",
+  image = "/og-image.avif",
   schema,
 } = Astro.props;
 ---
@@ -44,7 +43,7 @@ const {
       schema={schema}
     />
 
-    <!-- Plus Jakarta Sans — self-hosted via Astro experimental fonts -->
+    <!-- Plus Jakarta Sans - self-hosted via Astro experimental fonts -->
     <Font cssVariable="--font-jakarta" preload />
   </head>
   <body>
