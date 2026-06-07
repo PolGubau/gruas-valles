@@ -14,7 +14,9 @@
         "alto_m": 4,
         "ancho_m": 3,
         "largo_m": 21.38,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-liebherr-ltm1500-8-1-01.avif"
+        ]
       },
       {
         "modelo": "LIEBHERR LTM 1400-7.1",
@@ -38,7 +40,9 @@
         "plumin_abatible_hasta_m": 78,
         "plumin_fijo_hasta_m": 42,
         "ejes": 6,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-liebherr-ltm1350-6-1-01.avif"
+        ]
       },
       {
         "modelo": "GROVE GMK 5250XL-1",
@@ -47,7 +51,10 @@
         "plumin_m": 25.8,
         "plumin_angulable_deg": 50,
         "ejes": 5,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-grove-gmk5250xl-1-01.avif",
+          "/assets/images/galeria-eventos-grove-250tn-port-forum-2023.avif"
+        ]
       }
     ]
   },
@@ -64,7 +71,9 @@
         "alto_m": 3.98,
         "ancho_m": 2.75,
         "largo_m": 14.57,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-grove-gmt5150l-01.avif"
+        ]
       },
       {
         "modelo": "LIEBHERR LTM 1110-5.2",
@@ -75,7 +84,9 @@
         "alto_m": 3.95,
         "ancho_m": 2.75,
         "largo_m": 13.84,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-liebherr-ltm1110-5-2-01.avif"
+        ]
       },
       {
         "modelo": "LIEBHERR LTM 1100-5.3",
@@ -87,7 +98,9 @@
         "alto_m": 3.95,
         "ancho_m": 2.55,
         "largo_m": 14.93,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-liebherr-ltm1100-5-3-01.avif"
+        ]
       },
       {
         "modelo": "LIEBHERR LTM 1090-4.2",
@@ -111,7 +124,9 @@
         "alto_m": 3.95,
         "ancho_m": 2.75,
         "largo_m": 12.65,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-liebherr-ltm1090-4-1-01.avif"
+        ]
       },
       {
         "modelo": "GROVE GMK 4080L",
@@ -139,7 +154,9 @@
         "alto_m": 3.80,
         "ancho_m": 2.75,
         "largo_m": 12.11,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-demag-ac80-2-01.avif"
+        ]
       },
       {
         "modelo": "GROVE GMK 3060L",
@@ -166,7 +183,9 @@
         "alto_m": 3.53,
         "ancho_m": 2.55,
         "largo_m": 11.2,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-demag-ac50-1-01.avif"
+        ]
       },
       {
         "modelo": "LIEBHERR LTC 1050-3.1",
@@ -179,7 +198,9 @@
         "alto_m": 3.53,
         "ancho_m": 2.55,
         "largo_m": 8.88,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-liebherr-ltc1050-3-1-01.avif"
+        ]
       },
       {
         "modelo": "LIEBHERR LTM 1040-2.1",
@@ -193,7 +214,9 @@
         "alto_m": 3.419,
         "ancho_m": 2.50,
         "largo_m": 10.71,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-liebherr-ltm1040-2-1-01.avif"
+        ]
       }
     ]
   },
@@ -208,7 +231,9 @@
         "alto_m": 4,
         "ancho_m": 3,
         "largo_m": 16.28,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-spierings-sk1265-at6-01.avif"
+        ]
       },
       {
         "modelo": "LIEBHERR MK 88-4.1",
@@ -243,7 +268,9 @@
         "ancho_m": 2.65,
         "largo_m": 10.40,
         "alto_m": 3.90,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-camion-grua-200tm-01.avif"
+        ]
       },
       {
         "modelo": "Camión-grúa 165 tm y 45 m",
@@ -258,7 +285,9 @@
         "ancho_m": 2.55,
         "largo_m": 10.33,
         "alto_m": 4.10,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-camion-grua-165tm-01.avif"
+        ]
       },
       {
         "modelo": "Camión-grúa 110 tm y 36 m",
@@ -272,7 +301,9 @@
         "extra": "Cesta homologada",
         "ancho_m": 2.55,
         "largo_m": 9.55,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-camion-grua-110tm-01.avif"
+        ]
       },
       {
         "modelo": "Camión-grúa 80 tm y 23 m",
@@ -285,7 +316,9 @@
         "ejes": 4,
         "ancho_m": 2.5,
         "largo_m": 10,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-camion-grua-80tm-01.avif"
+        ]
       },
       {
         "modelo": "Camión-grúa 60 tm y 30 m",
@@ -297,7 +330,9 @@
         "ejes": 3,
         "ancho_m": 2.55,
         "largo_m": 8.5,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-camion-grua-60tm-01.avif"
+        ]
       },
       {
         "modelo": "Camión-grúa jib 55 tm y 29 m",
@@ -312,7 +347,9 @@
         "ejes": 3,
         "ancho_m": 2.55,
         "largo_m": 8.50,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-camion-grua-jib-55tm-29m-01.avif"
+        ]
       },
       {
         "modelo": "Camión-grúa 55 tm y 30 m",
@@ -325,7 +362,9 @@
         "ejes": 3,
         "ancho_m": 2.55,
         "largo_m": 7.80,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-camion-grua-55tm-30m-01.avif"
+        ]
       },
       {
         "modelo": "Camión-grúa 36 tm y 23 m",
@@ -338,14 +377,18 @@
         "ejes": 3,
         "ancho_m": 2.55,
         "largo_m": 9.92,
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-camion-grua-36tm-01.avif"
+        ]
       },
       {
         "modelo": "Carretilla diésel 9 toneladas",
         "nuevo": true,
         "modelo_maquina": "Linde H80/900 D",
         "tipo": "Vehículo auxiliar para descarga de equipos pesados y material diverso",
-        "imagenes": []
+        "imagenes": [
+          "/assets/images/flota-carretilla-diesel-9tm-01.avif"
+        ]
       }
     ]
   }

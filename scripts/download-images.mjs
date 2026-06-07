@@ -22,6 +22,14 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 
 // ─── Mapeo semántico URL → nombre (sin extensión) ──────────────────────────
 const IMAGE_MAP = [
+  // FLOTA — Grúas gran tonelaje
+  { url: 'https://www.gruasdelvalles.com/upfiles/500Tm_P.jpg', name: 'flota-liebherr-ltm1500-8-1-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/350Tm_P.jpg', name: 'flota-liebherr-ltm1350-6-1-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/250Tn_Grove2022.jpg', name: 'flota-grove-gmk5250xl-1-01' },
+
+  // FLOTA — Grúas para construcción
+  { url: 'https://www.gruasdelvalles.com/upfiles/SPIERING_SK1265_P.jpg', name: 'flota-spierings-sk1265-at6-01' },
+
   // FLOTA
   { url: 'https://www.gruasdelvalles.com/upfiles/LIEBHERR_MK88_P.jpg', name: 'flota-liebherr-mk88-4-1-01' },
   { url: 'https://www.gruasdelvalles.com/upfiles/LIEBHERR_MK88_P2.jpg', name: 'flota-liebherr-mk88-4-1-02' },
@@ -30,11 +38,30 @@ const IMAGE_MAP = [
   { url: 'https://www.gruasdelvalles.com/fotoampliable/NOTICIA_NuevaGRUA_400tn2016_1.jpg', name: 'flota-liebherr-ltm1400-7-1-02' },
   { url: 'https://www.gruasdelvalles.com/upfiles/Foto_NovaGRUA_1.jpg', name: 'flota-liebherr-ltm1400-7-1-03' },
   { url: 'https://www.gruasdelvalles.com/upfiles/Foto_NovaGRUA_2.jpg', name: 'flota-liebherr-ltm1400-7-1-04' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/150mt_P.jpg', name: 'flota-grove-gmt5150l-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/Grua110Tm_GruasdelValles2023.jpg', name: 'flota-liebherr-ltm1110-5-2-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/100Tm_P.jpg', name: 'flota-liebherr-ltm1100-5-3-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/Post_HOSpital_GRANOLLERS_GRUASDELvalles2b.jpg', name: 'flota-liebherr-ltm1090-4-2-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/90Tm2_P.jpg', name: 'flota-liebherr-ltm1090-4-1-01' },
   { url: 'https://www.gruasdelvalles.com/fotoampliable/BLOG_80TmGMK_P.jpg', name: 'flota-grove-gmk4080l-01' },
   { url: 'https://www.gruasdelvalles.com/upfiles/80TmGMK_P1.jpg', name: 'flota-grove-gmk4080l-02' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/80Tm_P.jpg', name: 'flota-demag-ac80-2-01' },
   { url: 'https://www.gruasdelvalles.com/fotoampliable/Foto_GRUA_Grove_NOVA_GruasdelValles1_WEB2.jpg', name: 'flota-grove-gmk3060l-01' },
   { url: 'https://www.gruasdelvalles.com/fotoampliable/Foto_GRUA_Grove_NOVA_GruasdelValles1_WEB1.jpg', name: 'flota-grove-gmk3060l-02' },
-  { url: 'https://www.gruasdelvalles.com/upfiles/Post_HOSpital_GRANOLLERS_GRUASDELvalles2b.jpg', name: 'flota-liebherr-ltm1090-4-2-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/50Tm_P.jpg', name: 'flota-demag-ac50-1-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/LTC_1050_P.jpg', name: 'flota-liebherr-ltc1050-3-1-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/40Tn_P.jpg', name: 'flota-liebherr-ltm1040-2-1-01' },
+
+  // CAMIONES Y VEHÍCULOS AUXILIARES
+  { url: 'https://www.gruasdelvalles.com/upfiles/CamionGRUA_200Tn_2026A.jpg', name: 'flota-camion-grua-200tm-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/Foto_CAMION_Grua_MAN_Abril2023.jpg', name: 'flota-camion-grua-165tm-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/camion_110tm_P.jpg', name: 'flota-camion-grua-110tm-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/Camion_GRUA_2019A.jpg', name: 'flota-camion-grua-80tm-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/Camio60tn_2026A.jpg', name: 'flota-camion-grua-60tm-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/Camion_GRUA_VOLVO_FM.jpg', name: 'flota-camion-grua-jib-55tm-29m-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/CamionGRUA_55tm_30m_GruasdelVALLES.jpg', name: 'flota-camion-grua-55tm-30m-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/Camion_GRUA_VOLVO_FEF3C.jpg', name: 'flota-camion-grua-36tm-01' },
+  { url: 'https://www.gruasdelvalles.com/upfiles/CARRETILLA_H80_P.jpg', name: 'flota-carretilla-diesel-9tm-01' },
 
   // MANIOBRAS
   { url: 'https://www.gruasdelvalles.com/upfiles/Maniobra6Tn_Abril1.jpg', name: 'maniobra-modulos-6tn-01' },
