@@ -60,7 +60,7 @@ const track = [...logos, ...logos];
       {
         track.map((logo, i) => (
           <li
-            class="flex h-16 w-40 shrink-0 items-center justify-center px-6 sm:w-52"
+            class="flex h-16 w-28 shrink-0 items-center justify-center px-3 sm:w-44 sm:px-5"
             aria-hidden={i >= logos.length ? "true" : undefined}
           >
             <img
@@ -70,7 +70,7 @@ const track = [...logos, ...logos];
               height="64"
               loading="lazy"
               decoding="async"
-              class="logo-img max-h-12 w-auto max-w-28 object-contain"
+              class="logo-img max-h-12 w-auto max-w-22 object-contain sm:max-w-32"
             />
           </li>
         ))

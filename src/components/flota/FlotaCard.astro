@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import Badge from "../ui/Badge.astro";
 import { Icon } from "astro-icon/components";
+import { resolveImage } from "../../lib/images";
+import Badge from "../ui/Badge.astro";
 
 interface Props {
   model: CollectionEntry<"flota">["data"] & { slug: string };
@@ -14,14 +15,14 @@ const capacidad = model.capacidad_max_t ?? model.capacidad_tm;
 <a
   href={`/flota/${model.slug}`}
   data-categoria={model.categoria}
-  class="flota-card group relative block border-t-2 border-transparent bg-white p-6 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-card"
+  class="flota-card group relative block border-t-2 border-transparent bg-white p-5 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-card sm:p-6"
 >
   <!-- Imagen o placeholder -->
   <div class="mb-4 aspect-4/3 overflow-hidden bg-surface-alt">
     {
       model.imagenes.length > 0 ? (
         <img
-          src={model.imagenes[0]}
+          src={resolveImage(model.imagenes[0])}
           alt={model.modelo}
           class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"

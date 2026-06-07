@@ -1,14 +1,29 @@
 ---
 import galerias from "../../data/galerias.json";
+import { resolveImages } from "../../lib/images";
+import Button from "../ui/Button.astro";
 import Section from "../ui/Section.astro";
 
-const cats = galerias as Array<{ categoria: string; imagenes: string[] }>;
+interface Props {
+  /** En la landing (preview) recortamos en móvil y enlazamos a /galeria;
+   *  en la página dedicada se muestra todo, con sus pestañas. */
+  preview?: boolean;
+}
+
+const { preview = false } = Astro.props;
+
+// En móvil (solo en preview) mostramos una muestra por categoría; el resto en /galeria.
+const VISIBLE_ON_MOBILE = 6;
+
+const cats = (galerias as Array<{ categoria: string; imagenes: string[] }>).map(
+  (cat) => ({ ...cat, imagenes: resolveImages(cat.imagenes) }),
+);
 ---
 
 <Section id="galeria" bg="white" title="Imágenes de nuestros proyectos reales">
-  <!-- Tabs de categoría -->
+  <!-- Tabs de categoría (en la landing se ocultan en móvil; viven en /galeria) -->
   <div
-    class="mb-8 flex flex-wrap gap-2"
+    class:list={["mb-8 flex flex-wrap gap-2", { "max-sm:hidden": preview }]}
     id="gal-tabs"
     role="tablist"
     aria-label="Categorías de la galería"
@@ -42,7 +57,12 @@ const cats = galerias as Array<{ categoria: string; imagenes: string[] }>;
       >
         <div class="columns-2 gap-px sm:columns-3 lg:columns-4">
           {cat.imagenes.slice(0, 16).map((img: string, j: number) => (
-            <div class="mb-px overflow-hidden break-inside-avoid bg-surface-alt">
+            <div
+              class:list={[
+                "mb-px overflow-hidden break-inside-avoid bg-surface-alt",
+                { "max-sm:hidden": preview && j >= VISIBLE_ON_MOBILE },
+              ]}
+            >
               <img
                 src={img}
                 alt={`${cat.categoria} - foto ${j + 1}`}
@@ -64,6 +84,22 @@ const cats = galerias as Array<{ categoria: string; imagenes: string[] }>;
         )}
       </div>
     ))
+  }
+
+  <!-- CTA solo en móvil y solo en la landing: el resto de imágenes está en /galeria -->
+  {
+    preview && (
+      <div class="mt-8 text-center sm:hidden">
+        <Button
+          href="/galeria"
+          variant="outline"
+          size="sm"
+          icon="lucide:arrow-right"
+        >
+          Ver galería completa
+        </Button>
+      </div>
+    )
   }
 </Section>
 

@@ -6,16 +6,16 @@
  * 4. Actualiza los JSONs de src/data/ para referenciar las nuevas rutas
  */
 
-import https from 'https';
-import http from 'http';
-import fs from 'fs';
-import path from 'path';
 import { execSync } from 'child_process';
+import fs from 'fs';
+import http from 'http';
+import https from 'https';
+import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
-const OUT_DIR = path.join(ROOT, 'public', 'assets', 'images');
+const OUT_DIR = path.join(ROOT, 'src', 'assets', 'images');
 const DATA_DIR = path.join(ROOT, 'src', 'data');
 
 fs.mkdirSync(OUT_DIR, { recursive: true });

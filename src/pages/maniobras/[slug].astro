@@ -4,6 +4,7 @@ import { Icon } from "astro-icon/components";
 import Breadcrumb from "../../components/ui/Breadcrumb.astro";
 import Button from "../../components/ui/Button.astro";
 import Page from "../../layouts/Page.astro";
+import { resolveImages } from "../../lib/images";
 
 export async function getStaticPaths() {
   const entries = await getCollection("maniobras");
@@ -16,6 +17,7 @@ export async function getStaticPaths() {
 type Props = { entry: CollectionEntry<"maniobras"> };
 const { entry } = Astro.props;
 const m = entry.data;
+const imagenes = resolveImages(m.imagenes);
 
 // Parámetros técnicos (clave → etiqueta + unidad). Escalable.
 const PARAM_FIELDS: [keyof typeof m, string, string][] = [
@@ -63,19 +65,19 @@ const crumbs = [
         <!-- Contenido -->
         <div>
           {
-            m.imagenes.length > 0 && (
+            imagenes.length > 0 && (
               <div class="mb-8 grid gap-px bg-muted">
                 <div class="aspect-video overflow-hidden bg-surface-alt">
                   <img
-                    src={m.imagenes[0]}
+                    src={imagenes[0]}
                     alt={m.titulo}
                     class="h-full w-full cursor-zoom-in object-cover"
                     data-zoomable
                   />
                 </div>
-                {m.imagenes.length > 1 && (
+                {imagenes.length > 1 && (
                   <div class="grid grid-cols-3 gap-px">
-                    {m.imagenes.slice(1).map((src) => (
+                    {imagenes.slice(1).map((src) => (
                       <div class="aspect-video overflow-hidden bg-surface-alt">
                         <img
                           src={src}
@@ -115,7 +117,7 @@ const crumbs = [
         <aside class="space-y-8">
           {
             params.length > 0 && (
-              <div class="border border-muted p-6">
+              <div class="border border-muted p-5 sm:p-6">
                 <h2 class="mb-4 text-xs font-semibold uppercase tracking-wider text-muted-dark">
                   Parámetros técnicos
                 </h2>
@@ -133,7 +135,7 @@ const crumbs = [
 
           {
             m.gruas_utilizadas && m.gruas_utilizadas.length > 0 && (
-              <div class="border border-muted p-6">
+              <div class="border border-muted p-5 sm:p-6">
                 <h2 class="mb-4 text-xs font-semibold uppercase tracking-wider text-muted-dark">
                   Grúas utilizadas
                 </h2>

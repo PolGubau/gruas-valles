@@ -1,9 +1,10 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { Icon } from 'astro-icon/components';
+import type { CollectionEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+import { resolveImage } from "../../lib/images";
 
 interface Props {
-  post: CollectionEntry<'blog'>['data'] & { slug: string };
+  post: CollectionEntry<"blog">["data"] & { slug: string };
 }
 
 const { post } = Astro.props;
@@ -11,30 +12,42 @@ const { post } = Astro.props;
 
 <a
   href={`/blog/${post.slug}`}
-  class="group flex flex-col bg-white p-6 transition-shadow hover:shadow-md"
+  class="group flex flex-col bg-white p-5 transition-shadow hover:shadow-md sm:p-6"
 >
   <div class="mb-4 aspect-video overflow-hidden bg-surface-alt">
-    {post.imagenes.length > 0 ? (
-      <img
-        src={post.imagenes[0]}
-        alt={post.titulo}
-        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        loading="lazy"
-        decoding="async"
-      />
-    ) : (
-      <div class="flex h-full items-center justify-center">
-        <Icon name="lucide:newspaper" class="h-12 w-12 text-muted" aria-hidden="true" />
-      </div>
-    )}
+    {
+      post.imagenes.length > 0 ? (
+        <img
+          src={resolveImage(post.imagenes[0])}
+          alt={post.titulo}
+          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="flex h-full items-center justify-center">
+          <Icon
+            name="lucide:newspaper"
+            class="h-12 w-12 text-muted"
+            aria-hidden="true"
+          />
+        </div>
+      )
+    }
   </div>
 
-  <h3 class="mb-2 text-sm font-bold leading-snug transition-colors group-hover:text-accent">
+  <h3
+    class="mb-2 text-sm font-bold leading-snug transition-colors group-hover:text-accent"
+  >
     {post.titulo}
   </h3>
-  <p class="line-clamp-3 text-xs leading-relaxed text-ink-secondary">{post.contenido}</p>
+  <p class="line-clamp-3 text-xs leading-relaxed text-ink-secondary">
+    {post.contenido}
+  </p>
 
-  <span class="mt-4 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-accent">
+  <span
+    class="mt-4 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-accent"
+  >
     Leer más
     <Icon name="lucide:arrow-right" width={14} height={14} aria-hidden="true" />
   </span>

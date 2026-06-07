@@ -1,7 +1,16 @@
 ---
 import { Icon } from "astro-icon/components";
 import servicios from "../../data/servicios.json";
+import Button from "../ui/Button.astro";
 import Section from "../ui/Section.astro";
+
+interface Props {
+  /** En la landing (preview) dejamos solo las categorías destacadas en móvil
+   *  y enlazamos a /servicios; en la página dedicada se muestra todo. */
+  preview?: boolean;
+}
+
+const { preview = false } = Astro.props;
 
 const iconos: string[] = [
   "lucide:building-2",
@@ -27,7 +36,7 @@ const iconos: string[] = [
       servicios.categorias.map((cat: any) => (
         <a
           href={`/servicios/${cat.slug}`}
-          class="group relative flex flex-col bg-surface-alt p-8 transition-all hover:bg-white hover:shadow-xl"
+          class="group relative flex flex-col bg-surface-alt p-6 transition-all hover:bg-white hover:shadow-xl sm:p-8"
         >
           <div class="mb-6 flex h-12 w-12 items-center justify-center bg-white text-accent shadow-sm group-hover:bg-accent group-hover:text-white transition-colors">
             <Icon name="lucide:arrow-up-right" class="h-6 w-6" />
@@ -50,7 +59,10 @@ const iconos: string[] = [
     }
   </div>
 
-  <div class="mb-8 flex items-center gap-4">
+  <!-- En la landing, este bloque secundario se colapsa en móvil (ver /servicios) -->
+  <div
+    class:list={["mb-8 flex items-center gap-4", { "max-sm:hidden": preview }]}
+  >
     <div class="h-px flex-1 bg-muted"></div>
     <span class="text-[10px] font-bold uppercase tracking-wider text-muted-dark"
       >Otros servicios especializados</span
@@ -59,10 +71,16 @@ const iconos: string[] = [
   </div>
 
   <!-- Grid de servicios principales -->
-  <div class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3" data-reveal>
+  <div
+    class:list={[
+      "grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3",
+      { "max-sm:hidden": preview },
+    ]}
+    data-reveal
+  >
     {
       servicios.principales.map((servicio: string, i: number) => (
-        <div class="group flex items-start gap-4 border-t-2 border-transparent bg-white p-6 transition-colors duration-200 hover:border-accent hover:bg-surface-alt">
+        <div class="group flex items-start gap-4 border-t-2 border-transparent bg-white p-5 transition-colors duration-200 hover:border-accent hover:bg-surface-alt sm:p-6">
           <Icon
             name={iconos[i] ?? iconos[0]}
             class="h-6 w-6 shrink-0 text-accent"
@@ -75,7 +93,12 @@ const iconos: string[] = [
   </div>
 
   <!-- Destacados: Dpto. Estudios + Emergencia -->
-  <div class="mt-px grid gap-px bg-muted sm:grid-cols-2">
+  <div
+    class:list={[
+      "mt-px grid gap-px bg-muted sm:grid-cols-2",
+      { "max-sm:hidden": preview },
+    ]}
+  >
     <!-- Departamento de estudios -->
     <div class="bg-ink p-6 text-white sm:p-8">
       <p
@@ -124,7 +147,7 @@ const iconos: string[] = [
   </div>
 
   <!-- Sectores destacados con iconos -->
-  <div class="mt-20">
+  <div class:list={["mt-20", { "max-sm:hidden": preview }]}>
     <p
       class="mb-8 text-xs font-semibold uppercase tracking-wider text-muted-dark"
     >
@@ -181,4 +204,20 @@ const iconos: string[] = [
       }
     </div>
   </div>
+
+  <!-- CTA solo en móvil y solo en la landing: el detalle completo está en /servicios -->
+  {
+    preview && (
+      <div class="mt-10 text-center sm:hidden">
+        <Button
+          href="/servicios"
+          variant="outline"
+          size="sm"
+          icon="lucide:arrow-right"
+        >
+          Ver todos los servicios
+        </Button>
+      </div>
+    )
+  }
 </Section>

@@ -9,7 +9,8 @@ const organismos = [
   {
     icon: "lucide:building-2",
     nombre: "ANAGRUAL",
-    nombre_completo: "Agrupación Empresarial Nacional de Alquiladores de Grúas de Servicio Público",
+    nombre_completo:
+      "Agrupación Empresarial Nacional de Alquiladores de Grúas de Servicio Público",
     descripcion:
       "Grúas del Vallès desempeña cargos en la Junta Directiva a nivel autonómico dentro de esta agrupación empresarial nacional.",
     enlace: "https://www.anagrual.es",
@@ -56,7 +57,8 @@ const organismos = [
         Miembros activos del sector y de la sociedad
       </h2>
       <p class="leading-relaxed text-ink-secondary">
-        Puede conocer más sobre estas organizaciones pulsando sobre cada uno de los logos o accediendo a los enlaces indicados.
+        Puede conocer más sobre estas organizaciones pulsando sobre cada uno de
+        los logos o accediendo a los enlaces indicados.
       </p>
     </div>
   </section>
@@ -67,8 +69,12 @@ const organismos = [
       <div class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3">
         {
           organismos.map((o) => (
-            <div class="flex flex-col gap-4 bg-surface p-8">
-              <Icon name={o.icon} class="h-8 w-8 text-accent" aria-hidden="true" />
+            <div class="flex flex-col gap-4 bg-surface p-6 sm:p-8">
+              <Icon
+                name={o.icon}
+                class="h-8 w-8 text-accent"
+                aria-hidden="true"
+              />
               <div>
                 <h3 class="text-lg font-bold">{o.nombre}</h3>
                 <p class="mt-0.5 text-xs font-medium uppercase tracking-wider text-accent">
@@ -86,7 +92,11 @@ const organismos = [
                     rel="noopener noreferrer"
                     class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:underline"
                   >
-                    <Icon name="lucide:external-link" class="h-4 w-4" aria-hidden="true" />
+                    <Icon
+                      name="lucide:external-link"
+                      class="h-4 w-4"
+                      aria-hidden="true"
+                    />
                     Ver web
                   </a>
                 )}
@@ -97,7 +107,11 @@ const organismos = [
                     rel="noopener noreferrer"
                     class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:underline"
                   >
-                    <Icon name="lucide:download" class="h-4 w-4" aria-hidden="true" />
+                    <Icon
+                      name="lucide:download"
+                      class="h-4 w-4"
+                      aria-hidden="true"
+                    />
                     Descargar documento acreditativo
                   </a>
                 )}

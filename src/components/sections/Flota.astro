@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import Section from "../ui/Section.astro";
-import Button from "../ui/Button.astro";
 import FlotaCard from "../flota/FlotaCard.astro";
+import Button from "../ui/Button.astro";
+import Section from "../ui/Section.astro";
 
 // Fuente única: colección «flota» (ver src/content.config.ts)
 const entries = await getCollection("flota");
@@ -13,11 +13,7 @@ const allModels = entries
 const categorias = [...new Set(allModels.map((m) => m.categoria))];
 ---
 
-<Section
-  id="flota"
-  bg="alt"
-  title="Maquinaria para cualquier maniobra"
->
+<Section id="flota" bg="alt" title="Maquinaria para cualquier maniobra">
   <p slot="intro">
     Más de 30 unidades propias, siempre actualizadas. Si necesita una
     configuración específica,
@@ -25,9 +21,9 @@ const categorias = [...new Set(allModels.map((m) => m.categoria))];
     >.
   </p>
 
-  <!-- Filtros -->
+  <!-- Filtros (ocultos en móvil: la selección destacada va sin filtrar y el catálogo completo está en /flota) -->
   <div
-    class="mb-8 flex flex-wrap gap-2"
+    class="mb-8 flex flex-wrap gap-2 max-sm:hidden"
     id="flota-filters"
     role="group"
     aria-label="Filtrar flota por categoría"
@@ -55,11 +51,15 @@ const categorias = [...new Set(allModels.map((m) => m.categoria))];
   </div>
 
   <!-- Grid -->
+  <!-- En móvil mostramos solo una selección; el resto se ve desde sm o en /flota -->
   <div
     class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3"
     id="flota-grid"
   >
-    {allModels.slice(0, 6).map((model) => <FlotaCard model={model} />)}
+    {allModels.slice(0, 3).map((model) => <FlotaCard model={model} />)}
+    <div class="contents max-sm:hidden">
+      {allModels.slice(3, 6).map((model) => <FlotaCard model={model} />)}
+    </div>
   </div>
 
   <!-- CTA bottom -->

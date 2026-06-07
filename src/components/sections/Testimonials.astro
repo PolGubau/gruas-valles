@@ -109,7 +109,7 @@ const VISIBLE_ON_MOBILE = 3;
         testimonios.map((t, i) => (
           <article
             class:list={[
-              "flex flex-col gap-4 border-t-2 border-muted bg-surface p-6 shadow-card transition-colors duration-200 hover:border-accent",
+              "flex flex-col gap-4 border-t-2 border-muted bg-surface p-5 shadow-card transition-colors duration-200 hover:border-accent sm:p-6",
               { "testimonio-extra": i >= VISIBLE_ON_MOBILE },
             ]}
             data-reveal

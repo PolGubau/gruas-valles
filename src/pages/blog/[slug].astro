@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import Breadcrumb from "../../components/ui/Breadcrumb.astro";
 import Button from "../../components/ui/Button.astro";
 import Page from "../../layouts/Page.astro";
+import { resolveImages } from "../../lib/images";
 import { blogPostingSchema } from "../../lib/schema";
 
 export async function getStaticPaths() {
@@ -16,6 +17,7 @@ export async function getStaticPaths() {
 type Props = { entry: CollectionEntry<"blog"> };
 const { entry } = Astro.props;
 const post = entry.data;
+const imagenes = resolveImages(post.imagenes);
 
 const description = post.contenido.slice(0, 160);
 const url = `/blog/${entry.id}`;
@@ -25,7 +27,7 @@ const schema = blogPostingSchema(
     description,
     articleBody: post.contenido,
     url,
-    images: post.imagenes,
+    images: imagenes,
   },
   Astro.site,
 );
@@ -38,9 +40,9 @@ const crumbs = [
 ---
 
 <Page
-  title={`${post.titulo} | Noticias — Grúas del Vallès`}
+  title={`${post.titulo} | Noticias - Grúas del Vallès`}
   description={description}
-  image={post.imagenes[0]}
+  image={imagenes[0]}
   schema={schema}
 >
   <article class="section-padding bg-surface">
@@ -55,19 +57,19 @@ const crumbs = [
       </header>
 
       {
-        post.imagenes.length > 0 && (
+        imagenes.length > 0 && (
           <div class="mb-8 grid gap-px bg-muted">
             <div class="aspect-video overflow-hidden bg-surface-alt">
               <img
-                src={post.imagenes[0]}
+                src={imagenes[0]}
                 alt={post.titulo}
                 class="h-full w-full cursor-zoom-in object-cover"
                 data-zoomable
               />
             </div>
-            {post.imagenes.length > 1 && (
+            {imagenes.length > 1 && (
               <div class="grid grid-cols-3 gap-px">
-                {post.imagenes.slice(1).map((src) => (
+                {imagenes.slice(1).map((src) => (
                   <div class="aspect-video overflow-hidden bg-surface-alt">
                     <img
                       src={src}

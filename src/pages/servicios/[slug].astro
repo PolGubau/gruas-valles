@@ -2,8 +2,8 @@
 import { Icon } from "astro-icon/components";
 import CtaBand from "../../components/ui/CtaBand.astro";
 import PageHero from "../../components/ui/PageHero.astro";
-import servicios from "../../data/servicios.json";
 import flota from "../../data/flota.json";
+import servicios from "../../data/servicios.json";
 import Page from "../../layouts/Page.astro";
 
 export async function getStaticPaths() {
@@ -19,12 +19,15 @@ const title = `${cat.titulo} | Grúas del Vallès`;
 const description = `${cat.descripcion} Especialistas en elevación y transporte con más de 55 años de experiencia.`;
 
 // Filtrar flota relacionada si aplica
-const flotaRelacionada = flota.filter(f => {
-  if (cat.slug === 'gruas-moviles-autopropulsadas') return f.categoria === 'Grúas móviles autopropulsadas';
-  if (cat.slug === 'montaje-estructuras-prefabricado') return f.tonelaje >= 100;
-  return false;
-}).slice(0, 3);
-
+const flotaRelacionada = flota
+  .filter((f) => {
+    if (cat.slug === "gruas-moviles-autopropulsadas")
+      return f.categoria === "Grúas móviles autopropulsadas";
+    if (cat.slug === "montaje-estructuras-prefabricado")
+      return f.tonelaje >= 100;
+    return false;
+  })
+  .slice(0, 3);
 ---
 
 <Page title={title} description={description}>
@@ -43,52 +46,83 @@ const flotaRelacionada = flota.filter(f => {
     <div class="container-wide">
       <div class="grid gap-12 lg:grid-cols-2">
         <div>
-          <h2 class="mb-6 text-2xl font-black sm:text-3xl">Detalles del servicio</h2>
+          <h2 class="mb-6 text-2xl font-black sm:text-3xl">
+            Detalles del servicio
+          </h2>
           <ul class="space-y-4">
-            {cat.detalles.map((d: string) => (
-              <li class="flex items-start gap-3 text-sm leading-relaxed text-ink-secondary">
-                <Icon name="lucide:check-circle" class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
-                {d}
-              </li>
-            ))}
+            {
+              cat.detalles.map((d: string) => (
+                <li class="flex items-start gap-3 text-sm leading-relaxed text-ink-secondary">
+                  <Icon
+                    name="lucide:check-circle"
+                    class="mt-0.5 h-5 w-5 shrink-0 text-accent"
+                    aria-hidden="true"
+                  />
+                  {d}
+                </li>
+              ))
+            }
           </ul>
         </div>
 
-        <div class="bg-surface-alt p-8 border-l-4 border-accent">
+        <div class="bg-surface-alt p-6 border-l-4 border-accent sm:p-8">
           <h3 class="mb-4 text-xl font-bold italic">¿Sabía que...?</h3>
           <p class="text-sm leading-relaxed text-ink-secondary">
-            En Grúas del Vallès no solo alquilamos maquinaria. Aportamos el valor añadido de nuestra experiencia técnica. 
-            Cada {cat.titulo.toLowerCase()} se planifica para maximizar la seguridad y minimizar los tiempos de ejecución, 
-            asegurando el éxito de su proyecto.
+            En Grúas del Vallès no solo alquilamos maquinaria. Aportamos el
+            valor añadido de nuestra experiencia técnica. Cada {
+              cat.titulo.toLowerCase()
+            } se planifica para maximizar la seguridad y minimizar los tiempos de
+            ejecución, asegurando el éxito de su proyecto.
           </p>
           <div class="mt-6 flex items-center gap-4">
-             <Icon name="lucide:shield-check" class="h-10 w-10 text-accent/20" />
-             <p class="text-xs font-semibold uppercase tracking-wider text-accent">Certificación ISO 9001 · REA · REIC</p>
+            <Icon name="lucide:shield-check" class="h-10 w-10 text-accent/20" />
+            <p
+              class="text-xs font-semibold uppercase tracking-wider text-accent"
+            >
+              Certificación ISO 9001 · REA · REIC
+            </p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  {flotaRelacionada.length > 0 && (
-    <section class="section-padding bg-surface-alt">
-      <div class="container-wide">
-        <h2 class="mb-8 text-2xl font-black sm:text-3xl">Maquinaria destacada para este servicio</h2>
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {flotaRelacionada.map((f) => (
-            <a href={`/flota/${f.slug}`} class="group bg-surface p-6 border border-muted hover:border-accent transition-colors">
-              <p class="text-xs font-bold text-accent uppercase mb-2">{f.categoria}</p>
-              <h3 class="text-lg font-bold group-hover:text-accent transition-colors">{f.nombre}</h3>
-              <p class="mt-2 text-sm text-ink-secondary line-clamp-2">{f.descripcion_corta}</p>
-              <span class="mt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
-                Ver ficha <Icon name="lucide:arrow-right" class="h-3 w-3 transition-transform group-hover:translate-x-1" />
-              </span>
-            </a>
-          ))}
+  {
+    flotaRelacionada.length > 0 && (
+      <section class="section-padding bg-surface-alt">
+        <div class="container-wide">
+          <h2 class="mb-8 text-2xl font-black sm:text-3xl">
+            Maquinaria destacada para este servicio
+          </h2>
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {flotaRelacionada.map((f) => (
+              <a
+                href={`/flota/${f.slug}`}
+                class="group bg-surface p-5 border border-muted hover:border-accent transition-colors sm:p-6"
+              >
+                <p class="text-xs font-bold text-accent uppercase mb-2">
+                  {f.categoria}
+                </p>
+                <h3 class="text-lg font-bold group-hover:text-accent transition-colors">
+                  {f.nombre}
+                </h3>
+                <p class="mt-2 text-sm text-ink-secondary line-clamp-2">
+                  {f.descripcion_corta}
+                </p>
+                <span class="mt-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                  Ver ficha{" "}
+                  <Icon
+                    name="lucide:arrow-right"
+                    class="h-3 w-3 transition-transform group-hover:translate-x-1"
+                  />
+                </span>
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  )}
+      </section>
+    )
+  }
 
   <CtaBand />
 </Page>

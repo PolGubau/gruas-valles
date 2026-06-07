@@ -1,9 +1,10 @@
 ---
 import { getCollection } from "astro:content";
-import Section from "../ui/Section.astro";
-import Button from "../ui/Button.astro";
-import Badge from "../ui/Badge.astro";
+import { resolveImage } from "../../lib/images";
 import ManiobraCard from "../maniobras/ManiobraCard.astro";
+import Badge from "../ui/Badge.astro";
+import Button from "../ui/Button.astro";
+import Section from "../ui/Section.astro";
 
 // Fuente única: colección «maniobras» (ver src/content.config.ts)
 const entries = await getCollection("maniobras");
@@ -33,7 +34,7 @@ const destacada = conFoto[0];
       >
         <div class="relative aspect-4/3 overflow-hidden bg-ink">
           <img
-            src={destacada.imagenes[0]}
+            src={resolveImage(destacada.imagenes[0])}
             alt={destacada.titulo}
             class="h-full w-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
@@ -65,8 +66,12 @@ const destacada = conFoto[0];
   }
 
   <!-- Grid resto -->
+  <!-- En móvil dejamos la destacada + 1 caso; el resto se ve desde sm o en /maniobras -->
   <div class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3">
-    {ordenadas.slice(1, 4).map((m) => <ManiobraCard maniobra={m} />)}
+    {ordenadas[1] && <ManiobraCard maniobra={ordenadas[1]} />}
+    <div class="contents max-sm:hidden">
+      {ordenadas.slice(2, 4).map((m) => <ManiobraCard maniobra={m} />)}
+    </div>
   </div>
 
   <div class="mt-12 text-center">

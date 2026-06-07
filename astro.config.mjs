@@ -5,6 +5,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 export default defineConfig({
   site: 'https://www.gruasdelvalles.com',
+  publicDir: './src/public',
   experimental: {
     fonts: [
       {
