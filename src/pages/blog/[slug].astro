@@ -1,8 +1,10 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import { Icon } from "astro-icon/components";
 import Breadcrumb from "../../components/ui/Breadcrumb.astro";
 import Button from "../../components/ui/Button.astro";
 import Page from "../../layouts/Page.astro";
+import { resolveDoc } from "../../lib/docs";
 import { resolveImages } from "../../lib/images";
 import { blogPostingSchema } from "../../lib/schema";
 
@@ -18,14 +20,20 @@ type Props = { entry: CollectionEntry<"blog"> };
 const { entry } = Astro.props;
 const post = entry.data;
 const imagenes = resolveImages(post.imagenes);
+const { Content } = await render(entry);
 
-const description = post.contenido.slice(0, 160);
+const documentos = post.documentos.map((doc) => ({
+  ...doc,
+  url: resolveDoc(doc.archivo),
+}));
+
+const description = post.resumen.slice(0, 160);
 const url = `/blog/${entry.id}`;
 const schema = blogPostingSchema(
   {
     headline: post.titulo,
     description,
-    articleBody: post.contenido,
+    articleBody: post.resumen,
     url,
     images: imagenes,
   },
@@ -86,9 +94,48 @@ const crumbs = [
         )
       }
 
-      <p class="max-w-3xl text-base leading-relaxed text-ink-secondary">
-        {post.contenido}
-      </p>
+      <div
+        class="blog-prose max-w-3xl text-base leading-relaxed text-ink-secondary"
+      >
+        <Content />
+      </div>
+
+      {
+        documentos.length > 0 && (
+          <section class="mt-10 max-w-3xl border-t border-muted pt-8">
+            <h2 class="eyebrow">
+              <span class="h-px w-8 bg-accent" />
+              Documentación
+            </h2>
+            <ul class="mt-4 grid gap-px bg-muted">
+              {documentos.map((doc) => (
+                <li>
+                  <a
+                    href={doc.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group flex items-center gap-3 bg-surface px-4 py-3 transition-colors hover:bg-surface-alt"
+                  >
+                    <Icon
+                      name="lucide:file-text"
+                      class="h-5 w-5 shrink-0 text-accent"
+                      aria-hidden="true"
+                    />
+                    <span class="flex-1 text-sm font-medium text-ink">
+                      {doc.titulo}
+                    </span>
+                    <Icon
+                      name="lucide:download"
+                      class="h-4 w-4 shrink-0 text-muted-dark transition-colors group-hover:text-accent"
+                      aria-hidden="true"
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
 
       <div class="mt-8 flex flex-wrap gap-4">
         <Button href="/#contacto" icon="lucide:arrow-right"
