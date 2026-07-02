@@ -3,10 +3,8 @@ import { catalogo } from "../../lib/docs";
 import { resolveImage } from "../../lib/images";
 import Button from "../ui/Button.astro";
 
-// Hero usa la foto más impactante de la flota
-const heroImage = resolveImage(
-  "/assets/images/flota-liebherr-ltm1400-7-1-01.avif",
-);
+// Hero usa foto de acción 2024 (LIEBHERR LTM 1100-5.3 en operación)
+const heroImage = resolveImage("/assets/images/hero-grua-accion-2024-01.avif");
 ---
 
 <section
@@ -17,7 +15,7 @@ const heroImage = resolveImage(
   <div class="absolute inset-0">
     <img
       src={heroImage}
-      alt="Grúa Liebherr LTM 1400 de Grúas del Vallès en operación"
+      alt="Grúa Liebherr LTM 1100 de Grúas del Vallès en operación"
       class="h-full w-full object-cover object-center opacity-60"
       fetchpriority="high"
       decoding="async"
@@ -48,7 +46,7 @@ const heroImage = resolveImage(
       >
         Alquiler de<br />
         <span class="text-accent">grúas industriales</span><br />
-        hasta 500 Tn
+        hasta 700 Tn
       </h1>
 
       <!-- Subheadline -->
@@ -106,7 +104,7 @@ const heroImage = resolveImage(
           [
             { value: "+55", label: "Años de experiencia" },
             { value: "30+", label: "Unidades propias" },
-            { value: "500 Tn", label: "Capacidad máxima" },
+            { value: "700 Tn", label: "Capacidad máxima" },
           ].map(({ value, label }) => (
             <div class="border-t-2 border-accent bg-ink/60 px-2 py-4 backdrop-blur-sm sm:px-5 sm:py-5">
               <dt class="sr-only">{label}</dt>

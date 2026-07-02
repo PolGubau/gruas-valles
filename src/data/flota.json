@@ -4,7 +4,7 @@
     "modelos": [
       {
         "modelo": "LIEBHERR LTM 1500-8.1",
-        "capacidad_max_t": 500,
+        "capacidad_max_t": 700,
         "nuevo": true,
         "nota": "El mayor vehículo de la flota.",
         "pluma_telescopica_m": 84,

@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 const { loc } = Astro.props;
 
 const title = `Alquiler de grúas en ${loc.nombre} | Grúas del Vallès`;
-const description = `Alquiler de grúas móviles autopropulsadas de 40 a 500 Tn y transportes especiales en ${loc.nombre} (${loc.comarca}). +55 años de experiencia, emergencias 24/365 y estudio técnico de cada maniobra.`;
+const description = `Alquiler de grúas móviles autopropulsadas de 40 a 700 Tn y transportes especiales en ${loc.nombre} (${loc.comarca}). +55 años de experiencia, emergencias 24/365 y estudio técnico de cada maniobra.`;
 const url = `/alquiler-gruas/${loc.slug}`;
 
 const schema = localServiceSchema(

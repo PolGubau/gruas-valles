@@ -54,7 +54,7 @@ Datos extraídos de la web actual de Grúas del Vallès (www.gruasdelvalles.com)
     {
       "categoria": "Grúas gran tonelaje",
       "modelos": [
-        { "modelo": "LIEBHERR LTM 1500-8.1", "capacidad": "500 T", "nuevo": true, "nota": "El mayor vehículo de la flota.", "pluma_telescopica": "84 m", "plumin_abatible": "91 m", "plumin_fijo": "56 m", "ejes": 8, "dimensiones": "Alto 4 m / Ancho 3 m / Largo 21,38 m" },
+        { "modelo": "LIEBHERR LTM 1500-8.1", "capacidad": "700 T", "nuevo": true, "nota": "El mayor vehículo de la flota.", "pluma_telescopica": "84 m", "plumin_abatible": "91 m", "plumin_fijo": "56 m", "ejes": 8, "dimensiones": "Alto 4 m / Ancho 3 m / Largo 21,38 m" },
         { "modelo": "LIEBHERR LTM 1400-7.1", "capacidad": "400 T", "pluma": "60 m", "plumin_abatible": "84 m", "plumin_fijo": "63 m", "ejes": 7 },
         { "modelo": "LIEBHERR LTM 1350-6.1", "capacidad": "350 T", "nota": "El modelo de 6 ejes más potente del mercado.", "pluma": "70 m", "plumin_abatible": "hasta 78 m", "plumin_fijo": "hasta 42 m", "ejes": 6 },
         { "modelo": "GROVE GMK 5250XL-1", "capacidad": "250 T", "pluma": "78 m", "plumin": "25,8 m angulable a 50°", "ejes": 5 }
@@ -108,7 +108,7 @@ Datos extraídos de la web actual de Grúas del Vallès (www.gruasdelvalles.com)
 {
   "servicios": {
     "principales": [
-      "Alquiler de grúas móviles autopropulsadas (de 40 a 500 Tn) y camiones grúa auto-cargante hasta 96 Tn, trailers y otros transportes",
+      "Alquiler de grúas móviles autopropulsadas (de 40 a 700 Tn) y camiones grúa auto-cargante hasta 96 Tn, trailers y otros transportes",
       "Alquiler de transportes especiales (cargas que superan las medidas genéricas legales)",
       "Alquiler de carretillas elevadoras, toros mecánicos, gatos, tanquetas y utillajes para manipulación en interiores",
       "Alquiler de equipos de montaje (muros, naves e infraestructuras de prefabricado)",
@@ -175,7 +175,7 @@ Datos extraídos de la web actual de Grúas del Vallès (www.gruasdelvalles.com)
         "2006": "Certificación ISO 9001:2000 (nº EC-5828/10).",
         "2008": "Registro REA nº 09000036812 (sector construcción).",
         "2009": "Puesta en marcha de la central fotovoltaica.",
-        "actualidad": "Parque de grúas móviles autopropulsadas de 40 a 450 Tn, transportes, camiones grúa, trailers, góndolas, remolques y plataformas."
+        "actualidad": "Parque de grúas móviles autopropulsadas de 40 a 700 Tn, transportes, camiones grúa, trailers, góndolas, remolques y plataformas."
       }
     },
     "donde_estamos": { "direccion": "Avda. San Julián 64-66, Polígono Industrial Congost, Granollers (Barcelona)", "referencia": "A 2 minutos del Circuito de Montmeló", "accesos": "Carretera N-152 y AP-7" },
