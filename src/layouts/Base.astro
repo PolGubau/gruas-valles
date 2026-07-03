@@ -2,6 +2,7 @@
 import { Font } from "astro:assets";
 import SEO from "../components/seo/SEO.astro";
 import FloatCTA from "../components/ui/FloatCTA.astro";
+import MobileBar from "../components/ui/MobileBar.astro";
 import WhatsAppFAB from "../components/ui/WhatsAppFAB.astro";
 import "../styles/global.css";
 
@@ -55,6 +56,7 @@ const {
     </a>
     <slot />
     <FloatCTA />
+    <MobileBar />
     <WhatsAppFAB />
 
     <script>

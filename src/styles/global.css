@@ -41,6 +41,15 @@
 
 	body {
 		@apply bg-surface text-ink font-sans antialiased;
+		/* Space for MobileBar on small screens */
+		padding-bottom: env(safe-area-inset-bottom, 0px);
+	}
+
+	@media (max-width: 639px) {
+		body {
+			/* MobileBar mide h-16 (64px) */
+			padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+		}
 	}
 
 	h1,

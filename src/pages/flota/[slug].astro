@@ -95,23 +95,23 @@ const crumbs = [
         <div>
           {
             imagenes.length > 0 ? (
-              <div class="grid gap-px bg-muted">
-                <div class="aspect-4/3 overflow-hidden bg-surface-alt">
+              <div class="grid gap-px bg-white">
+                <div class="aspect-video overflow-hidden bg-white">
                   <img
                     src={imagenes[0]}
                     alt={m.modelo}
-                    class="h-full w-full cursor-zoom-in object-cover"
+                    class="h-full w-full cursor-zoom-in object-contain p-6"
                     data-zoomable
                   />
                 </div>
                 {imagenes.length > 1 && (
                   <div class="grid grid-cols-3 gap-px">
                     {imagenes.slice(1).map((src) => (
-                      <div class="aspect-4/3 overflow-hidden bg-surface-alt">
+                      <div class="aspect-video overflow-hidden bg-white">
                         <img
                           src={src}
                           alt={m.modelo}
-                          class="h-full w-full cursor-zoom-in object-cover"
+                          class="h-full w-full cursor-zoom-in object-contain p-3"
                           loading="lazy"
                           data-zoomable
                         />
@@ -121,7 +121,7 @@ const crumbs = [
                 )}
               </div>
             ) : (
-              <div class="flex aspect-4/3 items-center justify-center bg-surface-alt">
+              <div class="flex aspect-video items-center justify-center bg-surface-alt">
                 <Icon
                   name="lucide:construction"
                   class="h-20 w-20 text-muted"
