@@ -23,6 +23,63 @@ const newModels = allModels.filter((m) => m.nuevo);
     >.
   </p>
 
+  <!-- ── Novedades ── -->
+  {
+    newModels.length > 0 && (
+      <div class="mb-12" data-reveal>
+        <div class="mb-5 flex items-center gap-4">
+          <p class="shrink-0 text-[11px] font-bold uppercase tracking-widest text-accent">
+            ✦ Nuevas incorporaciones
+          </p>
+          <span class="h-px flex-1 bg-muted" aria-hidden="true" />
+          <a
+            href="/flota"
+            class="shrink-0 text-[11px] font-semibold uppercase tracking-wider text-muted-dark transition-colors hover:text-accent"
+          >
+            Ver todas →
+          </a>
+        </div>
+
+        <div class="novedades-track">
+          {newModels.map((model) => {
+            const capacidad = model.capacidad_max_t ?? model.capacidad_tm;
+            return (
+              <a href={`/flota/${model.slug}`} class="novedades-card group">
+                <div class="novedades-img">
+                  {model.imagenes.length > 0 ? (
+                    <img
+                      src={resolveImage(model.imagenes[0])}
+                      alt={model.modelo}
+                      class="h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : null}
+                </div>
+                <div class="p-4">
+                  <span class="mb-1 block text-[10px] font-black uppercase tracking-widest text-accent">
+                    Nueva
+                  </span>
+                  <h3 class="text-sm font-bold leading-snug transition-colors group-hover:text-accent">
+                    {model.modelo}
+                  </h3>
+                  {capacidad && (
+                    <p class="mt-1 text-xs text-muted-dark">{capacidad} Tn</p>
+                  )}
+                  {model.nota && (
+                    <p class="mt-1 text-xs italic text-ink-secondary">
+                      {model.nota}
+                    </p>
+                  )}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    )
+  }
+
   <!-- Filtros (ocultos en móvil: la selección destacada va sin filtrar y el catálogo completo está en /flota) -->
   <div
     class="mb-8 flex flex-wrap gap-2 max-sm:hidden"
@@ -74,6 +131,61 @@ const newModels = allModels.filter((m) => m.nuevo);
     </Button>
   </div>
 </Section>
+
+<style>
+  .novedades-track {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+    /* Fade en los bordes para indicar scroll */
+    -webkit-mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+  }
+
+  /* Ocultar scrollbar visualmente pero mantener funcionalidad */
+  .novedades-track::-webkit-scrollbar {
+    height: 4px;
+  }
+  .novedades-track::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .novedades-track::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border-radius: 2px;
+  }
+
+  .novedades-card {
+    flex-shrink: 0;
+    width: 17rem;
+    scroll-snap-align: start;
+    background: white;
+    border-top: 2px solid var(--color-accent);
+    transition:
+      box-shadow 0.25s ease,
+      transform 0.25s ease;
+  }
+  .novedades-card:hover {
+    box-shadow:
+      0 8px 24px -4px rgb(0 0 0 / 0.12),
+      0 2px 8px -2px rgb(0 0 0 / 0.08);
+    transform: translateY(-2px);
+  }
+
+  .novedades-img {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--color-surface-alt, #f4f4f5);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .novedades-card {
+      transition: none;
+    }
+  }
+</style>
 
 <script>
   const filters = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
