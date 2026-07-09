@@ -12,11 +12,11 @@ const heroImage = resolveImage("/assets/images/hero-grua-accion-2024-01.avif");
   class="relative flex min-h-svh flex-col justify-end overflow-hidden bg-ink pt-16"
 >
   <!-- Background image -->
-  <div class="absolute inset-0">
+  <div class="absolute inset-0 overflow-hidden">
     <img
       src={heroImage}
       alt="Grúa Liebherr LTM 1100 de Grúas del Vallès en operación"
-      class="h-full w-full object-cover object-center opacity-40 sm:opacity-60"
+      class="hero-bg h-full w-full object-cover object-center opacity-40 sm:opacity-60"
       fetchpriority="high"
       decoding="async"
     />
@@ -38,15 +38,25 @@ const heroImage = resolveImage("/assets/images/hero-grua-accion-2024-01.avif");
   <!-- Content -->
   <div class="container-wide relative z-10 section-padding pb-10 sm:pb-14">
     <div class="max-w-3xl">
+      <!-- Logo over dark hero -->
+      <img
+        src="/logo.png"
+        alt="Grúas del Vallès"
+        class="mb-8 h-12 w-auto sm:h-14"
+        style="filter: brightness(0) invert(1)"
+        loading="eager"
+        data-reveal
+      />
+
       <!-- Headline -->
       <h1
-        class="mb-5 text-[clamp(2.6rem,10vw,4.5rem)] font-black leading-[0.9] tracking-tight text-white sm:mb-6 sm:text-6xl lg:text-7xl"
+        class="mb-5 text-[clamp(1.9rem,6.5vw,5rem)] font-black leading-[0.92] tracking-tight text-white sm:mb-6"
         data-reveal
         data-reveal-delay="1"
       >
         Alquiler de<br />
         <span class="text-accent">grúas industriales</span><br />
-        hasta 700&nbsp;Tn
+        <span class="text-white/80">y autopropulsadas</span>
       </h1>
 
       <!-- Subheadline -->
@@ -55,9 +65,8 @@ const heroImage = resolveImage("/assets/images/hero-grua-accion-2024-01.avif");
         data-reveal
         data-reveal-delay="2"
       >
-        Más de 30 unidades propias en Cataluña<br /> Servicio de emergencia <strong
-          class="text-white/90 sm:text-white">24 h · 365 días</strong
-        >
+        86 vehículos propios en Cataluña · hasta 700&nbsp;Tn<br /> Servicio de emergencia
+        <strong class="text-white/90 sm:text-white">24 h · 365 días</strong>
       </p>
 
       <!-- CTAs -->
@@ -101,7 +110,7 @@ const heroImage = resolveImage("/assets/images/hero-grua-accion-2024-01.avif");
     {
       [
         { value: "+55", label: "Años de experiencia" },
-        { value: "30+", label: "Unidades propias" },
+        { value: "28", label: "Grúas propias" },
         { value: "700 Tn", label: "Capacidad máx." },
       ].map(({ value, label }) => (
         <div class="border-t-2 border-accent bg-black/50 px-4 py-5 backdrop-blur-sm sm:px-8 sm:py-6">
@@ -135,3 +144,28 @@ const heroImage = resolveImage("/assets/images/hero-grua-accion-2024-01.avif");
     </span>
   </a>
 </section>
+
+<style>
+  @keyframes ken-burns {
+    0% {
+      transform: scale(1) translate(0, 0);
+    }
+    50% {
+      transform: scale(1.06) translate(-1%, 0.5%);
+    }
+    100% {
+      transform: scale(1.04) translate(0.8%, -0.8%);
+    }
+  }
+
+  .hero-bg {
+    animation: ken-burns 28s ease-in-out infinite alternate;
+    transform-origin: center center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg {
+      animation: none;
+    }
+  }
+</style>

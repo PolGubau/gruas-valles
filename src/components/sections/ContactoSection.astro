@@ -1,4 +1,5 @@
 ---
+import WhatsAppButton from "@components/ui/WhatsAppButton.astro";
 import { Icon } from "astro-icon/components";
 import contacto from "../../data/contacto.json";
 import { catalogo } from "../../lib/docs";
@@ -20,8 +21,8 @@ import Button from "../ui/Button.astro";
         </h2>
         <p class="mb-8 text-sm text-ink-secondary">
           Rellene los datos y se abrirá su gestor de correo con la solicitud
-          lista para enviar. Nuestro equipo técnico le responde en menos de 24
-          horas con una propuesta detallada.
+          lista para enviar. Nuestro equipo técnico le responderá en{" "}
+          <strong class="text-ink">menos de 24 horas</strong> con una propuesta detallada.
         </p>
 
         <form
@@ -235,6 +236,10 @@ import Button from "../ui/Button.astro";
             />
             {catalogo.label}
           </a>
+
+          <div class="mt-4">
+            <WhatsAppButton />
+          </div>
         </div>
       </div>
     </div>

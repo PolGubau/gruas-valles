@@ -9,13 +9,13 @@ const href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${enco
 <div
   id="float-cta"
   data-hidden
-  class="fixed bottom-6 right-4 z-50 hidden translate-y-24 items-center gap-3 opacity-0 transition-all duration-300 ease-[var(--ease-out-quart)] data-[hidden]:pointer-events-none sm:flex sm:right-6"
+  class="fixed bottom-6 right-4 z-50 hidden translate-y-24 items-center gap-3 opacity-0 transition-all duration-300 ease-out-quart data-hidden:pointer-events-none sm:flex sm:right-6"
 >
   <!-- Pedir presupuesto -->
   <a
     href={href}
     aria-label="Pedir presupuesto por email"
-    class="group flex items-center gap-3 bg-accent px-4 py-3 text-white shadow-pop transition-all duration-300 ease-[var(--ease-out-quart)] hover:bg-accent-dark hover:shadow-[0_16px_48px_-12px_rgba(214,11,12,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-accent sm:px-5 sm:py-3.5"
+    class="group flex items-center gap-3 bg-accent px-4 py-3 text-white shadow-pop transition-all duration-300 ease-out-quart hover:bg-accent-dark hover:shadow-[0_16px_48px_-12px_rgba(214,11,12,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-accent sm:px-5 sm:py-3.5"
   >
     <!-- Mail icon -->
     <svg

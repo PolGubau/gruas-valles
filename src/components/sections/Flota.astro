@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { resolveImage } from "../../lib/images";
 import FlotaCard from "../flota/FlotaCard.astro";
 import Button from "../ui/Button.astro";
 import Section from "../ui/Section.astro";
@@ -11,12 +12,13 @@ const allModels = entries
   .sort((a, b) => a.orden - b.orden);
 
 const categorias = [...new Set(allModels.map((m) => m.categoria))];
+const newModels = allModels.filter((m) => m.nuevo);
 ---
 
 <Section id="flota" bg="alt" title="Maquinaria para cualquier maniobra">
   <p slot="intro">
-    Más de 30 unidades propias, siempre actualizadas. Si necesita una
-    configuración específica,
+    28 grúas propias — industriales y móviles autopropulsadas — siempre
+    actualizadas. Si necesita una configuración específica,
     <a href="#contacto" class="font-medium text-accent underline">consúltenos</a
     >.
   </p>

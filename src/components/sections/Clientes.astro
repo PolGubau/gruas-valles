@@ -109,14 +109,10 @@ const track = [...logos, ...logos];
   }
 
   .logo-img {
-    filter: grayscale(100%);
-    opacity: 0.55;
-    transition:
-      filter 0.3s var(--ease-out-quart),
-      opacity 0.3s var(--ease-out-quart);
+    opacity: 0.8;
+    transition: opacity 0.3s var(--ease-out-quart);
   }
   .logo-img:hover {
-    filter: grayscale(0%);
     opacity: 1;
   }
 
@@ -142,7 +138,7 @@ const track = [...logos, ...logos];
       display: none;
     }
     .logo-img {
-      opacity: 0.7;
+      opacity: 0.85;
     }
   }
 </style>
