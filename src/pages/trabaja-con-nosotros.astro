@@ -1,0 +1,148 @@
+---
+import { Icon } from "astro-icon/components";
+import CtaBand from "../components/ui/CtaBand.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import Page from "../layouts/Page.astro";
+
+const perfiles = [
+  {
+    icon: "lucide:truck",
+    titulo: "Operador de grúa",
+    descripcion:
+      "Operación de grúas móviles autopropulsadas de gran tonelaje. Se requiere permiso OGMA y experiencia mínima de 2 años.",
+    requisitos: ["Permiso OGMA A/B", "Carnet C/E", "Experiencia en obra"],
+  },
+  {
+    icon: "lucide:wrench",
+    titulo: "Mecánico de maquinaria pesada",
+    descripcion:
+      "Mantenimiento y reparación de flota propia. Taller dotado de herramienta de última generación y almacén de recambios.",
+    requisitos: ["FP Mecánica Industrial", "Hidráulica y electrónica", "Trabajo en equipo"],
+  },
+  {
+    icon: "lucide:hard-hat",
+    titulo: "Técnico de maniobras",
+    descripcion:
+      "Planificación y coordinación de maniobras especiales con estudio previo CAD/CAM. Perfil técnico con orientación a la seguridad.",
+    requisitos: ["Recurso Preventivo", "Lectura de planos", "AutoCAD valorable"],
+  },
+  {
+    icon: "lucide:file-text",
+    titulo: "Administrativo/a",
+    descripcion:
+      "Gestión de presupuestos, coordinación de equipos y trámites de permisos con organismos públicos.",
+    requisitos: ["Ciclo Administrativo o similar", "Ofimática avanzada", "Catalán y castellano"],
+  },
+];
+
+const beneficios = [
+  { icon: "lucide:calendar-check", texto: "Contrato estable desde el primer día" },
+  { icon: "lucide:graduation-cap", texto: "Formación continua y homologada" },
+  { icon: "lucide:users", texto: "Equipo joven y ambiente familiar" },
+  { icon: "lucide:shield-check", texto: "Equipos de protección de primer nivel" },
+  { icon: "lucide:map-pin", texto: "Base en Granollers, accesos N-152 y AP-7" },
+  { icon: "lucide:trending-up", texto: "Crecimiento dentro de la empresa" },
+];
+
+const emailCandidatura = "gruasdelvalles@gruasdelvalles.com";
+---
+
+<Page
+  title="Trabaja con nosotros | Grúas del Vallès"
+  description="Únete al equipo de Grúas del Vallès. Empresa familiar con más de 55 años de experiencia en elevación industrial. Buscamos operadores, mecánicos y técnicos comprometidos con la seguridad."
+>
+  <PageHero
+    title="Forma parte de nuestro equipo"
+    lede="En Grúas del Vallès llevamos más de 55 años creciendo gracias a las personas. Si te apasiona la maquinaria pesada y la seguridad industrial, queremos conocerte."
+    crumbs={[{ label: "Inicio", href: "/" }, { label: "Trabaja con nosotros" }]}
+  />
+
+  <!-- Perfiles buscados -->
+  <section class="section-padding bg-surface">
+    <div class="container-wide">
+      <div class="mb-12 max-w-2xl">
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Perfiles que buscamos
+        </p>
+        <h2 class="text-3xl font-black leading-tight sm:text-4xl">
+          Puestos habituales en nuestra empresa
+        </h2>
+        <p class="mt-4 text-base leading-relaxed text-ink-secondary">
+          Tanto si tienes experiencia en el sector como si estás empezando, envíanos tu candidatura. Valoramos la actitud, la responsabilidad y el trabajo en equipo.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          perfiles.map((p) => (
+            <div class="flex flex-col gap-4 border-2 border-muted bg-surface p-6">
+              <span class="flex h-12 w-12 items-center justify-center bg-accent-soft text-accent">
+                <Icon name={p.icon} class="h-6 w-6" aria-hidden="true" />
+              </span>
+              <h3 class="text-lg font-bold">{p.titulo}</h3>
+              <p class="grow text-sm leading-relaxed text-ink-secondary">{p.descripcion}</p>
+              <ul class="space-y-1.5 border-t border-muted/60 pt-4">
+                {p.requisitos.map((r) => (
+                  <li class="flex items-center gap-2 text-xs text-ink-secondary">
+                    <Icon name="lucide:check" class="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden="true" />
+                    {r}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Beneficios -->
+  <section class="section-padding bg-surface-alt">
+    <div class="container-wide">
+      <div class="mb-12 max-w-2xl">
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>¿Por qué elegirnos?
+        </p>
+        <h2 class="text-3xl font-black leading-tight sm:text-4xl">
+          Lo que ofrecemos
+        </h2>
+      </div>
+      <div class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3">
+        {
+          beneficios.map((b) => (
+            <div class="flex items-start gap-4 bg-surface p-6 sm:p-8">
+              <Icon name={b.icon} class="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+              <p class="text-sm font-medium leading-relaxed">{b.texto}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA candidatura espontánea -->
+  <section class="section-padding bg-ink text-white">
+    <div class="container-narrow text-center">
+      <p class="eyebrow justify-center">
+        <span class="h-px w-8 bg-accent"></span>Candidatura espontánea<span class="h-px w-8 bg-accent"></span>
+      </p>
+      <h2 class="mt-4 text-3xl font-black sm:text-4xl">
+        ¿No ves tu perfil? Escríbenos igualmente
+      </h2>
+      <p class="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted">
+        Guardamos todas las candidaturas y las tenemos en cuenta cuando abrimos nuevas vacantes. Adjunta tu CV e indícanos tu área de interés.
+      </p>
+      <a
+        href={`mailto:${emailCandidatura}?subject=Candidatura%20espontánea%20-%20Trabaja%20con%20nosotros`}
+        class="btn mt-8 inline-flex items-center gap-2.5 bg-accent px-8 py-4 text-base font-bold text-white transition-colors hover:bg-accent-dark"
+      >
+        <Icon name="lucide:send" class="h-5 w-5" aria-hidden="true" />
+        Enviar mi candidatura
+      </a>
+      <p class="mt-4 text-xs text-muted-dark">
+        {emailCandidatura}
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Page>

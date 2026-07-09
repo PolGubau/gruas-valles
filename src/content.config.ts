@@ -1,7 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import flotaRaw from "./data/flota.json";
-import maniobrasRaw from "./data/maniobras.json";
 import { slugify } from "./lib/slugify";
 
 /**
@@ -67,28 +66,6 @@ const flota = defineCollection({
 	}),
 });
 
-const maniobras = defineCollection({
-	loader: () =>
-		maniobrasRaw.map((m, orden) => ({ ...m, id: slugify(m.titulo), orden })),
-	schema: z.object({
-		titulo: z.string(),
-		descripcion: z.string(),
-		orden: z.number(),
-		gruas_utilizadas: z.array(z.string()).optional(),
-		peso_carga_t: z.number().optional(),
-		contrapesos_t: z.number().optional(),
-		radio_m: z.number().optional(),
-		altura_m: z.number().optional(),
-		plumin_m: z.number().optional(),
-		plumin_fijo_m: z.number().optional(),
-		plumin_abatible_m: z.number().optional(),
-		plumin_arriostrado_m: z.number().optional(),
-		pluma_m: z.number().optional(),
-		href: z.string().url().optional(),
-		imagenes,
-	}),
-});
-
 const blog = defineCollection({
 	loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
 	schema: z.object({
@@ -103,4 +80,4 @@ const blog = defineCollection({
 	}),
 });
 
-export const collections = { flota, maniobras, blog };
+export const collections = { flota, blog };

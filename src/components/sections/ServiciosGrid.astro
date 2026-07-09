@@ -30,32 +30,64 @@ const iconos: string[] = [
   bg="white"
   title="Todo lo que necesitas en una sola empresa"
 >
+  <!-- Departamento de estudios · servicio destacado -->
+  <a
+    href="/servicios/ingenieria-de-maniobra"
+    class="group relative mb-10 flex flex-col gap-6 overflow-hidden bg-ink p-8 text-white transition-all hover:shadow-xl sm:p-12 lg:flex-row lg:items-center lg:justify-between lg:gap-12"
+    data-reveal
+  >
+    <div class="max-w-3xl">
+      <p
+        class="mb-3 text-xs font-semibold uppercase tracking-wider text-accent"
+      >
+        Departamento de estudios
+      </p>
+      <h3 class="mb-4 text-2xl font-black leading-tight sm:text-4xl">
+        Ingeniería antes de la maniobra
+      </h3>
+      <p class="text-sm leading-relaxed text-muted sm:text-base">
+        {servicios.departamento_de_estudios}
+      </p>
+    </div>
+    <span
+      class="inline-flex shrink-0 items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-accent"
+    >
+      Ver detalles
+      <Icon
+        name="lucide:move-right"
+        class="h-4 w-4 transition-transform group-hover:translate-x-1"
+      />
+    </span>
+  </a>
+
   <!-- Featured Categories -->
-  <div class="mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+  <div class="mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
     {
-      servicios.categorias.map((cat: any) => (
-        <a
-          href={`/servicios/${cat.slug}`}
-          class="group relative flex flex-col bg-surface-alt p-6 transition-all hover:bg-white hover:shadow-xl sm:p-8"
-        >
-          <div class="mb-6 flex h-12 w-12 items-center justify-center bg-white text-accent shadow-sm group-hover:bg-accent group-hover:text-white transition-colors">
-            <Icon name="lucide:arrow-up-right" class="h-6 w-6" />
-          </div>
-          <h3 class="mb-3 text-lg font-black leading-tight group-hover:text-accent transition-colors">
-            {cat.titulo}
-          </h3>
-          <p class="text-xs leading-relaxed text-ink-secondary line-clamp-3">
-            {cat.descripcion}
-          </p>
-          <span class="mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-accent">
-            Ver detalles{" "}
-            <Icon
-              name="lucide:move-right"
-              class="h-3 w-3 transition-transform group-hover:translate-x-1"
-            />
-          </span>
-        </a>
-      ))
+      servicios.categorias
+        .filter((cat: any) => cat.slug !== "ingenieria-de-maniobra")
+        .map((cat: any) => (
+          <a
+            href={`/servicios/${cat.slug}`}
+            class="group relative flex flex-col bg-surface-alt p-6 transition-all hover:bg-white hover:shadow-xl sm:p-8"
+          >
+            <div class="mb-6 flex h-12 w-12 items-center justify-center bg-white text-accent shadow-sm group-hover:bg-accent group-hover:text-white transition-colors">
+              <Icon name="lucide:arrow-up-right" class="h-6 w-6" />
+            </div>
+            <h3 class="mb-3 text-lg font-black leading-tight group-hover:text-accent transition-colors">
+              {cat.titulo}
+            </h3>
+            <p class="text-xs leading-relaxed text-ink-secondary line-clamp-3">
+              {cat.descripcion}
+            </p>
+            <span class="mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-accent">
+              Ver detalles{" "}
+              <Icon
+                name="lucide:move-right"
+                class="h-3 w-3 transition-transform group-hover:translate-x-1"
+              />
+            </span>
+          </a>
+        ))
     }
   </div>
 
@@ -90,60 +122,6 @@ const iconos: string[] = [
         </div>
       ))
     }
-  </div>
-
-  <!-- Destacados: Dpto. Estudios + Emergencia -->
-  <div
-    class:list={[
-      "mt-px grid gap-px bg-muted sm:grid-cols-2",
-      { "max-sm:hidden": preview },
-    ]}
-  >
-    <!-- Departamento de estudios -->
-    <div class="bg-ink p-6 text-white sm:p-8">
-      <p
-        class="mb-2 text-xs font-semibold uppercase tracking-wider text-accent"
-      >
-        Departamento de estudios
-      </p>
-      <h3 class="mb-3 text-xl font-bold">Ingeniería antes de la maniobra</h3>
-      <p class="text-sm text-muted leading-relaxed">
-        {servicios.departamento_de_estudios}
-      </p>
-    </div>
-
-    <!-- Emergencias -->
-    <div class="bg-accent p-6 text-white sm:p-8">
-      <p
-        class="mb-2 text-xs font-semibold uppercase tracking-wider text-white/60"
-      >
-        Disponibilidad
-      </p>
-      <h3 class="mb-3 text-xl font-bold">24 horas · 365 días</h3>
-      <p class="mb-6 text-sm text-white/80">
-        {servicios.asesoramiento.emergencia}
-      </p>
-      <div class="flex flex-col gap-2">
-        {
-          [servicios.asesoramiento.emergencia.match(/[\d\s]{9,}/g)]
-            .flat()
-            .filter(Boolean)
-            .map((tel: any) => (
-              <a
-                href={`tel:+34${tel.replace(/\s/g, "")}`}
-                class="inline-flex items-center gap-2 font-bold underline underline-offset-4"
-              >
-                <Icon
-                  name="lucide:phone"
-                  class="h-4 w-4 shrink-0"
-                  aria-hidden="true"
-                />
-                {tel.trim()}
-              </a>
-            ))
-        }
-      </div>
-    </div>
   </div>
 
   <!-- Sectores destacados con iconos -->

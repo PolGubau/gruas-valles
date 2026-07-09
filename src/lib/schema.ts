@@ -140,7 +140,7 @@ export function localServiceSchema(
 	};
 }
 
-/** CollectionPage + ItemList: páginas de listado (flota, maniobras, blog). */
+/** CollectionPage + ItemList: páginas de listado (flota, blog). */
 export function collectionPageSchema(
 	input: {
 		name: string;
