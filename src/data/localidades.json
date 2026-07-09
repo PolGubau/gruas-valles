@@ -2,20 +2,31 @@
   {
     "slug": "granollers",
     "nombre": "Granollers",
+    "tipo": "ciudad",
     "comarca": "Vallès Oriental",
     "intro": "Nuestra base central está en el Polígono Industrial Congost de Granollers, a dos minutos del Circuit de Barcelona-Catalunya. Esto nos permite movilizar grúas móviles autopropulsadas de 40 a 700 Tn y transportes especiales en el mismo día, con tiempos de respuesta mínimos para obras, montajes industriales y emergencias en toda la ciudad.",
     "accesos": "N-152 y AP-7"
   },
   {
-    "slug": "mollet-del-valles",
-    "nombre": "Mollet del Vallès",
-    "comarca": "Vallès Oriental",
-    "intro": "Damos servicio de alquiler de grúas y transportes especiales en Mollet del Vallès con desplazamientos rápidos desde nuestras instalaciones de Granollers. Cobertura completa para polígonos industriales, montaje de naves prefabricadas y maniobras de precisión en zona urbana.",
-    "accesos": "C-17 y AP-7"
+    "slug": "barcelona",
+    "nombre": "Barcelona",
+    "tipo": "ciudad",
+    "comarca": "Barcelonès",
+    "intro": "Operamos en Barcelona ciudad con grúas móviles de 40 a 700 Tn para montajes en altura, climatización, eventos y maniobras de difícil acceso. Gestionamos permisos especiales de circulación y cortes de calle, con Plan de Seguridad propio para trabajos en entorno urbano denso.",
+    "accesos": "AP-7, C-33 y B-30"
+  },
+  {
+    "slug": "badalona",
+    "nombre": "Badalona",
+    "tipo": "ciudad",
+    "comarca": "Barcelonès",
+    "intro": "Servicio de grúas móviles autopropulsadas y transportes especiales en Badalona. Cobertura completa para industria, obra civil y maniobras urbanas en uno de los principales municipios del área metropolitana de Barcelona, con gestión integral de permisos y Plan de Seguridad para trabajos en entorno urbano.",
+    "accesos": "C-31 y B-20"
   },
   {
     "slug": "sabadell",
     "nombre": "Sabadell",
+    "tipo": "ciudad",
     "comarca": "Vallès Occidental",
     "intro": "Alquiler de grúas autopropulsadas, camiones grúa y plataformas en Sabadell. Atendemos obra civil, sector industrial y logística con estudio técnico previo de cada maniobra y tramitación de permisos de ocupación de vía pública.",
     "accesos": "C-58 y AP-7"
@@ -23,71 +34,49 @@
   {
     "slug": "terrassa",
     "nombre": "Terrassa",
+    "tipo": "ciudad",
     "comarca": "Vallès Occidental",
     "intro": "Servicios de elevación y transporte especial en Terrassa para constructoras, empresas de prefabricados y montaje de estructuras metálicas. Disponemos de grúas de gran tonelaje y un departamento de estudios que planifica cada izado con software CAD/CAM.",
     "accesos": "C-58 y C-16"
   },
   {
-    "slug": "barcelona",
-    "nombre": "Barcelona",
-    "comarca": "Barcelonès",
-    "intro": "Operamos en Barcelona ciudad con grúas móviles de 40 a 700 Tn para montajes en altura, climatización, eventos y maniobras de difícil acceso. Gestionamos permisos especiales de circulación y cortes de calle, con Plan de Seguridad propio para trabajos en entorno urbano denso.",
-    "accesos": "AP-7, C-33 y B-30"
-  },
-  {
     "slug": "mataro",
     "nombre": "Mataró",
+    "tipo": "ciudad",
     "comarca": "Maresme",
     "intro": "Alquiler de grúas y transportes especiales en Mataró y el Maresme. Cubrimos montaje de naves, colocación de maquinaria pesada con gatos hidráulicos y tanquetas, y rescates o maniobras singulares en zona costera.",
     "accesos": "C-32 y N-II"
   },
   {
-    "slug": "montmelo",
-    "nombre": "Montmeló",
+    "slug": "maresme",
+    "nombre": "el Maresme",
+    "tipo": "zona",
+    "comarca": "Comarca del Maresme",
+    "intro": "Cubrimos toda la comarca del Maresme con grúas de 40 a 700 Tn y transportes especiales. Desde Montgat hasta Blanes, atendemos montajes industriales, instalación de maquinaria pesada y maniobras de precisión en municipios como Mataró, Vilassar de Mar, Arenys de Mar, Pineda de Mar y Calella.",
+    "accesos": "C-32 y N-II"
+  },
+  {
+    "slug": "valles-oriental",
+    "nombre": "el Vallès Oriental",
+    "tipo": "zona",
     "comarca": "Vallès Oriental",
-    "intro": "Estamos a dos minutos de Montmeló y del Circuit de Barcelona-Catalunya, lo que nos convierte en el proveedor de grúas más cercano para montajes de eventos, infraestructuras temporales y trabajos industriales en el municipio.",
-    "accesos": "C-17 y AP-7"
+    "intro": "Nuestra base en el Polígono Industrial Congost de Granollers nos sitúa en el corazón del Vallès Oriental. Damos cobertura con grúas autopropulsadas y transportes especiales a toda la comarca: Granollers, Mollet del Vallès, Parets del Vallès, La Roca del Vallès, Les Franqueses del Vallès, Montmeló y todos los polígonos industriales de la zona.",
+    "accesos": "C-17, AP-7 y C-352"
   },
   {
-    "slug": "la-roca-del-valles",
-    "nombre": "La Roca del Vallès",
-    "comarca": "Vallès Oriental",
-    "intro": "Servicio de grúas autopropulsadas y transportes especiales en La Roca del Vallès, con respuesta inmediata para los polígonos logísticos y comerciales de la zona y montaje de estructuras prefabricadas.",
-    "accesos": "AP-7 y C-60"
-  },
-  {
-    "slug": "parets-del-valles",
-    "nombre": "Parets del Vallès",
-    "comarca": "Vallès Oriental",
-    "intro": "Alquiler de grúas de gran tonelaje en Parets del Vallès para industria, automoción y logística. Planificamos cada maniobra con estudio técnico y nos ocupamos de permisos, seguros e informes de riesgos.",
-    "accesos": "C-17 y AP-7"
-  },
-  {
-    "slug": "vic",
-    "nombre": "Vic",
-    "comarca": "Osona",
-    "intro": "Desplazamos grúas móviles y transportes especiales a Vic y la comarca de Osona para montaje de naves, estructuras metálicas y colocación de maquinaria industrial, con cobertura de emergencia 24/365.",
-    "accesos": "C-17"
-  },
-  {
-    "slug": "barbera-del-valles",
-    "nombre": "Barberà del Vallès",
+    "slug": "valles-occidental",
+    "nombre": "el Vallès Occidental",
+    "tipo": "zona",
     "comarca": "Vallès Occidental",
-    "intro": "Servicios de elevación y alquiler de grúas en Barberà del Vallès. Atendemos con rapidez los polígonos industriales de Santiga y Can Salvatella, gestionando permisos y ocupación de vía rápidamente.",
-    "accesos": "AP-7 y C-58"
+    "intro": "Operamos en todo el Vallès Occidental con grúas móviles de gran tonelaje para la densa industria de la comarca. Cubrimos Sabadell, Terrassa, Barberà del Vallès, Cerdanyola del Vallès, Sant Cugat del Vallès, Rubí y los principales polígonos del área, con estudio técnico y gestión de permisos incluidos.",
+    "accesos": "C-58, AP-7 y C-16"
   },
   {
-    "slug": "polinya",
-    "nombre": "Polinyà",
-    "comarca": "Vallès Occidental",
-    "intro": "Alquiler de grúas autopropulsadas en Polinyà para montajes industriales y transportes especiales. Cobertura inmediata para empresas del sector metalúrgico y logístico de la zona.",
-    "accesos": "AP-7 y B-142"
-  },
-  {
-    "slug": "les-franqueses-del-valles",
-    "nombre": "Les Franqueses del Vallès",
-    "comarca": "Vallès Oriental",
-    "intro": "Damos soporte técnico y grúas de gran tonelaje en Les Franqueses del Vallès. Especialistas en maniobras de precisión para la industria local y montajes de estructuras.",
-    "accesos": "C-17 y C-352"
+    "slug": "baix-llobregat",
+    "nombre": "el Baix Llobregat",
+    "tipo": "zona",
+    "comarca": "Baix Llobregat",
+    "intro": "Alquiler de grúas y transportes especiales en el Baix Llobregat. Atendemos obra civil, industria y logística en municipios como Cornellà de Llobregat, Sant Joan Despí, Molins de Rei, Martorell, Gavà y el Prat de Llobregat, con tiempos de respuesta mínimos y Plan de Seguridad propio.",
+    "accesos": "AP-7, A-2 y C-32"
   }
 ]

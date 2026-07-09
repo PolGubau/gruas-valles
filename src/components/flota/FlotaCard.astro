@@ -15,6 +15,8 @@ const capacidad = model.capacidad_max_t ?? model.capacidad_tm;
 <a
   href={`/flota/${model.slug}`}
   data-categoria={model.categoria}
+  data-tonelaje={capacidad ?? 0}
+  data-orden={model.orden}
   class="flota-card group relative block border-t-2 border-transparent bg-white p-5 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-card sm:p-6"
 >
   <!-- Imagen o placeholder -->

@@ -6,12 +6,15 @@ import localidades from "../../data/localidades.json";
 import Page from "../../layouts/Page.astro";
 import { collectionPageSchema } from "../../lib/schema";
 
+const ciudades = localidades.filter((l) => l.tipo === "ciudad");
+const zonas = localidades.filter((l) => l.tipo === "zona");
+
 const description =
-  "Alquiler de grúas móviles autopropulsadas y transportes especiales en Granollers, el Vallès, Barcelona y comarcas colindantes. Consulta nuestra cobertura por localidad.";
+  "Alquiler de grúas móviles autopropulsadas y transportes especiales en Barcelona, Sabadell, Terrassa, Mataró, Badalona y comarcas como el Maresme, el Vallès o el Baix Llobregat. Consulta nuestra cobertura.";
 
 const schema = collectionPageSchema(
   {
-    name: "Alquiler de grúas por localidad",
+    name: "Alquiler de grúas por localidad y comarca",
     description,
     url: "/alquiler-gruas",
     items: localidades.map((l) => ({
@@ -24,21 +27,28 @@ const schema = collectionPageSchema(
 ---
 
 <Page
-  title="Alquiler de grúas por localidad | Grúas del Vallès"
+  title="Alquiler de grúas por localidad y comarca | Grúas del Vallès"
   description={description}
   schema={schema}
 >
   <PageHero
-    title="Alquiler de grúas por localidad"
-    lede="Desplazamos grúas de 40 a 700 Tn y transportes especiales a toda Cataluña desde nuestra base de Granollers. Consulta nuestra cobertura por municipio."
+    title="Alquiler de grúas por localidad y comarca"
+    lede="Desplazamos grúas de 40 a 700 Tn y transportes especiales a toda Cataluña desde nuestra base de Granollers. Cobertura en las principales ciudades y comarcas del área metropolitana."
     crumbs={[{ label: "Inicio", href: "/" }, { label: "Alquiler de grúas" }]}
   />
 
+  <!-- Ciudades principales -->
   <section class="section-padding bg-surface">
     <div class="container-wide">
+      <div class="mb-8">
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Ciudades
+        </p>
+        <h2 class="text-2xl font-black sm:text-3xl">Principales municipios</h2>
+      </div>
       <ul class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3">
         {
-          localidades.map((l) => (
+          ciudades.map((l) => (
             <li>
               <a
                 href={`/alquiler-gruas/${l.slug}`}
@@ -46,6 +56,42 @@ const schema = collectionPageSchema(
               >
                 <span class="mb-1 text-xs uppercase tracking-wider text-accent">
                   {l.comarca}
+                </span>
+                <span class="flex items-center justify-between text-lg font-bold">
+                  Grúas en {l.nombre}
+                  <Icon
+                    name="lucide:arrow-right"
+                    class="h-4 w-4 text-accent transition-transform group-hover:translate-x-0.5"
+                    aria-hidden="true"
+                  />
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Zonas y comarcas -->
+  <section class="section-padding bg-surface-alt">
+    <div class="container-wide">
+      <div class="mb-8">
+        <p class="eyebrow">
+          <span class="h-px w-8 bg-accent"></span>Comarcas
+        </p>
+        <h2 class="text-2xl font-black sm:text-3xl">Cobertura por comarca</h2>
+      </div>
+      <ul class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-4">
+        {
+          zonas.map((l) => (
+            <li>
+              <a
+                href={`/alquiler-gruas/${l.slug}`}
+                class="group flex h-full flex-col bg-surface p-5 transition-colors hover:bg-surface-alt sm:p-6"
+              >
+                <span class="mb-1 text-xs uppercase tracking-wider text-accent">
+                  Comarca
                 </span>
                 <span class="flex items-center justify-between text-lg font-bold">
                   Grúas en {l.nombre}

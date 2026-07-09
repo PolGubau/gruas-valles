@@ -1,5 +1,6 @@
 ---
 import { Font } from "astro:assets";
+import { getLangFromUrl } from "@i18n/utils";
 import SEO from "../components/seo/SEO.astro";
 import FloatCTA from "../components/ui/FloatCTA.astro";
 import MobileBar from "../components/ui/MobileBar.astro";
@@ -19,10 +20,12 @@ const {
   image = "/og-image.avif",
   schema,
 } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

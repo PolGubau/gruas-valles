@@ -3,29 +3,52 @@ import { catalogo } from "../../lib/docs";
 import { resolveImage } from "../../lib/images";
 import Button from "../ui/Button.astro";
 
-// Hero usa foto de acción 2024 (LIEBHERR LTM 1100-5.3 en operación)
-const heroImage = resolveImage("/assets/images/hero-grua-accion-2024-01.avif");
+// ── SLIDESHOW DE HERO ─────────────────────────────────────────────────────────
+// Para cambiar fotos: añade o elimina objetos de este array.
+// Segundos entre cambios: ajusta SLIDE_INTERVAL.
+const SLIDE_INTERVAL = 6; // segundos
+
+const heroSlides = [
+  {
+    src: "/assets/images/hero-grua-accion-2024-01.avif",
+    alt: "Grúa Liebherr LTM 1100 de Grúas del Vallès en operación",
+  },
+  // { src: "/assets/images/hero-foto-2.avif", alt: "..." },
+  // { src: "/assets/images/hero-foto-3.avif", alt: "..." },
+];
+
+const slides = heroSlides.map((s) => ({ ...s, src: resolveImage(s.src) }));
+// ─────────────────────────────────────────────────────────────────────────────
 ---
 
 <section
   id="hero"
   class="relative flex min-h-svh flex-col justify-end overflow-hidden bg-ink pt-16"
 >
-  <!-- Background image -->
-  <div class="absolute inset-0 overflow-hidden">
-    <img
-      src={heroImage}
-      alt="Grúa Liebherr LTM 1100 de Grúas del Vallès en operación"
-      class="hero-bg h-full w-full object-cover object-center opacity-40 sm:opacity-60"
-      fetchpriority="high"
-      decoding="async"
-    />
+  <!-- Slideshow de fondo -->
+  <div
+    id="hero-slideshow"
+    class="absolute inset-0 overflow-hidden"
+    data-interval={SLIDE_INTERVAL}
+  >
+    {
+      slides.map((slide, i) => (
+        <img
+          src={slide.src}
+          alt={slide.alt}
+          class={`hero-slide absolute inset-0 h-full w-full object-cover object-center${i === 0 ? " is-active" : ""}`}
+          fetchpriority={i === 0 ? "high" : "low"}
+          loading={i === 0 ? "eager" : "lazy"}
+          decoding="async"
+        />
+      ))
+    }
     <!-- Gradient overlay -->
     <div
       class="absolute inset-0 bg-linear-to-t from-ink via-ink/85 to-ink/30 sm:via-ink/60 sm:to-transparent"
     >
     </div>
-    <!-- Vignette to anchor the composition and add depth -->
+    <!-- Vignette -->
     <div
       class="pointer-events-none absolute inset-0"
       style="background: radial-gradient(125% 110% at 30% 10%, transparent 50%, rgb(10 10 10 / 0.6) 100%);"
@@ -37,26 +60,16 @@ const heroImage = resolveImage("/assets/images/hero-grua-accion-2024-01.avif");
 
   <!-- Content -->
   <div class="container-wide relative z-10 section-padding pb-10 sm:pb-14">
-    <div class="max-w-3xl">
-      <!-- Logo over dark hero -->
-      <img
-        src="/logo.png"
-        alt="Grúas del Vallès"
-        class="mb-8 h-12 w-auto sm:h-14"
-        style="filter: brightness(0) invert(1)"
-        loading="eager"
-        data-reveal
-      />
-
+    <div class="max-w-4xl">
       <!-- Headline -->
       <h1
         class="mb-5 text-[clamp(1.9rem,6.5vw,5rem)] font-black leading-[0.92] tracking-tight text-white sm:mb-6"
         data-reveal
         data-reveal-delay="1"
       >
-        Alquiler de<br />
-        <span class="text-accent">grúas industriales</span><br />
-        <span class="text-white/80">y autopropulsadas</span>
+        Servicios de grúas<br />
+        <span class="text-accent">autopropulsadas</span><br />
+        <span class="text-white/80">hasta 700 Tn</span>
       </h1>
 
       <!-- Subheadline -->
@@ -106,10 +119,11 @@ const heroImage = resolveImage("/assets/images/hero-grua-accion-2024-01.avif");
   </div>
 
   <!-- Stats band — full width, anchored to bottom of hero -->
-  <dl class="relative z-10 grid grid-cols-3 gap-px bg-white/10" data-reveal>
+  <dl class="relative z-10 grid grid-cols-4 gap-px bg-white/10">
     {
       [
         { value: "+55", label: "Años de experiencia" },
+        { value: "86", label: "Vehículos propios" },
         { value: "28", label: "Grúas propias" },
         { value: "700 Tn", label: "Capacidad máx." },
       ].map(({ value, label }) => (
@@ -127,45 +141,34 @@ const heroImage = resolveImage("/assets/images/hero-grua-accion-2024-01.avif");
       ))
     }
   </dl>
-
-  <!-- Scroll cue -->
-  <a
-    href="#flota"
-    class="absolute bottom-7 right-7 z-10 hidden items-center gap-3 text-xs font-semibold uppercase tracking-widest text-muted transition-colors hover:text-white lg:inline-flex"
-    aria-label="Desplazarse a la flota"
-  >
-    Scroll
-    <span
-      class="relative block h-9 w-px overflow-hidden bg-white/20"
-      aria-hidden="true"
-    >
-      <span class="animate-scroll-cue absolute inset-x-0 top-0 h-1/2 bg-accent"
-      ></span>
-    </span>
-  </a>
 </section>
 
 <style>
-  @keyframes ken-burns {
-    0% {
-      transform: scale(1) translate(0, 0);
-    }
-    50% {
-      transform: scale(1.06) translate(-1%, 0.5%);
-    }
-    100% {
-      transform: scale(1.04) translate(0.8%, -0.8%);
-    }
+  .hero-slide {
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
   }
-
-  .hero-bg {
-    animation: ken-burns 28s ease-in-out infinite alternate;
-    transform-origin: center center;
+  .hero-slide.is-active {
+    opacity: 0.4;
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-bg {
-      animation: none;
+  @media (min-width: 640px) {
+    .hero-slide.is-active {
+      opacity: 0.6;
     }
   }
 </style>
+
+<script>
+  const container = document.getElementById("hero-slideshow");
+  const slides = container?.querySelectorAll<HTMLElement>(".hero-slide");
+  const interval = Number(container?.dataset.interval ?? 6) * 1000;
+
+  if (slides && slides.length > 1) {
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove("is-active");
+      current = (current + 1) % slides.length;
+      slides[current].classList.add("is-active");
+    }, interval);
+  }
+</script>

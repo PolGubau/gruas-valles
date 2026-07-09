@@ -36,7 +36,7 @@
 		-webkit-font-smoothing: antialiased;
 		text-rendering: optimizeLegibility;
 		/* offset for sticky header on anchor jumps */
-		scroll-padding-top: 5rem;
+		scroll-padding-top: 7rem;
 	}
 
 	body {

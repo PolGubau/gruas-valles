@@ -1,0 +1,69 @@
+---
+import { getCollection } from "astro:content";
+import { resolveImage } from "../../lib/images";
+import BlogCard from "../blog/BlogCard.astro";
+import Button from "../ui/Button.astro";
+import Section from "../ui/Section.astro";
+
+// Fuente única: colección «blog» (ver src/content.config.ts)
+const entries = await getCollection("blog");
+const posts = entries
+  .map((e) => ({ slug: e.id, ...e.data }))
+  .sort((a, b) => a.orden - b.orden);
+
+// La primera con foto se muestra en grande; el resto en la cuadrícula.
+const conFoto = posts.filter((p) => p.imagenes.length > 0);
+const sinFoto = posts.filter((p) => p.imagenes.length === 0);
+const ordenados = [...conFoto, ...sinFoto];
+const destacada = conFoto[0];
+---
+
+<Section id="noticias" bg="alt" title="Noticias y trabajos destacados">
+  <p slot="intro">
+    Novedades de la flota, colaboraciones y proyectos singulares en los que
+    hemos participado.
+  </p>
+
+  <!-- Featured: primera con foto en grande -->
+  {
+    destacada && (
+      <a
+        href={`/blog/${destacada.slug}`}
+        class="group mb-px grid gap-px bg-muted lg:grid-cols-2"
+      >
+        <div class="relative aspect-4/3 overflow-hidden bg-ink">
+          <img
+            src={resolveImage(destacada.imagenes[0])}
+            alt={destacada.titulo}
+            class="h-full w-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-linear-to-t from-ink/80 to-transparent" />
+        </div>
+        <div class="flex flex-col justify-end bg-ink p-6 text-white sm:p-8">
+          <h3 class="mb-3 text-2xl font-bold group-hover:text-accent transition-colors">
+            {destacada.titulo}
+          </h3>
+          <p class="text-sm text-muted leading-relaxed line-clamp-4">
+            {destacada.resumen}
+          </p>
+        </div>
+      </a>
+    )
+  }
+
+  <!-- Grid resto -->
+  <!-- En móvil dejamos la destacada + 1 noticia; el resto desde sm o en /blog -->
+  <div class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3">
+    {ordenados[1] && <BlogCard post={ordenados[1]} />}
+    <div class="contents max-sm:hidden">
+      {ordenados.slice(2, 4).map((p) => <BlogCard post={p} />)}
+    </div>
+  </div>
+
+  <div class="mt-12 text-center">
+    <Button href="/blog" variant="outline" icon="lucide:arrow-right">
+      Ver todas las noticias
+    </Button>
+  </div>
+</Section>

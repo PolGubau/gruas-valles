@@ -6,6 +6,15 @@ import { defineConfig, fontProviders } from 'astro/config';
 export default defineConfig({
   site: 'https://www.gruasdelvalles.com',
   publicDir: './src/public',
+  i18n: {
+    locales: ['es', 'ca', 'en'],
+    defaultLocale: 'es',
+    routing: {
+      // El idioma por defecto (es) se sirve sin prefijo → URLs actuales intactas.
+      // ca y en se sirven bajo /ca/ y /en/.
+      prefixDefaultLocale: false,
+    },
+  },
   experimental: {
     fonts: [
       {

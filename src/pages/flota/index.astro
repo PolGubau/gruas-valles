@@ -54,33 +54,65 @@ const crumbs = [
         </p>
       </header>
 
-      <!-- Filtros -->
-      <div
-        class="mb-8 flex flex-wrap gap-2"
-        id="flota-filters"
-        role="group"
-        aria-label="Filtrar flota por categoría"
-      >
+      <!-- Controles: filtros + ordenación -->
+      <div class="mb-8 flex flex-wrap items-center gap-3">
+        <!-- Filtros por categoría -->
+        <div
+          class="flex flex-wrap gap-2"
+          id="flota-filters"
+          role="group"
+          aria-label="Filtrar flota por categoría"
+        >
+          <button
+            type="button"
+            data-filter="all"
+            aria-pressed="true"
+            class="filter-btn active-filter px-4 py-2 text-xs font-semibold uppercase tracking-wider border-2 border-accent bg-accent text-white transition-colors"
+          >
+            Todas
+          </button>
+          {
+            categorias.map((cat) => (
+              <button
+                type="button"
+                data-filter={cat}
+                aria-pressed="false"
+                class="filter-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider border-2 border-muted text-ink-secondary transition-colors hover:border-accent hover:text-accent"
+              >
+                {cat}
+              </button>
+            ))
+          }
+        </div>
+
+        <!-- Separador -->
+        <div class="hidden h-6 w-px bg-muted sm:block" aria-hidden="true"></div>
+
+        <!-- Ordenar por tonelaje -->
         <button
           type="button"
-          data-filter="all"
-          aria-pressed="true"
-          class="filter-btn active-filter px-4 py-2 text-xs font-semibold uppercase tracking-wider border-2 border-accent bg-accent text-white transition-colors"
+          id="sort-tonelaje"
+          data-sort="none"
+          aria-label="Ordenar por tonelaje"
+          class="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider border-2 border-muted text-ink-secondary transition-colors hover:border-accent hover:text-accent"
         >
-          Todas
+          <svg
+            id="sort-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M3 6h18M7 12h10M11 18h2"></path>
+          </svg>
+          <span id="sort-label">Tonelaje</span>
         </button>
-        {
-          categorias.map((cat) => (
-            <button
-              type="button"
-              data-filter={cat}
-              aria-pressed="false"
-              class="filter-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider border-2 border-muted text-ink-secondary transition-colors hover:border-accent hover:text-accent"
-            >
-              {cat}
-            </button>
-          ))
-        }
       </div>
 
       <!-- Grid -->
@@ -114,11 +146,70 @@ const crumbs = [
 
 <script>
   const filters = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
-  const cards = document.querySelectorAll<HTMLElement>(".flota-card");
+  const grid = document.getElementById("flota-grid")!;
+  const sortBtn = document.getElementById("sort-tonelaje") as HTMLButtonElement;
+  const sortLabel = document.getElementById("sort-label")!;
+  const sortIcon = document.getElementById("sort-icon")!;
 
+  // Ciclo: none → desc → asc → none
+  type SortOrder = "none" | "desc" | "asc";
+  let sortOrder: SortOrder = "none";
+  let activeFilter = "all";
+
+  const SORT_CONFIG: Record<
+    SortOrder,
+    { next: SortOrder; label: string; path: string }
+  > = {
+    none: {
+      next: "desc",
+      label: "Tonelaje",
+      path: "M3 6h18M7 12h10M11 18h2",
+    },
+    desc: {
+      next: "asc",
+      label: "Mayor → Menor",
+      path: "M3 6h18M7 12h10M11 18h2",
+    },
+    asc: {
+      next: "none",
+      label: "Menor → Mayor",
+      path: "M3 6h18M7 12h10M11 18h2",
+    },
+  };
+
+  function applyFilterAndSort() {
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>(".flota-card"));
+
+    // 1. Visibilidad por categoría
+    cards.forEach((card) => {
+      const show =
+        activeFilter === "all" || card.dataset.categoria === activeFilter;
+      card.style.display = show ? "" : "none";
+    });
+
+    // 2. Reordenar en el DOM
+    const visible = cards.filter((c) => c.style.display !== "none");
+    const hidden = cards.filter((c) => c.style.display === "none");
+
+    if (sortOrder === "none") {
+      // Restaurar orden original
+      [...visible, ...hidden]
+        .sort((a, b) => Number(a.dataset.orden) - Number(b.dataset.orden))
+        .forEach((c) => grid.appendChild(c));
+    } else {
+      const sorted = visible.sort((a, b) => {
+        const ta = Number(a.dataset.tonelaje);
+        const tb = Number(b.dataset.tonelaje);
+        return sortOrder === "desc" ? tb - ta : ta - tb;
+      });
+      [...sorted, ...hidden].forEach((c) => grid.appendChild(c));
+    }
+  }
+
+  // Filtros por categoría
   filters.forEach((btn) => {
     btn.addEventListener("click", () => {
-      const filter = btn.dataset.filter!;
+      activeFilter = btn.dataset.filter!;
 
       filters.forEach((b) => {
         b.classList.remove(
@@ -139,10 +230,35 @@ const crumbs = [
       btn.classList.remove("border-muted", "text-ink-secondary");
       btn.setAttribute("aria-pressed", "true");
 
-      cards.forEach((card) => {
-        const show = filter === "all" || card.dataset.categoria === filter;
-        card.style.display = show ? "" : "none";
-      });
+      applyFilterAndSort();
     });
+  });
+
+  // Botón de ordenación
+  sortBtn.addEventListener("click", () => {
+    sortOrder = SORT_CONFIG[sortOrder].next;
+    const cfg = SORT_CONFIG[sortOrder];
+
+    sortLabel.textContent = cfg.label;
+
+    const isActive = sortOrder !== "none";
+    sortBtn.classList.toggle("border-accent", isActive);
+    sortBtn.classList.toggle("text-accent", isActive);
+    sortBtn.classList.toggle("border-muted", !isActive);
+    sortBtn.classList.toggle("text-ink-secondary", !isActive);
+
+    // Actualizar icono de dirección
+    const pathEl = sortIcon.querySelector("path")!;
+    if (sortOrder === "desc") {
+      pathEl.setAttribute("d", "M3 6h18M7 12h10M11 18h2");
+      sortIcon.style.transform = "scaleY(1)";
+    } else if (sortOrder === "asc") {
+      pathEl.setAttribute("d", "M3 6h18M7 12h10M11 18h2");
+      sortIcon.style.transform = "scaleY(-1)";
+    } else {
+      sortIcon.style.transform = "scaleY(1)";
+    }
+
+    applyFilterAndSort();
   });
 </script>

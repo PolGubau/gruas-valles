@@ -19,6 +19,19 @@ export async function getStaticPaths() {
 
 const { loc } = Astro.props;
 
+// Contracciones españolas: a + el = al, de + el = del
+const preposA = loc.nombre.startsWith("el ")
+  ? `al ${loc.nombre.slice(3)}`
+  : loc.nombre.startsWith("la ")
+    ? `a la ${loc.nombre.slice(3)}`
+    : `a ${loc.nombre}`;
+
+const prepoDe = loc.nombre.startsWith("el ")
+  ? `del ${loc.nombre.slice(3)}`
+  : loc.nombre.startsWith("la ")
+    ? `de la ${loc.nombre.slice(3)}`
+    : `de ${loc.nombre}`;
+
 const title = `Alquiler de grúas en ${loc.nombre} | Grúas del Vallès`;
 const description = `Alquiler de grúas móviles autopropulsadas de 40 a 700 Tn y transportes especiales en ${loc.nombre} (${loc.comarca}). +55 años de experiencia, emergencias 24/365 y estudio técnico de cada maniobra.`;
 const url = `/alquiler-gruas/${loc.slug}`;
@@ -98,7 +111,7 @@ const schema = localServiceSchema(
         <div class="border-l-2 border-accent pl-4">
           <p class="mb-1 text-sm font-bold">Accesos directos</p>
           <p class="text-sm leading-relaxed text-ink-secondary">
-            Llegamos a {loc.nombre} por {loc.accesos} desde nuestra base de Granollers.
+            Llegamos {preposA} por {loc.accesos} desde nuestra base de Granollers.
           </p>
         </div>
         <div class="border-l-2 border-accent pl-4">
@@ -120,7 +133,7 @@ const schema = localServiceSchema(
   </section>
 
   <!-- Prueba social: empresas que confían en nosotros -->
-  <Clientes title={`Empresas que confían en nosotros cerca de ${loc.nombre}`} />
+  <Clientes title={`Empresas que confían en nosotros cerca ${prepoDe}`} />
 
   <CtaBand />
 </Page>

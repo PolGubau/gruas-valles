@@ -1,69 +1,121 @@
 ---
+import { languages } from "@i18n/ui";
+import {
+  type UiKey,
+  getLangFromUrl,
+  getRouteFromUrl,
+  useTranslatedPath,
+  useTranslations,
+} from "@i18n/utils";
 import { Icon } from "astro-icon/components";
 
-const links = [
-  { href: "/flota", label: "Flota" },
-  { href: "/servicios", label: "Servicios" },
-  { href: "/maniobras", label: "Maniobras" },
-  { href: "/galeria", label: "Galería" },
-  { href: "/nosotros", label: "Nosotros" },
-  { href: "/blog", label: "Noticias" },
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const localizePath = useTranslatedPath(lang);
+// Ruta actual sin prefijo de idioma, para construir el cambio de idioma.
+const route = getRouteFromUrl(Astro.url);
+
+const links: { href: string; key: UiKey }[] = [
+  { href: "/flota", key: "nav.flota" },
+  { href: "/servicios", key: "nav.servicios" },
+  { href: "/maniobras", key: "nav.maniobras" },
+  { href: "/nosotros", key: "nav.nosotros" },
+  { href: "/blog", key: "nav.blog" },
 ];
 
-const { pathname } = Astro.url;
 const isActive = (href: string) =>
-  href === "/" ? pathname === "/" : pathname.startsWith(href);
+  href === "/" ? route === "/" : route.startsWith(href);
 ---
 
 <header
   id="navbar"
   class="fixed top-0 z-50 w-full border-b border-transparent bg-white/90 backdrop-blur-md transition-[box-shadow,border-color] duration-300"
 >
-  <div class="container-wide flex h-16 items-center justify-between">
+  <div class="container-wide flex h-24 items-center justify-between">
     <!-- Logo -->
     <a
-      href="/"
+      href={localizePath("/")}
       class="flex items-center"
-      aria-label="Grúas del Vallès - inicio"
+      aria-label={t("a11y.home")}
     >
       <img
         src="/logo.png"
         alt="Grúas del Vallès"
-        class="h-10 w-auto"
+        class="h-16 w-auto"
         loading="eager"
       />
     </a>
 
     <!-- Desktop nav -->
-    <nav class="hidden items-center gap-7 lg:flex" aria-label="Principal">
+    <nav class="hidden items-center gap-8 lg:flex" aria-label="Principal">
       {
-        links.map(({ href, label }) => (
+        links.map(({ href, key }) => (
           <a
-            href={href}
+            href={localizePath(href)}
             aria-current={isActive(href) ? "page" : undefined}
-            class="nav-link relative text-sm font-medium text-ink-secondary transition-colors hover:text-accent aria-[current=page]:text-accent"
+            class="nav-link relative text-base font-semibold text-ink-secondary transition-colors hover:text-accent aria-[current=page]:text-accent"
           >
-            {label}
+            {t(key)}
           </a>
         ))
       }
     </nav>
 
     <!-- CTA -->
-    <div class="hidden items-center gap-5 lg:flex">
+    <div class="hidden items-center gap-6 lg:flex">
       <a
         href="tel:+34938497022"
-        class="inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors hover:text-accent"
+        class="inline-flex items-center gap-2 text-lg font-bold text-ink transition-colors hover:text-accent"
       >
-        <Icon name="lucide:phone" width={16} height={16} aria-hidden="true" />
+        <Icon name="lucide:phone" width={22} height={22} aria-hidden="true" />
         93 849 70 22
       </a>
-      <a
-        href="/contacto"
-        class="btn btn-sm bg-accent text-white hover:bg-accent-dark"
-      >
-        Presupuesto
-      </a>
+      <!-- Language selector -->
+      <div class="lang-selector relative">
+        <button
+          type="button"
+          id="lang-toggle"
+          aria-haspopup="menu"
+          aria-expanded="false"
+          aria-label={t("nav.langLabel")}
+          class="inline-flex items-center gap-1.5 rounded border border-muted/60 px-3 py-2 text-sm font-bold uppercase tracking-wider text-ink-secondary transition-colors hover:border-accent hover:text-accent"
+        >
+          <Icon name="lucide:globe" width={16} height={16} aria-hidden="true" />
+          <span>{lang}</span>
+          <Icon
+            name="lucide:chevron-down"
+            width={14}
+            height={14}
+            class="lang-chevron transition-transform duration-200"
+            aria-hidden="true"
+          />
+        </button>
+        <ul
+          id="lang-menu"
+          role="menu"
+          aria-label={t("nav.langLabel")}
+          class="lang-menu absolute right-0 top-full mt-1 hidden min-w-full overflow-hidden rounded border border-muted/40 bg-white shadow-pop"
+        >
+          {
+            Object.entries(languages).map(([code, label]) => (
+              <li role="none">
+                <a
+                  role="menuitem"
+                  href={localizePath(route, code as keyof typeof languages)}
+                  hreflang={code}
+                  aria-current={code === lang ? "true" : undefined}
+                  class="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold hover:bg-accent-soft hover:text-accent aria-current:text-accent"
+                >
+                  <span class="w-5 text-center text-xs font-bold uppercase">
+                    {code}
+                  </span>
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </div>
 
     <!-- Mobile hamburger -->
@@ -91,21 +143,21 @@ const isActive = (href: string) =>
         aria-label="Móvil"
       >
         {
-          links.map(({ href, label }) => (
+          links.map(({ href, key }) => (
             <a
-              href={href}
+              href={localizePath(href)}
               aria-current={isActive(href) ? "page" : undefined}
               class="mobile-link border-b border-muted/40 py-3 text-sm font-medium text-ink transition-colors last:border-0 hover:text-accent aria-[current=page]:text-accent"
             >
-              {label}
+              {t(key)}
             </a>
           ))
         }
         <a
-          href="/contacto"
+          href={localizePath("/contacto")}
           class="btn btn-sm mt-4 justify-center bg-accent text-white hover:bg-accent-dark"
         >
-          Solicitar presupuesto
+          {t("cta.presupuesto")}
         </a>
       </nav>
     </div>
@@ -210,4 +262,23 @@ const isActive = (href: string) =>
     navbar.classList.toggle("shadow-sm", scrolled);
     navbar.classList.toggle("border-muted/40", scrolled);
   });
+
+  // Language selector: solo abre/cierra el menú. Cada opción es un enlace real
+  // que navega a la misma ruta en el locale destino (localizePath).
+  const langToggle = document.getElementById("lang-toggle")!;
+  const langMenu = document.getElementById("lang-menu")!;
+  const langChevron = langToggle.querySelector(".lang-chevron") as HTMLElement;
+
+  const setLangOpen = (open: boolean) => {
+    langMenu.classList.toggle("hidden", !open);
+    langToggle.setAttribute("aria-expanded", String(open));
+    langChevron.style.transform = open ? "rotate(180deg)" : "";
+  };
+
+  langToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setLangOpen(langMenu.classList.contains("hidden"));
+  });
+
+  document.addEventListener("click", () => setLangOpen(false));
 </script>
