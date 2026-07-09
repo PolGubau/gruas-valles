@@ -39,9 +39,29 @@ export const ui = {
 		"a11y.skipToContent": "Saltar al contenido",
 	},
 	ca: {
-		// TODO: traducir al catalán. Las claves ausentes usan el español.
+		"nav.flota": "Flota",
+		"nav.servicios": "Serveis",
+		"nav.nosotros": "Nosaltres",
+		"nav.blog": "Notícies",
+		"cta.presupuesto": "Sol·licitar pressupost",
+		"cta.presupuestoCorto": "Pressupost",
+		"nav.langLabel": "Seleccionar idioma",
+		"a11y.openMenu": "Obrir menú",
+		"a11y.closeMenu": "Tancar menú",
+		"a11y.home": "Grues del Vallès - inici",
+		"a11y.skipToContent": "Saltar al contingut",
 	},
 	en: {
-		// TODO: translate to English. Missing keys fall back to Spanish.
+		"nav.flota": "Fleet",
+		"nav.servicios": "Services",
+		"nav.nosotros": "About",
+		"nav.blog": "News",
+		"cta.presupuesto": "Request a quote",
+		"cta.presupuestoCorto": "Quote",
+		"nav.langLabel": "Select language",
+		"a11y.openMenu": "Open menu",
+		"a11y.closeMenu": "Close menu",
+		"a11y.home": "Grúas del Vallès - home",
+		"a11y.skipToContent": "Skip to content",
 	},
 } as const;

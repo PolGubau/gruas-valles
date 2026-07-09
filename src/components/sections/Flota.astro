@@ -27,19 +27,27 @@ const newModels = allModels.filter((m) => m.nuevo);
   {
     newModels.length > 0 && (
       <div class="novedades-wrapper mb-16" data-reveal>
-        {/* Eyebrow label */}
-        <div class="novedades-label-row">
-          <div class="novedades-eyebrow">
-            <span class="novedades-dot" aria-hidden="true" />
-            Nuevas incorporaciones
+        {/* Cabecera */}
+        <div class="novedades-header">
+          <div class="novedades-header-inner">
+            <div class="novedades-badge">
+              <span class="novedades-badge-dot" aria-hidden="true" />
+              Nuevo
+            </div>
+            <div>
+              <h3 class="novedades-title">Nuevas incorporaciones</h3>
+              <p class="novedades-subtitle">
+                Las últimas adquisiciones a nuestra flota
+              </p>
+            </div>
           </div>
           <a href="/flota" class="novedades-link">
             Ver toda la flota →
           </a>
         </div>
 
-        {/* Tarjetas landscape */}
-        <div class="novedades-list">
+        {/* Tarjetas */}
+        <div class="novedades-track">
           {newModels.map((model) => {
             const capacidad = model.capacidad_max_t ?? model.capacidad_tm;
             return (
@@ -49,41 +57,24 @@ const newModels = allModels.filter((m) => m.nuevo);
                     <img
                       src={resolveImage(model.imagenes[0])}
                       alt={model.modelo}
-                      class="h-full w-full object-contain p-6 transition-transform duration-500 group-hover:scale-[1.04]"
+                      class="h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                       decoding="async"
                     />
                   ) : null}
+                  <span class="novedades-card-badge">Nueva</span>
                 </div>
-                <div class="novedades-content">
-                  <span class="novedades-tag">Nueva adquisición</span>
-                  <h4 class="novedades-card-title">{model.modelo}</h4>
+                <div class="novedades-card-body">
+                  <h4 class="novedades-card-title group-hover:text-accent">
+                    {model.modelo}
+                  </h4>
                   {capacidad && (
-                    <p class="novedades-cap">
-                      {capacidad}
-                      <span> Tn</span>
-                    </p>
+                    <p class="novedades-card-cap">{capacidad} Tn</p>
                   )}
-                  {model.nota && <p class="novedades-nota">{model.nota}</p>}
-                  <span class="novedades-cta">
-                    Ver ficha técnica
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      class="novedades-cta-arrow"
-                    >
-                      <path d="M5 12h14" />
-                      <path d="m12 5 7 7-7 7" />
-                    </svg>
-                  </span>
+                  {model.nota && (
+                    <p class="novedades-card-nota">{model.nota}</p>
+                  )}
+                  <span class="novedades-card-cta">Ver ficha técnica →</span>
                 </div>
               </a>
             );

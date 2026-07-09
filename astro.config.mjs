@@ -10,10 +10,16 @@ export default defineConfig({
     locales: ['es', 'ca', 'en'],
     defaultLocale: 'es',
     routing: {
-      // El idioma por defecto (es) se sirve sin prefijo → URLs actuales intactas.
-      // ca y en se sirven bajo /ca/ y /en/.
       prefixDefaultLocale: false,
     },
+  },
+  // Mientras ca/en no tengan páginas propias, redirigimos al contenido en ES.
+  // Cuando se cree src/pages/ca/foo.astro esta entrada deja de tener efecto.
+  redirects: {
+    '/ca': '/',
+    '/en': '/',
+    '/ca/[...path]': '/[...path]',
+    '/en/[...path]': '/[...path]',
   },
   experimental: {
     fonts: [
