@@ -17,8 +17,8 @@ const newModels = allModels.filter((m) => m.nuevo);
 
 <Section id="flota" bg="alt" title="Maquinaria para cualquier maniobra">
   <p slot="intro">
-    28 grúas propias — industriales y móviles autopropulsadas — siempre
-    actualizadas. Si necesita una configuración específica,
+    28 grúas propias autopropulsadas siempre actualizadas. Si necesita una
+    configuración específica,
     <a href="#contacto" class="font-medium text-accent underline">consúltenos</a
     >.
   </p>
@@ -249,6 +249,12 @@ const newModels = allModels.filter((m) => m.nuevo);
     background-color: var(--color-accent);
     -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 100%);
     mask-image: linear-gradient(to right, #000 88%, transparent 100%);
+  }
+
+  /* El padding-inline-end de un contenedor con overflow-x no se conserva:
+     reservamos el espacio final con margen en la última tarjeta. */
+  .novedades-track > :last-child {
+    margin-inline-end: 0.5rem;
   }
 
   .novedades-track::-webkit-scrollbar {
