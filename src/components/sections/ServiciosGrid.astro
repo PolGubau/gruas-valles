@@ -124,65 +124,6 @@ const iconos: string[] = [
     }
   </div>
 
-  <!-- Sectores destacados con iconos -->
-  <div class:list={["mt-20", { "max-sm:hidden": preview }]}>
-    <p
-      class="mb-8 text-xs font-semibold uppercase tracking-wider text-muted-dark"
-    >
-      Sectores que atendemos
-    </p>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal>
-      {
-        [
-          {
-            nombre: "Industria",
-            items: "Química, Farmacéutica, Automoción, Alimentación",
-            icon: "lucide:factory",
-          },
-          {
-            nombre: "Construcción",
-            items: "Edificación, Prefabricados, Estructuras metálicas",
-            icon: "lucide:construction",
-          },
-          {
-            nombre: "Infraestructuras",
-            items: "Puentes, Viaductos, Aeropuertos, Puertos",
-            icon: "lucide:landmark",
-          },
-          {
-            nombre: "Energía",
-            items: "Parques eólicos, Eléctricas, Renovables",
-            icon: "lucide:zap",
-          },
-          {
-            nombre: "Eventos",
-            items: "Montajes efímeros, Festivales, Publicidad",
-            icon: "lucide:ticket",
-          },
-          {
-            nombre: "Logística",
-            items: "Traslado de maquinaria, Distribución, Almacenes",
-            icon: "lucide:truck",
-          },
-        ].map((sector) => (
-          <div class="flex items-start gap-4 border-2 border-surface-alt bg-surface-alt p-5 transition-colors hover:border-accent/20 hover:bg-white">
-            <div class="flex h-10 w-10 shrink-0 items-center justify-center bg-white text-accent shadow-sm">
-              <Icon name={sector.icon} class="h-5 w-5" aria-hidden="true" />
-            </div>
-            <div>
-              <h4 class="text-sm font-bold text-ink uppercase tracking-wide">
-                {sector.nombre}
-              </h4>
-              <p class="mt-1 text-xs leading-relaxed text-ink-secondary">
-                {sector.items}
-              </p>
-            </div>
-          </div>
-        ))
-      }
-    </div>
-  </div>
-
   <!-- CTA solo en móvil y solo en la landing: el detalle completo está en /servicios -->
   {
     preview && (
