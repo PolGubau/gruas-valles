@@ -3,11 +3,68 @@
   "cif": "A08603888",
   "direccion": "Av. Sant Julià, 64-66, Polígon Industrial Congost, 08403 Granollers (Barcelona)",
   "telefono": "+34 93 849 70 22",
+  "fax": "+34 93 849 70 45",
   "emergencias": [
     "669 29 69 54",
     "669 29 69 49"
   ],
   "email": "gruasdelvalles@gruasdelvalles.com",
+  "contactos": [
+    {
+      "area": "Gerencia",
+      "nombre": "Marc Gelabert",
+      "telefono": "669 296 949",
+      "email": "marc@gruasdelvalles.com"
+    },
+    {
+      "area": "Logística",
+      "nombre": "Hector Alzate",
+      "telefono": "669 296 955",
+      "email": "logistica@gruasdelvalles.com"
+    },
+    {
+      "area": "Director técnico",
+      "nombre": "Manel Moya",
+      "telefono": "601 191 042",
+      "email": "mmoya@gruasdelvalles.com"
+    },
+    {
+      "area": "Encargado general",
+      "nombre": "Cayetano León",
+      "telefono": "669 296 954",
+      "email": "cayetano@gruasdelvalles.com"
+    },
+    {
+      "area": "Técnico comercial",
+      "nombre": "Xavier Peral",
+      "telefono": "669 296 939",
+      "email": "comercial@gruasdelvalles.com"
+    },
+    {
+      "area": "Técnico comercial",
+      "nombre": "Joan Gubau",
+      "telefono": "669 296 950",
+      "email": "maresme@gruasdelvalles.com"
+    },
+    {
+      "area": "PRL",
+      "nombre": "Daniel Cambrón",
+      "telefono": "938 497 022",
+      "email": "prl@gruasdelvalles.com"
+    },
+    {
+      "area": "Administración",
+      "nombre": "Roser Lozano",
+      "telefono": "938 497 132",
+      "email": "contabilidad@gruasdelvalles.com"
+    },
+    {
+      "area": "Administración",
+      "nombre": "Susana Sánchez",
+      "telefono": "938 497 132",
+      "email": "administración@gruasdelvalles.com"
+    }
+  ],
   "web": "https://www.gruasdelvalles.com",
   "referencia": "A dos minutos del Circuito de Montmeló",
   "accesos": "Carretera N-152 y AP-7",
