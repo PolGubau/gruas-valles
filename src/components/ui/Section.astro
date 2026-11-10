@@ -28,12 +28,12 @@ const hasHeader = Boolean(title || hasIntro);
   <div class="container-wide">
     {
       hasHeader && (
-        <div class="mb-12 flex flex-col gap-4 lg:mb-16 lg:flex-row lg:items-end lg:justify-between">
+        <div class="mb-10 flex flex-col gap-5 sm:mb-14 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
           <div class="max-w-2xl" data-reveal>
             {title && (
               <h2
                 id={headingId}
-                class="text-3xl font-black leading-tight sm:text-4xl"
+                class="text-3xl font-semibold leading-[1.1] tracking-[-0.035em] sm:text-4xl lg:text-5xl"
               >
                 {title}
               </h2>
@@ -41,7 +41,7 @@ const hasHeader = Boolean(title || hasIntro);
           </div>
           {hasIntro && (
             <div
-              class={`max-w-sm text-sm leading-relaxed ${bg === "ink" ? "text-muted" : "text-ink-secondary"}`}
+              class={`max-w-sm text-base leading-relaxed ${bg === "ink" ? "text-muted" : "text-ink-secondary"}`}
               data-reveal
               data-reveal-delay="1"
             >

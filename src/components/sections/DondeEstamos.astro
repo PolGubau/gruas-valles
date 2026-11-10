@@ -1,6 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
-import contacto from "../../data/contacto.json";
+import { getLangFromUrl } from "@i18n/utils";
+import { homeCopy } from "@i18n/home";
+
+const copy = homeCopy(getLangFromUrl(Astro.url));
 ---
 
 <section id="donde-estamos" class="section-padding bg-surface overflow-hidden">
@@ -11,39 +14,18 @@ import contacto from "../../data/contacto.json";
         <p
           class="mb-2 text-xs font-semibold uppercase tracking-wider text-accent"
         >
-          Ubicación estratégica
+          {copy.locationEyebrow}
         </p>
-        <h2 class="mb-6 text-3xl font-black sm:text-4xl">Dónde estamos</h2>
+        <h2
+          class="mb-6 text-3xl font-semibold leading-[1.1] tracking-[-0.035em] sm:text-4xl lg:text-5xl"
+        >
+          {copy.locationTitle}
+        </h2>
 
         <div
           class="prose prose-sm space-y-4 leading-relaxed text-ink-secondary"
         >
-          <p>
-            Encontrará las instalaciones de <strong>Grúas del Vallès</strong>,
-            en la <span class="font-semibold text-ink"
-              >avenida San Julián 64 – 66</span
-            > en el polígono industrial del Congost de Granollers (Barcelona). A solo
-            <span class="font-semibold text-accent"
-              >dos minutos del Circuito de Montmeló</span
-            >.
-          </p>
-
-          <p>
-            Estamos ubicados en un emplazamiento de <strong
-              >cómodo acceso</strong
-            > desde la carretera <span class="font-medium text-ink">N-152</span>
-            y la <span class="font-medium text-ink">AP-7</span> desde cualquier punto
-            del Vallés Oriental, Vallés Occidental, el Barcelonés, Baix Llobregat
-            y Ripollés.
-          </p>
-
-          <p class="border-l-2 border-muted pl-4 text-xs italic">
-            Así como de poblaciones colindantes como Mollet del Vallés, Mataró,
-            Sabadell, Terrassa, Cerdanyola y Sant Cugat del Vallés, Les
-            Franqueses y la Roca del Vallès, Cardedeu, a pocos minutos Barcelona
-            y Baix Llobregat, también de Vic, Ripoll, Manresa e incluso de
-            Girona o Tarragona.
-          </p>
+          {copy.locationParagraphs.map((paragraph) => <p>{paragraph}</p>)}
         </div>
 
         <div class="mt-8 flex flex-wrap gap-4">
@@ -51,17 +33,17 @@ import contacto from "../../data/contacto.json";
             href="https://www.google.com/maps/dir//Grúas+del+Vallès,+S.A.,+Avinguda+de+Sant+Julià,+64,+66,+08403+Granollers,+Barcelona"
             target="_blank"
             rel="noopener"
-            class="btn btn-sm border-2 border-muted hover:border-accent hover:text-accent"
+            class="btn btn-md border-2 border-accent text-accent hover:bg-accent hover:text-white"
           >
             <Icon name="lucide:map-pin" class="h-4 w-4" />
-            Cómo llegar
+            {copy.directions}
           </a>
         </div>
       </div>
 
       <!-- Right: Map -->
       <div
-        class="relative aspect-square border-2 border-muted bg-surface-alt transition-[filter] duration-500 hover:grayscale-0 lg:aspect-auto lg:h-125"
+        class="relative aspect-square overflow-hidden rounded-sm bg-surface-alt lg:aspect-auto lg:h-125"
         data-reveal
         data-reveal-delay="1"
       >
@@ -73,6 +55,7 @@ import contacto from "../../data/contacto.json";
           allowfullscreen
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
+          title={copy.mapTitle}
           class="absolute inset-0"></iframe>
       </div>
     </div>

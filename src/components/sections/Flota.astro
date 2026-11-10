@@ -1,9 +1,14 @@
 ---
 import { getCollection } from "astro:content";
 import { resolveImage } from "../../lib/images";
-import FlotaCard from "../flota/FlotaCard.astro";
 import Button from "../ui/Button.astro";
 import Section from "../ui/Section.astro";
+import { getLangFromUrl } from "@i18n/utils";
+import { homeCopy } from "@i18n/home";
+import { es } from "@i18n/home.es";
+
+const lang = getLangFromUrl(Astro.url);
+const copy = homeCopy(lang);
 
 // Fuente única: colección «flota» (ver src/content.config.ts)
 const entries = await getCollection("flota");
@@ -11,45 +16,44 @@ const allModels = entries
   .map((e) => ({ slug: e.id, ...e.data }))
   .sort((a, b) => a.orden - b.orden);
 
-const categorias = [...new Set(allModels.map((m) => m.categoria))];
-const newModels = allModels.filter((m) => m.nuevo);
+const destacados = allModels
+  .filter(
+    (model, index) =>
+      allModels.findIndex((m) => m.categoria === model.categoria) === index,
+  )
+  .slice(0, 3);
 ---
 
-<Section id="flota" bg="alt" title="Maquinaria para cualquier maniobra">
+<Section id="flota" bg="alt" title={copy.fleetTitle}>
   <p slot="intro">
-    28 grúas propias autopropulsadas siempre actualizadas. Si necesita una
-    configuración específica,
-    <a href="#contacto" class="font-medium text-accent underline">consúltenos</a
+    {copy.fleetIntro}
+    <a href="#contacto" class="font-medium text-accent underline"
+      >{copy.contactUs}</a
     >.
   </p>
 
-  <!-- ── Novedades ── -->
+  <!-- Selección representativa; el catálogo completo está en /flota. -->
   {
-    newModels.length > 0 && (
-      <div class="novedades-wrapper mb-16" data-reveal>
+    destacados.length > 0 && (
+      <div class="novedades-wrapper" data-reveal>
         {/* Cabecera */}
         <div class="novedades-header">
           <div class="novedades-header-inner">
-            <div class="novedades-badge">
-              <span class="novedades-badge-dot" aria-hidden="true" />
-              Nuevo
-            </div>
             <div>
-              <h3 class="novedades-title">Nuevas incorporaciones</h3>
-              <p class="novedades-subtitle">
-                Las últimas adquisiciones a nuestra flota
-              </p>
+              <h3 class="novedades-title">{copy.fleetSelection}</h3>
+              <p class="novedades-subtitle">{copy.fleetSubtitle}</p>
             </div>
           </div>
           <a href="/flota" class="novedades-link">
-            Ver toda la flota →
+            {copy.allFleet} →
           </a>
         </div>
 
         {/* Tarjetas */}
         <div class="novedades-track">
-          {newModels.map((model) => {
+          {destacados.map((model) => {
             const capacidad = model.capacidad_max_t ?? model.capacidad_tm;
+            const categoryIndex = es.fleetCategories.indexOf(model.categoria);
             return (
               <a href={`/flota/${model.slug}`} class="novedades-card group">
                 <div class="novedades-img">
@@ -62,9 +66,11 @@ const newModels = allModels.filter((m) => m.nuevo);
                       decoding="async"
                     />
                   ) : null}
-                  <span class="novedades-card-badge">Nueva</span>
                 </div>
                 <div class="novedades-card-body">
+                  <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-ink-secondary">
+                    {copy.fleetCategories[categoryIndex] ?? model.categoria}
+                  </p>
                   <h4 class="novedades-card-title group-hover:text-accent">
                     {model.modelo}
                   </h4>
@@ -72,9 +78,23 @@ const newModels = allModels.filter((m) => m.nuevo);
                     <p class="novedades-card-cap">{capacidad} Tn</p>
                   )}
                   {model.nota && (
-                    <p class="novedades-card-nota">{model.nota}</p>
+                    <p
+                      class="novedades-card-nota"
+                      lang={
+                        lang !== "es" &&
+                        model.nota !== "El mayor vehículo de la flota."
+                          ? "es"
+                          : undefined
+                      }
+                    >
+                      {model.nota === "El mayor vehículo de la flota."
+                        ? copy.fleetNote
+                        : model.nota}
+                    </p>
                   )}
-                  <span class="novedades-card-cta">Ver ficha técnica →</span>
+                  <span class="novedades-card-cta">
+                    {copy.technicalSheet} →
+                  </span>
                 </div>
               </a>
             );
@@ -84,54 +104,13 @@ const newModels = allModels.filter((m) => m.nuevo);
     )
   }
 
-  <!-- Filtros (ocultos en móvil: la selección destacada va sin filtrar y el catálogo completo está en /flota) -->
-  <div
-    class="mb-8 flex flex-wrap gap-2 max-sm:hidden"
-    id="flota-filters"
-    role="group"
-    aria-label="Filtrar flota por categoría"
-  >
-    <button
-      type="button"
-      data-filter="all"
-      aria-pressed="true"
-      class="filter-btn active-filter text-xs font-semibold uppercase tracking-wider px-4 py-2 border-2 border-accent bg-accent text-white transition-colors"
-    >
-      Todas
-    </button>
-    {
-      categorias.map((cat) => (
-        <button
-          type="button"
-          data-filter={cat}
-          aria-pressed="false"
-          class="filter-btn text-xs font-semibold uppercase tracking-wider px-4 py-2 border-2 border-muted text-ink-secondary transition-colors hover:border-accent hover:text-accent"
-        >
-          {cat}
-        </button>
-      ))
-    }
-  </div>
-
-  <!-- Grid -->
-  <!-- En móvil mostramos solo una selección; el resto se ve desde sm o en /flota -->
-  <div
-    class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3"
-    id="flota-grid"
-  >
-    {allModels.slice(0, 3).map((model) => <FlotaCard model={model} />)}
-    <div class="contents max-sm:hidden">
-      {allModels.slice(3, 6).map((model) => <FlotaCard model={model} />)}
-    </div>
-  </div>
-
   <!-- CTA bottom -->
   <div class="mt-12 flex flex-wrap justify-center gap-4">
     <Button href="/flota" variant="outline" icon="lucide:list">
-      Ver toda la flota
+      {copy.allFleet}
     </Button>
     <Button href="#contacto" icon="lucide:arrow-right">
-      Consultar disponibilidad
+      {copy.availability}
     </Button>
   </div>
 </Section>
@@ -139,11 +118,7 @@ const newModels = allModels.filter((m) => m.nuevo);
 <style>
   /* ── Wrapper ── */
   .novedades-wrapper {
-    overflow: hidden;
-    border-radius: 4px;
-    box-shadow:
-      0 1px 3px rgb(0 0 0 / 0.06),
-      0 0 0 1px rgb(0 0 0 / 0.07);
+    min-width: 0;
   }
 
   /* ── Cabecera ── */
@@ -153,9 +128,7 @@ const newModels = allModels.filter((m) => m.nuevo);
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
-    padding: 1.25rem 1.5rem;
-    background: var(--color-ink);
-    border-bottom: 2px solid var(--color-accent);
+    padding: 0 0 1.5rem;
   }
 
   .novedades-header-inner {
@@ -164,49 +137,11 @@ const newModels = allModels.filter((m) => m.nuevo);
     gap: 1rem;
   }
 
-  /* Badge "Nuevo" con punto pulsante */
-  .novedades-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    background: var(--color-accent);
-    color: white;
-    font-size: 0.6rem;
-    font-weight: 900;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.65rem;
-    border-radius: 2px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .novedades-badge-dot {
-    display: inline-block;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: white;
-    animation: pulse-dot 1.8s ease-in-out infinite;
-  }
-
-  @keyframes pulse-dot {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.35;
-      transform: scale(0.6);
-    }
-  }
-
   .novedades-title {
     font-size: 1.15rem;
-    font-weight: 900;
+    font-weight: 600;
     line-height: 1.2;
-    color: white;
+    color: var(--color-ink);
     margin: 0;
     letter-spacing: -0.01em;
   }
@@ -218,67 +153,43 @@ const newModels = allModels.filter((m) => m.nuevo);
   }
 
   .novedades-subtitle {
-    font-size: 0.72rem;
-    color: rgb(255 255 255 / 0.45);
+    font-size: 0.875rem;
+    color: var(--color-ink-secondary);
     margin: 0.2rem 0 0;
     letter-spacing: 0.01em;
   }
 
   .novedades-link {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: rgb(255 255 255 / 0.5);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
     text-decoration: none;
     white-space: nowrap;
     transition: color 0.2s;
   }
   .novedades-link:hover {
-    color: var(--color-accent);
+    color: var(--color-accent-dark);
+    text-decoration: underline;
   }
 
   /* ── Track de tarjetas ── */
   .novedades-track {
-    display: flex;
-    gap: 0.5rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding: 0.5rem;
-    background-color: var(--color-accent);
-    -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 100%);
-    mask-image: linear-gradient(to right, #000 88%, transparent 100%);
+    display: grid;
+    gap: 1rem;
   }
 
-  /* El padding-inline-end de un contenedor con overflow-x no se conserva:
-     reservamos el espacio final con margen en la última tarjeta. */
-  .novedades-track > :last-child {
-    margin-inline-end: 0.5rem;
-  }
-
-  .novedades-track::-webkit-scrollbar {
-    height: 3px;
-  }
-  .novedades-track::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .novedades-track::-webkit-scrollbar-thumb {
-    background: var(--color-accent);
-    border-radius: 2px;
+  @media (min-width: 640px) {
+    .novedades-track {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 
   /* ── Tarjeta individual ── */
   .novedades-card {
-    flex-shrink: 0;
-    width: 20rem;
-    scroll-snap-align: start;
+    min-width: 0;
     background: white;
     border-radius: 2px;
     overflow: hidden;
-    box-shadow:
-      0 2px 8px -2px rgb(0 0 0 / 0.1),
-      0 0 0 1px rgb(0 0 0 / 0.06);
     text-decoration: none;
     color: inherit;
     transition:
@@ -287,10 +198,8 @@ const newModels = allModels.filter((m) => m.nuevo);
   }
 
   .novedades-card:hover {
-    box-shadow:
-      0 12px 32px -6px rgb(0 0 0 / 0.18),
-      0 0 0 2px var(--color-accent);
-    transform: translateY(-3px);
+    box-shadow: var(--shadow-card);
+    transform: translateY(-2px);
   }
 
   /* Imagen con badge superpuesto */
@@ -298,47 +207,30 @@ const newModels = allModels.filter((m) => m.nuevo);
     position: relative;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    background: var(--color-surface-alt);
-  }
-
-  /* Badge "Nueva" encima de la imagen */
-  .novedades-card-badge {
-    position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    background: var(--color-accent);
-    color: white;
-    font-size: 0.58rem;
-    font-weight: 900;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 0.2rem 0.55rem;
-    border-radius: 2px;
+    background: white;
   }
 
   .novedades-card-body {
-    padding: 1rem 1.25rem 1.25rem;
-    border-top: 2px solid var(--color-accent);
+    padding: 1.5rem;
   }
 
   .novedades-card-title {
-    font-size: 0.9rem;
-    font-weight: 800;
+    font-size: 1.125rem;
+    font-weight: 600;
     line-height: 1.3;
     transition: color 0.2s;
     margin: 0 0 0.25rem;
   }
 
   .novedades-card-cap {
-    font-size: 0.8rem;
+    font-size: 0.875rem;
     font-weight: 700;
     color: var(--color-accent);
     margin: 0;
   }
 
   .novedades-card-nota {
-    font-size: 0.7rem;
-    font-style: italic;
+    font-size: 0.875rem;
     color: var(--color-ink-secondary);
     margin: 0.35rem 0 0;
     line-height: 1.4;
@@ -347,53 +239,15 @@ const newModels = allModels.filter((m) => m.nuevo);
   .novedades-card-cta {
     display: inline-block;
     margin-top: 0.85rem;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    font-size: 0.875rem;
+    font-weight: 600;
     color: var(--color-accent);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .novedades-card,
-    .novedades-badge-dot {
+    .novedades-card {
       transition: none;
       animation: none;
     }
   }
 </style>
-
-<script>
-  const filters = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
-  const cards = document.querySelectorAll<HTMLElement>(".flota-card");
-
-  filters.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const filter = btn.dataset.filter!;
-
-      filters.forEach((b) => {
-        b.classList.remove(
-          "active-filter",
-          "bg-accent",
-          "text-white",
-          "border-accent",
-        );
-        b.classList.add("border-muted", "text-ink-secondary");
-        b.setAttribute("aria-pressed", "false");
-      });
-      btn.classList.add(
-        "active-filter",
-        "bg-accent",
-        "text-white",
-        "border-accent",
-      );
-      btn.classList.remove("border-muted", "text-ink-secondary");
-      btn.setAttribute("aria-pressed", "true");
-
-      cards.forEach((card) => {
-        const show = filter === "all" || card.dataset.categoria === filter;
-        card.style.display = show ? "" : "none";
-      });
-    });
-  });
-</script>

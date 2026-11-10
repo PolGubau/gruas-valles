@@ -2,41 +2,50 @@
 import { Icon } from "astro-icon/components";
 import localidades from "../../data/localidades.json";
 import { catalogo } from "../../lib/docs";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
+import { homeCopy } from "@i18n/home";
 
+const lang = getLangFromUrl(Astro.url);
+const copy = homeCopy(lang);
+const localizePath = useTranslatedPath(lang);
 const year = new Date().getFullYear();
 
 const serviciosLinks = [
-  { href: "/flota", label: "Flota" },
-  { href: "/servicios", label: "Servicios" },
+  { href: "/flota", label: copy.footerFleet },
+  { href: "/servicios", label: copy.footerServices },
 ];
 
 const empresaLinks = [
-  { href: "/nosotros", label: "Nosotros" },
-  { href: "/seguridad", label: "Seguridad" },
-  { href: "/organismos", label: "Organismos" },
-  { href: "/blog", label: "Noticias" },
-  { href: "/trabaja-con-nosotros", label: "Trabaja con nosotros" },
-  { href: "/contacto", label: "Contacto" },
+  { href: "/nosotros", label: copy.footerAbout },
+  { href: "/seguridad", label: copy.footerSafety },
+  { href: "/organismos", label: copy.footerBodies },
+  { href: "/blog", label: copy.footerNews },
+  { href: "/trabaja-con-nosotros", label: copy.footerJobs },
+  { href: "/contacto", label: copy.footerContact },
 ];
 
 const zonas = localidades.slice(0, 6);
 
 const legalLinks = [
-  { href: "/legal/aviso-legal", label: "Aviso legal" },
-  { href: "/legal/privacidad", label: "Política de privacidad" },
-  { href: "/legal/politica-cookies", label: "Política de cookies" },
+  { href: "/legal/aviso-legal", label: copy.legalNotice },
+  { href: "/legal/privacidad", label: copy.privacy },
+  { href: "/legal/politica-cookies", label: copy.cookies },
 ];
 ---
 
 <footer class="bg-ink text-muted">
-  <div class="container-wide py-14">
+  <div class="container-wide py-16 sm:py-20">
     <div class="grid gap-12 lg:grid-cols-12 lg:gap-8">
       <!-- Brand + contacto -->
       <div class="lg:col-span-5">
         <a
-          href="/"
+          href={localizePath("/")}
           class="mb-5 inline-block"
-          aria-label="Grúas del Vallès - inicio"
+          aria-label={lang === "en"
+            ? "Grúas del Vallès - home"
+            : lang === "ca"
+              ? "Grúas del Vallès - inici"
+              : "Grúas del Vallès - inicio"}
         >
           <img
             src="/logo.png"
@@ -46,18 +55,17 @@ const legalLinks = [
           />
         </a>
         <p class="max-w-sm text-sm leading-relaxed">
-          Empresa líder en alquiler de grúas industriales en Cataluña desde
-          1968. Cobertura 24h/365 días.
+          {copy.footerDescription}
         </p>
 
         <div class="mt-8 space-y-4">
           <a
             href="tel:+34938497022"
-            class="inline-flex items-center gap-2.5 text-lg font-bold text-white transition-colors hover:text-accent"
+            class="inline-flex items-center gap-2.5 text-lg font-semibold text-white transition-colors hover:text-accent-light"
           >
             <Icon
               name="lucide:phone"
-              class="h-5 w-5 shrink-0 text-accent"
+              class="h-5 w-5 shrink-0 text-accent-light"
               aria-hidden="true"
             />
             93 849 70 22
@@ -65,25 +73,31 @@ const legalLinks = [
 
           <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
             <span
-              class="text-xs font-semibold uppercase tracking-wider text-muted-dark"
+              class="text-xs font-semibold uppercase tracking-wider text-muted"
             >
-              Emergencias 24/365
+              {copy.emergencyShort}
             </span>
-            <a href="tel:+34669296954" class="text-accent hover:underline">
+            <a
+              href="tel:+34669296954"
+              class="text-accent-light hover:underline"
+            >
               669 29 69 54
             </a>
-            <a href="tel:+34669296949" class="text-accent hover:underline">
+            <a
+              href="tel:+34669296949"
+              class="text-accent-light hover:underline"
+            >
               669 29 69 49
             </a>
           </div>
 
           <a
             href="mailto:gruasdelvalles@gruasdelvalles.com"
-            class="inline-flex items-center gap-2.5 text-sm transition-colors hover:text-accent"
+            class="inline-flex items-center gap-2.5 text-sm transition-colors hover:text-accent-light"
           >
             <Icon
               name="lucide:mail"
-              class="h-4 w-4 shrink-0 text-accent"
+              class="h-4 w-4 shrink-0 text-accent-light"
               aria-hidden="true"
             />
             gruasdelvalles@gruasdelvalles.com
@@ -92,14 +106,14 @@ const legalLinks = [
           <a
             href={catalogo.url}
             download={catalogo.filename}
-            class="inline-flex items-center gap-2.5 border-2 border-white/20 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:border-accent hover:text-accent"
+            class="btn min-h-11 border-2 border-white/20 px-4 py-2.5 text-sm text-white hover:border-accent-light hover:text-accent-light"
           >
             <Icon
               name="lucide:download"
-              class="h-4 w-4 shrink-0 text-accent"
+              class="h-4 w-4 shrink-0 text-accent-light"
               aria-hidden="true"
             />
-            {catalogo.label}
+            {copy.download}
           </a>
         </div>
 
@@ -108,15 +122,15 @@ const legalLinks = [
             href="https://www.youtube.com/channel/UCGAXK9VBR-OSxCsV3k2Ntkg"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Canal de YouTube de Grúas del Vallès"
-            class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-muted transition-colors hover:bg-[#FF0000] hover:text-white"
+            aria-label={copy.youtubeLabel}
+            class="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-muted transition-colors hover:bg-[#FF0000] hover:text-white"
           >
             <Icon name="lucide:youtube" class="h-4 w-4" aria-hidden="true" />
           </a>
           <a
             href="mailto:gruasdelvalles@gruasdelvalles.com"
-            aria-label="Enviar email"
-            class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-muted transition-colors hover:bg-accent hover:text-white"
+            aria-label={copy.emailLabel}
+            class="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-muted transition-colors hover:bg-accent hover:text-white"
           >
             <Icon name="lucide:mail" class="h-4 w-4" aria-hidden="true" />
           </a>
@@ -130,13 +144,16 @@ const legalLinks = [
           <p
             class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
           >
-            Servicios
+            {copy.footerServices}
           </p>
           <ul class="space-y-2.5 text-sm">
             {
               serviciosLinks.map(({ href, label }) => (
                 <li>
-                  <a href={href} class="transition-colors hover:text-accent">
+                  <a
+                    href={href}
+                    class="transition-colors hover:text-accent-light"
+                  >
                     {label}
                   </a>
                 </li>
@@ -150,13 +167,16 @@ const legalLinks = [
           <p
             class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
           >
-            Empresa
+            {copy.footerCompany}
           </p>
           <ul class="space-y-2.5 text-sm">
             {
               empresaLinks.map(({ href, label }) => (
                 <li>
-                  <a href={href} class="transition-colors hover:text-accent">
+                  <a
+                    href={href}
+                    class="transition-colors hover:text-accent-light"
+                  >
                     {label}
                   </a>
                 </li>
@@ -170,7 +190,7 @@ const legalLinks = [
           <p
             class="mb-4 text-xs font-semibold uppercase tracking-wider text-white"
           >
-            Cobertura
+            {copy.footerCoverage}
           </p>
           <ul class="space-y-2.5 text-sm">
             {
@@ -178,9 +198,9 @@ const legalLinks = [
                 <li>
                   <a
                     href={`/alquiler-gruas/${z.slug}`}
-                    class="transition-colors hover:text-accent"
+                    class="transition-colors hover:text-accent-light"
                   >
-                    Grúas en {z.nombre}
+                    {copy.footerCranes} {z.nombre}
                   </a>
                 </li>
               ))
@@ -188,9 +208,9 @@ const legalLinks = [
             <li>
               <a
                 href="/alquiler-gruas"
-                class="font-semibold text-accent hover:underline"
+                class="font-semibold text-accent-light hover:underline"
               >
-                Ver toda la cobertura →
+                {copy.footerAllCoverage} →
               </a>
             </li>
           </ul>
@@ -198,20 +218,26 @@ const legalLinks = [
       </div>
     </div>
 
+    {
+      copy.spanishNotice && (
+        <p class="mt-10 max-w-2xl text-sm text-muted">{copy.spanishNotice}</p>
+      )
+    }
+
     <!-- Barra inferior -->
     <div
       class="mt-14 flex flex-col gap-6 border-t border-white/10 pt-8 text-xs lg:flex-row lg:items-center lg:justify-between"
     >
       <div class="space-y-1.5">
         <p>© {year} Grúas del Vallès, S.A. · CIF A08603888</p>
-        <p class="text-muted-dark">
-          Avda. San Julián 64-66 · Polígono Congost · 08403 Granollers
+        <p class="text-muted">
+          Avda. San Julián 64-66, Polígono Congost, 08403 Granollers
         </p>
       </div>
 
       <nav
         class="flex flex-wrap items-center gap-x-5 gap-y-2"
-        aria-label="Enlaces legales"
+        aria-label={copy.legalLinks}
       >
         {
           legalLinks.map(({ href, label }) => (
@@ -224,7 +250,8 @@ const legalLinks = [
     </div>
 
     <p class="mt-6 text-[10px] opacity-40 transition-opacity hover:opacity-100">
-      Programado por <a
+      {copy.programmed}
+      <a
         href="https://doscientos.es"
         target="_blank"
         rel="noopener"

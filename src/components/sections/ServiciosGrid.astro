@@ -3,6 +3,8 @@ import { Icon } from "astro-icon/components";
 import servicios from "../../data/servicios.json";
 import Button from "../ui/Button.astro";
 import Section from "../ui/Section.astro";
+import { getLangFromUrl } from "@i18n/utils";
+import { homeCopy } from "@i18n/home";
 
 interface Props {
   /** En la landing (preview) dejamos solo las categorías destacadas en móvil
@@ -11,6 +13,7 @@ interface Props {
 }
 
 const { preview = false } = Astro.props;
+const copy = homeCopy(getLangFromUrl(Astro.url));
 
 const iconos: string[] = [
   "lucide:building-2",
@@ -25,34 +28,32 @@ const iconos: string[] = [
 ];
 ---
 
-<Section
-  id="servicios"
-  bg="white"
-  title="Todo lo que necesitas en una sola empresa"
->
+<Section id="servicios" bg="white" title={copy.servicesTitle}>
   <!-- Departamento de estudios · servicio destacado -->
   <a
     href="/servicios/ingenieria-de-maniobra"
-    class="group relative mb-10 flex flex-col gap-6 overflow-hidden bg-ink p-8 text-white transition-all hover:shadow-xl sm:p-12 lg:flex-row lg:items-center lg:justify-between lg:gap-12"
+    class="group relative mb-4 flex flex-col gap-8 overflow-hidden rounded-sm bg-ink p-6 text-white transition-colors hover:bg-neutral-900 sm:mb-6 sm:p-10 lg:flex-row lg:items-end lg:justify-between lg:gap-12"
     data-reveal
   >
     <div class="max-w-3xl">
       <p
-        class="mb-3 text-xs font-semibold uppercase tracking-wider text-accent"
+        class="mb-3 text-xs font-semibold uppercase tracking-wider text-accent-light"
       >
-        Departamento de estudios
+        {copy.studies}
       </p>
-      <h3 class="mb-4 text-2xl font-black leading-tight sm:text-4xl">
-        Ingeniería antes de la maniobra
+      <h3
+        class="mb-4 text-2xl font-semibold leading-tight tracking-tight sm:text-3xl"
+      >
+        {copy.engineering}
       </h3>
       <p class="text-sm leading-relaxed text-muted sm:text-base">
-        {servicios.departamento_de_estudios}
+        {copy.studiesDescription}
       </p>
     </div>
     <span
-      class="inline-flex shrink-0 items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-accent"
+      class="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-white"
     >
-      Ver detalles
+      {copy.details}
       <Icon
         name="lucide:move-right"
         class="h-4 w-4 transition-transform group-hover:translate-x-1"
@@ -61,33 +62,40 @@ const iconos: string[] = [
   </a>
 
   <!-- Featured Categories -->
-  <div class="mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="mb-12 grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
     {
       servicios.categorias
         .filter((cat: any) => cat.slug !== "ingenieria-de-maniobra")
-        .map((cat: any) => (
-          <a
-            href={`/servicios/${cat.slug}`}
-            class="group relative flex flex-col bg-surface-alt p-6 transition-all hover:bg-white hover:shadow-xl sm:p-8"
-          >
-            <div class="mb-6 flex h-12 w-12 items-center justify-center bg-white text-accent shadow-sm group-hover:bg-accent group-hover:text-white transition-colors">
-              <Icon name="lucide:arrow-up-right" class="h-6 w-6" />
-            </div>
-            <h3 class="mb-3 text-lg font-black leading-tight group-hover:text-accent transition-colors">
-              {cat.titulo}
-            </h3>
-            <p class="text-xs leading-relaxed text-ink-secondary line-clamp-3">
-              {cat.descripcion}
-            </p>
-            <span class="mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-accent">
-              Ver detalles{" "}
-              <Icon
-                name="lucide:move-right"
-                class="h-3 w-3 transition-transform group-hover:translate-x-1"
-              />
-            </span>
-          </a>
-        ))
+        .map((cat: any) => {
+          const translated = copy.categories[cat.slug] ?? cat;
+          return (
+            <a
+              href={`/servicios/${cat.slug}`}
+              class="group relative flex flex-col rounded-sm bg-surface-alt p-6 transition-colors hover:bg-neutral-100 sm:p-8"
+            >
+              <div class="mb-8 flex h-10 w-10 items-center justify-center rounded-sm bg-white text-accent">
+                <Icon
+                  name="lucide:arrow-up-right"
+                  class="h-5 w-5"
+                  aria-hidden="true"
+                />
+              </div>
+              <h3 class="mb-3 text-xl font-semibold leading-tight transition-colors group-hover:text-accent">
+                {translated.titulo}
+              </h3>
+              <p class="text-sm leading-relaxed text-ink-secondary line-clamp-3">
+                {translated.descripcion}
+              </p>
+              <span class="mt-auto flex items-center gap-2 pt-8 text-sm font-semibold text-accent">
+                {copy.details}{" "}
+                <Icon
+                  name="lucide:move-right"
+                  class="h-3 w-3 transition-transform group-hover:translate-x-1"
+                />
+              </span>
+            </a>
+          );
+        })
     }
   </div>
 
@@ -97,7 +105,7 @@ const iconos: string[] = [
   >
     <div class="h-px flex-1 bg-muted"></div>
     <span class="text-[10px] font-bold uppercase tracking-wider text-muted-dark"
-      >Otros servicios especializados</span
+      >{copy.otherServices}</span
     >
     <div class="h-px flex-1 bg-muted"></div>
   </div>
@@ -105,14 +113,14 @@ const iconos: string[] = [
   <!-- Grid de servicios principales -->
   <div
     class:list={[
-      "grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3",
+      "grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3",
       { "max-sm:hidden": preview },
     ]}
     data-reveal
   >
     {
-      servicios.principales.map((servicio: string, i: number) => (
-        <div class="group flex items-start gap-4 border-t-2 border-transparent bg-white p-5 transition-colors duration-200 hover:border-accent hover:bg-surface-alt sm:p-6">
+      copy.mainServices.map((servicio: string, i: number) => (
+        <div class="flex items-start gap-4 border-t border-muted/50 py-5">
           <Icon
             name={iconos[i] ?? iconos[0]}
             class="h-6 w-6 shrink-0 text-accent"
@@ -134,7 +142,7 @@ const iconos: string[] = [
           size="sm"
           icon="lucide:arrow-right"
         >
-          Ver todos los servicios
+          {copy.allServices}
         </Button>
       </div>
     )

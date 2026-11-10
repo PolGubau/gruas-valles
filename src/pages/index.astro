@@ -1,27 +1,5 @@
 ---
-import Clientes from "../components/sections/Clientes.astro";
-import ContactoSection from "../components/sections/ContactoSection.astro";
-import DondeEstamos from "../components/sections/DondeEstamos.astro";
-import Flota from "../components/sections/Flota.astro";
-import Hero from "../components/sections/Hero.astro";
-import NosotrosSection from "../components/sections/NosotrosSection.astro";
-import Noticias from "../components/sections/Noticias.astro";
-import ServiciosGrid from "../components/sections/ServiciosGrid.astro";
-import Footer from "../components/ui/Footer.astro";
-import Navbar from "../components/ui/Navbar.astro";
-import Base from "../layouts/Base.astro";
+import HomePage from "../components/HomePage.astro";
 ---
 
-<Base>
-  <Navbar />
-  <main id="main">
-    <Hero />
-    <Clientes />
-    <Flota />
-    <ServiciosGrid preview />
-    <NosotrosSection />
-    <DondeEstamos />
-    <ContactoSection />
-  </main>
-  <Footer />
-</Base>
+<HomePage />

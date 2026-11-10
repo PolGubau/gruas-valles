@@ -1,0 +1,48 @@
+import servicios from "../data/servicios.json";
+import { faqs } from "../data/faqs";
+
+export const es = {
+  seoTitle: "Grúas del Vallès | Alquiler de Grúas Industriales en Barcelona",
+  seoDescription: "Empresa líder en alquiler de grúas móviles autopropulsadas de 40 a 700 Tn en Cataluña. +55 años de experiencia. Servicio de emergencia 24/365.",
+  heroEyebrow: "Elevación y transporte · Desde 1968", heroFirst: "Grúas para", heroSecond: "cada maniobra",
+  heroDescription: "Flota propia de grúas móviles de hasta 700 toneladas y asesoramiento técnico para cada proyecto en Cataluña.",
+  consult: "Consultar una maniobra", call: "Llamar", download: "Descargar catálogo",
+  cranes: "Grúas propias", emergency: "Servicio de emergencia", vehicles: "Vehículos propios",
+  clients: "Empresas que confían en nosotros", servicesTitle: "Todo lo que necesitas en una sola empresa",
+  studies: "Departamento de estudios", engineering: "Ingeniería antes de la maniobra", studiesDescription: servicios.departamento_de_estudios,
+  details: "Ver detalles", otherServices: "Otros servicios especializados", allServices: "Ver todos los servicios",
+  categories: Object.fromEntries(servicios.categorias.map(({ slug, titulo, descripcion }) => [slug, { titulo, descripcion }])),
+  mainServices: servicios.principales,
+  fleetTitle: "Maquinaria para cualquier maniobra", fleetIntro: "28 grúas propias autopropulsadas siempre actualizadas. Si necesita una configuración específica,",
+  contactUs: "consúltenos", fleetSelection: "Una selección de nuestra flota", fleetSubtitle: "Maquinaria para diferentes necesidades de elevación",
+  allFleet: "Ver toda la flota", technicalSheet: "Ver ficha técnica", availability: "Consultar disponibilidad",
+  fleetCategories: ["Grúas gran tonelaje", "Grúas móviles autopropulsadas", "Grúas para Construcción"],
+  fleetNote: "El mayor vehículo de la flota.",
+  processTitle: "De la consulta a la maniobra", processIntro: "La planificación, el mantenimiento y el control técnico acompañan cada operación desde su estudio hasta su ejecución.",
+  steps: [
+    { titulo: "Cuéntenos su proyecto", descripcion: "Comparta la ubicación, la fecha prevista y los datos que conozca sobre la carga y el acceso." },
+    { titulo: "Estudio de la maniobra", descripcion: "Nuestro equipo técnico valora las opciones de maquinaria y emplazamiento y, cuando es necesario, visita el lugar." },
+    { titulo: "Planificación y trámites", descripcion: "Preparamos la maniobra y gestionamos los permisos y documentación que correspondan al trabajo." },
+    { titulo: "Ejecución", descripcion: "Técnicos y operarios especializados dirigen y ejecutan la maniobra con la maquinaria seleccionada." },
+  ],
+  history: "Conozca nuestra trayectoria desde 1968", worksTitle: "Maniobras que hemos realizado",
+  worksIntro: "Una muestra de nuestra experiencia en operaciones de elevación y montaje.", moreWorks: "Ver más trabajos y noticias", readMore: "Leer más",
+  works: {} as Record<string, { titulo: string; resumen: string }>,
+  locationEyebrow: "Ubicación estratégica", locationTitle: "Dónde estamos",
+  locationParagraphs: ["Encontrará las instalaciones de Grúas del Vallès en la avenida Sant Julià 64–66, en el polígono industrial del Congost de Granollers (Barcelona), a dos minutos del Circuito de Montmeló.", "Contamos con acceso desde la N-152 y la AP-7, desde el Vallès Oriental y Occidental, el Barcelonès, Baix Llobregat y Ripollès.", "También atendemos poblaciones cercanas como Mollet, Mataró, Sabadell, Terrassa, Cerdanyola, Sant Cugat, Les Franqueses, La Roca, Cardedeu, Vic, Ripoll, Manresa, Girona y Tarragona."],
+  directions: "Cómo llegar", mapTitle: "Ubicación de Grúas del Vallès en Granollers",
+  faqEyebrow: "Antes de empezar", faqTitle: "Preguntas frecuentes", moreFaq: "Ver más preguntas y formas de contacto",
+  faqs: faqs.filter((faq) => ["informacion", "eleccion", "cobertura", "permisos"].includes(faq.id)),
+  contactEyebrow: "Contacto directo", contactTitle: "Hable con nuestro equipo",
+  contactIntro: "Contacte directamente con la persona o departamento que necesita. Llame o envíe un email con un solo clic.",
+  areas: ["Gerencia", "Logística", "Director técnico", "Encargado general", "Técnico comercial", "PRL", "Administración"],
+  offices: "Oficinas centrales", footerDescription: "Empresa líder en alquiler de grúas industriales en Cataluña desde 1968. Cobertura 24h/365 días.",
+  footerServices: "Servicios", footerCompany: "Empresa", footerCoverage: "Cobertura", footerFleet: "Flota", footerAbout: "Nosotros", footerSafety: "Seguridad", footerBodies: "Organismos", footerNews: "Noticias", footerJobs: "Trabaja con nosotros", footerContact: "Contacto", footerCranes: "Grúas en", footerAllCoverage: "Ver toda la cobertura", emergencyShort: "Emergencias 24/365",
+  legalNotice: "Aviso legal", privacy: "Política de privacidad", cookies: "Política de cookies", legalLinks: "Enlaces legales", programmed: "Programado por",
+  youtubeLabel: "Canal de YouTube de Grúas del Vallès", emailLabel: "Enviar email", quickContact: "Contacto rápido", callLabel: "Llamar al", sendEmail: "Enviar email a",
+  quoteEmail: "Pedir presupuesto por email", quote: "Pedir presupuesto", emailSubject: "Solicitud de presupuesto",
+  emailBody: "Hola,\n\nMe gustaría solicitar un presupuesto para:\n\n- Tipo de trabajo:\n- Tonelaje aproximado:\n- Fecha prevista:\n- Ubicación:\n\nGracias.",
+  spanishNotice: "", primaryNav: "Principal", mobileNav: "Móvil",
+};
+
+export type HomeCopy = typeof es;

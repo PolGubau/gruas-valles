@@ -1,0 +1,42 @@
+---
+import { getCollection } from "astro:content";
+import localidades from "../../data/localidades.json";
+import servicios from "../../data/servicios.json";
+
+// En salida estática Astro necesita conocer cada redirección durante el build.
+export async function getStaticPaths() {
+  const pages = Object.keys(import.meta.glob("../**/*.astro"));
+  const staticPaths = pages
+    .filter((page) => !page.includes("[") && page !== "../404.astro")
+    .map((page) =>
+      page.replace(/^\.\.\//, "").replace(/(?:\/index)?\.astro$/, ""),
+    )
+    .filter(
+      (path) =>
+        path !== "index" && !path.startsWith("ca/") && !path.startsWith("en/"),
+    );
+  const [flota, blog] = await Promise.all([
+    getCollection("flota"),
+    getCollection("blog"),
+  ]);
+  const paths = [
+    ...staticPaths,
+    ...flota.map((item) => `flota/${item.id}`),
+    ...blog.map((item) => `blog/${item.id}`),
+    ...localidades.map((item) => `alquiler-gruas/${item.slug}`),
+    ...servicios.categorias.map((item) => `servicios/${item.slug}`),
+  ];
+
+  return ["ca", "en"].flatMap((locale) =>
+    [...new Set(paths)]
+      .filter(
+        (path) =>
+          !pages.includes(`../${locale}/${path}.astro`) &&
+          !pages.includes(`../${locale}/${path}/index.astro`),
+      )
+      .map((path) => ({ params: { locale, path } })),
+  );
+}
+
+return Astro.redirect(`/${Astro.params.path}`, 301);
+---

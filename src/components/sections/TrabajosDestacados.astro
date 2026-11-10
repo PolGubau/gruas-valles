@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import BlogCard from "../blog/BlogCard.astro";
+import Button from "../ui/Button.astro";
+import Section from "../ui/Section.astro";
+import { getLangFromUrl } from "@i18n/utils";
+import { homeCopy } from "@i18n/home";
+
+const copy = homeCopy(getLangFromUrl(Astro.url));
+
+// Trabajos ya documentados en el blog, con sus propias fotografías y descripciones.
+const slugs = [
+  "instalacion-equipos-en-hospital-de-granollers",
+  "colocacion-modulos-en-hospitalet",
+  "desmontaje-mercat-dels-encants",
+];
+const entries = await getCollection("blog");
+const trabajos = slugs.flatMap((slug) => {
+  const entry = entries.find((item) => item.id === slug);
+  return entry ? [{ slug: entry.id, ...entry.data }] : [];
+});
+---
+
+<Section id="trabajos" bg="alt" title={copy.worksTitle}>
+  <p slot="intro">
+    {copy.worksIntro}
+  </p>
+  <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+    {
+      trabajos.map((post) => (
+        <BlogCard post={{ ...post, ...copy.works[post.slug] }} />
+      ))
+    }
+  </div>
+  <div class="mt-10 text-center">
+    <Button href="/blog" variant="outline" icon="lucide:arrow-right"
+      >{copy.moreWorks}</Button
+    >
+  </div>
+</Section>

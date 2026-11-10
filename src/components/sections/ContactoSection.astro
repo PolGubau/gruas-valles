@@ -2,6 +2,11 @@
 import { Icon } from "astro-icon/components";
 import contacto from "../../data/contacto.json";
 import { catalogo } from "../../lib/docs";
+import { getLangFromUrl } from "@i18n/utils";
+import { homeCopy } from "@i18n/home";
+import { es } from "@i18n/home.es";
+
+const copy = homeCopy(getLangFromUrl(Astro.url));
 ---
 
 <section id="contacto" class="section-padding bg-surface-alt">
@@ -10,23 +15,28 @@ import { catalogo } from "../../lib/docs";
       <p
         class="mb-2 text-xs font-semibold uppercase tracking-wider text-accent"
       >
-        Contacto directo
+        {copy.contactEyebrow}
       </p>
-      <h2 class="text-3xl font-black sm:text-4xl">Hable con nuestro equipo</h2>
+      <h2
+        class="text-3xl font-semibold leading-[1.1] tracking-[-0.035em] sm:text-4xl lg:text-5xl"
+      >
+        {copy.contactTitle}
+      </h2>
       <p class="mt-4 text-sm leading-relaxed text-ink-secondary sm:text-base">
-        Contacte directamente con la persona o departamento que necesita. Llame
-        o envíe un email con un solo clic.
+        {copy.contactIntro}
       </p>
     </div>
 
-    <div class="grid gap-px bg-muted sm:grid-cols-2 xl:grid-cols-3">
+    <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
       {
         contacto.contactos.map((persona) => (
-          <article class="flex min-h-48 flex-col bg-surface p-5 sm:p-6">
+          <article class="flex min-h-48 flex-col rounded-sm bg-surface p-6 sm:p-8">
             <p class="text-xs font-semibold uppercase tracking-wider text-accent">
-              {persona.area}
+              {copy.areas[es.areas.indexOf(persona.area)] ?? persona.area}
             </p>
-            <h3 class="mt-2 text-xl font-bold text-ink">{persona.nombre}</h3>
+            <h3 class="mt-2 text-xl font-semibold text-ink">
+              {persona.nombre}
+            </h3>
             <div class="mt-6 space-y-3 text-sm">
               <a
                 href={`tel:+34${persona.telefono.replace(/\s/g, "")}`}
@@ -57,13 +67,15 @@ import { catalogo } from "../../lib/docs";
     </div>
 
     <aside
-      class="mt-8 grid gap-6 bg-ink p-6 text-white sm:p-8 lg:grid-cols-[1.4fr_1fr_auto] lg:items-center"
+      class="mt-6 grid gap-6 rounded-sm bg-ink p-6 text-white sm:p-10 lg:grid-cols-[1.4fr_1fr_auto] lg:items-center lg:gap-10"
     >
       <div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-accent">
-          Oficinas centrales
+        <p
+          class="text-xs font-semibold uppercase tracking-wider text-accent-light"
+        >
+          {copy.offices}
         </p>
-        <p class="mt-2 text-lg font-bold">{contacto.empresa}</p>
+        <p class="mt-2 text-lg font-semibold">{contacto.empresa}</p>
         <p class="mt-1 text-sm text-white/75">
           CIF {contacto.cif} · {contacto.direccion}
         </p>
@@ -71,11 +83,11 @@ import { catalogo } from "../../lib/docs";
       <div class="space-y-2 text-sm">
         <a
           href={`tel:${contacto.telefono.replace(/\s/g, "")}`}
-          class="flex items-center gap-2 hover:text-accent"
+          class="flex items-center gap-2 hover:text-accent-light"
         >
           <Icon
             name="lucide:phone"
-            class="h-4 w-4 shrink-0 text-accent"
+            class="h-4 w-4 shrink-0 text-accent-light"
             aria-hidden="true"
           />
           {contacto.telefono}
@@ -83,7 +95,7 @@ import { catalogo } from "../../lib/docs";
         <p class="flex items-center gap-2 text-white/75">
           <Icon
             name="lucide:printer"
-            class="h-4 w-4 shrink-0 text-accent"
+            class="h-4 w-4 shrink-0 text-accent-light"
             aria-hidden="true"
           />
           Fax {contacto.fax}
@@ -92,14 +104,14 @@ import { catalogo } from "../../lib/docs";
       <a
         href={catalogo.url}
         download={catalogo.filename}
-        class="inline-flex items-center justify-center gap-2.5 border-2 border-white/20 px-5 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:border-accent hover:text-accent"
+        class="btn min-h-11 border-2 border-white/20 px-5 py-3 text-sm text-white hover:border-accent-light hover:text-accent-light"
       >
         <Icon
           name="lucide:download"
-          class="h-4 w-4 shrink-0 text-accent"
+          class="h-4 w-4 shrink-0 text-accent-light"
           aria-hidden="true"
         />
-        {catalogo.label}
+        {copy.download}
       </a>
     </aside>
   </div>

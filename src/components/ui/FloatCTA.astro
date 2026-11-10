@@ -1,8 +1,10 @@
 ---
+import { getLangFromUrl } from "@i18n/utils";
+import { homeCopy } from "@i18n/home";
+const copy = homeCopy(getLangFromUrl(Astro.url));
 const email = "gruasdelvalles@gruasdelvalles.com";
-const subject = "Solicitud de presupuesto";
-const body =
-  "Hola,\n\nMe gustaría solicitar un presupuesto para:\n\n- Tipo de trabajo:\n- Tonelaje aproximado:\n- Fecha prevista:\n- Ubicación:\n\nGracias.";
+const subject = copy.emailSubject;
+const body = copy.emailBody;
 const href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 ---
 
@@ -14,7 +16,7 @@ const href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${enco
   <!-- Pedir presupuesto -->
   <a
     href={href}
-    aria-label="Pedir presupuesto por email"
+    aria-label={copy.quoteEmail}
     class="group flex items-center gap-3 bg-accent px-4 py-3 text-white shadow-pop transition-all duration-300 ease-out-quart hover:bg-accent-dark hover:shadow-[0_16px_48px_-12px_rgba(214,11,12,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-accent sm:px-5 sm:py-3.5"
   >
     <!-- Mail icon -->
@@ -36,7 +38,7 @@ const href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${enco
     </svg>
 
     <span class="text-sm font-semibold uppercase tracking-wider leading-none">
-      Pedir presupuesto
+      {copy.quote}
     </span>
 
     <!-- Arrow animation -->

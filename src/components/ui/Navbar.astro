@@ -8,12 +8,18 @@ import {
   useTranslations,
 } from "@i18n/utils";
 import { Icon } from "astro-icon/components";
+import { homeCopy } from "@i18n/home";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const copy = homeCopy(lang);
 const localizePath = useTranslatedPath(lang);
 // Ruta actual sin prefijo de idioma, para construir el cambio de idioma.
 const route = getRouteFromUrl(Astro.url);
+const languageHref = (code: keyof typeof languages) => {
+  if (code === "es") return route === "/" ? "/?lang=es" : route;
+  return localizePath("/", code);
+};
 
 const links: { href: string; key: UiKey }[] = [
   { href: "/flota", key: "nav.flota" },
@@ -28,9 +34,9 @@ const isActive = (href: string) =>
 
 <header
   id="navbar"
-  class="fixed top-0 z-50 w-full border-b border-transparent bg-white/90 backdrop-blur-md transition-[box-shadow,border-color] duration-300"
+  class="fixed top-0 z-50 w-full border-b border-black/5 bg-white/95 backdrop-blur-md transition-[box-shadow,border-color] duration-300"
 >
-  <div class="container-wide flex h-24 items-center justify-between">
+  <div class="container-wide flex h-20 items-center justify-between gap-6">
     <!-- Logo -->
     <a
       href={localizePath("/")}
@@ -40,19 +46,19 @@ const isActive = (href: string) =>
       <img
         src="/logo.png"
         alt="Grúas del Vallès"
-        class="h-16 w-auto"
+        class="h-12 w-auto sm:h-14"
         loading="eager"
       />
     </a>
 
     <!-- Desktop nav -->
-    <nav class="hidden items-center gap-8 lg:flex" aria-label="Principal">
+    <nav class="hidden items-center gap-8 lg:flex" aria-label={copy.primaryNav}>
       {
         links.map(({ href, key }) => (
           <a
-            href={localizePath(href)}
+            href={href}
             aria-current={isActive(href) ? "page" : undefined}
-            class="nav-link relative text-base font-semibold text-ink-secondary transition-colors hover:text-accent aria-[current=page]:text-accent"
+            class="nav-link relative text-sm font-semibold text-ink-secondary transition-colors hover:text-accent aria-[current=page]:text-accent"
           >
             {t(key)}
           </a>
@@ -61,12 +67,12 @@ const isActive = (href: string) =>
     </nav>
 
     <!-- CTA -->
-    <div class="hidden items-center gap-6 lg:flex">
+    <div class="hidden items-center gap-4 lg:flex">
       <a
         href="tel:+34938497022"
-        class="inline-flex items-center gap-2 text-lg font-bold text-ink transition-colors hover:text-accent"
+        class="inline-flex min-h-11 items-center gap-2 rounded-sm bg-ink px-4 text-sm font-semibold text-white transition-colors hover:bg-accent-dark"
       >
-        <Icon name="lucide:phone" width={22} height={22} aria-hidden="true" />
+        <Icon name="lucide:phone" width={16} height={16} aria-hidden="true" />
         93 849 70 22
       </a>
       <!-- Language selector -->
@@ -74,10 +80,10 @@ const isActive = (href: string) =>
         <button
           type="button"
           id="lang-toggle"
-          aria-haspopup="menu"
+          aria-controls="lang-menu"
           aria-expanded="false"
           aria-label={t("nav.langLabel")}
-          class="inline-flex items-center gap-1.5 rounded border border-muted/60 px-3 py-2 text-sm font-bold uppercase tracking-wider text-ink-secondary transition-colors hover:border-accent hover:text-accent"
+          class="inline-flex min-h-11 items-center gap-1.5 rounded-sm border border-muted/60 px-3 text-xs font-semibold uppercase tracking-wider text-ink-secondary transition-colors hover:border-accent hover:text-accent"
         >
           <Icon name="lucide:globe" width={16} height={16} aria-hidden="true" />
           <span>{lang}</span>
@@ -91,16 +97,16 @@ const isActive = (href: string) =>
         </button>
         <ul
           id="lang-menu"
-          role="menu"
           aria-label={t("nav.langLabel")}
           class="lang-menu absolute right-0 top-full mt-1 hidden min-w-full overflow-hidden rounded border border-muted/40 bg-white shadow-pop"
         >
           {
             Object.entries(languages).map(([code, label]) => (
-              <li role="none">
+              <li>
                 <a
-                  role="menuitem"
-                  href={localizePath(route, code as keyof typeof languages)}
+                  href={languageHref(code as keyof typeof languages)}
+                  data-language={code}
+                  lang={code}
                   hreflang={code}
                   aria-current={code === lang ? "true" : undefined}
                   class="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold hover:bg-accent-soft hover:text-accent aria-current:text-accent"
@@ -121,10 +127,12 @@ const isActive = (href: string) =>
     <button
       id="menu-toggle"
       type="button"
-      aria-label="Abrir menú"
-      aria-expanded="false"
+      aria-label={t("a11y.closeMenu")}
+      data-open-label={t("a11y.closeMenu")}
+      data-closed-label={t("a11y.openMenu")}
+      aria-expanded="true"
       aria-controls="mobile-menu"
-      class="hamburger p-2 text-ink lg:hidden"
+      class="hamburger inline-flex min-h-11 min-w-11 items-center justify-center p-2 text-ink lg:hidden"
     >
       <span class="hamburger-box" aria-hidden="true">
         <span class="hamburger-bar"></span>
@@ -139,12 +147,12 @@ const isActive = (href: string) =>
     <div class="min-h-0 overflow-hidden">
       <nav
         class="container-wide flex flex-col border-t border-muted/60 py-4"
-        aria-label="Móvil"
+        aria-label={copy.mobileNav}
       >
         {
           links.map(({ href, key }) => (
             <a
-              href={localizePath(href)}
+              href={href}
               aria-current={isActive(href) ? "page" : undefined}
               class="mobile-link border-b border-muted/40 py-3 text-sm font-medium text-ink transition-colors last:border-0 hover:text-accent aria-[current=page]:text-accent"
             >
@@ -153,11 +161,27 @@ const isActive = (href: string) =>
           ))
         }
         <a
-          href={localizePath("/contacto")}
+          href="/contacto"
           class="btn btn-sm mt-4 justify-center bg-accent text-white hover:bg-accent-dark"
         >
           {t("cta.presupuesto")}
         </a>
+        <div class="mt-5 flex flex-wrap gap-4" aria-label={t("nav.langLabel")}>
+          {
+            Object.entries(languages).map(([code, label]) => (
+              <a
+                href={languageHref(code as keyof typeof languages)}
+                data-language={code}
+                lang={code}
+                hreflang={code}
+                aria-current={code === lang ? "true" : undefined}
+                class="min-h-11 py-3 text-sm font-semibold text-ink-secondary hover:text-accent aria-[current=true]:text-accent"
+              >
+                {label}
+              </a>
+            ))
+          }
+        </div>
       </nav>
     </div>
   </div>
@@ -218,12 +242,12 @@ const isActive = (href: string) =>
 
   /* Despliegue suave del panel móvil (sin medir la altura). */
   @media (max-width: 1023px) {
-    .mobile-menu {
+    :global(.nav-ready) .mobile-menu {
       display: grid;
       grid-template-rows: 0fr;
       transition: grid-template-rows 0.3s var(--ease-out-quart);
     }
-    .mobile-menu.is-open {
+    :global(.nav-ready) .mobile-menu.is-open {
       grid-template-rows: 1fr;
     }
   }
@@ -243,17 +267,31 @@ const isActive = (href: string) =>
 
   const setOpen = (open: boolean) => {
     menu.classList.toggle("is-open", open);
+    menu.inert = !open;
     toggle.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", String(open));
-    toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    toggle.setAttribute(
+      "aria-label",
+      open
+        ? (toggle.dataset?.openLabel ?? "Cerrar menú")
+        : (toggle.dataset?.closedLabel ?? "Abrir menú"),
+    );
   };
 
   toggle.addEventListener("click", () =>
     setOpen(!menu.classList.contains("is-open")),
   );
   menu
-    .querySelectorAll(".mobile-link")
+    .querySelectorAll("a")
     .forEach((link) => link.addEventListener("click", () => setOpen(false)));
+
+  setOpen(false);
+  document.documentElement.classList.add("nav-ready");
+  window
+    .matchMedia("(min-width: 1024px)")
+    .addEventListener("change", (event) => {
+      if (event.matches) setOpen(false);
+    });
 
   // Scroll shadow
   window.addEventListener("scroll", () => {
@@ -280,4 +318,19 @@ const isActive = (href: string) =>
   });
 
   document.addEventListener("click", () => setLangOpen(false));
+  langMenu.parentElement?.addEventListener("focusout", (event) => {
+    if (!langMenu.parentElement?.contains(event.relatedTarget as Node | null)) {
+      setLangOpen(false);
+    }
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    if (menu.classList.contains("is-open")) {
+      setOpen(false);
+      toggle.focus();
+    } else if (!langMenu.classList.contains("hidden")) {
+      setLangOpen(false);
+      langToggle.focus();
+    }
+  });
 </script>

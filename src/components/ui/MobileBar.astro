@@ -3,22 +3,27 @@
  * MobileBar — barra sticky de conversión, solo móvil (sm:hidden).
  * Dos acciones directas: llamada + email.
  */
-const phone = "tel:+34938497022";
+import contacto from "../../data/contacto.json";
+import { getLangFromUrl } from "@i18n/utils";
+import { homeCopy } from "@i18n/home";
+
+const copy = homeCopy(getLangFromUrl(Astro.url));
+const phone = `tel:${contacto.telefono.replace(/\s/g, "")}`;
 const phoneDisplay = "93 849 70 22";
-const email = "info@gruasvalles.com";
+const email = contacto.email;
 ---
 
 <div
-  class="fixed bottom-0 left-0 right-0 z-50 flex h-16 sm:hidden"
+  class="fixed bottom-0 left-0 right-0 z-50 flex h-[calc(4rem+env(safe-area-inset-bottom,0px))] sm:hidden"
   style="padding-bottom: env(safe-area-inset-bottom);"
-  aria-label="Contacto rápido"
+  aria-label={copy.quickContact}
   role="navigation"
 >
   <!-- Llamar -->
   <a
     href={phone}
     class="flex flex-1 items-center justify-center gap-2.5 bg-ink text-white transition-colors active:bg-zinc-800"
-    aria-label={`Llamar al ${phoneDisplay}`}
+    aria-label={`${copy.callLabel} ${phoneDisplay}`}
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +52,7 @@ const email = "info@gruasvalles.com";
   <a
     href={`mailto:${email}`}
     class="flex flex-1 items-center justify-center gap-2.5 bg-accent text-white transition-colors active:bg-accent-dark"
-    aria-label={`Enviar email a ${email}`}
+    aria-label={`${copy.sendEmail} ${email}`}
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

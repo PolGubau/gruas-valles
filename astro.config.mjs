@@ -13,14 +13,6 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  // Mientras ca/en no tengan páginas propias, redirigimos al contenido en ES.
-  // Cuando se cree src/pages/ca/foo.astro esta entrada deja de tener efecto.
-  redirects: {
-    '/ca': '/',
-    '/en': '/',
-    '/ca/[...path]': '/[...path]',
-    '/en/[...path]': '/[...path]',
-  },
   experimental: {
     fonts: [
       {
@@ -34,7 +26,8 @@ export default defineConfig({
   },
   integrations: [
     icon(),
-    sitemap(),
+    // Only the homepages have translations; interior redirects are not indexed.
+    sitemap({ filter: (page) => !/^\/(ca|en)\/.+/.test(new URL(page).pathname) }),
   ],
   vite: {
     plugins: [tailwindcss()],

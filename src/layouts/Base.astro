@@ -1,10 +1,10 @@
 ---
 import { Font } from "astro:assets";
-import { getLangFromUrl } from "@i18n/utils";
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
+import { homeCopy } from "@i18n/home";
 import SEO from "../components/seo/SEO.astro";
 import FloatCTA from "../components/ui/FloatCTA.astro";
 import MobileBar from "../components/ui/MobileBar.astro";
-import WhatsAppFAB from "../components/ui/WhatsAppFAB.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -14,14 +14,15 @@ interface Props {
   schema?: object | object[];
 }
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const copy = homeCopy(lang);
 const {
-  title = "Grúas del Vallès | Alquiler de Grúas Industriales en Barcelona",
-  description = "Empresa líder en alquiler de grúas móviles autopropulsadas de 40 a 700 Tn en Cataluña. +55 años de experiencia. Servicio de emergencia 24/365.",
+  title = copy.seoTitle,
+  description = copy.seoDescription,
   image = "/og-image.avif",
   schema,
 } = Astro.props;
-
-const lang = getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
@@ -34,11 +35,6 @@ const lang = getLangFromUrl(Astro.url);
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#d60b0c" />
     <meta name="generator" content={Astro.generator} />
-
-    <!-- Enable scroll-reveal only when scripting is available -->
-    <script is:inline>
-      document.documentElement.classList.add("reveal");
-    </script>
 
     <SEO
       title={title}
@@ -55,11 +51,13 @@ const lang = getLangFromUrl(Astro.url);
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-100 focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
     >
-      Saltar al contenido
+      {t("a11y.skipToContent")}
     </a>
     <slot />
     <FloatCTA />
     <MobileBar />
+
+    <script src="../scripts/language.ts"></script>
 
     <script>
       // Reveal elements as they enter the viewport (one-shot per element).

@@ -1,4 +1,5 @@
 ---
+import { getLangFromUrl } from "@i18n/utils";
 interface Props {
   title: string;
   description: string;
@@ -13,6 +14,9 @@ const extraSchema = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 const site = Astro.site ?? new URL("https://www.gruasdelvalles.com");
 const canonical = new URL(Astro.url.pathname, site).href;
 const imageUrl = new URL(image, site).href;
+const lang = getLangFromUrl(Astro.url);
+const isHome = /^\/(?:ca\/?|en\/?)?$/.test(Astro.url.pathname);
+const ogLocale = { es: "es_ES", ca: "ca_ES", en: "en_GB" }[lang];
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -66,7 +70,7 @@ const jsonLd = {
       "@id": `${site.href}#website`,
       url: site.href,
       name: "Grúas del Vallès",
-      inLanguage: "es-ES",
+      inLanguage: lang,
       publisher: { "@id": `${site.href}#business` },
     },
   ],
@@ -76,6 +80,21 @@ const jsonLd = {
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
+{
+  isHome &&
+    [
+      { lang: "es", path: "/" },
+      { lang: "ca", path: "/ca/" },
+      { lang: "en", path: "/en/" },
+      { lang: "x-default", path: "/" },
+    ].map((entry) => (
+      <link
+        rel="alternate"
+        hreflang={entry.lang}
+        href={new URL(entry.path, site).href}
+      />
+    ))
+}
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="author" content="Pol Gubau Amores — https://polgubau.com" />
 <meta name="creator" content="Doscientos — https://doscientos.es" />
@@ -86,7 +105,7 @@ const jsonLd = {
 <meta property="og:description" content={description} />
 <meta property="og:image" content={imageUrl} />
 <meta property="og:url" content={canonical} />
-<meta property="og:locale" content="es_ES" />
+<meta property="og:locale" content={ogLocale} />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />

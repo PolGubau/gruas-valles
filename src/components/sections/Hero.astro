@@ -1,29 +1,46 @@
 ---
+import { getImage } from "astro:assets";
+import fleetImage from "../../assets/images/flota-liebherr-ltm1650-8-1-01.avif";
+import heroImage from "../../assets/images/hero-grua-accion-2024-01.avif";
+import industrialImage from "../../assets/images/galeria-industria-ltm1350-2021-01.avif";
+import portImage from "../../assets/images/operacion-puerto-2020.avif";
 import { catalogo } from "../../lib/docs";
-import { resolveImage } from "../../lib/images";
 import Button from "../ui/Button.astro";
+import { getLangFromUrl } from "@i18n/utils";
+import { homeCopy } from "@i18n/home";
+
+const copy = homeCopy(getLangFromUrl(Astro.url));
 
 // ── SLIDESHOW DE HERO ─────────────────────────────────────────────────────────
 // Para cambiar fotos: añade o elimina objetos de este array.
 // Segundos entre cambios: ajusta SLIDE_INTERVAL.
-const SLIDE_INTERVAL = 6; // segundos
+const SLIDE_INTERVAL = 7; // segundos
 
 const heroSlides = [
-  {
-    src: "/assets/images/hero-grua-accion-2024-01.avif",
-    alt: "Grúa Liebherr LTM 1100 de Grúas del Vallès en operación",
-  },
-  // { src: "/assets/images/hero-foto-2.avif", alt: "..." },
-  // { src: "/assets/images/hero-foto-3.avif", alt: "..." },
+  { src: fleetImage },
+  { src: heroImage },
+  { src: industrialImage },
+  { src: portImage },
 ];
 
-const slides = heroSlides.map((s) => ({ ...s, src: resolveImage(s.src) }));
+const slides = await Promise.all(
+  heroSlides.map(async (slide) => ({
+    ...slide,
+    image: await getImage({
+      src: slide.src,
+      width: Math.min(1200, slide.src.width),
+      widths: [480, 768, 1200].filter((width) => width < slide.src.width),
+      sizes: "100vw",
+      format: "avif",
+    }),
+  })),
+);
 // ─────────────────────────────────────────────────────────────────────────────
 ---
 
 <section
   id="hero"
-  class="relative flex min-h-svh flex-col justify-end overflow-hidden bg-ink pt-16"
+  class="relative flex min-h-[calc(100svh-4rem)] flex-col justify-end overflow-hidden bg-ink sm:min-h-svh"
 >
   <!-- Slideshow de fondo -->
   <div
@@ -34,8 +51,13 @@ const slides = heroSlides.map((s) => ({ ...s, src: resolveImage(s.src) }));
     {
       slides.map((slide, i) => (
         <img
-          src={slide.src}
-          alt={slide.alt}
+          src={slide.src.src}
+          srcset={`${slide.image.srcSet.attribute}, ${slide.src.src} ${slide.src.width}w`}
+          sizes="100vw"
+          width={slide.src.width}
+          height={slide.src.height}
+          alt=""
+          aria-hidden="true"
           class={`hero-slide absolute inset-0 h-full w-full object-cover object-center${i === 0 ? " is-active" : ""}`}
           fetchpriority={i === 0 ? "high" : "low"}
           loading={i === 0 ? "eager" : "lazy"}
@@ -43,117 +65,118 @@ const slides = heroSlides.map((s) => ({ ...s, src: resolveImage(s.src) }));
         />
       ))
     }
-    <!-- Gradient overlay -->
-    <div
-      class="absolute inset-0 bg-linear-to-t from-ink via-ink/85 to-ink/30 sm:via-ink/60 sm:to-transparent"
-    >
-    </div>
-    <!-- Vignette -->
-    <div
-      class="pointer-events-none absolute inset-0"
-      style="background: radial-gradient(125% 110% at 30% 10%, transparent 50%, rgb(10 10 10 / 0.6) 100%);"
-    >
-    </div>
-    <!-- Red accent line top -->
-    <div class="absolute top-16 left-0 h-1 w-24 bg-accent"></div>
+    <div class="hero-overlay pointer-events-none absolute inset-0"></div>
   </div>
 
-  <!-- Content -->
-  <div class="container-wide relative z-10 section-padding pb-10 sm:pb-14">
-    <div class="max-w-4xl">
-      <!-- Headline -->
-      <h1
-        class="mb-5 text-[clamp(1.9rem,6.5vw,5rem)] font-black leading-[0.92] tracking-tight text-white sm:mb-6"
-        data-reveal
-        data-reveal-delay="1"
+  <div
+    class="container-wide relative z-10 px-4 pt-36 pb-10 sm:px-6 sm:pt-44 sm:pb-16 lg:px-8 lg:pb-20"
+  >
+    <div class="max-w-3xl">
+      <p
+        class="mb-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-white/85 sm:mb-7"
       >
-        Servicios de grúas<br />
-        <span class="text-accent">autopropulsadas</span><br />
-        <span class="text-white/80">hasta 700 Tn</span>
+        <span class="h-px w-8 bg-accent-light" aria-hidden="true"></span>
+        {copy.heroEyebrow}
+      </p>
+      <h1
+        class="max-w-3xl text-[clamp(2.6rem,6vw,5.5rem)] font-semibold leading-[1.02] tracking-[-0.04em] text-white"
+      >
+        {copy.heroFirst}<br />{copy.heroSecond}<span class="text-accent-light"
+          >.</span
+        >
       </h1>
 
-      <!-- Subheadline -->
       <p
-        class="mb-8 max-w-md text-base leading-relaxed text-white/60 sm:mb-10 sm:max-w-xl sm:text-lg sm:text-muted"
-        data-reveal
-        data-reveal-delay="2"
+        class="mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:mt-7 sm:text-lg"
       >
-        86 vehículos propios en Cataluña · hasta 700&nbsp;Tn<br /> Servicio de emergencia
-        <strong class="text-white/90 sm:text-white">24 h · 365 días</strong>
+        {copy.heroDescription}
       </p>
 
-      <!-- CTAs -->
-      <div
-        class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4"
-        data-reveal
-        data-reveal-delay="3"
-      >
+      <div class="mt-8 flex flex-col gap-3 min-[480px]:flex-row sm:mt-10">
         <Button
           href="#contacto"
           icon="lucide:arrow-right"
-          class="w-full sm:w-auto"
+          class="min-h-12 w-full rounded-sm normal-case tracking-normal min-[480px]:w-auto"
         >
-          Solicitar presupuesto
+          {copy.consult}
         </Button>
         <Button
           href="tel:+34938497022"
           variant="outline"
           icon="lucide:phone"
           iconPosition="start"
-          class="hidden border-white text-white hover:bg-white hover:text-ink! sm:inline-flex sm:w-auto"
+          class="min-h-12 w-full rounded-sm border-white/70 text-white normal-case tracking-normal hover:bg-white hover:text-ink! min-[480px]:w-auto"
         >
-          93 849 70 22
-        </Button>
-        <Button
-          href={catalogo.url}
-          download={catalogo.filename}
-          variant="ghost"
-          icon="lucide:download"
-          iconPosition="start"
-          class="hidden text-white hover:text-accent sm:inline-flex sm:w-auto"
-        >
-          {catalogo.label}
+          {copy.call} · 93 849 70 22
         </Button>
       </div>
+      <a
+        href={catalogo.url}
+        download={catalogo.filename}
+        class="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-white/85 underline decoration-white/40 underline-offset-4 transition-colors hover:text-white"
+      >
+        {copy.download}
+      </a>
     </div>
-  </div>
 
-  <!-- Stats band — full width, anchored to bottom of hero -->
-  <dl class="relative z-10 grid grid-cols-4 gap-px bg-white/10">
-    {
-      [
-        { value: "+55", label: "Años de experiencia" },
-        { value: "86", label: "Vehículos propios" },
-        { value: "28", label: "Grúas propias" },
-        { value: "700 Tn", label: "Capacidad máx." },
-      ].map(({ value, label }) => (
-        <div class="border-t-2 border-accent bg-black/50 px-4 py-5 backdrop-blur-sm sm:px-8 sm:py-6">
-          <dt class="sr-only">{label}</dt>
-          <dd>
-            <span class="block text-2xl font-black leading-none tracking-tight text-white sm:text-3xl">
+    <dl
+      class="mt-10 grid max-w-2xl grid-cols-2 gap-x-6 gap-y-6 sm:mt-14 sm:grid-cols-3"
+    >
+      {
+        [
+          { value: "28", label: copy.cranes },
+          { value: "24/365", label: copy.emergency },
+          { value: "86", label: copy.vehicles },
+        ].map(({ value, label }, i) => (
+          <div
+            class:list={["flex flex-col-reverse", { "hidden sm:flex": i >= 2 }]}
+          >
+            <dt class="mt-2 text-sm leading-snug text-white/80">{label}</dt>
+            <dd class="text-2xl font-semibold leading-none tracking-tight text-white sm:text-3xl">
               {value}
-            </span>
-            <span class="mt-1.5 block text-[11px] uppercase tracking-wider text-white/50 sm:text-xs">
-              {label}
-            </span>
-          </dd>
-        </div>
-      ))
-    }
-  </dl>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
 </section>
 
 <style>
   .hero-slide {
     opacity: 0;
-    transition: opacity 1.2s ease-in-out;
+    transform: scale(1.05);
+    transition: opacity 1.5s ease-out;
   }
   .hero-slide.is-active {
-    opacity: 0.4;
+    opacity: 1;
   }
-  @media (min-width: 640px) {
+  .hero-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgb(10 10 10 / 0.94) 0%,
+        rgb(10 10 10 / 0.76) 43%,
+        rgb(10 10 10 / 0.28) 100%
+      ),
+      linear-gradient(0deg, rgb(10 10 10 / 0.94) 0%, rgb(10 10 10 / 0.12) 70%);
+  }
+  @media (prefers-reduced-motion: no-preference) {
     .hero-slide.is-active {
-      opacity: 0.6;
+      animation: hero-pan 7s ease-out both;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide {
+      transition: none;
+    }
+  }
+  @keyframes hero-pan {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.05);
     }
   }
 </style>
@@ -161,14 +184,25 @@ const slides = heroSlides.map((s) => ({ ...s, src: resolveImage(s.src) }));
 <script>
   const container = document.getElementById("hero-slideshow");
   const slides = container?.querySelectorAll<HTMLElement>(".hero-slide");
-  const interval = Number(container?.dataset.interval ?? 6) * 1000;
+  const interval = Number(container?.dataset.interval ?? 7) * 1000;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   if (slides && slides.length > 1) {
     let current = 0;
-    setInterval(() => {
-      slides[current].classList.remove("is-active");
-      current = (current + 1) % slides.length;
-      slides[current].classList.add("is-active");
-    }, interval);
+    let timer: number | undefined;
+
+    const updatePlayback = () => {
+      window.clearInterval(timer);
+      if (reducedMotion.matches) return;
+
+      timer = window.setInterval(() => {
+        slides[current].classList.remove("is-active");
+        current = (current + 1) % slides.length;
+        slides[current].classList.add("is-active");
+      }, interval);
+    };
+
+    reducedMotion.addEventListener("change", updatePlayback);
+    updatePlayback();
   }
 </script>

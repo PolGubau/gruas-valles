@@ -1,0 +1,50 @@
+---
+import { Icon } from "astro-icon/components";
+import { getLangFromUrl } from "@i18n/utils";
+import { homeCopy } from "@i18n/home";
+
+const copy = homeCopy(getLangFromUrl(Astro.url));
+---
+
+<section
+  id="preguntas-frecuentes"
+  class="section-padding bg-surface-alt"
+  aria-labelledby="preguntas-title"
+>
+  <div class="container-narrow">
+    <p class="eyebrow">
+      <span class="h-px w-8 bg-accent"></span>{copy.faqEyebrow}
+    </p>
+    <h2
+      id="preguntas-title"
+      class="mb-10 text-3xl font-semibold leading-[1.1] tracking-[-0.035em] sm:text-4xl lg:text-5xl"
+    >
+      {copy.faqTitle}
+    </h2>
+    <div class="divide-y divide-muted/60 border-y border-muted/60">
+      {
+        copy.faqs.map((faq) => (
+          <details class="group py-6">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold sm:text-lg">
+              {faq.q}
+              <Icon
+                name="lucide:plus"
+                class="h-5 w-5 shrink-0 text-accent transition-transform group-open:rotate-45"
+                aria-hidden="true"
+              />
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-ink-secondary">
+              {faq.a}
+            </p>
+          </details>
+        ))
+      }
+    </div>
+    <a
+      href="/contacto"
+      class="mt-6 inline-block text-sm font-semibold text-accent underline underline-offset-4"
+    >
+      {copy.moreFaq}
+    </a>
+  </div>
+</section>

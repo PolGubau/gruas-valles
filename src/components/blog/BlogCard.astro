@@ -2,19 +2,22 @@
 import type { CollectionEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { resolveImage } from "../../lib/images";
+import { getLangFromUrl } from "@i18n/utils";
+import { homeCopy } from "@i18n/home";
 
 interface Props {
   post: CollectionEntry<"blog">["data"] & { slug: string };
 }
 
 const { post } = Astro.props;
+const copy = homeCopy(getLangFromUrl(Astro.url));
 ---
 
 <a
   href={`/blog/${post.slug}`}
-  class="group flex flex-col bg-white p-5 transition-shadow hover:shadow-md sm:p-6"
+  class="group flex flex-col overflow-hidden rounded-sm bg-white transition-shadow hover:shadow-card"
 >
-  <div class="mb-4 aspect-video overflow-hidden bg-surface-alt">
+  <div class="aspect-video overflow-hidden bg-surface-alt">
     {
       post.imagenes.length > 0 ? (
         <img
@@ -36,19 +39,26 @@ const { post } = Astro.props;
     }
   </div>
 
-  <h3
-    class="mb-2 text-sm font-bold leading-snug transition-colors group-hover:text-accent"
-  >
-    {post.titulo}
-  </h3>
-  <p class="line-clamp-3 text-xs leading-relaxed text-ink-secondary">
-    {post.resumen}
-  </p>
+  <div class="flex flex-1 flex-col p-6 sm:p-7">
+    <h3
+      class="mb-3 text-xl font-semibold leading-snug transition-colors group-hover:text-accent"
+    >
+      {post.titulo}
+    </h3>
+    <p class="line-clamp-3 text-sm leading-relaxed text-ink-secondary">
+      {post.resumen}
+    </p>
 
-  <span
-    class="mt-4 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-accent"
-  >
-    Leer más
-    <Icon name="lucide:arrow-right" width={14} height={14} aria-hidden="true" />
-  </span>
+    <span
+      class="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-semibold text-accent"
+    >
+      {copy.readMore}
+      <Icon
+        name="lucide:arrow-right"
+        width={16}
+        height={16}
+        aria-hidden="true"
+      />
+    </span>
+  </div>
 </a>
