@@ -228,7 +228,7 @@ test("localidades y cobertura conservan contenido, enlaces y SEO en cada idioma"
 
 test("empleo y páginas legales tienen contenido y navegación en cada idioma", () => {
   const expected = {
-    es: { "trabaja-con-nosotros": "Forma parte de nuestro equipo", "legal/aviso-legal": "Datos identificativos", "legal/privacidad": "Responsable del tratamiento", "legal/politica-cookies": "¿Qué son las cookies?" },
+    es: { "trabaja-con-nosotros": "Forma parte de nuestro equipo", "legal/aviso-legal": "Datos identificativos", "legal/privacidad": "Responsable del Tratamiento", "legal/politica-cookies": "¿Qué son las cookies?" },
     ca: { "trabaja-con-nosotros": "Forma part del nostre equip", "legal/aviso-legal": "Dades identificatives", "legal/privacidad": "Responsable del tractament", "legal/politica-cookies": "Què són les galetes?" },
     en: { "trabaja-con-nosotros": "Join our team", "legal/aviso-legal": "Identification details", "legal/privacidad": "Data controller", "legal/politica-cookies": "What are cookies?" },
   };
