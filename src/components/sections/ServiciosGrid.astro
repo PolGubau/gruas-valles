@@ -3,7 +3,7 @@ import { Icon } from "astro-icon/components";
 import servicios from "../../data/servicios.json";
 import Button from "../ui/Button.astro";
 import Section from "../ui/Section.astro";
-import { getLangFromUrl } from "@i18n/utils";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 import { homeCopy } from "@i18n/home";
 
 interface Props {
@@ -13,7 +13,9 @@ interface Props {
 }
 
 const { preview = false } = Astro.props;
-const copy = homeCopy(getLangFromUrl(Astro.url));
+const lang = getLangFromUrl(Astro.url);
+const copy = homeCopy(lang);
+const localizePath = useTranslatedPath(lang);
 
 const iconos: string[] = [
   "lucide:building-2",
@@ -31,7 +33,7 @@ const iconos: string[] = [
 <Section id="servicios" bg="white" title={copy.servicesTitle}>
   <!-- Departamento de estudios · servicio destacado -->
   <a
-    href="/servicios/ingenieria-de-maniobra"
+    href={localizePath("/servicios/ingenieria-de-maniobra")}
     class="group relative mb-4 flex flex-col gap-8 overflow-hidden rounded-sm bg-ink p-6 text-white transition-colors hover:bg-neutral-900 sm:mb-6 sm:p-10 lg:flex-row lg:items-end lg:justify-between lg:gap-12"
     data-reveal
   >
@@ -70,7 +72,7 @@ const iconos: string[] = [
           const translated = copy.categories[cat.slug] ?? cat;
           return (
             <a
-              href={`/servicios/${cat.slug}`}
+              href={localizePath(`/servicios/${cat.slug}`)}
               class="group relative flex flex-col rounded-sm bg-surface-alt p-6 transition-colors hover:bg-neutral-100 sm:p-8"
             >
               <div class="mb-8 flex h-10 w-10 items-center justify-center rounded-sm bg-white text-accent">
@@ -137,7 +139,7 @@ const iconos: string[] = [
     preview && (
       <div class="mt-10 text-center sm:hidden">
         <Button
-          href="/servicios"
+          href={localizePath("/servicios")}
           variant="outline"
           size="sm"
           icon="lucide:arrow-right"

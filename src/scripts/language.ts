@@ -1,3 +1,5 @@
+import { hasTranslations } from "../i18n/routes.mjs";
+
 const storageKey = "gv-language";
 const supported = ["es", "ca", "en"] as const;
 type Language = (typeof supported)[number];
@@ -16,7 +18,7 @@ document.addEventListener("click", (event) => {
   }
 });
 
-if (window.location.pathname === "/" || /^\/contacto\/?$/.test(window.location.pathname)) {
+if (hasTranslations(window.location.pathname)) {
   const explicit = language(new URLSearchParams(window.location.search).get("lang"));
   let saved: Language | undefined;
   try { saved = language(localStorage.getItem(storageKey)); } catch { /* Use browser preference. */ }

@@ -151,7 +151,7 @@ const legalLinks = [
               serviciosLinks.map(({ href, label }) => (
                 <li>
                   <a
-                    href={href}
+                    href={localizePath(href)}
                     class="transition-colors hover:text-accent-light"
                   >
                     {label}

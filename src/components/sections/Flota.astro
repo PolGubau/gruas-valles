@@ -3,12 +3,13 @@ import { getCollection } from "astro:content";
 import { resolveImage } from "../../lib/images";
 import Button from "../ui/Button.astro";
 import Section from "../ui/Section.astro";
-import { getLangFromUrl } from "@i18n/utils";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 import { homeCopy } from "@i18n/home";
 import { es } from "@i18n/home.es";
 
 const lang = getLangFromUrl(Astro.url);
 const copy = homeCopy(lang);
+const localizePath = useTranslatedPath(lang);
 
 // Fuente única: colección «flota» (ver src/content.config.ts)
 const entries = await getCollection("flota");
@@ -44,7 +45,7 @@ const destacados = allModels
               <p class="novedades-subtitle">{copy.fleetSubtitle}</p>
             </div>
           </div>
-          <a href="/flota" class="novedades-link">
+          <a href={localizePath("/flota")} class="novedades-link">
             {copy.allFleet} →
           </a>
         </div>
@@ -55,7 +56,10 @@ const destacados = allModels
             const capacidad = model.capacidad_max_t ?? model.capacidad_tm;
             const categoryIndex = es.fleetCategories.indexOf(model.categoria);
             return (
-              <a href={`/flota/${model.slug}`} class="novedades-card group">
+              <a
+                href={localizePath(`/flota/${model.slug}`)}
+                class="novedades-card group"
+              >
                 <div class="novedades-img">
                   {model.imagenes.length > 0 ? (
                     <img
@@ -106,7 +110,7 @@ const destacados = allModels
 
   <!-- CTA bottom -->
   <div class="mt-12 flex flex-wrap justify-center gap-4">
-    <Button href="/flota" variant="outline" icon="lucide:list">
+    <Button href={localizePath("/flota")} variant="outline" icon="lucide:list">
       {copy.allFleet}
     </Button>
     <Button href="#contacto" icon="lucide:arrow-right">

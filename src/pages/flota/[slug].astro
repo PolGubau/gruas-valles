@@ -1,6 +1,8 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
+import { fleetCategory, fleetCopy, fleetNote } from "@i18n/fleet";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 import Badge from "../../components/ui/Badge.astro";
 import Breadcrumb from "../../components/ui/Breadcrumb.astro";
 import Button from "../../components/ui/Button.astro";
@@ -18,7 +20,13 @@ export async function getStaticPaths() {
 
 type Props = { entry: CollectionEntry<"flota"> };
 const { entry } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const copy = fleetCopy(lang);
+const localizePath = useTranslatedPath(lang);
 const m = entry.data;
+const category = fleetCategory(lang, m.categoria);
+const note = m.nota ?? m.extra ?? m.tipo;
+const translatedNote = note ? fleetNote(lang, note) : undefined;
 const imagenes = resolveImages(m.imagenes);
 const capacidad = m.capacidad_max_t ?? m.capacidad_tm;
 
@@ -54,19 +62,19 @@ const SPEC_FIELDS: [keyof typeof m, string, string][] = [
   ["modelo_maquina", "Modelo de máquina", ""],
 ];
 
-const specs = SPEC_FIELDS.flatMap(([key, label, unit]) => {
+const specs = SPEC_FIELDS.flatMap(([key, _label, unit], i) => {
   const value = m[key];
   return value === undefined || value === null
     ? []
-    : [{ label, value: `${value}${unit}` }];
+    : [{ label: copy.specs[i], value: `${value}${unit}` }];
 });
 
-const description = m.nota ?? `${m.modelo}. ${m.categoria}.`;
+const description = translatedNote ?? `${m.modelo}. ${category}.`;
 const schema = productSchema(
   {
     name: m.modelo,
     description,
-    category: m.categoria,
+    category,
     brand: m.modelo.split(" ")[0],
     images: imagenes,
     specs,
@@ -75,14 +83,14 @@ const schema = productSchema(
 );
 
 const crumbs = [
-  { label: "Inicio", href: "/" },
-  { label: "Flota", href: "/flota" },
-  { label: m.modelo, href: `/flota/${entry.id}` },
+  { label: copy.home, href: localizePath("/") },
+  { label: copy.fleet, href: localizePath("/flota") },
+  { label: m.modelo, href: localizePath(`/flota/${entry.id}`) },
 ];
 ---
 
 <Page
-  title={`${m.modelo} | Flota - Grúas del Vallès`}
+  title={`${m.modelo} | ${copy.fleet} - Grúas del Vallès`}
   description={description}
   schema={schema}
 >
@@ -135,7 +143,7 @@ const crumbs = [
         <!-- Info -->
         <div>
           <p class="eyebrow">
-            <span class="h-px w-8 bg-accent"></span>{m.categoria}
+            <span class="h-px w-8 bg-accent"></span>{category}
           </p>
           <h1 class="mb-4 text-3xl font-black leading-tight sm:text-4xl">
             {m.modelo}
@@ -149,13 +157,13 @@ const crumbs = [
                 </Badge>
               )
             }
-            {m.nuevo && <Badge variant="outline">Nueva</Badge>}
+            {m.nuevo && <Badge variant="outline">{copy.new}</Badge>}
           </div>
 
           {
-            (m.nota || m.extra || m.tipo) && (
+            translatedNote && (
               <p class="mb-6 border-l-2 border-accent pl-4 text-sm italic text-ink-secondary">
-                {m.nota ?? m.extra ?? m.tipo}
+                {translatedNote}
               </p>
             )
           }
@@ -176,16 +184,16 @@ const crumbs = [
           </dl>
 
           <div class="mt-8 flex flex-wrap gap-4">
-            <Button href="/#contacto" icon="lucide:arrow-right"
-              >Consultar disponibilidad</Button
+            <Button href={localizePath("/#contacto")} icon="lucide:arrow-right"
+              >{copy.availability}</Button
             >
             <Button
-              href="/flota"
+              href={localizePath("/flota")}
               variant="outline"
               icon="lucide:arrow-left"
               iconPosition="start"
             >
-              Volver a la flota
+              {copy.back}
             </Button>
           </div>
         </div>

@@ -4,43 +4,29 @@ import Clientes from "../components/sections/Clientes.astro";
 import ServiciosGrid from "../components/sections/ServiciosGrid.astro";
 import CtaBand from "../components/ui/CtaBand.astro";
 import PageHero from "../components/ui/PageHero.astro";
-import servicios from "../data/servicios.json";
+import { servicesCopy } from "@i18n/services";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 import Page from "../layouts/Page.astro";
 
-const proceso = [
-  {
-    icon: "lucide:clipboard-list",
-    titulo: "Estudio técnico",
-    texto:
-      "Analizamos la carga, el emplazamiento y los accesos con software CAD/CAM y planos 3D.",
-  },
-  {
-    icon: "lucide:route",
-    titulo: "Planificación",
-    texto:
-      "Definimos la grúa, los contrapesos y la configuración óptima para la maniobra.",
-  },
-  {
-    icon: "lucide:file-check-2",
-    titulo: "Permisos y seguridad",
-    texto: "Tramitamos permisos, seguros y presentamos el Plan de Seguridad.",
-  },
-  {
-    icon: "lucide:construction",
-    titulo: "Ejecución",
-    texto: "Dirigimos el montaje con técnicos y operarios especializados.",
-  },
+const lang = getLangFromUrl(Astro.url);
+const copy = servicesCopy(lang);
+const localizePath = useTranslatedPath(lang);
+const icons = [
+  "lucide:clipboard-list",
+  "lucide:route",
+  "lucide:file-check-2",
+  "lucide:construction",
 ];
 ---
 
-<Page
-  title="Servicios de elevación y transporte | Grúas del Vallès"
-  description="Alquiler de grúas, transportes especiales, montaje de prefabricados, departamento de estudios y tramitación de permisos. Soluciones integrales de elevación en Cataluña."
->
+<Page title={`${copy.title} | Grúas del Vallès`} description={copy.description}>
   <PageHero
-    title="Soluciones integrales de elevación y transporte"
-    lede="Desde el estudio técnico hasta la ejecución de la maniobra, cubrimos todo el proceso con maquinaria propia y un equipo especializado."
-    crumbs={[{ label: "Inicio", href: "/" }, { label: "Servicios" }]}
+    title={copy.heading}
+    lede={copy.intro}
+    crumbs={[
+      { label: copy.home, href: localizePath("/") },
+      { label: copy.services },
+    ]}
   />
 
   <!-- Prueba social: empresas que confían en nosotros -->
@@ -54,20 +40,20 @@ const proceso = [
     <div class="container-wide">
       <div class="mb-12 max-w-2xl">
         <p class="eyebrow">
-          <span class="h-px w-8 bg-accent"></span>Cómo trabajamos
+          <span class="h-px w-8 bg-accent"></span>{copy.process}
         </p>
         <h2 class="text-3xl font-black leading-tight sm:text-4xl">
-          Ingeniería antes de cada maniobra
+          {copy.engineering}
         </h2>
       </div>
       <ol class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-4">
         {
-          proceso.map((paso, i) => (
+          copy.steps.map((paso, i) => (
             <li class="bg-surface p-6 sm:p-8">
               <div class="mb-5 flex items-center justify-between">
                 <span class="flex h-10 w-10 items-center justify-center border-2 border-muted">
                   <Icon
-                    name={paso.icon}
+                    name={icons[i]}
                     class="h-5 w-5 text-accent"
                     aria-hidden="true"
                   />
@@ -91,14 +77,14 @@ const proceso = [
       <!-- Trámites -->
       <div>
         <p class="eyebrow">
-          <span class="h-px w-8 bg-accent"></span>Trámites y gestiones
+          <span class="h-px w-8 bg-accent"></span>{copy.paperwork}
         </p>
         <h2 class="mb-6 text-2xl font-black sm:text-3xl">
-          Nos ocupamos del papeleo
+          {copy.paperworkTitle}
         </h2>
         <ul class="space-y-3">
           {
-            servicios.tramites.map((t: string) => (
+            copy.procedures.map((t: string) => (
               <li class="flex items-start gap-3 text-sm leading-relaxed text-ink-secondary">
                 <Icon
                   name="lucide:check"
@@ -115,30 +101,22 @@ const proceso = [
       <!-- Asesoramiento -->
       <div>
         <p class="eyebrow">
-          <span class="h-px w-8 bg-accent"></span>Asesoramiento y soporte
+          <span class="h-px w-8 bg-accent"></span>{copy.support}
         </p>
         <h2 class="mb-6 text-2xl font-black sm:text-3xl">
-          Acompañamiento técnico
+          {copy.supportTitle}
         </h2>
         <dl class="space-y-6">
-          <div class="border-l-2 border-accent pl-4">
-            <dt class="mb-1 text-sm font-bold">Asesoramiento técnico</dt>
-            <dd class="text-sm leading-relaxed text-ink-secondary">
-              {servicios.asesoramiento.tecnico}
-            </dd>
-          </div>
-          <div class="border-l-2 border-accent pl-4">
-            <dt class="mb-1 text-sm font-bold">Atención al cliente</dt>
-            <dd class="text-sm leading-relaxed text-ink-secondary">
-              {servicios.asesoramiento.atencion_cliente}
-            </dd>
-          </div>
-          <div class="border-l-2 border-accent pl-4">
-            <dt class="mb-1 text-sm font-bold">Servicio de emergencia</dt>
-            <dd class="text-sm leading-relaxed text-ink-secondary">
-              {servicios.asesoramiento.emergencia}
-            </dd>
-          </div>
+          {
+            copy.supportLabels.map((label, i) => (
+              <div class="border-l-2 border-accent pl-4">
+                <dt class="mb-1 text-sm font-bold">{label}</dt>
+                <dd class="text-sm leading-relaxed text-ink-secondary">
+                  {copy.supportText[i]}
+                </dd>
+              </div>
+            ))
+          }
         </dl>
       </div>
     </div>

@@ -1,0 +1,12 @@
+---
+import servicios from "../../../data/servicios.json";
+import ServicePage from "../../servicios/[slug].astro";
+
+export function getStaticPaths() {
+  return ["ca", "en"].flatMap((locale) => servicios.categorias.map((cat) => ({
+    params: { locale, slug: cat.slug },
+    props: { cat },
+  })));
+}
+---
+<ServicePage cat={Astro.props.cat} />

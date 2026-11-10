@@ -1,0 +1,11 @@
+---
+import { getCollection } from "astro:content";
+import FleetDetail from "../../flota/[slug].astro";
+export async function getStaticPaths() {
+  const entries = await getCollection("flota");
+  return ["ca", "en"].flatMap((locale) => entries.map((entry) => ({
+    params: { locale, slug: entry.id }, props: { entry },
+  })));
+}
+---
+<FleetDetail entry={Astro.props.entry} />

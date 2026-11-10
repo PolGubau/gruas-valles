@@ -2,6 +2,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import { defineConfig, fontProviders } from 'astro/config';
+import { hasTranslations } from './src/i18n/routes.mjs';
 
 export default defineConfig({
   site: 'https://www.gruasdelvalles.com',
@@ -26,8 +27,12 @@ export default defineConfig({
   },
   integrations: [
     icon(),
-    // Exclude redirect-only pages; include the translated contact page.
-    sitemap({ filter: (page) => !/^\/(ca|en)\/.+/.test(new URL(page).pathname) || /^\/(ca|en)\/contacto\/?$/.test(new URL(page).pathname) }),
+    // Do not index locale URLs that only redirect to Spanish.
+    sitemap({ filter: (page) => {
+      const path = new URL(page).pathname;
+      const localized = path.match(/^\/(ca|en)(\/.*)?$/);
+      return !localized || hasTranslations(localized[2] || '/');
+    } }),
   ],
   vite: {
     plugins: [tailwindcss()],

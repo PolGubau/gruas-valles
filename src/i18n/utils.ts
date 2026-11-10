@@ -10,6 +10,7 @@
  *   // t('nav.flota') · localizePath('/servicios')
  */
 import { defaultLang, showDefaultLang, ui } from '@i18n/ui';
+export { hasTranslations } from './routes.mjs';
 
 export type Lang = keyof typeof ui;
 export type UiKey = keyof (typeof ui)[typeof defaultLang];
@@ -30,12 +31,6 @@ export function getRouteFromUrl(url: URL): string {
   if (parts[1] in ui) parts.splice(1, 1);
   const path = parts.join('/');
   return path === '' ? '/' : path;
-}
-
-/** Rutas que cuentan con contenido real en los tres idiomas. */
-export function hasTranslations(path: string): boolean {
-  const route = path.replace(/\/$/, "") || "/";
-  return route === "/" || route === "/contacto";
 }
 
 /**

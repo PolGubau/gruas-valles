@@ -1,0 +1,8 @@
+---
+import ServicesPage from "../../servicios.astro";
+
+export function getStaticPaths() {
+  return ["ca", "en"].map((locale) => ({ params: { locale } }));
+}
+---
+<ServicesPage />

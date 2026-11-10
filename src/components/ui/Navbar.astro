@@ -57,7 +57,7 @@ const isActive = (href: string) =>
       {
         links.map(({ href, key }) => (
           <a
-            href={href}
+            href={hasTranslations(href) ? localizePath(href) : href}
             aria-current={isActive(href) ? "page" : undefined}
             class="nav-link relative text-sm font-semibold text-ink-secondary transition-colors hover:text-accent aria-[current=page]:text-accent"
           >
@@ -153,7 +153,7 @@ const isActive = (href: string) =>
         {
           links.map(({ href, key }) => (
             <a
-              href={href}
+              href={hasTranslations(href) ? localizePath(href) : href}
               aria-current={isActive(href) ? "page" : undefined}
               class="mobile-link border-b border-muted/40 py-3 text-sm font-medium text-ink transition-colors last:border-0 hover:text-accent aria-[current=page]:text-accent"
             >

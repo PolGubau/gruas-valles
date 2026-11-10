@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import localidades from "../../data/localidades.json";
 import servicios from "../../data/servicios.json";
+import { hasTranslations } from "@i18n/utils";
 
 // En salida estática Astro necesita conocer cada redirección durante el build.
 export async function getStaticPaths() {
@@ -31,6 +32,7 @@ export async function getStaticPaths() {
     [...new Set(paths)]
       .filter(
         (path) =>
+          !hasTranslations(`/${path}`) &&
           !pages.includes(`../${locale}/${path}.astro`) &&
           !pages.includes(`../${locale}/${path}/index.astro`),
       )

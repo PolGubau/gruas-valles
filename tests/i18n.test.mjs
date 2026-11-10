@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 import { runInNewContext } from "node:vm";
+import { hasTranslations } from "../src/i18n/routes.mjs";
 
 const dist = new URL("../dist/", import.meta.url);
 const pages = Object.fromEntries(["es", "ca", "en"].map((lang) => [lang, readFileSync(new URL(lang === "es" ? "index.html" : `${lang}/index.html`, dist), "utf8")]));
@@ -44,8 +45,37 @@ test("los servicios y trabajos conservan su traducción asociada a cada enlace",
   };
   for (const [lang, links] of Object.entries(expected)) {
     for (const [href, title] of Object.entries(links)) {
-      const card = pages[lang].match(new RegExp(`<a href="${href}"[\\s\\S]*?</a>`))?.[0];
+      const target = href.startsWith("/servicios/") ? `/${lang}${href}` : href;
+      const card = pages[lang].match(new RegExp(`<a href="${target}"[\\s\\S]*?</a>`))?.[0];
       assert.ok(card?.includes(title), `${lang}: ${href}`);
+    }
+  }
+});
+
+test("servicios y sus detalles tienen traducciones reales y enlaces localizados", () => {
+  const categories = JSON.parse(readFileSync(new URL("../src/data/servicios.json", import.meta.url), "utf8")).categorias;
+  const expected = {
+    es: ["Soluciones integrales de elevación y transporte", "Trámites y gestiones", "Detalles del servicio"],
+    ca: ["Solucions integrals d&#39;elevació i transport", "Tràmits i gestions", "Detalls del servei"],
+    en: ["Complete lifting and transport solutions", "Permits and paperwork", "Service details"],
+  };
+  for (const lang of ["es", "ca", "en"]) {
+    const prefix = lang === "es" ? "" : `${lang}/`;
+    const index = readFileSync(new URL(`${prefix}servicios/index.html`, dist), "utf8");
+    assert.ok(index.includes(expected[lang][0]) && index.includes(expected[lang][1]));
+    assert.ok(index.includes(`href="/${prefix}contacto"`));
+    for (const category of categories) {
+      const route = `servicios/${category.slug}`;
+      const html = readFileSync(new URL(`${prefix}${route}/index.html`, dist), "utf8");
+      assert.ok(hasTranslations(`/${route}`));
+      assert.match(html, new RegExp(`<html lang="${lang}"`));
+      assert.doesNotMatch(html, /http-equiv="refresh"/);
+      assert.ok(html.includes(expected[lang][2]), `${lang}: ${route}`);
+      assert.ok(html.includes(`href="/${prefix}servicios"`));
+      assert.ok(html.includes(`href="/${prefix}contacto"`));
+      for (const [code, target] of [["es", ""], ["ca", "ca/"], ["en", "en/"]]) {
+        assert.ok(html.includes(`hreflang="${code}" href="https://www.gruasdelvalles.com/${target}${route}/`));
+      }
     }
   }
 });
@@ -99,7 +129,7 @@ test("los enlaces y anclas de cada portada tienen destino generado", () => {
 });
 
 test("detección y selección explícita respetan idioma, URL y preferencias", { skip: !nodeModule.stripTypeScriptTypes }, () => {
-  const source = nodeModule.stripTypeScriptTypes(readFileSync(new URL("../src/scripts/language.ts", import.meta.url), "utf8"));
+  const source = nodeModule.stripTypeScriptTypes(readFileSync(new URL("../src/scripts/language.ts", import.meta.url), "utf8")).replace(/^import .*?;\s*/m, "");
   function run({ languages = ["es"], saved, pathname = "/", search = "", hash = "", blocked = false } = {}) {
     let redirected;
     let stored = saved;
@@ -110,7 +140,7 @@ test("detección y selección explícita respetan idioma, URL y preferencias", {
       getItem: () => { if (blocked) throw Error("blocked"); return stored; },
       setItem: (_, value) => { if (blocked) throw Error("blocked"); stored = value; },
     };
-    runInNewContext(source, { document, window, localStorage, navigator: { languages, language: languages[0] }, URLSearchParams });
+    runInNewContext(source, { document, window, localStorage, navigator: { languages, language: languages[0] }, URLSearchParams, hasTranslations });
     return { redirected, get stored() { return stored; }, select: (lang) => click({ target: { closest: () => ({ dataset: { language: lang } }) } }) };
   }
   assert.equal(run({ languages: ["ca-ES"], search: "?utm=campaign", hash: "#contacto" }).redirected, "/ca/?utm=campaign#contacto");
@@ -121,7 +151,9 @@ test("detección y selección explícita respetan idioma, URL y preferencias", {
   assert.equal(run({ languages: ["en"], pathname: "/ca/" }).redirected, undefined);
   assert.equal(run({ languages: ["ca"], pathname: "/contacto", search: "?utm=campaign", hash: "#contacto" }).redirected, "/ca/contacto?utm=campaign#contacto");
   assert.equal(run({ languages: ["en"], pathname: "/contacto", search: "?lang=es", blocked: true }).redirected, undefined);
-  assert.equal(run({ languages: ["en"], pathname: "/servicios" }).redirected, undefined);
+  assert.equal(run({ languages: ["en"], pathname: "/servicios" }).redirected, "/en/servicios");
+  assert.equal(run({ languages: ["ca"], pathname: "/servicios/transportes-especiales" }).redirected, "/ca/servicios/transportes-especiales");
+  assert.equal(run({ languages: ["en"], pathname: "/flota" }).redirected, undefined);
   const session = run({ languages: ["es"] });
   session.select("ca");
   assert.equal(session.stored, "ca");
