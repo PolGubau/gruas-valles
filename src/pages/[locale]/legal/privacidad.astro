@@ -61,9 +61,8 @@ const ca = getLangFromUrl(Astro.url) === "ca";
           interessades amb la finalitat de:
         </p>
         <p>
-          1. Gestionar l'ús de les funcionalitats disponibles al lloc web,
-          incloses les respostes a les sol·licituds i/o consultes i la
-          preparació de pressupostos.
+          Atendre consultes i sol·licituds, preparar pressupostos i gestionar
+          les candidatures laborals enviades pels canals de contacte.
         </p>
         <p>
           També s'ofereixen enllaços per contactar per correu o telèfon i enviar
@@ -80,17 +79,19 @@ const ca = getLangFromUrl(Astro.url) === "ca";
           .
         </p>
         <p>
-          Les dades tractades amb aquesta finalitat es conservaran mentre es
-          mantingui la relació contractual i/o negocial entre l'usuari i{" "}
-          {contacto.empresa}. Si les sol·licituds d'un usuari no comporten una
-          relació contractual, les dades es conservaran fins que s'hagi resolt
-          la sol·licitud.
+          Les dades es conservaran durant el temps necessari per atendre la
+          consulta, sol·licitud o candidatura i, si escau, durant la relació
+          contractual i els terminis legals de conservació o prescripció
+          aplicables.
         </p>
         <h2>Legitimació</h2>
         <p>
-          El tractament d'aquestes dades es legitima pel consentiment de la
-          persona interessada i, si escau, per l'execució de les obligacions
-          contractuals i/o negocials.
+          L'atenció de consultes es basa en l'interès legítim de respondre a la
+          persona interessada; la preparació de pressupostos i la gestió de
+          candidatures, en les mesures precontractuals sol·licitades per ella.
+          Si es formalitza un contracte, el tractament necessari per executar-lo
+          es basa en aquesta relació. La càrrega del mapa es basa en el
+          consentiment, que es pot retirar en qualsevol moment.
         </p>
         <h2>Comunicació de les dades</h2>
         <p>
@@ -159,13 +160,9 @@ const ca = getLangFromUrl(Astro.url) === "ca";
           protecció de dades i de serveis de la societat de la informació.
         </p>
         <p>
-          {contacto.empresa} informa que ha implantat les mesures de seguretat
-          tècniques i organitzatives necessàries per garantir la seguretat de
-          les dades personals de l'usuari i evitar-ne l'alteració, pèrdua,
-          tractament i/o accés no autoritzat, d'acord amb l'estat de la
-          tecnologia, la naturalesa de les dades emmagatzemades i els riscos als
-          quals estan exposades, tant si provenen de l'acció humana com del medi
-          físic o natural, de conformitat amb la normativa vigent.
+          {contacto.empresa} ha d'aplicar mesures tècniques i organitzatives
+          adequades al risc per protegir les dades personals, d'acord amb la
+          normativa vigent.
         </p>
       </>
     ) : (
@@ -211,8 +208,8 @@ const ca = getLangFromUrl(Astro.url) === "ca";
           following purpose:
         </p>
         <p>
-          1. Managing the use of website features, including responding to
-          requests and/or enquiries and preparing quotes.
+          Responding to enquiries and requests, preparing quotes and managing
+          job applications sent through the contact channels.
         </p>
         <p>
           The site also provides links to contact us by email or phone and to
@@ -229,17 +226,19 @@ const ca = getLangFromUrl(Astro.url) === "ca";
           .
         </p>
         <p>
-          Data processed for this purpose will be retained while the contractual
-          and/or business relationship between the user and {contacto.empresa}{" "}
-          continues. If a user's request does not involve a contractual
-          relationship, the data will be retained until the request has been
-          resolved.
+          Data will be retained for as long as necessary to handle the enquiry,
+          request or application and, where applicable, throughout the
+          contractual relationship and any applicable statutory retention or
+          limitation periods.
         </p>
         <h2>Legal basis</h2>
         <p>
-          Processing is based on the data subject's consent and, where
-          applicable, the performance of contractual and/or business
-          obligations.
+          Enquiries are processed on the legitimate interest in responding to
+          the individual; quotes and job applications on pre-contractual steps
+          requested by that individual. Where a contract is entered into,
+          processing necessary to perform it is based on that relationship.
+          Loading the map is based on consent, which can be withdrawn at any
+          time.
         </p>
         <h2>Disclosure of data</h2>
         <p>
@@ -304,13 +303,9 @@ const ca = getLangFromUrl(Astro.url) === "ca";
           services legislation.
         </p>
         <p>
-          {contacto.empresa} states that it has implemented the necessary
-          technical and organisational security measures to protect users'
-          personal data against alteration, loss, processing and/or unauthorised
-          access, taking into account the state of technology, the nature of
-          stored data and the risks to which it is exposed, whether caused by
-          human action or the physical or natural environment, in accordance
-          with current regulations.
+          {contacto.empresa} must apply technical and organisational measures
+          appropriate to the risk to protect personal data in accordance with
+          applicable law.
         </p>
       </>
     )

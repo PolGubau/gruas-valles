@@ -6,7 +6,7 @@ import Legal from "../../layouts/Legal.astro";
 <Legal
   title="Aviso legal"
   description="Aviso legal y condiciones de uso del sitio web de Grúas del Vallès, S.A."
-  updated="junio de 2025"
+  updated="10 de noviembre de 2026"
 >
   <h2>1. Datos identificativos</h2>
   <p>
@@ -19,17 +19,18 @@ import Legal from "../../layouts/Legal.astro";
   <ul>
     <li><strong>Responsable:</strong> {contacto.empresa}</li>
     <li><strong>NIF:</strong> {contacto.cif}</li>
-    <li><strong>Domicilio social:</strong> Av. San Julián, 64-66</li>
-    <li><strong>Código Postal:</strong> 08403</li>
-    <li><strong>Localidad:</strong> Granollers</li>
-    <li><strong>Provincia:</strong> Barcelona</li>
+    <li><strong>Domicilio social:</strong> {contacto.direccion}</li>
+    <li>
+      <strong>Teléfono:</strong>
+      <a href="tel:+34938497022">{contacto.telefono}</a>
+    </li>
     <li>
       <strong>Correo electrónico:</strong>
       <a href={`mailto:${contacto.email}`}>{contacto.email}</a>
     </li>
     <li>
       <strong>Datos del registro:</strong> Inscrita en el Registro Mercantil de Barcelona,
-      Tomo 4058, folio 144, hoja número 42861.
+      hoja B-64170.
     </li>
   </ul>
 
@@ -45,6 +46,10 @@ import Legal from "../../layouts/Legal.astro";
     de las presentes condiciones generales, así como de aquellas otras
     particulares que, si procede, rijan la utilización del Portal o de los
     servicios vinculados al mismo.
+  </p>
+  <p>
+    La navegación no implica aceptar las cookies ni el mapa de Google Maps, que
+    requiere una elección expresa.
   </p>
   <p>
     El usuario tiene que leer atentamente el Aviso Legal y las Políticas de

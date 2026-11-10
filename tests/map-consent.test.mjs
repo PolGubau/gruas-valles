@@ -100,3 +100,26 @@ test("las políticas explican la elección y no presentan navegación como conse
     assert.doesNotMatch(privacy, /formulario de contacto|formulari de contacte|contact form/i);
   }
 });
+
+test("los textos legales reflejan los datos de la empresa y las opciones del mapa", () => {
+  const expected = {
+    "": { browsing: /La navegación no implica aceptar/, basis: /interés legítimo/, retention: /consulta, solicitud o candidatura/ },
+    "ca/": { browsing: /La navegació no implica acceptar/, basis: /interès legítim/, retention: /consulta, sol·licitud o candidatura/ },
+    "en/": { browsing: /Browsing does not constitute acceptance/, basis: /legitimate interest/, retention: /enquiry, request or application/ },
+  };
+  for (const [prefix, copy] of Object.entries(expected)) {
+    const notice = readPage(`${prefix}legal/aviso-legal/index.html`).replace(/\s+/g, " ");
+    const privacy = readPage(`${prefix}legal/privacidad/index.html`).replace(/\s+/g, " ");
+    const cookies = readPage(`${prefix}legal/politica-cookies/index.html`).replace(/\s+/g, " ");
+    assert.match(notice, /A08603888/);
+    assert.match(notice, /B-64170/);
+    assert.doesNotMatch(notice, /42861|4058/);
+    assert.match(notice, /tel:\+34938497022/);
+    assert.match(notice, copy.browsing);
+    assert.match(privacy, copy.basis);
+    assert.match(privacy, copy.retention);
+    assert.match(cookies, /NID/);
+    assert.match(cookies, /SOCS/);
+    assert.doesNotMatch(cookies, /<td>CONSENT<\/td>/);
+  }
+});

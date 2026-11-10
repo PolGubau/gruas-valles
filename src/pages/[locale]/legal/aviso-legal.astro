@@ -2,82 +2,369 @@
 import contacto from "../../../data/contacto.json";
 import Legal from "../../../layouts/Legal.astro";
 import { getLangFromUrl } from "@i18n/utils";
-export function getStaticPaths() { return ["ca", "en"].map((locale) => ({ params: { locale } })); }
+export function getStaticPaths() {
+  return ["ca", "en"].map((locale) => ({ params: { locale } }));
+}
 const lang = getLangFromUrl(Astro.url);
 const ca = lang === "ca";
 ---
-<Legal title={ca ? "Avís legal" : "Legal notice"} description={ca ? "Avís legal i condicions d'ús del lloc web de Grúas del Vallès, S.A." : "Legal notice and terms of use of the Grúas del Vallès, S.A. website."} updated={ca ? "juny de 2025" : "June 2025"}>
-  {ca ? <>
-    <h2>1. Dades identificatives</h2>
-    <p>En compliment de la Llei 34/2002, d'11 de juliol, de serveis de la societat de la informació i de comerç electrònic, s'informa l'usuari que el titular de la pàgina web <a href={contacto.web}>{contacto.web}</a> és la societat {contacto.empresa}, amb les dades identificatives següents:</p>
-    <ul>
-      <li><strong>Responsable:</strong> {contacto.empresa}</li><li><strong>NIF:</strong> {contacto.cif}</li><li><strong>Domicili social:</strong> Av. San Julián, 64-66</li><li><strong>Codi postal:</strong> 08403</li><li><strong>Localitat:</strong> Granollers</li><li><strong>Província:</strong> Barcelona</li><li><strong>Correu electrònic:</strong> <a href={`mailto:${contacto.email}`}>{contacto.email}</a></li><li><strong>Dades del registre:</strong> Inscrita al Registre Mercantil de Barcelona, tom 4058, foli 144, full número 42861.</li>
-    </ul>
-    <h2>2. Accés a la pàgina web</h2>
-    <p>L'avís legal regula l'accés i l'ús dels usuaris a la pàgina web i té per objecte donar a conèixer els serveis de l'entitat i permetre l'accés general de tots els usuaris d'Internet.</p>
-    <p>L'accés i/o ús del web atribueix a qui el realitza la condició d'usuari i l'acceptació, sense cap reserva, de totes i cadascuna d'aquestes condicions generals, així com de les condicions particulars que, si escau, regeixin la utilització del portal o dels serveis vinculats.</p>
-    <p>L'usuari ha de llegir atentament l'avís legal i les polítiques de privacitat i de galetes quan vulgui utilitzar la pàgina web, ja que {contacto.empresa} es reserva la facultat de modificar o actualitzar en qualsevol moment i sense preavís els continguts i serveis, aquestes disposicions d'accés i ús i, en general, qualsevol element del disseny i la configuració del web. Si no accepta les condicions d'accés i ús, li preguem que s'abstingui d'utilitzar el web i el seu contingut.</p>
-    <h2>3. Utilització de la pàgina web</h2>
-    <p>L'usuari es compromet a fer un ús diligent de la pàgina web i de la informació relativa als seus serveis i activitats, amb plena subjecció a la normativa aplicable, la moral i els bons costums generalment acceptats, l'ordre públic, les condicions d'accés i ús i qualsevol altra condició establerta a la pàgina web.</p>
-    <p>També es compromet a abstenir-se d'utilitzar els continguts amb finalitats o efectes il·lícits, prohibits en aquest text, lesius dels drets i interessos de tercers, o que puguin danyar, inutilitzar, sobrecarregar, deteriorar o impedir la utilització normal dels continguts, d'altres usuaris o de qualsevol usuari d'Internet (maquinari i programari).</p>
-    <h2>4. Funcionament de la pàgina web</h2>
-    <p>En cas d'incompliment de les condicions de l'avís legal o de les polítiques de privacitat i galetes, {contacto.empresa} es reserva el dret de limitar, suspendre i/o excloure l'accés a la seva pàgina web i adoptar qualsevol mesura tècnica necessària.</p>
-    <p>{contacto.empresa} farà el possible per mantenir la pàgina web en bon funcionament, evitar errors o reparar-los i mantenir els continguts actualitzats. Tanmateix, {contacto.empresa} no garanteix la disponibilitat i continuïtat de l'accés ni l'absència d'errors en el contingut.</p>
-    <h2>5. Responsabilitat</h2>
-    <p>L'usuari és l'únic responsable de l'ús que es pugui fer de qualsevol informació o mecanisme de la pàgina web.</p>
-    <p>{contacto.empresa} no es responsabilitza de cap dany en el maquinari i/o programari de l'usuari derivat de l'accés i ús de la pàgina web. Tampoc no es responsabilitza dels danys i/o perjudicis ocasionats per l'accés i/o ús de la informació de la pàgina web, en particular els produïts en sistemes informàtics o causats per virus i/o atacs informàtics, caigudes, interrupcions, absència o defectes en les comunicacions i/o Internet.</p>
-    <p>L'usuari serà responsable dels danys i/o perjudicis que {contacto.empresa} pugui patir com a conseqüència de l'incompliment de les obligacions derivades d'aquest avís legal, de la normativa aplicable i de les polítiques de privacitat i de galetes.</p>
-    <h2>6. Política en matèria d'enllaços</h2>
-    <h3>a) Web enllaçant</h3>
-    <p>Els tercers que vulguin incloure en una pàgina web un enllaç a aquesta pàgina han de complir la legislació vigent i no poden allotjar continguts inapropiats, il·lícits, pornogràfics, violents, etc.</p>
-    <p>En cap cas {contacto.empresa} no es responsabilitza del contingut de la pàgina web enllaçant, ni en promou, garanteix, supervisa o recomana els continguts. Si el web enllaçant incompleix algun dels aspectes anteriors, estarà obligat a suprimir l'enllaç immediatament.</p>
-    <h3>b) Web enllaçat</h3>
-    <p>Aquesta pàgina web pot incloure enllaços a pàgines de tercers que permetin a l'usuari accedir a altres llocs. Tanmateix, {contacto.empresa} no es responsabilitza del contingut d'aquestes pàgines; és l'usuari qui ha d'acceptar i comprovar els accessos cada vegada que hi accedeixi.</p>
-    <p>Aquests enllaços o mencions tenen una finalitat informativa que no implica cap suport, aprovació, comercialització o relació entre aquesta pàgina i les persones o entitats titulars dels llocs enllaçats.</p>
-    <h2>7. Propietat intel·lectual i industrial</h2>
-    <p>{contacto.empresa}, o els seus llicenciants, són titulars de tots els drets de propietat intel·lectual sobre els continguts de la pàgina web, inclosos els dissenys, bases de dades, programes informàtics subjacents (inclòs el codi font) i els diferents elements que la integren (textos, gràfics, fotografies, vídeos, colors, estructura, ordre, etc.). Les marques i els noms comercials també són titularitat de {contacto.empresa} o dels seus llicenciants.</p>
-    <p>L'ús de la pàgina web per part de l'usuari no suposa la cessió de cap dret de propietat intel·lectual ni industrial. L'usuari té totalment prohibit reproduir, copiar, distribuir, posar a disposició, comunicar públicament de qualsevol altra manera, transformar o modificar els continguts o els signes distintius, llevat que disposi de l'autorització expressa del titular dels drets corresponents o que la llei ho permeti.</p>
-    <h2>8. Publicitat</h2>
-    <p>La pàgina web pot allotjar contingut publicitari o patrocinat. Els anunciants o patrocinadors són els únics responsables d'assegurar que el material enviat per incloure'l al web compleixi les lleis aplicables en cada cas. {contacto.empresa} no serà responsable de cap error, inexactitud o irregularitat que puguin contenir els continguts publicitaris o dels patrocinadors.</p>
-    <h2>9. Legislació aplicable i jurisdicció</h2>
-    <p>Aquest avís legal es regirà i interpretarà d'acord amb la legislació espanyola. Per resoldre qualsevol conflicte derivat de l'accés al lloc web, les parts se sotmetran als jutjats o tribunals pertinents d'acord amb la normativa de consumidors i usuaris.</p>
-    <h2>10. Contacte</h2>
-    <p>Per a qualsevol pregunta o comentari sobre aquest avís legal podeu contactar amb nosaltres a través del correu electrònic <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
-  </> : <>
-    <h2>1. Identification details</h2>
-    <p>In compliance with Law 34/2002 of 11 July on Information Society Services and Electronic Commerce, users are informed that the website <a href={contacto.web}>{contacto.web}</a> is owned by {contacto.empresa}, whose identification details are:</p>
-    <ul>
-      <li><strong>Controller:</strong> {contacto.empresa}</li><li><strong>Tax ID:</strong> {contacto.cif}</li><li><strong>Registered address:</strong> Av. San Julián, 64-66</li><li><strong>Postcode:</strong> 08403</li><li><strong>Town:</strong> Granollers</li><li><strong>Province:</strong> Barcelona</li><li><strong>Email:</strong> <a href={`mailto:${contacto.email}`}>{contacto.email}</a></li><li><strong>Registration details:</strong> Registered in the Barcelona Mercantile Register, volume 4058, folio 144, sheet number 42861.</li>
-    </ul>
-    <h2>2. Access to the website</h2>
-    <p>This legal notice governs users' access to and use of the website. Its purpose is to present the entity's services and enable general access by all internet users.</p>
-    <p>Accessing and/or using the website confers user status and constitutes unconditional acceptance of each of these general terms and any specific terms governing use of the portal or related services, where applicable.</p>
-    <p>Users must read the legal notice and privacy and cookie policies carefully when intending to use the website. {contacto.empresa} reserves the right to modify or update the content and services, these access and usage provisions and, generally, any elements of the website's design and configuration at any time without prior notice. If you do not accept the access and usage terms, please refrain from using the website and its content.</p>
-    <h2>3. Use of the website</h2>
-    <p>Users undertake to use the website and information about its services and activities diligently, in full compliance with applicable law, generally accepted morals and good practice, public order, the access and usage terms and any other terms established on the website.</p>
-    <p>Users also undertake not to use content for unlawful purposes or effects, purposes prohibited by this text, purposes harmful to third-party rights and interests, or in a way that may damage, disable, overload, impair or prevent normal use of the content, other users or any internet user (hardware and software).</p>
-    <h2>4. Website operation</h2>
-    <p>If the legal notice or privacy and cookie policies are breached, {contacto.empresa} reserves the right to limit, suspend and/or exclude access to its website and take any necessary technical measures.</p>
-    <p>{contacto.empresa} will endeavour to keep the website working properly, avoid or correct errors and keep content up to date. However, {contacto.empresa} does not guarantee the availability or continuity of access to the website or the absence of errors in its content.</p>
-    <h2>5. Liability</h2>
-    <p>Users are solely responsible for their use of any information or mechanism on the website.</p>
-    <p>{contacto.empresa} is not liable for damage to users' hardware and/or software arising from access to or use of the website. Nor is it liable for damage and/or loss arising from access to or use of website information, particularly damage to computer systems or caused by viruses and/or cyberattacks, outages, interruptions or missing or defective communications and/or internet service.</p>
-    <p>Users are liable for any damage and/or loss suffered by {contacto.empresa} as a result of breaching any obligations under this legal notice, applicable law and the privacy and cookie policies.</p>
-    <h2>6. Links policy</h2>
-    <h3>a) Linking websites</h3>
-    <p>Third parties intending to include a link to this website must comply with current legislation and must not host inappropriate, unlawful, pornographic, violent or similar content.</p>
-    <p>{contacto.empresa} is in no case responsible for the content of the linking website and does not promote, guarantee, monitor or recommend its content. If the linking website breaches any of the above requirements, it must remove the link immediately.</p>
-    <h3>b) Linked websites</h3>
-    <p>This website may include links to third-party websites. However, {contacto.empresa} is not responsible for their content; users are responsible for accepting and checking access each time they visit them.</p>
-    <p>These links or references are provided for information and do not imply endorsement, approval, commercialisation or any relationship between this website and the individuals or entities owning the linked sites.</p>
-    <h2>7. Intellectual and industrial property</h2>
-    <p>{contacto.empresa} or its licensors own all intellectual property rights in the website content, including designs, databases, underlying computer programs (including source code) and the various elements making up the website (text, graphics, photographs, videos, colours, structure, order, etc.). Trademarks and trade names also belong to {contacto.empresa} or its licensors.</p>
-    <p>Use of the website does not transfer any intellectual or industrial property rights. Users are strictly prohibited from reproducing, copying, distributing, making available, otherwise publicly communicating, transforming or modifying the content or distinctive signs unless expressly authorised by the relevant rights holder or legally permitted.</p>
-    <h2>8. Advertising</h2>
-    <p>The website may host advertising or sponsored content. Advertisers or sponsors are solely responsible for ensuring that material submitted for inclusion on the website complies with applicable laws. {contacto.empresa} is not liable for errors, inaccuracies or irregularities in advertising or sponsored content.</p>
-    <h2>9. Applicable law and jurisdiction</h2>
-    <p>This legal notice is governed by and interpreted in accordance with Spanish law. To resolve any dispute arising from access to the website, the parties submit to the appropriate courts in accordance with consumer protection legislation.</p>
-    <h2>10. Contact</h2>
-    <p>For questions or comments about this legal notice, contact us at <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
-  </>}
+
+<Legal
+  title={ca ? "Avís legal" : "Legal notice"}
+  description={ca
+    ? "Avís legal i condicions d'ús del lloc web de Grúas del Vallès, S.A."
+    : "Legal notice and terms of use of the Grúas del Vallès, S.A. website."}
+  updated={ca ? "10 de novembre de 2026" : "10 November 2026"}
+>
+  {
+    ca ? (
+      <>
+        <h2>1. Dades identificatives</h2>
+        <p>
+          En compliment de la Llei 34/2002, d'11 de juliol, de serveis de la
+          societat de la informació i de comerç electrònic, s'informa l'usuari
+          que el titular de la pàgina web{" "}
+          <a href={contacto.web}>{contacto.web}</a> és la societat{" "}
+          {contacto.empresa}, amb les dades identificatives següents:
+        </p>
+        <ul>
+          <>
+            <li>
+              <strong>Responsable:</strong> {contacto.empresa}
+            </li>
+            <li>
+              <strong>NIF:</strong> {contacto.cif}
+            </li>
+            <li>
+              <strong>Domicili social:</strong> {contacto.direccion}
+            </li>
+            <li>
+              <strong>Telèfon:</strong>{" "}
+              <a href="tel:+34938497022">{contacto.telefono}</a>
+            </li>
+            <li>
+              <strong>Correu electrònic:</strong>{" "}
+              <a href={`mailto:${contacto.email}`}>{contacto.email}</a>
+            </li>
+            <li>
+              <strong>Dades del registre:</strong> Inscrita al Registre
+              Mercantil de Barcelona, full B-64170.
+            </li>
+          </>
+        </ul>
+        <h2>2. Accés a la pàgina web</h2>
+        <p>
+          L'avís legal regula l'accés i l'ús dels usuaris a la pàgina web i té
+          per objecte donar a conèixer els serveis de l'entitat i permetre
+          l'accés general de tots els usuaris d'Internet.
+        </p>
+        <p>
+          L'accés i/o ús del web atribueix a qui el realitza la condició
+          d'usuari i l'acceptació, sense cap reserva, de totes i cadascuna
+          d'aquestes condicions generals, així com de les condicions particulars
+          que, si escau, regeixin la utilització del portal o dels serveis
+          vinculats.
+        </p>
+        <p>
+          La navegació no implica acceptar les galetes ni el mapa de Google
+          Maps, que requereix una elecció expressa.
+        </p>
+        <p>
+          L'usuari ha de llegir atentament l'avís legal i les polítiques de
+          privacitat i de galetes quan vulgui utilitzar la pàgina web, ja que{" "}
+          {contacto.empresa} es reserva la facultat de modificar o actualitzar
+          en qualsevol moment i sense preavís els continguts i serveis, aquestes
+          disposicions d'accés i ús i, en general, qualsevol element del disseny
+          i la configuració del web. Si no accepta les condicions d'accés i ús,
+          li preguem que s'abstingui d'utilitzar el web i el seu contingut.
+        </p>
+        <h2>3. Utilització de la pàgina web</h2>
+        <p>
+          L'usuari es compromet a fer un ús diligent de la pàgina web i de la
+          informació relativa als seus serveis i activitats, amb plena subjecció
+          a la normativa aplicable, la moral i els bons costums generalment
+          acceptats, l'ordre públic, les condicions d'accés i ús i qualsevol
+          altra condició establerta a la pàgina web.
+        </p>
+        <p>
+          També es compromet a abstenir-se d'utilitzar els continguts amb
+          finalitats o efectes il·lícits, prohibits en aquest text, lesius dels
+          drets i interessos de tercers, o que puguin danyar, inutilitzar,
+          sobrecarregar, deteriorar o impedir la utilització normal dels
+          continguts, d'altres usuaris o de qualsevol usuari d'Internet
+          (maquinari i programari).
+        </p>
+        <h2>4. Funcionament de la pàgina web</h2>
+        <p>
+          En cas d'incompliment de les condicions de l'avís legal o de les
+          polítiques de privacitat i galetes, {contacto.empresa} es reserva el
+          dret de limitar, suspendre i/o excloure l'accés a la seva pàgina web i
+          adoptar qualsevol mesura tècnica necessària.
+        </p>
+        <p>
+          {contacto.empresa} farà el possible per mantenir la pàgina web en bon
+          funcionament, evitar errors o reparar-los i mantenir els continguts
+          actualitzats. Tanmateix, {contacto.empresa} no garanteix la
+          disponibilitat i continuïtat de l'accés ni l'absència d'errors en el
+          contingut.
+        </p>
+        <h2>5. Responsabilitat</h2>
+        <p>
+          L'usuari és l'únic responsable de l'ús que es pugui fer de qualsevol
+          informació o mecanisme de la pàgina web.
+        </p>
+        <p>
+          {contacto.empresa} no es responsabilitza de cap dany en el maquinari
+          i/o programari de l'usuari derivat de l'accés i ús de la pàgina web.
+          Tampoc no es responsabilitza dels danys i/o perjudicis ocasionats per
+          l'accés i/o ús de la informació de la pàgina web, en particular els
+          produïts en sistemes informàtics o causats per virus i/o atacs
+          informàtics, caigudes, interrupcions, absència o defectes en les
+          comunicacions i/o Internet.
+        </p>
+        <p>
+          L'usuari serà responsable dels danys i/o perjudicis que{" "}
+          {contacto.empresa} pugui patir com a conseqüència de l'incompliment de
+          les obligacions derivades d'aquest avís legal, de la normativa
+          aplicable i de les polítiques de privacitat i de galetes.
+        </p>
+        <h2>6. Política en matèria d'enllaços</h2>
+        <h3>a) Web enllaçant</h3>
+        <p>
+          Els tercers que vulguin incloure en una pàgina web un enllaç a aquesta
+          pàgina han de complir la legislació vigent i no poden allotjar
+          continguts inapropiats, il·lícits, pornogràfics, violents, etc.
+        </p>
+        <p>
+          En cap cas {contacto.empresa} no es responsabilitza del contingut de
+          la pàgina web enllaçant, ni en promou, garanteix, supervisa o recomana
+          els continguts. Si el web enllaçant incompleix algun dels aspectes
+          anteriors, estarà obligat a suprimir l'enllaç immediatament.
+        </p>
+        <h3>b) Web enllaçat</h3>
+        <p>
+          Aquesta pàgina web pot incloure enllaços a pàgines de tercers que
+          permetin a l'usuari accedir a altres llocs. Tanmateix,{" "}
+          {contacto.empresa} no es responsabilitza del contingut d'aquestes
+          pàgines; és l'usuari qui ha d'acceptar i comprovar els accessos cada
+          vegada que hi accedeixi.
+        </p>
+        <p>
+          Aquests enllaços o mencions tenen una finalitat informativa que no
+          implica cap suport, aprovació, comercialització o relació entre
+          aquesta pàgina i les persones o entitats titulars dels llocs
+          enllaçats.
+        </p>
+        <h2>7. Propietat intel·lectual i industrial</h2>
+        <p>
+          {contacto.empresa}, o els seus llicenciants, són titulars de tots els
+          drets de propietat intel·lectual sobre els continguts de la pàgina
+          web, inclosos els dissenys, bases de dades, programes informàtics
+          subjacents (inclòs el codi font) i els diferents elements que la
+          integren (textos, gràfics, fotografies, vídeos, colors, estructura,
+          ordre, etc.). Les marques i els noms comercials també són titularitat
+          de {contacto.empresa} o dels seus llicenciants.
+        </p>
+        <p>
+          L'ús de la pàgina web per part de l'usuari no suposa la cessió de cap
+          dret de propietat intel·lectual ni industrial. L'usuari té totalment
+          prohibit reproduir, copiar, distribuir, posar a disposició, comunicar
+          públicament de qualsevol altra manera, transformar o modificar els
+          continguts o els signes distintius, llevat que disposi de
+          l'autorització expressa del titular dels drets corresponents o que la
+          llei ho permeti.
+        </p>
+        <h2>8. Publicitat</h2>
+        <p>
+          La pàgina web pot allotjar contingut publicitari o patrocinat. Els
+          anunciants o patrocinadors són els únics responsables d'assegurar que
+          el material enviat per incloure'l al web compleixi les lleis
+          aplicables en cada cas. {contacto.empresa} no serà responsable de cap
+          error, inexactitud o irregularitat que puguin contenir els continguts
+          publicitaris o dels patrocinadors.
+        </p>
+        <h2>9. Legislació aplicable i jurisdicció</h2>
+        <p>
+          Aquest avís legal es regirà i interpretarà d'acord amb la legislació
+          espanyola. Per resoldre qualsevol conflicte derivat de l'accés al lloc
+          web, les parts se sotmetran als jutjats o tribunals pertinents d'acord
+          amb la normativa de consumidors i usuaris.
+        </p>
+        <h2>10. Contacte</h2>
+        <p>
+          Per a qualsevol pregunta o comentari sobre aquest avís legal podeu
+          contactar amb nosaltres a través del correu electrònic{" "}
+          <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.
+        </p>
+      </>
+    ) : (
+      <>
+        <h2>1. Identification details</h2>
+        <p>
+          In compliance with Law 34/2002 of 11 July on Information Society
+          Services and Electronic Commerce, users are informed that the website{" "}
+          <a href={contacto.web}>{contacto.web}</a> is owned by{" "}
+          {contacto.empresa}, whose identification details are:
+        </p>
+        <ul>
+          <>
+            <li>
+              <strong>Controller:</strong> {contacto.empresa}
+            </li>
+            <li>
+              <strong>Tax ID:</strong> {contacto.cif}
+            </li>
+            <li>
+              <strong>Registered address:</strong> {contacto.direccion}
+            </li>
+            <li>
+              <strong>Telephone:</strong>{" "}
+              <a href="tel:+34938497022">{contacto.telefono}</a>
+            </li>
+            <li>
+              <strong>Email:</strong>{" "}
+              <a href={`mailto:${contacto.email}`}>{contacto.email}</a>
+            </li>
+            <li>
+              <strong>Registration details:</strong> Registered in the Barcelona
+              Mercantile Register, sheet B-64170.
+            </li>
+          </>
+        </ul>
+        <h2>2. Access to the website</h2>
+        <p>
+          This legal notice governs users' access to and use of the website. Its
+          purpose is to present the entity's services and enable general access
+          by all internet users.
+        </p>
+        <p>
+          Accessing and/or using the website confers user status and constitutes
+          unconditional acceptance of each of these general terms and any
+          specific terms governing use of the portal or related services, where
+          applicable.
+        </p>
+        <p>
+          Browsing does not constitute acceptance of cookies or the Google Maps
+          map, which requires an explicit choice.
+        </p>
+        <p>
+          Users must read the legal notice and privacy and cookie policies
+          carefully when intending to use the website. {contacto.empresa}{" "}
+          reserves the right to modify or update the content and services, these
+          access and usage provisions and, generally, any elements of the
+          website's design and configuration at any time without prior notice.
+          If you do not accept the access and usage terms, please refrain from
+          using the website and its content.
+        </p>
+        <h2>3. Use of the website</h2>
+        <p>
+          Users undertake to use the website and information about its services
+          and activities diligently, in full compliance with applicable law,
+          generally accepted morals and good practice, public order, the access
+          and usage terms and any other terms established on the website.
+        </p>
+        <p>
+          Users also undertake not to use content for unlawful purposes or
+          effects, purposes prohibited by this text, purposes harmful to
+          third-party rights and interests, or in a way that may damage,
+          disable, overload, impair or prevent normal use of the content, other
+          users or any internet user (hardware and software).
+        </p>
+        <h2>4. Website operation</h2>
+        <p>
+          If the legal notice or privacy and cookie policies are breached,{" "}
+          {contacto.empresa} reserves the right to limit, suspend and/or exclude
+          access to its website and take any necessary technical measures.
+        </p>
+        <p>
+          {contacto.empresa} will endeavour to keep the website working
+          properly, avoid or correct errors and keep content up to date.
+          However, {contacto.empresa} does not guarantee the availability or
+          continuity of access to the website or the absence of errors in its
+          content.
+        </p>
+        <h2>5. Liability</h2>
+        <p>
+          Users are solely responsible for their use of any information or
+          mechanism on the website.
+        </p>
+        <p>
+          {contacto.empresa} is not liable for damage to users' hardware and/or
+          software arising from access to or use of the website. Nor is it
+          liable for damage and/or loss arising from access to or use of website
+          information, particularly damage to computer systems or caused by
+          viruses and/or cyberattacks, outages, interruptions or missing or
+          defective communications and/or internet service.
+        </p>
+        <p>
+          Users are liable for any damage and/or loss suffered by{" "}
+          {contacto.empresa} as a result of breaching any obligations under this
+          legal notice, applicable law and the privacy and cookie policies.
+        </p>
+        <h2>6. Links policy</h2>
+        <h3>a) Linking websites</h3>
+        <p>
+          Third parties intending to include a link to this website must comply
+          with current legislation and must not host inappropriate, unlawful,
+          pornographic, violent or similar content.
+        </p>
+        <p>
+          {contacto.empresa} is in no case responsible for the content of the
+          linking website and does not promote, guarantee, monitor or recommend
+          its content. If the linking website breaches any of the above
+          requirements, it must remove the link immediately.
+        </p>
+        <h3>b) Linked websites</h3>
+        <p>
+          This website may include links to third-party websites. However,{" "}
+          {contacto.empresa} is not responsible for their content; users are
+          responsible for accepting and checking access each time they visit
+          them.
+        </p>
+        <p>
+          These links or references are provided for information and do not
+          imply endorsement, approval, commercialisation or any relationship
+          between this website and the individuals or entities owning the linked
+          sites.
+        </p>
+        <h2>7. Intellectual and industrial property</h2>
+        <p>
+          {contacto.empresa} or its licensors own all intellectual property
+          rights in the website content, including designs, databases,
+          underlying computer programs (including source code) and the various
+          elements making up the website (text, graphics, photographs, videos,
+          colours, structure, order, etc.). Trademarks and trade names also
+          belong to {contacto.empresa} or its licensors.
+        </p>
+        <p>
+          Use of the website does not transfer any intellectual or industrial
+          property rights. Users are strictly prohibited from reproducing,
+          copying, distributing, making available, otherwise publicly
+          communicating, transforming or modifying the content or distinctive
+          signs unless expressly authorised by the relevant rights holder or
+          legally permitted.
+        </p>
+        <h2>8. Advertising</h2>
+        <p>
+          The website may host advertising or sponsored content. Advertisers or
+          sponsors are solely responsible for ensuring that material submitted
+          for inclusion on the website complies with applicable laws.{" "}
+          {contacto.empresa} is not liable for errors, inaccuracies or
+          irregularities in advertising or sponsored content.
+        </p>
+        <h2>9. Applicable law and jurisdiction</h2>
+        <p>
+          This legal notice is governed by and interpreted in accordance with
+          Spanish law. To resolve any dispute arising from access to the
+          website, the parties submit to the appropriate courts in accordance
+          with consumer protection legislation.
+        </p>
+        <h2>10. Contact</h2>
+        <p>
+          For questions or comments about this legal notice, contact us at{" "}
+          <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.
+        </p>
+      </>
+    )
+  }
 </Legal>
