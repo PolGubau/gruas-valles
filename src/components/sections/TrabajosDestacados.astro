@@ -3,10 +3,12 @@ import { getCollection } from "astro:content";
 import BlogCard from "../blog/BlogCard.astro";
 import Button from "../ui/Button.astro";
 import Section from "../ui/Section.astro";
-import { getLangFromUrl } from "@i18n/utils";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 import { homeCopy } from "@i18n/home";
 
-const copy = homeCopy(getLangFromUrl(Astro.url));
+const lang = getLangFromUrl(Astro.url);
+const copy = homeCopy(lang);
+const localizePath = useTranslatedPath(lang);
 
 // Trabajos ya documentados en el blog, con sus propias fotografías y descripciones.
 const slugs = [
@@ -26,15 +28,13 @@ const trabajos = slugs.flatMap((slug) => {
     {copy.worksIntro}
   </p>
   <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-    {
-      trabajos.map((post) => (
-        <BlogCard post={{ ...post, ...copy.works[post.slug] }} />
-      ))
-    }
+    {trabajos.map((post) => <BlogCard post={post} />)}
   </div>
   <div class="mt-10 text-center">
-    <Button href="/blog" variant="outline" icon="lucide:arrow-right"
-      >{copy.moreWorks}</Button
+    <Button
+      href={localizePath("/blog")}
+      variant="outline"
+      icon="lucide:arrow-right">{copy.moreWorks}</Button
     >
   </div>
 </Section>

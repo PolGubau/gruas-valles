@@ -2,7 +2,8 @@
 import type { CollectionEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { resolveImage } from "../../lib/images";
-import { getLangFromUrl } from "@i18n/utils";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
+import { translatedPost } from "@i18n/blog";
 import { homeCopy } from "@i18n/home";
 
 interface Props {
@@ -10,11 +11,14 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const copy = homeCopy(getLangFromUrl(Astro.url));
+const lang = getLangFromUrl(Astro.url);
+const copy = homeCopy(lang);
+const localizePath = useTranslatedPath(lang);
+const translated = translatedPost(lang, post.slug) ?? post;
 ---
 
 <a
-  href={`/blog/${post.slug}`}
+  href={localizePath(`/blog/${post.slug}`)}
   class="group flex flex-col overflow-hidden rounded-sm bg-white transition-shadow hover:shadow-card"
 >
   <div class="aspect-video overflow-hidden bg-surface-alt">
@@ -22,7 +26,7 @@ const copy = homeCopy(getLangFromUrl(Astro.url));
       post.imagenes.length > 0 ? (
         <img
           src={resolveImage(post.imagenes[0])}
-          alt={post.titulo}
+          alt={translated.titulo}
           class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
           decoding="async"
@@ -43,10 +47,10 @@ const copy = homeCopy(getLangFromUrl(Astro.url));
     <h3
       class="mb-3 text-xl font-semibold leading-snug transition-colors group-hover:text-accent"
     >
-      {post.titulo}
+      {translated.titulo}
     </h3>
     <p class="line-clamp-3 text-sm leading-relaxed text-ink-secondary">
-      {post.resumen}
+      {translated.resumen}
     </p>
 
     <span

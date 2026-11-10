@@ -4,32 +4,39 @@ import Page from "../../layouts/Page.astro";
 import Breadcrumb from "../../components/ui/Breadcrumb.astro";
 import BlogCard from "../../components/blog/BlogCard.astro";
 import { collectionPageSchema } from "../../lib/schema";
+import { blogCopy, translatedPost } from "@i18n/blog";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 
+const lang = getLangFromUrl(Astro.url);
+const copy = blogCopy(lang);
+const localizePath = useTranslatedPath(lang);
 const entries = await getCollection("blog");
 const posts = entries
   .map((e) => ({ slug: e.id, ...e.data }))
   .sort((a, b) => a.orden - b.orden);
 
-const description =
-  "Últimas incorporaciones a nuestra flota, colaboraciones y trabajos destacados de Grúas del Vallès.";
+const description = copy.description;
 const schema = collectionPageSchema(
   {
-    name: "Noticias y actualidad",
+    name: copy.title,
     description,
-    url: "/blog",
-    items: posts.map((p) => ({ name: p.titulo, url: `/blog/${p.slug}` })),
+    url: localizePath("/blog"),
+    items: posts.map((p) => ({
+      name: translatedPost(lang, p.slug)?.titulo ?? p.titulo,
+      url: localizePath(`/blog/${p.slug}`),
+    })),
   },
   Astro.site,
 );
 
 const crumbs = [
-  { label: "Inicio", href: "/" },
-  { label: "Noticias", href: "/blog" },
+  { label: copy.home, href: localizePath("/") },
+  { label: copy.news, href: localizePath("/blog") },
 ];
 ---
 
 <Page
-  title="Noticias y actualidad | Grúas del Vallès"
+  title={`${copy.title} | Grúas del Vallès`}
   description={description}
   schema={schema}
 >
@@ -38,13 +45,12 @@ const crumbs = [
       <Breadcrumb items={crumbs} class="mb-8" />
 
       <header class="mb-12 max-w-2xl">
-        <p class="eyebrow">Actualidad</p>
+        <p class="eyebrow">{copy.eyebrow}</p>
         <h1 class="text-3xl font-black leading-tight sm:text-4xl">
-          Noticias y trabajos destacados
+          {copy.heading}
         </h1>
         <p class="mt-4 text-sm leading-relaxed text-ink-secondary">
-          Nuevas incorporaciones a la flota, colaboraciones y proyectos
-          singulares en los que hemos participado.
+          {copy.intro}
         </p>
       </header>
 
