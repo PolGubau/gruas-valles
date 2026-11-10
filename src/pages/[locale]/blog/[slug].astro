@@ -1,0 +1,9 @@
+---
+import { getCollection } from "astro:content";
+import BlogArticle from "../../blog/[slug].astro";
+export async function getStaticPaths() {
+  const entries = await getCollection("blog");
+  return ["ca", "en"].flatMap((locale) => entries.map((entry) => ({ params: { locale, slug: entry.id }, props: { entry } })));
+}
+---
+<BlogArticle entry={Astro.props.entry} />
