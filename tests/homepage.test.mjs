@@ -35,6 +35,28 @@ test("el hero ofrece consulta, llamada y catálogo, con dos cifras visibles en m
   assert.match(hero, /<dd[^>]*>\s*86\s*<\/dd>/);
 });
 
+test("los rótulos mantienen una presentación sobria y el hero conserva su texto en cada idioma", () => {
+  for (const [path, label] of [
+    ["index.html", "Elevación y transporte desde 1968"],
+    ["ca/index.html", "Elevació i transport des de 1968"],
+    ["en/index.html", "Lifting and transport since 1968"],
+  ]) {
+    const html = readFileSync(new URL(path, dist), "utf8");
+    const hero = html.slice(html.indexOf('id="hero"'), html.indexOf("</section>", html.indexOf('id="hero"')));
+    const eyebrow = hero.match(/<p class="eyebrow[^>]*>[\s\S]*?<\/p>/)?.[0];
+    assert.ok(eyebrow?.includes(label), path);
+    assert.match(eyebrow, /text-white\/85/);
+    assert.doesNotMatch(eyebrow, /uppercase|tracking-|<span|·/);
+    for (const heading of html.matchAll(/<(?:p|h2) class="eyebrow[^>]*>[\s\S]*?<\/(?:p|h2)>/g)) {
+      assert.doesNotMatch(heading[0], /h-px w-8 bg-accent|uppercase|tracking-wider/);
+    }
+  }
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  const style = css.match(/\.eyebrow\s*\{([^}]*)\}/)?.[1];
+  assert.ok(style?.includes("text-sm font-medium"));
+  assert.doesNotMatch(style, /uppercase|tracking-wider|text-accent/);
+});
+
 test("los logos de clientes se muestran una sola vez en una cuadrícula adaptable", () => {
   const start = home.indexOf('aria-labelledby="clientes-title"');
   assert.notEqual(start, -1);

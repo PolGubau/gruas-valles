@@ -52,7 +52,7 @@ const crumbs = [
 
       <header class="mb-12 max-w-2xl">
         <p class="eyebrow">
-          <span class="h-px w-8 bg-accent"></span>{copy.eyebrow}
+          {copy.eyebrow}
         </p>
         <h1 class="text-3xl font-black leading-tight sm:text-4xl">
           {allModels.length}
@@ -67,7 +67,7 @@ const crumbs = [
       <div class="mb-8 flex flex-wrap items-center gap-3">
         <!-- Filtros por categoría -->
         <div
-          class="flex flex-wrap gap-2"
+          class="flex min-w-0 max-w-full flex-wrap gap-2"
           id="flota-filters"
           role="group"
           aria-label={copy.filter}
@@ -86,7 +86,7 @@ const crumbs = [
                 type="button"
                 data-filter={cat}
                 aria-pressed="false"
-                class="filter-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider border-2 border-muted text-ink-secondary transition-colors hover:border-accent hover:text-accent"
+                class="filter-btn max-w-full wrap-anywhere px-4 py-2 text-xs font-semibold uppercase tracking-wider border-2 border-muted text-ink-secondary transition-colors hover:border-accent hover:text-accent"
               >
                 {fleetCategory(lang, cat)}
               </button>

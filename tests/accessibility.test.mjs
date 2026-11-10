@@ -90,6 +90,7 @@ test("los colores principales mantienen contraste en superficies oscuras y clara
     return (values[0] + 0.05) / (values[1] + 0.05);
   };
   assert.ok(contrast("d60b0c", "ffffff") >= 4.5);
+  assert.ok(contrast("d60b0c", "fdf3f3") >= 4.5); // white at 95% over the CTA background
   assert.ok(contrast("ff8585", "121212") >= 4.5);
   assert.ok(contrast("c3c3c3", "121212") >= 4.5);
 });

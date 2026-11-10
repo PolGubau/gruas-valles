@@ -50,16 +50,16 @@ const {
     class="container-wide flex flex-col gap-8 py-16 lg:flex-row lg:items-center lg:justify-between lg:py-20"
   >
     <div class="max-w-2xl">
-      <p
-        class="mb-2 text-xs font-semibold uppercase tracking-wider text-white/70"
-      >
+      <p class="eyebrow text-white/95">
         {eyebrow}
       </p>
       <h2 class="text-3xl font-black leading-tight sm:text-4xl">{title}</h2>
       <p class="mt-4 text-sm leading-relaxed text-white/85">{text}</p>
     </div>
 
-    <div class="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+    <div
+      class="flex min-w-0 flex-col flex-wrap gap-3 sm:flex-row lg:flex-col xl:flex-row"
+    >
       <a
         href={localizePath("/contacto")}
         class="btn btn-md justify-center bg-white text-accent hover:bg-ink hover:text-white"

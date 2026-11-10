@@ -58,7 +58,7 @@ const crumbs = [
       <Breadcrumb items={crumbs} class="mb-8" />
 
       <header class="mb-8 max-w-3xl">
-        <p class="eyebrow"><span class="h-px w-8 bg-accent"></span>Noticia</p>
+        <p class="eyebrow">Noticia</p>
         <h1 class="text-3xl font-black leading-tight sm:text-4xl">
           {post.titulo}
         </h1>
@@ -103,10 +103,7 @@ const crumbs = [
       {
         documentos.length > 0 && (
           <section class="mt-10 max-w-3xl border-t border-muted pt-8">
-            <h2 class="eyebrow">
-              <span class="h-px w-8 bg-accent" />
-              Documentación
-            </h2>
+            <h2 class="eyebrow">Documentación</h2>
             <ul class="mt-4 grid gap-px bg-muted">
               {documentos.map((doc) => (
                 <li>

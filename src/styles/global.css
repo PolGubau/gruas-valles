@@ -58,6 +58,7 @@
 	h3,
 	h4 {
 		@apply font-bold tracking-tight text-balance;
+		overflow-wrap: anywhere;
 	}
 
 	p,
@@ -89,9 +90,13 @@
 
 @layer components {
 	.btn {
-		@apply inline-flex min-h-11 items-center justify-center gap-2 rounded-sm font-semibold
+		@apply inline-flex max-w-full min-h-11 items-center justify-center gap-2 rounded-sm text-center font-semibold
            transition-[background-color,color,border-color,transform] duration-200
            active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+		overflow-wrap: anywhere;
+	}
+	.btn > svg {
+		flex-shrink: 0;
 	}
 	.btn-md {
 		@apply px-6 py-3 text-sm;
@@ -102,7 +107,7 @@
 
 	/* Section heading eyebrow */
 	.eyebrow {
-		@apply mb-2 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-accent;
+		@apply mb-3 text-sm font-medium leading-relaxed text-ink-secondary;
 	}
 
 	/* Surface card - hairline border, restrained lift on hover */

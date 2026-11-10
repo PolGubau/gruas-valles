@@ -4,7 +4,7 @@ import { faqs } from "../data/faqs";
 export const es = {
   seoTitle: "Grúas del Vallès | Alquiler de Grúas Industriales en Barcelona",
   seoDescription: "Empresa líder en alquiler de grúas móviles autopropulsadas de 40 a 700 Tn en Cataluña. +55 años de experiencia. Servicio de emergencia 24/365.",
-  heroEyebrow: "Elevación y transporte · Desde 1968", heroFirst: "Grúas para", heroSecond: "cada maniobra",
+  heroEyebrow: "Elevación y transporte desde 1968", heroFirst: "Grúas para", heroSecond: "cada maniobra",
   heroDescription: "Flota propia de grúas móviles de hasta 700 toneladas y asesoramiento técnico para cada proyecto en Cataluña.",
   consult: "Consultar una maniobra", call: "Llamar", download: "Descargar catálogo",
   cranes: "Grúas propias", emergency: "Servicio de emergencia", vehicles: "Vehículos propios",

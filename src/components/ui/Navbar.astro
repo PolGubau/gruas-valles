@@ -147,7 +147,7 @@ const isActive = (href: string) =>
   <div id="mobile-menu" class="mobile-menu bg-white lg:hidden">
     <div class="min-h-0 overflow-hidden">
       <nav
-        class="container-wide flex flex-col border-t border-muted/60 py-4"
+        class="container-wide flex max-h-[calc(100dvh-5rem)] flex-col overflow-y-auto border-t border-muted/60 py-4 max-sm:max-h-[calc(100dvh-9rem-env(safe-area-inset-bottom,0px))]"
         aria-label={copy.mobileNav}
       >
         {
