@@ -1,52 +1,158 @@
 ---
+import { Font } from "astro:assets";
 import Button from "../components/ui/Button.astro";
-import Page from "../layouts/Page.astro";
+import "../styles/global.css";
 
-const links = [
-  { href: "/flota", label: "Flota" },
-  { href: "/servicios", label: "Servicios" },
-  { href: "/contacto", label: "Contacto" },
+const versions = [
+  {
+    lang: "es",
+    name: "Español",
+    title: "Página no encontrada",
+    heading: "Esta página no existe",
+    message:
+      "Es posible que el enlace esté roto o que la página se haya movido. Vuelve al inicio o accede directamente a lo que buscas.",
+    home: "Volver al inicio",
+    contact: "Contactar",
+    useful: "Enlaces útiles",
+    fleet: "Flota",
+    services: "Servicios",
+    contactLink: "Contacto",
+    prefix: "",
+    query: "?lang=es",
+  },
+  {
+    lang: "ca",
+    name: "Català",
+    title: "Pàgina no trobada",
+    heading: "Aquesta pàgina no existeix",
+    message:
+      "És possible que l'enllaç estigui trencat o que la pàgina s'hagi mogut. Torna a l'inici o accedeix directament al que busques.",
+    home: "Tornar a l'inici",
+    contact: "Contactar",
+    useful: "Enllaços útils",
+    fleet: "Flota",
+    services: "Serveis",
+    contactLink: "Contacte",
+    prefix: "/ca",
+    query: "",
+  },
+  {
+    lang: "en",
+    name: "English",
+    title: "Page not found",
+    heading: "This page doesn't exist",
+    message:
+      "The link may be broken or the page may have moved. Return home or go directly to what you need.",
+    home: "Back to home",
+    contact: "Contact us",
+    useful: "Useful links",
+    fleet: "Fleet",
+    services: "Services",
+    contactLink: "Contact",
+    prefix: "/en",
+    query: "",
+  },
 ];
 ---
 
-<Page
-  title="Página no encontrada (404) | Grúas del Vallès"
-  description="La página que buscas no existe o ha cambiado de dirección. Vuelve al inicio o explora nuestra flota y servicios."
->
-  <section class="section-padding bg-surface-alt">
-    <div class="container-narrow flex flex-col items-center text-center">
-      <p class="text-7xl font-black leading-none text-accent sm:text-8xl">
-        404
-      </p>
-      <h1 class="mt-4 text-3xl font-black leading-tight sm:text-4xl">
-        Esta página no existe
-      </h1>
-      <p class="mt-4 max-w-md text-sm leading-relaxed text-ink-secondary">
-        Es posible que el enlace esté roto o que la página se haya movido.
-        Vuelve al inicio o accede directamente a lo que buscas.
-      </p>
-
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <Button href="/" icon="lucide:arrow-left" iconPosition="start">
-          Volver al inicio
-        </Button>
-        <Button href="/contacto" variant="outline" icon="lucide:arrow-right">
-          Contactar
-        </Button>
-      </div>
-
-      <nav
-        class="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-semibold uppercase tracking-wider text-ink-secondary"
-        aria-label="Enlaces útiles"
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Página no encontrada (404) | Grúas del Vallès</title>
+    <Font cssVariable="--font-jakarta" preload />
+  </head>
+  <body>
+    <header class="border-b border-muted/40 bg-white">
+      <div
+        class="container-wide flex flex-wrap items-center justify-between gap-4 py-3"
       >
-        {
-          links.map(({ href, label }) => (
-            <a href={href} class="transition-colors hover:text-accent">
-              {label}
-            </a>
-          ))
-        }
-      </nav>
-    </div>
-  </section>
-</Page>
+        <img src="/logo.png" alt="Grúas del Vallès" class="h-12 w-auto" />
+        <nav aria-label="Idioma / Language" data-404-languages hidden>
+          <div class="flex flex-wrap gap-2">
+            {
+              versions.map((version) => (
+                <button
+                  type="button"
+                  lang={version.lang}
+                  data-404-choice={version.lang}
+                  aria-pressed="false"
+                  class="min-h-11 rounded-sm border border-muted px-3 text-sm font-semibold text-ink-secondary aria-pressed:border-accent aria-pressed:text-accent"
+                >
+                  {version.name}
+                </button>
+              ))
+            }
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main id="main" class="bg-surface-alt">
+      {
+        versions.map((version) => (
+          <section
+            lang={version.lang}
+            data-404-lang={version.lang}
+            data-404-title={`${version.title} (404) | Grúas del Vallès`}
+            class="section-padding"
+          >
+            <div class="container-narrow flex flex-col items-center text-center">
+              <p class="text-7xl font-black leading-none text-accent sm:text-8xl">
+                404
+              </p>
+              <h1 class="mt-4 text-3xl font-black leading-tight sm:text-4xl">
+                {version.heading}
+              </h1>
+              <p class="mt-4 max-w-md text-sm leading-relaxed text-ink-secondary">
+                {version.message}
+              </p>
+              <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <Button
+                  href={`${version.prefix}/${version.query}`}
+                  icon="lucide:arrow-left"
+                  iconPosition="start"
+                >
+                  {version.home}
+                </Button>
+                <Button
+                  href={`${version.prefix}/contacto${version.query}`}
+                  variant="outline"
+                  icon="lucide:arrow-right"
+                >
+                  {version.contact}
+                </Button>
+              </div>
+              <nav
+                class="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-semibold text-ink-secondary"
+                aria-label={version.useful}
+              >
+                <a
+                  href={`${version.prefix}/flota${version.query}`}
+                  class="transition-colors hover:text-accent"
+                >
+                  {version.fleet}
+                </a>
+                <a
+                  href={`${version.prefix}/servicios${version.query}`}
+                  class="transition-colors hover:text-accent"
+                >
+                  {version.services}
+                </a>
+                <a
+                  href={`${version.prefix}/contacto${version.query}`}
+                  class="transition-colors hover:text-accent"
+                >
+                  {version.contactLink}
+                </a>
+              </nav>
+            </div>
+          </section>
+        ))
+      }
+    </main>
+    <script src="../scripts/not-found.ts"></script>
+  </body>
+</html>
