@@ -9,15 +9,14 @@ import type { ImageMetadata } from 'astro';
  * módulo mapea cada referencia a la URL final emitida por el build.
  */
 const modules = import.meta.glob<{ default: ImageMetadata }>(
-  '../assets/images/*.{avif,jpg,jpeg,png,webp}',
+  '../assets/images/**/*.{avif,jpg,jpeg,png,webp}',
   { eager: true },
 );
 
 const byRef = new Map<string, string>(
-  Object.entries(modules).map(([path, mod]) => {
-    const file = path.split('/').pop() ?? path;
-    return [`/assets/images/${file}`, mod.default.src];
-  }),
+  Object.entries(modules).map(([path, mod]) => [
+    path.replace('../assets/images/', '/assets/images/'), mod.default.src,
+  ]),
 );
 
 /** Devuelve la URL final de una referencia; si no existe, la deja intacta. */

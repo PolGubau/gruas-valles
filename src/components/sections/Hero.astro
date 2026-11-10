@@ -1,6 +1,5 @@
 ---
 import { getImage } from "astro:assets";
-import fleetImage from "../../assets/images/flota-liebherr-ltm1650-8-1-01.avif";
 import heroImage from "../../assets/images/hero-grua-accion-2024-01.avif";
 import industrialImage from "../../assets/images/galeria-industria-ltm1350-2021-01.avif";
 import portImage from "../../assets/images/operacion-puerto-2020.avif";
@@ -17,7 +16,6 @@ const copy = homeCopy(getLangFromUrl(Astro.url));
 const SLIDE_INTERVAL = 7; // segundos
 
 const heroSlides = [
-  { src: fleetImage },
   { src: heroImage },
   { src: industrialImage },
   { src: portImage },

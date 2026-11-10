@@ -9,7 +9,7 @@ import { runInNewContext } from "node:vm";
 const dist = fileURLToPath(new URL("../dist/", import.meta.url));
 const source = readFileSync(new URL("../src/components/sections/Hero.astro", import.meta.url), "utf8");
 
-test("el hero incluye el vídeo y las cuatro fotos con variantes responsivas", () => {
+test("el hero incluye el vídeo y las tres fotos con variantes responsivas", () => {
   const html = readFileSync(join(dist, "index.html"), "utf8");
   assert.ok(!html.includes('id="hero-motion-toggle"'));
   const video = html.match(/<video\b[^>]*class="hero-slide[^>]*>/)?.[0];
@@ -22,7 +22,7 @@ test("el hero incluye el vídeo y las cuatro fotos con variantes responsivas", (
   assert.ok(existsSync(join(dist, "media/dron/1.avif")));
   const tags = [...html.matchAll(/<img\b[^>]*class="hero-slide[^>]*>/g)].map(([tag]) => tag);
   assert.ok(html.indexOf(video) < html.indexOf(tags[0]));
-  const names = ["flota-liebherr-ltm1650-8-1-01.avif", "hero-grua-accion-2024-01.avif", "galeria-industria-ltm1350-2021-01.avif", "operacion-puerto-2020.avif"];
+  const names = ["hero-grua-accion-2024-01.avif", "galeria-industria-ltm1350-2021-01.avif", "operacion-puerto-2020.avif"];
   assert.equal(tags.length, names.length);
   tags.forEach((tag, i) => {
     const src = tag.match(/\bsrc="([^"]+)"/)?.[1];
@@ -42,7 +42,7 @@ test("el hero incluye el vídeo y las cuatro fotos con variantes responsivas", (
 });
 
 function slideshow(initialReducedMotion = false, rejectVideo = false) {
-  const slides = Array.from({ length: 5 }, (_, i) => {
+  const slides = Array.from({ length: 4 }, (_, i) => {
     const classes = new Set(i === 1 ? ["is-active"] : []);
     return { classes, classList: { add: (name) => classes.add(name), remove: (name) => classes.delete(name) } };
   });
@@ -86,7 +86,9 @@ test("el vídeo se reproduce primero y completo, seguido de las fotos en bucle",
   assert.equal(hero.delay(), 7000);
   hero.tick();
   assert.equal(active(), 2);
-  for (let i = 0; i < 3; i++) hero.tick();
+  hero.tick();
+  assert.equal(active(), 3);
+  hero.tick();
   await Promise.resolve();
   assert.equal(active(), 0);
   assert.equal(hero.video.plays, 2);

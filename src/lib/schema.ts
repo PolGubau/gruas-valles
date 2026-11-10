@@ -78,18 +78,20 @@ export function blogPostingSchema(
 		headline: string;
 		description?: string;
 		articleBody?: string;
+		datePublished?: string;
 		url: string;
 		images?: string[];
 	},
 	site?: URL,
 ) {
-	const { headline, description, articleBody, url, images = [] } = input;
+	const { headline, description, articleBody, datePublished, url, images = [] } = input;
 	return {
 		"@context": "https://schema.org",
 		"@type": "BlogPosting",
 		headline,
 		...(description ? { description } : {}),
 		...(articleBody ? { articleBody } : {}),
+		...(datePublished ? { datePublished } : {}),
 		...(images.length ? { image: images.map((i) => abs(i, site)) } : {}),
 		mainEntityOfPage: { "@type": "WebPage", "@id": abs(url, site) },
 		author: { "@type": "Organization", name: ORG_NAME, url: abs("/", site) },

@@ -178,7 +178,7 @@ Datos extraídos de la web actual de Grúas del Vallès (www.gruasdelvalles.com)
         "actualidad": "Parque de grúas móviles autopropulsadas de 40 a 700 Tn, transportes, camiones grúa, trailers, góndolas, remolques y plataformas."
       }
     },
-    "donde_estamos": { "direccion": "Avda. San Julián 64-66, Polígono Industrial Congost, Granollers (Barcelona)", "referencia": "A 2 minutos del Circuito de Montmeló", "accesos": "Carretera N-152 y AP-7" },
+    "donde_estamos": { "direccion": "Avda. San Julián 64-66, Polígono Industrial Congost, Granollers (Barcelona)", "referencia": "A 10 minutos del Circuito de Montmeló", "accesos": "Carretera N-152 y AP-7" },
     "instalaciones": ["Taller mecánico", "Almacén de recambios", "Depósito de combustible", "Túnel de lavado", "Parque de estacionamiento", "Oficinas centrales", "Comedor y vestuarios"],
     "organismos": ["ANAGRUAL (Junta Directiva autonómica)", "TRANSCALIT (Federación Catalana de Transportes de Barcelona)", "Cruz Roja (Socio Colaborador desde 1997)"],
     "seguridad": "Empresa conservadora/auto-mantenedora de grúas (REIC 08/157.364, 1997). Registro REA nº 0900006812 (2008, renovado 2011). Adaptación L.O.P.D. en 2010."
@@ -346,7 +346,7 @@ Cada maniobra incluye título, descripción completa (extraída de su página de
     "telefono": "+34 93 849 70 22",
     "emergencias": ["669 29 69 54", "669 29 69 49"],
     "email": "gruasdelvalles@gruasdelvalles.com",
-    "referencia": "A dos minutos del Circuito de Montmeló"
+    "referencia": "A diez minutos del Circuito de Montmeló"
   }
 }
 ```

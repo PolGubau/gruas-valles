@@ -5,22 +5,17 @@ import Button from "../ui/Button.astro";
 import Section from "../ui/Section.astro";
 import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 import { homeCopy } from "@i18n/home";
+import { compareBlogDates } from "../../lib/blog";
 
 const lang = getLangFromUrl(Astro.url);
 const copy = homeCopy(lang);
 const localizePath = useTranslatedPath(lang);
 
-// Trabajos ya documentados en el blog, con sus propias fotografías y descripciones.
-const slugs = [
-  "instalacion-equipos-en-hospital-de-granollers",
-  "colocacion-modulos-en-hospitalet",
-  "desmontaje-mercat-dels-encants",
-];
 const entries = await getCollection("blog");
-const trabajos = slugs.flatMap((slug) => {
-  const entry = entries.find((item) => item.id === slug);
-  return entry ? [{ slug: entry.id, ...entry.data }] : [];
-});
+const trabajos = entries
+  .map((entry) => ({ slug: entry.id, ...entry.data }))
+  .sort(compareBlogDates)
+  .slice(0, 3);
 ---
 
 <Section id="trabajos" bg="alt" title={copy.worksTitle}>

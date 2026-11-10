@@ -67,12 +67,16 @@ const flota = defineCollection({
 });
 
 const blog = defineCollection({
-	loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
+	loader: glob({
+		pattern: "**/*.md",
+		base: "./src/content/blog",
+		// La fecha ordena los archivos, pero no forma parte de la URL pública.
+		generateId: ({ entry }) => entry.replace(/(^|\/)\d{4}-\d{2}-\d{2}-/g, "$1").replace(/\.md$/i, ""),
+	}),
 	schema: z.object({
 		titulo: z.string(),
 		resumen: z.string(),
-		orden: z.number().default(0),
-		fecha: z.coerce.date().optional(),
+		fecha: z.coerce.date(),
 		imagenes,
 		documentos: z
 			.array(z.object({ titulo: z.string(), archivo: z.string() }))

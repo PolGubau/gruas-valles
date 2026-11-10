@@ -8,7 +8,7 @@ const copy = {
     heading: "Solicite su presupuesto sin compromiso", intro: "Cuéntenos su proyecto y nuestro equipo técnico le propondrá la solución de elevación más adecuada.",
     home: "Inicio", contact: "Contacto", guarantees: ["Respuesta en menos de 24 h", "Presupuesto sin compromiso", "Asesoramiento técnico incluido", "Emergencias 24 h / 365 días"],
     call: "Llámenos", write: "Escríbanos", commercial: "Lun-Vie · Atención comercial", response: "Respuesta en menos de 24 h", emergency: "Emergencias 24/365", urgent: "Servicio de urgencia permanente",
-    hours: "Horario de atención", weekdays: "Lunes a viernes · 8:00 - 18:00 h", emergencyHours: "Emergencias: 24 horas / 365 días", coverage: "Cobertura", coverageArea: "Toda Catalunya y zonas colindantes", access: "A dos minutos del Circuito de Montmeló · Accesos Carretera N-152 y AP-7",
+    hours: "Horario de atención", weekdays: "Lunes a viernes · 8:00 - 18:00 h", emergencyHours: "Emergencias: 24 horas / 365 días", coverage: "Cobertura", coverageArea: "Toda Catalunya y zonas colindantes", access: "A diez minutos del Circuito de Montmeló · Accesos Carretera N-152 y AP-7",
     cardEyebrow: "Tarjeta de contacto", viewCard: "Ver tarjeta", callPerson: "Llamar", emailPerson: "Enviar email", saveContact: "Guardar contacto",
     personMeta: (name: string, area: string) => `${name}, ${area} en Grúas del Vallès. Contacto directo por teléfono o email.`,
   },

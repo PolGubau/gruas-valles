@@ -28,7 +28,7 @@ export const ca: HomeCopy = {
     { titulo: "Planificació i tràmits", descripcion: "Preparem la maniobra i gestionem els permisos i la documentació corresponents." },
     { titulo: "Execució", descripcion: "Tècnics i operaris especialitzats dirigeixen i executen la maniobra amb la maquinària seleccionada." },
   ],
-  history: "Conegueu la nostra trajectòria des de 1968", worksTitle: "Maniobres que hem realitzat", worksIntro: "Una mostra de la nostra experiència en operacions d'elevació i muntatge.", moreWorks: "Veure més treballs i notícies", readMore: "Llegir més",
+  history: "Conegueu la nostra trajectòria des de 1968", worksTitle: "Últimes notícies i treballs", worksIntro: "Descobriu les últimes novetats i projectes de Grúas del Vallès.", moreWorks: "Veure més treballs i notícies", readMore: "Llegir més",
   works: {
     "instalacion-equipos-en-hospital-de-granollers": { titulo: "Instal·lació d'equips a l'Hospital de Granollers", resumen: "Participem en la instal·lació de tres equips d'aire a l'Hospital de Granollers amb la grua Liebherr LTM 1090 4.2." },
     "colocacion-modulos-en-hospitalet": { titulo: "Col·locació de mòduls a l'Hospitalet", resumen: "Col·loquem la façana de vidre de la Torre Puig a l'Hospitalet amb grues mòbils i plomins especials, a prop de 100 metres d'altura." },

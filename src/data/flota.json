@@ -200,6 +200,37 @@
     ]
   },
   {
+    "categoria": "Grúas para Construcción",
+    "modelos": [
+      {
+        "modelo": "Spierings SK1265-AT6",
+        "pluma_horizontal_m": 60,
+        "peso_punta_kg": 1700,
+        "ejes": 6,
+        "alto_m": 4,
+        "ancho_m": 3,
+        "largo_m": 16.28,
+        "imagenes": [
+          "/assets/images/flota-spierings-sk1265-at6-01.avif"
+        ]
+      },
+      {
+        "modelo": "LIEBHERR MK 88-4.1",
+        "pluma_horizontal_m": 45,
+        "peso_punta_kg": 2200,
+        "ejes": 4,
+        "alto_m": 4,
+        "ancho_m": 2.75,
+        "largo_m": 15.94,
+        "imagenes": [
+          "/assets/images/flota-liebherr-mk88-4-1-01.avif",
+          "/assets/images/flota-liebherr-mk88-4-1-02.avif",
+          "/assets/images/flota-liebherr-mk88-4-1-03.avif"
+        ]
+      }
+    ]
+  },
+  {
     "categoria": "Grúas móviles autopropulsadas",
     "modelos": [
       {
@@ -357,37 +388,6 @@
         "largo_m": 10.71,
         "imagenes": [
           "/assets/images/flota-liebherr-ltm1040-2-1-01.avif"
-        ]
-      }
-    ]
-  },
-  {
-    "categoria": "Grúas para Construcción",
-    "modelos": [
-      {
-        "modelo": "Spierings SK1265-AT6",
-        "pluma_horizontal_m": 60,
-        "peso_punta_kg": 1700,
-        "ejes": 6,
-        "alto_m": 4,
-        "ancho_m": 3,
-        "largo_m": 16.28,
-        "imagenes": [
-          "/assets/images/flota-spierings-sk1265-at6-01.avif"
-        ]
-      },
-      {
-        "modelo": "LIEBHERR MK 88-4.1",
-        "pluma_horizontal_m": 45,
-        "peso_punta_kg": 2200,
-        "ejes": 4,
-        "alto_m": 4,
-        "ancho_m": 2.75,
-        "largo_m": 15.94,
-        "imagenes": [
-          "/assets/images/flota-liebherr-mk88-4-1-01.avif",
-          "/assets/images/flota-liebherr-mk88-4-1-02.avif",
-          "/assets/images/flota-liebherr-mk88-4-1-03.avif"
         ]
       }
     ]

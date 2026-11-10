@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { resolveImage } from "../../lib/images";
+import { compareBlogDates } from "../../lib/blog";
 import BlogCard from "../blog/BlogCard.astro";
 import Button from "../ui/Button.astro";
 import Section from "../ui/Section.astro";
@@ -9,7 +10,7 @@ import Section from "../ui/Section.astro";
 const entries = await getCollection("blog");
 const posts = entries
   .map((e) => ({ slug: e.id, ...e.data }))
-  .sort((a, b) => a.orden - b.orden);
+  .sort(compareBlogDates);
 
 // La primera con foto se muestra en grande; el resto en la cuadrícula.
 const conFoto = posts.filter((p) => p.imagenes.length > 0);

@@ -12,7 +12,7 @@ export const faqs = [
   {
     id: "cobertura",
     q: "¿En qué zonas prestáis servicio de alquiler de grúas?",
-    a: "Operamos en toda Catalunya y zonas colindantes, con base en Granollers (Barcelona), a dos minutos del Circuito de Montmeló y con acceso directo a la N-152 y la AP-7.",
+    a: "Operamos en toda Catalunya y zonas colindantes, con base en Granollers (Barcelona), A diez minutos del Circuito de Montmeló y con acceso directo a la N-152 y la AP-7.",
   },
   {
     id: "emergencia",

@@ -26,7 +26,7 @@ export const en: HomeCopy = {
     { titulo: "Planning and permits", descripcion: "We prepare the lift and manage the permits and documentation required for the work." },
     { titulo: "Execution", descripcion: "Specialist engineers and operators direct and perform the lift using the selected equipment." },
   ],
-  history: "Discover our history since 1968", worksTitle: "Lifts we have completed", worksIntro: "A selection of our experience in lifting and assembly operations.", moreWorks: "See more projects and news", readMore: "Read more",
+  history: "Discover our history since 1968", worksTitle: "Latest news and projects", worksIntro: "Discover the latest news and projects from Grúas del Vallès.", moreWorks: "See more projects and news", readMore: "Read more",
   works: {
     "instalacion-equipos-en-hospital-de-granollers": { titulo: "Equipment installation at Granollers Hospital", resumen: "We helped install three air conditioning units at Granollers Hospital using our Liebherr LTM 1090 4.2 crane." },
     "colocacion-modulos-en-hospitalet": { titulo: "Module installation in L'Hospitalet", resumen: "We helped install the glass façade of Torre Puig in L'Hospitalet using mobile cranes with special jibs at a height of nearly 100 metres." },

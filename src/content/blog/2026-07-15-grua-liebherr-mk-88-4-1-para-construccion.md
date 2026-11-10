@@ -1,7 +1,7 @@
 ---
 titulo: "Grúa LIEBHERR MK 88-4.1 para Construcción"
 resumen: "Nuestra empresa acaba de incorporar a su extensa flota la grúa de construcción LIEBHERR MK 88-4.1, un nuevo concepto de vehículo para realizar determinados trabajos que requieran un alcance importante en el izado de materiales o equipos a cubierta ocupando el mínimo espacio."
-orden: 3
+fecha: 2025-07-15
 imagenes:
   - /assets/images/flota-liebherr-mk88-4-1-01.avif
   - /assets/images/flota-liebherr-mk88-4-1-02.avif

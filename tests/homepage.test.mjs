@@ -143,15 +143,21 @@ test("los controles de la cinta pausarán y reanudarán el movimiento", () => {
   assert.equal(viewport.tabIndex, 0);
 });
 
-test("los trabajos destacados enlazan a artículos e imágenes generadas", () => {
-  const trabajos = section("trabajos");
-  const slugs = ["instalacion-equipos-en-hospital-de-granollers", "colocacion-modulos-en-hospitalet", "desmontaje-mercat-dels-encants"];
-  for (const slug of slugs) {
-    const card = trabajos.match(new RegExp(`<a href="/blog/${slug}"[\\s\\S]*?</a>`))?.[0];
-    assert.ok(card, `Missing work: ${slug}`);
-    assert.ok(existsSync(new URL(`blog/${slug}/index.html`, dist)));
-    const image = card.match(/<img[^>]+src="([^"]+)"/)?.[1];
-    assert.ok(image && existsSync(join(fileURLToPath(dist), decodeURIComponent(image))));
+test("la portada destaca las tres primeras noticias del blog en cada idioma", () => {
+  const cards = (html) => [...html.matchAll(/<a href="([^"]+)" class="group flex flex-col overflow-hidden rounded-sm bg-white[^>]*>[\s\S]*?<\/a>/g)];
+  for (const prefix of ["", "ca/", "en/"]) {
+    const html = readFileSync(new URL(`${prefix}index.html`, dist), "utf8");
+    const start = html.indexOf('id="trabajos"');
+    assert.notEqual(start, -1);
+    const featured = cards(html.slice(start, html.indexOf("</section>", start)));
+    const blog = cards(readFileSync(new URL(`${prefix}blog/index.html`, dist), "utf8"));
+    assert.equal(featured.length, 3);
+    assert.deepEqual(featured.map((card) => card[1]), blog.slice(0, 3).map((card) => card[1]));
+    for (const [card, href] of featured) {
+      assert.ok(existsSync(new URL(`${href.slice(1)}/index.html`, dist)), href);
+      const image = card.match(/<img[^>]+src="([^"]+)"/)?.[1];
+      if (image) assert.ok(existsSync(join(fileURLToPath(dist), decodeURIComponent(image))));
+    }
   }
 });
 

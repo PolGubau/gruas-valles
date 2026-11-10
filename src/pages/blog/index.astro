@@ -4,6 +4,7 @@ import Page from "../../layouts/Page.astro";
 import Breadcrumb from "../../components/ui/Breadcrumb.astro";
 import BlogCard from "../../components/blog/BlogCard.astro";
 import { collectionPageSchema } from "../../lib/schema";
+import { compareBlogDates } from "../../lib/blog";
 import { blogCopy, translatedPost } from "@i18n/blog";
 import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 
@@ -13,7 +14,7 @@ const localizePath = useTranslatedPath(lang);
 const entries = await getCollection("blog");
 const posts = entries
   .map((e) => ({ slug: e.id, ...e.data }))
-  .sort((a, b) => a.orden - b.orden);
+  .sort(compareBlogDates);
 
 const description = copy.description;
 const schema = collectionPageSchema(

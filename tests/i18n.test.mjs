@@ -35,12 +35,10 @@ test("los servicios y trabajos conservan su traducción asociada a cada enlace",
     ca: {
       "/servicios/transportes-especiales": "Transports de mercaderies i transports especials",
       "/servicios/montaje-estructuras-prefabricado": "Muntatge d&#39;estructures prefabricades",
-      "/blog/desmontaje-mercat-dels-encants": "Desmuntatge al Mercat dels Encants",
     },
     en: {
       "/servicios/transportes-especiales": "Freight and special transport",
       "/servicios/montaje-estructuras-prefabricado": "Precast structure assembly",
-      "/blog/desmontaje-mercat-dels-encants": "Dismantling at Mercat dels Encants",
     },
   };
   for (const [lang, links] of Object.entries(expected)) {
@@ -48,6 +46,15 @@ test("los servicios y trabajos conservan su traducción asociada a cada enlace",
       const target = `/${lang}${href}`;
       const card = pages[lang].match(new RegExp(`<a href="${target}"[\\s\\S]*?</a>`))?.[0];
       assert.ok(card?.includes(title), `${lang}: ${href}`);
+    }
+    const section = pages[lang].match(/<section id="trabajos"[\s\S]*?<\/section>/)?.[0];
+    assert.ok(section, lang);
+    const cards = [...section.matchAll(/<a href="(\/(?:ca|en)\/blog\/[^"/]+)"[^>]*>[\s\S]*?<h3[^>]*>([\s\S]*?)<\/h3>[\s\S]*?<\/a>/g)];
+    assert.equal(cards.length, 3, lang);
+    for (const [, href, title] of cards) {
+      const article = readFileSync(new URL(`${href.slice(1)}/index.html`, dist), "utf8");
+      const heading = article.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1];
+      assert.equal(title.trim(), heading?.trim(), `${lang}: ${href}`);
     }
   }
 });
@@ -154,7 +161,7 @@ test("el catálogo y todas las fichas de flota se generan en los tres idiomas", 
       assert.ok(index.includes(`href="/${prefix}flota/${slug}"`));
       assert.ok(html.includes(`hreflang="${lang}" href="https://www.gruasdelvalles.com/${prefix}flota/${slug}/"`));
     }
-    const heavyCrane = readFileSync(new URL(`${prefix}flota/liebherr-ltm-1500-8-1/index.html`, dist), "utf8");
+    const heavyCrane = readFileSync(new URL(`${prefix}flota/liebherr-ltm-1650-8-1/index.html`, dist), "utf8");
     assert.ok(heavyCrane.includes(expected[lang][2]));
   }
 });
@@ -269,7 +276,7 @@ test("empleo y páginas legales tienen contenido y navegación en cada idioma", 
 
 test("todas las noticias están traducidas y enlazadas desde su índice", () => {
   const posts = readdirSync(fileURLToPath(new URL("../src/content/blog/", import.meta.url)))
-    .filter((name) => name.endsWith(".md")).map((name) => name.slice(0, -3));
+    .filter((name) => name.endsWith(".md")).map((name) => name.replace(/^\d{4}-\d{2}-\d{2}-/, "").slice(0, -3));
   assert.ok(posts.length > 0);
   for (const lang of ["es", "ca", "en"]) {
     const prefix = lang === "es" ? "" : `${lang}/`;
