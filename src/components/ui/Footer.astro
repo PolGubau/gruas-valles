@@ -247,7 +247,10 @@ const legalLinks = [
       >
         {
           legalLinks.map(({ href, label }) => (
-            <a href={href} class="transition-colors hover:text-white">
+            <a
+              href={localizePath(href)}
+              class="transition-colors hover:text-white"
+            >
               {label}
             </a>
           ))

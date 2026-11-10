@@ -1,0 +1,419 @@
+---
+import contacto from "../../../data/contacto.json";
+import Legal from "../../../layouts/Legal.astro";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
+export function getStaticPaths() {
+  return ["ca", "en"].map((locale) => ({ params: { locale } }));
+}
+const lang = getLangFromUrl(Astro.url);
+const ca = lang === "ca";
+const path = useTranslatedPath(lang);
+---
+
+<Legal
+  title={ca ? "Política de galetes" : "Cookie policy"}
+  description={ca
+    ? "Informació sobre l'ús de galetes al lloc web de Grúas del Vallès, S.A."
+    : "Information about the use of cookies on the Grúas del Vallès, S.A. website."}
+  updated={ca ? "7 de juny de 2026" : "7 June 2026"}
+>
+  {
+    ca ? (
+      <>
+        <h2>1. Què són les galetes?</h2>
+        <p>
+          Les galetes són petits fitxers de text que els llocs web emmagatzemen
+          al dispositiu de la persona usuària per recordar informació sobre la
+          seva visita.
+        </p>
+        <h2>2. Per què utilitzem galetes en aquest lloc?</h2>
+        <p>
+          Aquest lloc web és una pàgina estàtica de caràcter informatiu.{" "}
+          <strong>
+            No utilitzem galetes pròpies d'anàlisi, personalització ni
+            publicitat
+          </strong>
+          , ni elaborem perfils de les persones usuàries. Les tipografies se
+          serveixen des del nostre servidor, de manera que tampoc generen
+          galetes de tercers.
+        </p>
+        <p>
+          Les úniques galetes que es poden instal·lar són galetes de tercers
+          procedents del mapa de <strong>Google Maps</strong> que mostrem a les
+          pàgines de <a href={path("/contacto")}>Contacte</a> i{" "}
+          <a href={path("/nosotros")}>Nosaltres</a>, i que només es carreguen en
+          visitar aquestes pàgines.
+        </p>
+        <h2>3. Tipus de galetes</h2>
+        <p>
+          Amb caràcter general, les galetes es poden classificar de la manera
+          següent:
+        </p>
+        <ul>
+          <>
+            <li>
+              <strong>Segons la durada:</strong> galetes de sessió (s'eliminen
+              en tancar el navegador) i galetes persistents (es mantenen durant
+              un període determinat).
+            </li>
+            <li>
+              <strong>Segons la titularitat:</strong> galetes pròpies
+              (gestionades per l'editor del lloc) i galetes de tercers
+              (gestionades per una entitat aliena, com Google).
+            </li>
+            <li>
+              <strong>Segons la finalitat:</strong> galetes tècniques, de
+              personalització, d'anàlisi i publicitàries.
+            </li>
+          </>
+        </ul>
+        <h2>4. Galetes utilitzades en aquest lloc</h2>
+        <p>
+          Aquest lloc <strong>no instal·la galetes pròpies</strong>. Les úniques
+          galetes que es poden emmagatzemar al dispositiu són galetes de tercers
+          que Google instal·la en carregar el mapa de Google Maps incrustat a
+          les pàgines de Contacte i Nosaltres:
+        </p>
+        <div class="table-scroll">
+          <table>
+            <>
+              <thead>
+                <tr>
+                  <>
+                    <th>Galeta</th>
+                    <th>Titular / domini</th>
+                    <th>Finalitat</th>
+                    <th>Caducitat</th>
+                  </>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <>
+                    <td>NID</td>
+                    <td>Google (.google.com)</td>
+                    <td>
+                      Emmagatzema les preferències de la persona usuària (com
+                      ara l'idioma) per personalitzar els serveis i mapes de
+                      Google.
+                    </td>
+                    <td>6 mesos</td>
+                  </>
+                </tr>
+                <tr>
+                  <>
+                    <td>CONSENT</td>
+                    <td>Google (.google.com)</td>
+                    <td>
+                      Registra l'estat del consentiment respecte dels serveis de
+                      Google mostrats a la pàgina.
+                    </td>
+                    <td>Persistent (fins a 2 anys)</td>
+                  </>
+                </tr>
+                <tr>
+                  <>
+                    <td>SOCS</td>
+                    <td>Google (.google.com)</td>
+                    <td>
+                      Emmagatzema l'estat de la sessió i les preferències de
+                      consentiment als serveis de Google.
+                    </td>
+                    <td>13 mesos</td>
+                  </>
+                </tr>
+              </tbody>
+            </>
+          </table>
+        </div>
+        <p>
+          Grúas del Vallès no controla la instal·lació ni la durada d'aquestes
+          galetes, ja que les gestiona Google com a tercer. Els noms i terminis
+          poden variar segons les actualitzacions de Google.
+        </p>
+        <h2>5. Consentiment</h2>
+        <p>
+          Com que el lloc no instal·la galetes pròpies d'anàlisi ni
+          publicitàries, no es mostra cap panell de configuració de galetes. Les
+          galetes de tercers de Google Maps només es carreguen a les pàgines que
+          inclouen el mapa. Si no voleu que s'instal·lin, podeu no accedir a
+          aquestes pàgines o bloquejar les galetes de tercers des de la
+          configuració del navegador, tal com s'indica a l'apartat següent.
+        </p>
+        <h2>6. Com gestionar o desactivar les galetes</h2>
+        <p>
+          Podeu configurar o desactivar les galetes des de les opcions del
+          navegador. A continuació s'enllacen les instruccions dels navegadors
+          més habituals:
+        </p>
+        <ul>
+          <>
+            <li>
+              <a
+                href="https://support.google.com/chrome/answer/95647"
+                rel="noopener"
+                target="_blank"
+              >
+                Google Chrome
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://support.mozilla.org/es/kb/Borrar%20cookies"
+                rel="noopener"
+                target="_blank"
+              >
+                Mozilla Firefox
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://support.apple.com/es-es/guide/safari/sfri11471/mac"
+                rel="noopener"
+                target="_blank"
+              >
+                Safari
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://support.microsoft.com/es-es/microsoft-edge"
+                rel="noopener"
+                target="_blank"
+              >
+                Microsoft Edge
+              </a>
+            </li>
+          </>
+        </ul>
+        <h2>7. Més informació</h2>
+        <p>
+          Per a més informació sobre com Google utilitza les galetes als seus
+          serveis, podeu consultar la{" "}
+          <a
+            href="https://policies.google.com/technologies/cookies"
+            rel="noopener"
+            target="_blank"
+          >
+            política de galetes de Google
+          </a>
+          . També podeu ampliar informació sobre l'ús i el bloqueig de galetes a{" "}
+          <a
+            href="https://www.allaboutcookies.org"
+            rel="noopener"
+            target="_blank"
+          >
+            allaboutcookies.org
+          </a>{" "}
+          i{" "}
+          <a
+            href="https://www.youronlinechoices.eu"
+            rel="noopener"
+            target="_blank"
+          >
+            youronlinechoices.eu
+          </a>
+          .
+        </p>
+        <p>
+          Si teniu cap dubte sobre la nostra política de galetes, podeu
+          contactar amb nosaltres a{" "}
+          <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.
+        </p>
+      </>
+    ) : (
+      <>
+        <h2>1. What are cookies?</h2>
+        <p>
+          Cookies are small text files that websites store on a user's device to
+          remember information about their visit.
+        </p>
+        <h2>2. Why do we use cookies on this site?</h2>
+        <p>
+          This website is a static informational site.{" "}
+          <strong>
+            We do not use first-party analytics, personalisation or advertising
+            cookies
+          </strong>
+          , nor do we create user profiles. Fonts are served from our own server
+          and therefore do not generate third-party cookies either.
+        </p>
+        <p>
+          The only cookies that may be installed are third-party cookies from
+          the <strong>Google Maps</strong> map shown on our{" "}
+          <a href={path("/contacto")}>Contact</a> and{" "}
+          <a href={path("/nosotros")}>About us</a> pages, and they only load
+          when those pages are visited.
+        </p>
+        <h2>3. Types of cookies</h2>
+        <p>In general, cookies can be classified as follows:</p>
+        <ul>
+          <>
+            <li>
+              <strong>By duration:</strong> session cookies (deleted when the
+              browser closes) and persistent cookies (retained for a specified
+              period).
+            </li>
+            <li>
+              <strong>By ownership:</strong> first-party cookies (managed by the
+              website publisher) and third-party cookies (managed by an external
+              entity, such as Google).
+            </li>
+            <li>
+              <strong>By purpose:</strong> technical, personalisation, analytics
+              and advertising cookies.
+            </li>
+          </>
+        </ul>
+        <h2>4. Cookies used on this site</h2>
+        <p>
+          This site <strong>does not install first-party cookies</strong>. The
+          only cookies that may be stored on your device are third-party cookies
+          installed by Google when the embedded Google Maps map loads on the
+          Contact and About us pages:
+        </p>
+        <div class="table-scroll">
+          <table>
+            <>
+              <thead>
+                <tr>
+                  <>
+                    <th>Cookie</th>
+                    <th>Owner / domain</th>
+                    <th>Purpose</th>
+                    <th>Expiry</th>
+                  </>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <>
+                    <td>NID</td>
+                    <td>Google (.google.com)</td>
+                    <td>
+                      Stores user preferences (such as language) to personalise
+                      Google services and maps.
+                    </td>
+                    <td>6 months</td>
+                  </>
+                </tr>
+                <tr>
+                  <>
+                    <td>CONSENT</td>
+                    <td>Google (.google.com)</td>
+                    <td>
+                      Records consent status for Google services displayed on
+                      the page.
+                    </td>
+                    <td>Persistent (up to 2 years)</td>
+                  </>
+                </tr>
+                <tr>
+                  <>
+                    <td>SOCS</td>
+                    <td>Google (.google.com)</td>
+                    <td>
+                      Stores session status and consent preferences for Google
+                      services.
+                    </td>
+                    <td>13 months</td>
+                  </>
+                </tr>
+              </tbody>
+            </>
+          </table>
+        </div>
+        <p>
+          Grúas del Vallès does not control the installation or duration of
+          these cookies, as they are managed by Google as a third party. Names
+          and periods may change when Google updates its services.
+        </p>
+        <h2>5. Consent</h2>
+        <p>
+          Since the site does not install first-party analytics or advertising
+          cookies, no cookie settings panel is displayed. Google Maps
+          third-party cookies only load on pages containing the map. If you do
+          not want them installed, you may avoid those pages or block
+          third-party cookies in your browser settings, as explained below.
+        </p>
+        <h2>6. How to manage or disable cookies</h2>
+        <p>
+          You can configure or disable cookies in your browser settings.
+          Instructions for common browsers are linked below:
+        </p>
+        <ul>
+          <>
+            <li>
+              <a
+                href="https://support.google.com/chrome/answer/95647"
+                rel="noopener"
+                target="_blank"
+              >
+                Google Chrome
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://support.mozilla.org/es/kb/Borrar%20cookies"
+                rel="noopener"
+                target="_blank"
+              >
+                Mozilla Firefox
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://support.apple.com/es-es/guide/safari/sfri11471/mac"
+                rel="noopener"
+                target="_blank"
+              >
+                Safari
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://support.microsoft.com/es-es/microsoft-edge"
+                rel="noopener"
+                target="_blank"
+              >
+                Microsoft Edge
+              </a>
+            </li>
+          </>
+        </ul>
+        <h2>7. More information</h2>
+        <p>
+          For more information on how Google uses cookies in its services, see{" "}
+          <a
+            href="https://policies.google.com/technologies/cookies"
+            rel="noopener"
+            target="_blank"
+          >
+            Google's cookie policy
+          </a>
+          . Further information on using and blocking cookies is available at{" "}
+          <a
+            href="https://www.allaboutcookies.org"
+            rel="noopener"
+            target="_blank"
+          >
+            allaboutcookies.org
+          </a>{" "}
+          and{" "}
+          <a
+            href="https://www.youronlinechoices.eu"
+            rel="noopener"
+            target="_blank"
+          >
+            youronlinechoices.eu
+          </a>
+          .
+        </p>
+        <p>
+          If you have questions about our cookie policy, contact us at{" "}
+          <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.
+        </p>
+      </>
+    )
+  }
+</Legal>

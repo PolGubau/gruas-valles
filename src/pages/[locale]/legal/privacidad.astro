@@ -1,0 +1,64 @@
+---
+import contacto from "../../../data/contacto.json";
+import Legal from "../../../layouts/Legal.astro";
+import { getLangFromUrl } from "@i18n/utils";
+export function getStaticPaths() { return ["ca", "en"].map((locale) => ({ params: { locale } })); }
+const ca = getLangFromUrl(Astro.url) === "ca";
+---
+<Legal title={ca ? "Política de privacitat" : "Privacy policy"} description={ca ? "Política de privacitat i protecció de dades de Grúas del Vallès, S.A." : "Privacy and data protection policy of Grúas del Vallès, S.A."} updated={ca ? "juny de 2025" : "June 2025"}>
+  {ca ? <>
+    <p>Mitjançant aquesta política de privacitat, {contacto.empresa} vol informar totes les persones que naveguin i accedeixin al lloc web <a href={contacto.web}>{contacto.web}</a> sobre els tractaments de dades personals realitzats.</p>
+    <p>L'accés al lloc web no requereix un registre previ. En qualsevol cas, amb la seva navegació l'usuari accepta íntegrament aquesta política de privacitat i la política de galetes.</p>
+    <p>Abans d'enviar qualsevol sol·licitud d'informació mitjançant el formulari de contacte d'aquesta pàgina web, l'usuari ha d'acceptar la política de privacitat per prestar el consentiment exprés i informat al tractament de les dades amb les finalitats indicades.</p>
+    <p>{contacto.empresa}, de conformitat amb el Reglament (UE) 2016/679, de 27 d'abril de 2016, relatiu a la protecció de les persones físiques pel que fa al tractament de dades personals i a la lliure circulació d'aquestes dades, així com amb la Llei orgànica 3/2018, de 5 de desembre, de protecció de dades personals i garantia dels drets digitals, en qualitat de responsable del tractament de les dades personals proporcionades, facilita la informació següent:</p>
+    <h2>Responsable del tractament</h2>
+    <ul><li><strong>Raó social:</strong> {contacto.empresa}</li><li><strong>NIF:</strong> {contacto.cif}</li><li><strong>Domicili:</strong> {contacto.direccion}</li><li><strong>Correu electrònic:</strong> <a href={`mailto:${contacto.email}`}>{contacto.email}</a></li></ul>
+    <h2>Finalitat del tractament i conservació de les dades</h2>
+    <p>Tractem les dades i la informació facilitades per les persones interessades amb la finalitat de:</p>
+    <p>1. Gestionar l'ús de les funcionalitats disponibles al lloc web, incloses les respostes a les sol·licituds i/o consultes i la preparació de pressupostos.</p>
+    <p>Les dades tractades amb aquesta finalitat es conservaran mentre es mantingui la relació contractual i/o negocial entre l'usuari i {contacto.empresa}. Si les sol·licituds d'un usuari no comporten una relació contractual, les dades es conservaran fins que s'hagi resolt la sol·licitud.</p>
+    <h2>Legitimació</h2>
+    <p>El tractament d'aquestes dades es legitima pel consentiment de la persona interessada i, si escau, per l'execució de les obligacions contractuals i/o negocials.</p>
+    <h2>Comunicació de les dades</h2>
+    <p>Les dades no es comunicaran a altres tercers, excepte per obligació legal o amb el consentiment exprés de la persona interessada.</p>
+    <h2>Transferències internacionals de dades</h2>
+    <p>No es fan transferències internacionals de dades a tercers països fora de la Unió Europea.</p>
+    <h2>Drets de la persona interessada</h2>
+    <p>La persona interessada té dret a retirar el consentiment en qualsevol moment. També pot exercir els drets d'accés, rectificació i supressió (dret a l'oblit), limitació del tractament, portabilitat de les dades i oposició, enviant un escrit a {contacto.direccion} o un correu electrònic a <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
+    <p>La persona interessada també pot revocar el consentiment per a l'enviament de comunicacions comercials mitjançant un correu electrònic a <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
+    <p>La persona interessada pot presentar una reclamació davant l'autoritat de control competent en matèria de protecció de dades, actualment l'Agència Espanyola de Protecció de Dades (AEPD), a través de la seva seu electrònica: <a href="https://www.sedeagpd.gob.es/sede-electronica-web" rel="noopener" target="_blank">www.sedeagpd.gob.es/sede-electronica-web</a>, o enviant un escrit a C/ Jorge Juan nº6 – 28001 MADRID.</p>
+    <h2>És obligatori proporcionar tota la informació sol·licitada a l'apartat de contacte?</h2>
+    <p>Pel que fa als formularis del lloc web, l'usuari ha d'emplenar els camps marcats com a «requerit». No completar les dades personals requerides o fer-ho parcialment pot suposar que {contacto.empresa} no pugui atendre les sol·licituds i, en conseqüència, {contacto.empresa} quedarà exonerada de tota responsabilitat per la no prestació o la prestació incompleta dels serveis sol·licitats.</p>
+    <p>Les dades personals facilitades a {contacto.empresa} han de ser actuals perquè la informació dels registres estigui actualitzada i sense errors. L'usuari respondrà de la veracitat de les dades facilitades.</p>
+    <h2>Quines mesures de seguretat té implantades l'empresa?</h2>
+    <p>{contacto.empresa} informa que el tractament de dades personals es duu a terme en tot moment d'acord amb la normativa aplicable en matèria de protecció de dades i de serveis de la societat de la informació.</p>
+    <p>{contacto.empresa} informa que ha implantat les mesures de seguretat tècniques i organitzatives necessàries per garantir la seguretat de les dades personals de l'usuari i evitar-ne l'alteració, pèrdua, tractament i/o accés no autoritzat, d'acord amb l'estat de la tecnologia, la naturalesa de les dades emmagatzemades i els riscos als quals estan exposades, tant si provenen de l'acció humana com del medi físic o natural, de conformitat amb la normativa vigent.</p>
+  </> : <>
+    <p>Through this privacy policy, {contacto.empresa} informs everyone browsing or accessing <a href={contacto.web}>{contacto.web}</a> about the processing of personal data carried out.</p>
+    <p>Access to the website does not require prior registration. In any event, by browsing, users fully accept this privacy policy and the cookie policy.</p>
+    <p>Before sending an information request through this website's contact form, users must accept the privacy policy to give express and informed consent to processing their data for the stated purposes.</p>
+    <p>In accordance with Regulation (EU) 2016/679 of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and the free movement of such data, and Organic Law 3/2018 of 5 December on Personal Data Protection and the Guarantee of Digital Rights, {contacto.empresa}, as controller of the personal data provided, supplies the following information:</p>
+    <h2>Data controller</h2>
+    <ul><li><strong>Company name:</strong> {contacto.empresa}</li><li><strong>Tax ID:</strong> {contacto.cif}</li><li><strong>Address:</strong> {contacto.direccion}</li><li><strong>Email:</strong> <a href={`mailto:${contacto.email}`}>{contacto.email}</a></li></ul>
+    <h2>Purpose of processing and data retention</h2>
+    <p>We process data and information provided by data subjects for the following purpose:</p>
+    <p>1. Managing the use of website features, including responding to requests and/or enquiries and preparing quotes.</p>
+    <p>Data processed for this purpose will be retained while the contractual and/or business relationship between the user and {contacto.empresa} continues. If a user's request does not involve a contractual relationship, the data will be retained until the request has been resolved.</p>
+    <h2>Legal basis</h2>
+    <p>Processing is based on the data subject's consent and, where applicable, the performance of contractual and/or business obligations.</p>
+    <h2>Disclosure of data</h2>
+    <p>Data will not be disclosed to other third parties unless legally required or with the data subject's express consent.</p>
+    <h2>International data transfers</h2>
+    <p>No international transfers of data are made to third countries outside the European Union.</p>
+    <h2>Data subjects' rights</h2>
+    <p>Data subjects have the right to withdraw consent at any time. They may also exercise their rights of access, rectification and erasure (right to be forgotten), restriction of processing, data portability and objection by writing to {contacto.direccion} or emailing <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
+    <p>Data subjects may also withdraw consent to receive commercial communications by emailing <a href={`mailto:${contacto.email}`}>{contacto.email}</a>.</p>
+    <p>Data subjects may lodge a complaint with the competent data protection supervisory authority, currently the Spanish Data Protection Agency (AEPD), through its online office: <a href="https://www.sedeagpd.gob.es/sede-electronica-web" rel="noopener" target="_blank">www.sedeagpd.gob.es/sede-electronica-web</a>, or by writing to C/ Jorge Juan nº6 – 28001 MADRID.</p>
+    <h2>Must all information requested in the contact section be provided?</h2>
+    <p>For website forms, users must complete fields marked as required. Failure to provide the required personal data, or providing only part of it, may prevent {contacto.empresa} from handling requests; consequently, {contacto.empresa} will be exempt from liability for failure to provide, or incomplete provision of, the requested services.</p>
+    <p>Personal data provided to {contacto.empresa} must be current so that records remain up to date and error-free. Users are responsible for the accuracy of the data provided.</p>
+    <h2>What security measures has the company implemented?</h2>
+    <p>{contacto.empresa} states that personal data is processed at all times in accordance with applicable data protection and information society services legislation.</p>
+    <p>{contacto.empresa} states that it has implemented the necessary technical and organisational security measures to protect users' personal data against alteration, loss, processing and/or unauthorised access, taking into account the state of technology, the nature of stored data and the risks to which it is exposed, whether caused by human action or the physical or natural environment, in accordance with current regulations.</p>
+  </>}
+</Legal>

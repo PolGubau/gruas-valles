@@ -1,6 +1,7 @@
 ---
 import Page from "./Page.astro";
 import Breadcrumb from "../components/ui/Breadcrumb.astro";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 
 interface Props {
   title: string;
@@ -9,20 +10,30 @@ interface Props {
 }
 
 const { title, description, updated } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const localizePath = useTranslatedPath(lang);
+const labels = {
+  es: { home: "Inicio", updated: "Última actualización" },
+  ca: { home: "Inici", updated: "Última actualització" },
+  en: { home: "Home", updated: "Last updated" },
+}[lang];
 ---
 
 <Page title={`${title} | Grúas del Vallès`} description={description}>
   <section class="border-b border-muted/40 bg-surface-alt">
     <div class="container-narrow py-12 lg:py-16">
       <Breadcrumb
-        items={[{ label: "Inicio", href: "/" }, { label: title }]}
+        items={[
+          { label: labels.home, href: localizePath("/") },
+          { label: title },
+        ]}
         class="mb-8"
       />
       <h1 class="text-3xl font-black leading-tight sm:text-4xl">{title}</h1>
       {
         updated && (
           <p class="mt-4 text-xs text-muted-dark">
-            Última actualización: {updated}
+            {labels.updated}: {updated}
           </p>
         )
       }
@@ -55,6 +66,27 @@ const { title, description, updated } = Astro.props;
   }
   .legal-prose a {
     @apply text-accent underline underline-offset-2 hover:text-accent-dark;
+  }
+  .legal-prose .table-scroll {
+    overflow-x: auto;
+  }
+  .legal-prose table {
+    width: 100%;
+    min-width: 36rem;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+  }
+  .legal-prose th,
+  .legal-prose td {
+    border: 1px solid var(--color-muted);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .legal-prose thead th {
+    background: var(--color-surface-alt);
+    font-weight: 700;
   }
   .legal-prose .placeholder {
     @apply my-4 border-l-2 border-accent bg-accent-soft px-4 py-3 text-sm text-ink-secondary;
