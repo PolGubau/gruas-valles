@@ -67,12 +67,17 @@ test("contacto tiene contenido, metadatos y navegación en cada idioma", () => {
     assert.ok(main?.includes('id="contacto"'));
     assert.ok(main?.includes('id="donde-estamos"'));
     assert.ok(main?.includes('id="faq-title"'));
-    for (const [code, target] of [["es", "/contacto"], ["ca", "/ca/contacto"], ["en", "/en/contacto"]]) {
+    const faqSchema = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+      .map((match) => JSON.parse(match[1]))
+      .find((node) => node["@type"] === "FAQPage");
+    assert.equal(faqSchema?.mainEntity.length, 8);
+    for (const question of faqSchema.mainEntity) assert.ok(main.includes(question.name.replaceAll("'", "&#39;")), `${lang}: FAQ visible`);
+    for (const [code, target] of [["es", "/contacto/"], ["ca", "/ca/contacto/"], ["en", "/en/contacto/"]]) {
       assert.ok(html.includes(`hreflang="${code}" href="https://www.gruasdelvalles.com${target}"`));
       const selector = html.match(new RegExp(`<a href="${target}${code === "es" ? "\\?lang=es" : ""}" data-language="${code}"`));
       assert.ok(selector, `${lang} selector: ${code}`);
     }
-    assert.ok(html.includes(`rel="canonical" href="https://www.gruasdelvalles.com/${path}"`));
+    assert.ok(html.includes(`rel="canonical" href="https://www.gruasdelvalles.com/${path}/"`));
     assert.ok(pages[lang].includes(`href="/${path}"`), `${lang}: homepage contact link`);
   }
 });

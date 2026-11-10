@@ -16,6 +16,7 @@ const canonical = new URL(Astro.url.pathname, site).href;
 const imageUrl = new URL(image, site).href;
 const lang = getLangFromUrl(Astro.url);
 const route = getRouteFromUrl(Astro.url).replace(/\/$/, "") || "/";
+const alternateRoute = route === "/" ? "/" : `${route}/`;
 const ogLocale = { es: "es_ES", ca: "ca_ES", en: "en_GB" }[lang];
 
 const jsonLd = {
@@ -83,10 +84,10 @@ const jsonLd = {
 {
   hasTranslations(route) &&
     [
-      { lang: "es", path: route },
-      { lang: "ca", path: `/ca${route}` },
-      { lang: "en", path: `/en${route}` },
-      { lang: "x-default", path: route },
+      { lang: "es", path: alternateRoute },
+      { lang: "ca", path: `/ca${alternateRoute}` },
+      { lang: "en", path: `/en${alternateRoute}` },
+      { lang: "x-default", path: alternateRoute },
     ].map((entry) => (
       <link
         rel="alternate"

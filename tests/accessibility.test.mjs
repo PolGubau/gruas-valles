@@ -48,6 +48,7 @@ test("el sitemap incluye las traducciones reales, pero no las redirecciones inte
       const redirect = readFileSync(redirectPath, "utf8");
       assert.match(redirect, /http-equiv="refresh"/);
       assert.match(redirect, /name="robots" content="noindex"/);
+      assert.ok(redirect.includes(`url=${url.pathname.replace(/\/$/, "")}`), `Destino inesperado: ${locale}${url.pathname}`);
     }
   }
 });
