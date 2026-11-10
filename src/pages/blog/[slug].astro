@@ -53,6 +53,11 @@ const crumbs = [
   { label: copy.news, href: localizePath("/blog") },
   { label: post.titulo, href: url },
 ];
+
+// Cuerpo traducido partido en párrafos; `null` en castellano (Markdown fuente).
+const bodyParagraphs = translation
+  ? (translation.cuerpo ?? translation.resumen).split(/\n{2,}/)
+  : null;
 ---
 
 <Page
@@ -112,8 +117,8 @@ const crumbs = [
         class="blog-prose max-w-3xl text-base leading-relaxed text-ink-secondary"
       >
         {
-          translation ? (
-            <p>{translation.cuerpo ?? translation.resumen}</p>
+          bodyParagraphs ? (
+            bodyParagraphs.map((paragraph) => <p>{paragraph}</p>)
           ) : (
             <Content />
           )
