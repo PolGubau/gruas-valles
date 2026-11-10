@@ -51,5 +51,5 @@ export const ca: HomeCopy = {
   legalNotice: "Avís legal", privacy: "Política de privacitat", cookies: "Política de galetes", legalLinks: "Enllaços legals", programmed: "Programat per",
   youtubeLabel: "Canal de YouTube de Grúas del Vallès", emailLabel: "Enviar correu", quickContact: "Contacte ràpid", callLabel: "Trucar al", sendEmail: "Enviar correu a",
   quoteEmail: "Demanar pressupost per correu", quote: "Demanar pressupost", emailSubject: "Sol·licitud de pressupost", emailBody: "Hola,\n\nVoldria sol·licitar un pressupost per a:\n\n- Tipus de treball:\n- Tonatge aproximat:\n- Data prevista:\n- Ubicació:\n\nGràcies.",
-  spanishNotice: "Algunes pàgines i el catàleg descarregable només estan disponibles en castellà.", primaryNav: "Principal", mobileNav: "Mòbil",
+  spanishNotice: "Alguns documents descarregables només estan disponibles en castellà.", primaryNav: "Principal", mobileNav: "Mòbil",
 };

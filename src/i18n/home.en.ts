@@ -49,5 +49,5 @@ export const en: HomeCopy = {
   legalNotice: "Legal notice", privacy: "Privacy policy", cookies: "Cookie policy", legalLinks: "Legal links", programmed: "Built by",
   youtubeLabel: "Grúas del Vallès YouTube channel", emailLabel: "Send email", quickContact: "Quick contact", callLabel: "Call", sendEmail: "Send email to",
   quoteEmail: "Request a quote by email", quote: "Request a quote", emailSubject: "Quote request", emailBody: "Hello,\n\nI would like to request a quote for:\n\n- Type of work:\n- Approximate tonnage:\n- Planned date:\n- Location:\n\nThank you.",
-  spanishNotice: "Some pages and the downloadable catalogue are only available in Spanish.", primaryNav: "Main navigation", mobileNav: "Mobile navigation",
+  spanishNotice: "Some downloadable documents are only available in Spanish.", primaryNav: "Main navigation", mobileNav: "Mobile navigation",
 };

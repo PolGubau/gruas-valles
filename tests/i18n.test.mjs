@@ -26,8 +26,8 @@ test("cada portada está traducida y declara sus versiones alternativas", () => 
     assert.ok(html.includes(`rel="canonical" href="https://www.gruasdelvalles.com${lang === "es" ? "/" : `/${lang}/`}"`));
     assert.equal((html.match(/data-language="(?:es|ca|en)"/g) ?? []).length, 6);
   }
-  assert.ok(pages.ca.includes("Algunes pàgines i el catàleg descarregable només estan disponibles en castellà."));
-  assert.ok(pages.en.includes("Some pages and the downloadable catalogue are only available in Spanish."));
+  assert.ok(pages.ca.includes("Alguns documents descarregables només estan disponibles en castellà."));
+  assert.ok(pages.en.includes("Some downloadable documents are only available in Spanish."));
 });
 
 test("los servicios y trabajos conservan su traducción asociada a cada enlace", () => {
@@ -45,7 +45,7 @@ test("los servicios y trabajos conservan su traducción asociada a cada enlace",
   };
   for (const [lang, links] of Object.entries(expected)) {
     for (const [href, title] of Object.entries(links)) {
-      const target = href.startsWith("/servicios/") ? `/${lang}${href}` : href;
+      const target = `/${lang}${href}`;
       const card = pages[lang].match(new RegExp(`<a href="${target}"[\\s\\S]*?</a>`))?.[0];
       assert.ok(card?.includes(title), `${lang}: ${href}`);
     }
@@ -226,6 +226,56 @@ test("localidades y cobertura conservan contenido, enlaces y SEO en cada idioma"
   assert.doesNotMatch(caMaresme, /a el Maresme|de el Maresme/);
 });
 
+test("empleo y páginas legales tienen contenido y navegación en cada idioma", () => {
+  const expected = {
+    es: { "trabaja-con-nosotros": "Forma parte de nuestro equipo", "legal/aviso-legal": "Datos identificativos", "legal/privacidad": "Responsable del tratamiento", "legal/politica-cookies": "¿Qué son las cookies?" },
+    ca: { "trabaja-con-nosotros": "Forma part del nostre equip", "legal/aviso-legal": "Dades identificatives", "legal/privacidad": "Responsable del tractament", "legal/politica-cookies": "Què són les galetes?" },
+    en: { "trabaja-con-nosotros": "Join our team", "legal/aviso-legal": "Identification details", "legal/privacidad": "Data controller", "legal/politica-cookies": "What are cookies?" },
+  };
+  for (const [lang, routes] of Object.entries(expected)) {
+    const prefix = lang === "es" ? "" : `${lang}/`;
+    for (const [route, text] of Object.entries(routes)) {
+      const html = readFileSync(new URL(`${prefix}${route}/index.html`, dist), "utf8");
+      assert.match(html, new RegExp(`<html lang="${lang}"`));
+      assert.doesNotMatch(html, /http-equiv="refresh"/);
+      assert.ok(html.includes(text), `${lang}: ${route}`);
+      assert.ok(pages[lang].includes(`href="/${prefix}${route}"`));
+      for (const [code, target] of [["es", ""], ["ca", "ca/"], ["en", "en/"]]) {
+        assert.ok(html.includes(`hreflang="${code}" href="https://www.gruasdelvalles.com/${target}${route}/`));
+      }
+    }
+  }
+});
+
+test("todas las noticias están traducidas y enlazadas desde su índice", () => {
+  const posts = readdirSync(fileURLToPath(new URL("../src/content/blog/", import.meta.url)))
+    .filter((name) => name.endsWith(".md")).map((name) => name.slice(0, -3));
+  assert.ok(posts.length > 0);
+  for (const lang of ["es", "ca", "en"]) {
+    const prefix = lang === "es" ? "" : `${lang}/`;
+    const index = readFileSync(new URL(`${prefix}blog/index.html`, dist), "utf8");
+    assert.match(index, new RegExp(`<html lang="${lang}"`));
+    assert.doesNotMatch(index, /http-equiv="refresh"/);
+    for (const slug of posts) {
+      const route = `blog/${slug}`;
+      const html = readFileSync(new URL(`${prefix}${route}/index.html`, dist), "utf8");
+      assert.match(html, new RegExp(`<html lang="${lang}"`));
+      assert.doesNotMatch(html, /http-equiv="refresh"/);
+      assert.ok(index.includes(`href="/${prefix}${route}"`), `${lang}: ${route}`);
+      assert.ok(html.includes(`href="/${prefix}blog"`));
+      for (const [code, target] of [["es", ""], ["ca", "ca/"], ["en", "en/"]]) {
+        assert.ok(html.includes(`hreflang="${code}" href="https://www.gruasdelvalles.com/${target}${route}/`));
+      }
+      if (lang !== "es") {
+        const spanish = readFileSync(new URL(`${route}/index.html`, dist), "utf8");
+        const body = (page) => page.match(/<div class="blog-prose[^>]*>([\s\S]*?)<\/div>/)?.[1];
+        assert.ok(body(html));
+        assert.notEqual(body(html), body(spanish), `${lang}: ${route}`);
+      }
+    }
+  }
+});
+
 test("los enlaces y anclas de cada portada tienen destino generado", () => {
   for (const [lang, html] of Object.entries(pages)) {
     const origin = new URL(lang === "es" ? "/" : `/${lang}/`, "https://www.gruasdelvalles.com");
@@ -240,6 +290,33 @@ test("los enlaces y anclas de cada portada tienen destino generado", () => {
       }
     }
   }
+});
+
+test("los enlaces internos de todas las páginas generadas tienen destino", () => {
+  const root = fileURLToPath(dist);
+  function htmlFiles(directory) {
+    return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+      const path = join(directory, entry.name);
+      return entry.isDirectory() ? htmlFiles(path) : entry.name === "index.html" ? [path] : [];
+    });
+  }
+  const errors = [];
+  for (const file of htmlFiles(root)) {
+    const route = file.slice(root.length).replaceAll("\\", "/").replace(/index\.html$/, "");
+    const origin = new URL(`/${route}`, "https://www.gruasdelvalles.com");
+    const html = readFileSync(file, "utf8");
+    for (const [, href] of html.matchAll(/<a\b[^>]*\bhref="([^" ]+)"/g)) {
+      if (!href.startsWith("/") && !href.startsWith("#")) continue;
+      const url = new URL(href.replaceAll("&amp;", "&"), origin);
+      const path = join(root, decodeURIComponent(url.pathname));
+      const target = existsSync(path) && statSync(path).isFile() ? path : join(path, "index.html");
+      if (!existsSync(target)) errors.push(`${route}: ${href} (destino inexistente)`);
+      else if (url.hash && target.endsWith(".html") && !readFileSync(target, "utf8").includes(`id="${decodeURIComponent(url.hash.slice(1))}"`)) {
+        errors.push(`${route}: ${href} (ancla inexistente)`);
+      }
+    }
+  }
+  assert.deepEqual(errors, []);
 });
 
 test("detección y selección explícita respetan idioma, URL y preferencias", { skip: !nodeModule.stripTypeScriptTypes }, () => {
@@ -270,7 +347,9 @@ test("detección y selección explícita respetan idioma, URL y preferencias", {
   assert.equal(run({ languages: ["en"], pathname: "/flota" }).redirected, "/en/flota");
   assert.equal(run({ languages: ["en"], pathname: "/nosotros" }).redirected, "/en/nosotros");
   assert.equal(run({ languages: ["ca"], pathname: "/alquiler-gruas/maresme" }).redirected, "/ca/alquiler-gruas/maresme");
-  assert.equal(run({ languages: ["en"], pathname: "/blog" }).redirected, undefined);
+  assert.equal(run({ languages: ["en"], pathname: "/blog" }).redirected, "/en/blog");
+  assert.equal(run({ languages: ["ca"], pathname: "/trabaja-con-nosotros" }).redirected, "/ca/trabaja-con-nosotros");
+  assert.equal(run({ languages: ["en"], pathname: "/legal/privacidad" }).redirected, "/en/legal/privacidad");
   const session = run({ languages: ["es"] });
   session.select("ca");
   assert.equal(session.stored, "ca");
