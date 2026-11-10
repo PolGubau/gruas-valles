@@ -15,7 +15,7 @@ const path = useTranslatedPath(lang);
   description={ca
     ? "Informació sobre l'ús de galetes al lloc web de Grúas del Vallès, S.A."
     : "Information about the use of cookies on the Grúas del Vallès, S.A. website."}
-  updated={ca ? "7 de juny de 2026" : "7 June 2026"}
+  updated={ca ? "10 de novembre de 2026" : "10 November 2026"}
 >
   {
     ca ? (
@@ -42,8 +42,17 @@ const path = useTranslatedPath(lang);
           procedents del mapa de <strong>Google Maps</strong> que mostrem a les
           pàgines d'<a href={path("/")}>Inici</a>,{" "}
           <a href={path("/contacto")}>Contacte</a> i{" "}
-          <a href={path("/nosotros")}>Nosaltres</a>, i que només es carreguen en
-          visitar aquestes pàgines.
+          <a href={path("/nosotros")}>Nosaltres</a>, i que només es carreguen si
+          accepteu el mapa en aquestes pàgines.
+        </p>
+        <p>
+          A l'emmagatzematge local del navegador, <strong>gv-language</strong>{" "}
+          desa l'idioma escollit fins que s'esborri i{" "}
+          <strong>gv-map-consent</strong> desa l'acceptació o el rebuig del mapa
+          durant 180 dies. Després d'aquest termini l'elecció deixa de ser
+          vàlida i s'elimina quan es torna a comprovar. Si el navegador bloqueja
+          l'emmagatzematge, l'elecció només es conserva durant la visita a la
+          pàgina.
         </p>
         <h2>3. Tipus de galetes</h2>
         <p>
@@ -73,7 +82,9 @@ const path = useTranslatedPath(lang);
           Aquest lloc <strong>no instal·la galetes pròpies</strong>. Les úniques
           galetes que es poden emmagatzemar al dispositiu són galetes de tercers
           que Google instal·la en carregar el mapa de Google Maps incrustat a
-          les pàgines d'Inici, Contacte i Nosaltres:
+          les pàgines d'Inici, Contacte i Nosaltres. La taula següent conté
+          exemples orientatius de galetes de Google; els noms, finalitats i
+          terminis poden variar segons el navegador i la configuració de Google:
         </p>
         <div class="table-scroll">
           <table>
@@ -134,12 +145,13 @@ const path = useTranslatedPath(lang);
         </p>
         <h2>5. Consentiment</h2>
         <p>
-          Com que el lloc no instal·la galetes pròpies d'anàlisi ni
-          publicitàries, no es mostra cap panell de configuració de galetes. Les
-          galetes de tercers de Google Maps només es carreguen a les pàgines que
-          inclouen el mapa. Si no voleu que s'instal·lin, podeu no accedir a
-          aquestes pàgines o bloquejar les galetes de tercers des de la
-          configuració del navegador, tal com s'indica a l'apartat següent.
+          El mapa no es carrega fins que premeu «Acceptar i carregar el mapa».
+          Podeu rebutjar-lo sense impedir l'ús del lloc. Per retirar el
+          consentiment, premeu «Retirar el consentiment de Google Maps» al peu
+          de pàgina; això atura la càrrega del mapa, però no elimina
+          automàticament les galetes que Google ja hagi instal·lat. Les podeu
+          eliminar al navegador. Si heu rebutjat el mapa, podeu canviar
+          l'elecció al mateix mapa.
         </p>
         <h2>6. Com gestionar o desactivar les galetes</h2>
         <p>
@@ -244,7 +256,15 @@ const path = useTranslatedPath(lang);
           the <strong>Google Maps</strong> map shown on our{" "}
           <a href={path("/")}>Home</a>, <a href={path("/contacto")}>Contact</a>{" "}
           and <a href={path("/nosotros")}>About us</a> pages, and they only load
-          when those pages are visited.
+          if you accept the map on those pages.
+        </p>
+        <p>
+          In browser local storage, <strong>gv-language</strong> keeps the
+          chosen language until deleted and <strong>gv-map-consent</strong>{" "}
+          keeps acceptance or rejection of the map for 180 days. After that the
+          choice is no longer valid and is removed when checked again. If
+          browser storage is blocked, the choice lasts only for the current page
+          visit.
         </p>
         <h2>3. Types of cookies</h2>
         <p>In general, cookies can be classified as follows:</p>
@@ -271,7 +291,9 @@ const path = useTranslatedPath(lang);
           This site <strong>does not install first-party cookies</strong>. The
           only cookies that may be stored on your device are third-party cookies
           installed by Google when the embedded Google Maps map loads on the
-          Home, Contact and About us pages:
+          Home, Contact and About us pages. The following table contains
+          illustrative examples of Google cookies; names, purposes and durations
+          can vary by browser and Google settings:
         </p>
         <div class="table-scroll">
           <table>
@@ -331,11 +353,12 @@ const path = useTranslatedPath(lang);
         </p>
         <h2>5. Consent</h2>
         <p>
-          Since the site does not install first-party analytics or advertising
-          cookies, no cookie settings panel is displayed. Google Maps
-          third-party cookies only load on pages containing the map. If you do
-          not want them installed, you may avoid those pages or block
-          third-party cookies in your browser settings, as explained below.
+          The map does not load until you select “Accept and load map”. You can
+          reject it and still use the site. To withdraw consent, select
+          “Withdraw Google Maps consent” in the footer; this stops the map
+          loading but does not automatically delete cookies already installed by
+          Google. You can remove them in your browser. If you rejected the map,
+          you can change your choice at the map itself.
         </p>
         <h2>6. How to manage or disable cookies</h2>
         <p>
