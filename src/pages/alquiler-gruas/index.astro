@@ -1,25 +1,29 @@
 ---
 import { Icon } from "astro-icon/components";
+import { localitiesCopy } from "@i18n/localities";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 import CtaBand from "../../components/ui/CtaBand.astro";
 import PageHero from "../../components/ui/PageHero.astro";
 import localidades from "../../data/localidades.json";
 import Page from "../../layouts/Page.astro";
 import { collectionPageSchema } from "../../lib/schema";
 
+const lang = getLangFromUrl(Astro.url);
+const copy = localitiesCopy(lang);
+const localizePath = useTranslatedPath(lang);
 const ciudades = localidades.filter((l) => l.tipo === "ciudad");
 const zonas = localidades.filter((l) => l.tipo === "zona");
 
-const description =
-  "Alquiler de grúas móviles autopropulsadas y transportes especiales en Barcelona, Sabadell, Terrassa, Mataró, Badalona y comarcas como el Maresme, el Vallès o el Baix Llobregat. Consulta nuestra cobertura.";
+const description = copy.description;
 
 const schema = collectionPageSchema(
   {
-    name: "Alquiler de grúas por localidad y comarca",
+    name: copy.title,
     description,
-    url: "/alquiler-gruas",
+    url: localizePath("/alquiler-gruas"),
     items: localidades.map((l) => ({
-      name: `Alquiler de grúas en ${l.nombre}`,
-      url: `/alquiler-gruas/${l.slug}`,
+      name: copy.rentalIn(l.nombre),
+      url: localizePath(`/alquiler-gruas/${l.slug}`),
     })),
   },
   Astro.site,
@@ -27,14 +31,17 @@ const schema = collectionPageSchema(
 ---
 
 <Page
-  title="Alquiler de grúas por localidad y comarca | Grúas del Vallès"
+  title={`${copy.title} | Grúas del Vallès`}
   description={description}
   schema={schema}
 >
   <PageHero
-    title="Alquiler de grúas por localidad y comarca"
-    lede="Desplazamos grúas de 40 a 700 Tn y transportes especiales a toda Cataluña desde nuestra base de Granollers. Cobertura en las principales ciudades y comarcas del área metropolitana."
-    crumbs={[{ label: "Inicio", href: "/" }, { label: "Alquiler de grúas" }]}
+    title={copy.title}
+    lede={copy.intro}
+    crumbs={[
+      { label: copy.home, href: localizePath("/") },
+      { label: copy.rental },
+    ]}
   />
 
   <!-- Ciudades principales -->
@@ -42,23 +49,23 @@ const schema = collectionPageSchema(
     <div class="container-wide">
       <div class="mb-8">
         <p class="eyebrow">
-          <span class="h-px w-8 bg-accent"></span>Ciudades
+          <span class="h-px w-8 bg-accent"></span>{copy.cities}
         </p>
-        <h2 class="text-2xl font-black sm:text-3xl">Principales municipios</h2>
+        <h2 class="text-2xl font-black sm:text-3xl">{copy.municipalities}</h2>
       </div>
       <ul class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3">
         {
           ciudades.map((l) => (
             <li>
               <a
-                href={`/alquiler-gruas/${l.slug}`}
+                href={localizePath(`/alquiler-gruas/${l.slug}`)}
                 class="group flex h-full flex-col bg-surface p-5 transition-colors hover:bg-surface-alt sm:p-6"
               >
                 <span class="mb-1 text-xs uppercase tracking-wider text-accent">
                   {l.comarca}
                 </span>
                 <span class="flex items-center justify-between text-lg font-bold">
-                  Grúas en {l.nombre}
+                  {copy.craneIn(l.nombre)}
                   <Icon
                     name="lucide:arrow-right"
                     class="h-4 w-4 text-accent transition-transform group-hover:translate-x-0.5"
@@ -78,23 +85,23 @@ const schema = collectionPageSchema(
     <div class="container-wide">
       <div class="mb-8">
         <p class="eyebrow">
-          <span class="h-px w-8 bg-accent"></span>Comarcas
+          <span class="h-px w-8 bg-accent"></span>{copy.regions}
         </p>
-        <h2 class="text-2xl font-black sm:text-3xl">Cobertura por comarca</h2>
+        <h2 class="text-2xl font-black sm:text-3xl">{copy.regionalCoverage}</h2>
       </div>
       <ul class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-4">
         {
           zonas.map((l) => (
             <li>
               <a
-                href={`/alquiler-gruas/${l.slug}`}
+                href={localizePath(`/alquiler-gruas/${l.slug}`)}
                 class="group flex h-full flex-col bg-surface p-5 transition-colors hover:bg-surface-alt sm:p-6"
               >
                 <span class="mb-1 text-xs uppercase tracking-wider text-accent">
-                  Comarca
+                  {copy.region}
                 </span>
                 <span class="flex items-center justify-between text-lg font-bold">
-                  Grúas en {l.nombre}
+                  {copy.craneIn(l.nombre)}
                   <Icon
                     name="lucide:arrow-right"
                     class="h-4 w-4 text-accent transition-transform group-hover:translate-x-0.5"

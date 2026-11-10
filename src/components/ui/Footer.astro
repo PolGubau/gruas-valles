@@ -197,7 +197,7 @@ const legalLinks = [
               zonas.map((z) => (
                 <li>
                   <a
-                    href={`/alquiler-gruas/${z.slug}`}
+                    href={localizePath(`/alquiler-gruas/${z.slug}`)}
                     class="transition-colors hover:text-accent-light"
                   >
                     {copy.footerCranes} {z.nombre}
@@ -207,7 +207,7 @@ const legalLinks = [
             }
             <li>
               <a
-                href="/alquiler-gruas"
+                href={localizePath("/alquiler-gruas")}
                 class="font-semibold text-accent-light hover:underline"
               >
                 {copy.footerAllCoverage} →

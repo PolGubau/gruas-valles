@@ -1,0 +1,10 @@
+---
+import localidades from "../../../data/localidades.json";
+import LocalityPage from "../../alquiler-gruas/[localidad].astro";
+export function getStaticPaths() {
+  return ["ca", "en"].flatMap((locale) => localidades.map((loc) => ({
+    params: { locale, localidad: loc.slug }, props: { loc },
+  })));
+}
+---
+<LocalityPage loc={Astro.props.loc} />

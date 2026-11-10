@@ -108,14 +108,15 @@ export function localServiceSchema(
 		description: string;
 		url: string;
 		areaServed?: string;
+		serviceType?: string;
 	},
 	site?: URL,
 ) {
-	const { locality, description, url, areaServed } = input;
+	const { locality, description, url, areaServed, serviceType = `Alquiler de grúas en ${locality}` } = input;
 	return {
 		"@context": "https://schema.org",
 		"@type": "Service",
-		serviceType: `Alquiler de grúas en ${locality}`,
+		serviceType,
 		description,
 		url: abs(url, site),
 		areaServed: {

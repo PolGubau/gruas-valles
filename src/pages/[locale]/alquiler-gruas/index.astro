@@ -1,0 +1,7 @@
+---
+import LocalitiesPage from "../../alquiler-gruas/index.astro";
+export function getStaticPaths() {
+  return ["ca", "en"].map((locale) => ({ params: { locale } }));
+}
+---
+<LocalitiesPage />

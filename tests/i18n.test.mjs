@@ -26,8 +26,8 @@ test("cada portada está traducida y declara sus versiones alternativas", () => 
     assert.ok(html.includes(`rel="canonical" href="https://www.gruasdelvalles.com${lang === "es" ? "/" : `/${lang}/`}"`));
     assert.equal((html.match(/data-language="(?:es|ca|en)"/g) ?? []).length, 6);
   }
-  assert.ok(pages.ca.includes("Les pàgines de detall i el catàleg estan disponibles en castellà."));
-  assert.ok(pages.en.includes("Detailed pages and the catalogue are available in Spanish."));
+  assert.ok(pages.ca.includes("Algunes pàgines i el catàleg descarregable només estan disponibles en castellà."));
+  assert.ok(pages.en.includes("Some pages and the downloadable catalogue are only available in Spanish."));
 });
 
 test("los servicios y trabajos conservan su traducción asociada a cada enlace", () => {
@@ -139,6 +139,39 @@ test("el catálogo y todas las fichas de flota se generan en los tres idiomas", 
   }
 });
 
+test("localidades y cobertura conservan contenido, enlaces y SEO en cada idioma", () => {
+  const locations = JSON.parse(readFileSync(new URL("../src/data/localidades.json", import.meta.url), "utf8"));
+  const titles = { es: "Alquiler de grúas", ca: "Lloguer de grues", en: "Crane hire" };
+  for (const lang of ["es", "ca", "en"]) {
+    const prefix = lang === "es" ? "" : `${lang}/`;
+    const index = readFileSync(new URL(`${prefix}alquiler-gruas/index.html`, dist), "utf8");
+    assert.match(index, new RegExp(`<html lang="${lang}"`));
+    assert.ok(index.includes(titles[lang]));
+    assert.doesNotMatch(index, /http-equiv="refresh"/);
+    assert.ok(pages[lang].includes(`href="/${prefix}alquiler-gruas"`));
+    for (const loc of locations) {
+      const route = `alquiler-gruas/${loc.slug}`;
+      const html = readFileSync(new URL(`${prefix}${route}/index.html`, dist), "utf8");
+      assert.match(html, new RegExp(`<html lang="${lang}"`));
+      assert.doesNotMatch(html, /http-equiv="refresh"/);
+      assert.ok(html.includes(titles[lang]), `${lang}: ${route}`);
+      assert.ok(index.includes(`href="/${prefix}${route}"`));
+      assert.ok(html.includes(`href="/${prefix}alquiler-gruas"`));
+      if (lang !== "es") assert.ok(!html.includes(loc.intro), `${lang}: untranslated introduction for ${loc.slug}`);
+      for (const [code, target] of [["es", ""], ["ca", "ca/"], ["en", "en/"]]) {
+        assert.ok(html.includes(`hreflang="${code}" href="https://www.gruasdelvalles.com/${target}${route}/`));
+      }
+      const schema = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+        .map((match) => JSON.parse(match[1])).find((item) => item["@type"] === "Service");
+      assert.ok(schema?.serviceType.startsWith(titles[lang]));
+      assert.equal(schema.url, `https://www.gruasdelvalles.com/${prefix}${route}`);
+    }
+  }
+  const caMaresme = readFileSync(new URL("ca/alquiler-gruas/maresme/index.html", dist), "utf8");
+  assert.ok(caMaresme.includes("Lloguer de grues al Maresme"));
+  assert.doesNotMatch(caMaresme, /a el Maresme|de el Maresme/);
+});
+
 test("los enlaces y anclas de cada portada tienen destino generado", () => {
   for (const [lang, html] of Object.entries(pages)) {
     const origin = new URL(lang === "es" ? "/" : `/${lang}/`, "https://www.gruasdelvalles.com");
@@ -181,6 +214,7 @@ test("detección y selección explícita respetan idioma, URL y preferencias", {
   assert.equal(run({ languages: ["en"], pathname: "/servicios" }).redirected, "/en/servicios");
   assert.equal(run({ languages: ["ca"], pathname: "/servicios/transportes-especiales" }).redirected, "/ca/servicios/transportes-especiales");
   assert.equal(run({ languages: ["en"], pathname: "/flota" }).redirected, "/en/flota");
+  assert.equal(run({ languages: ["ca"], pathname: "/alquiler-gruas/maresme" }).redirected, "/ca/alquiler-gruas/maresme");
   assert.equal(run({ languages: ["en"], pathname: "/blog" }).redirected, undefined);
   const session = run({ languages: ["es"] });
   session.select("ca");
