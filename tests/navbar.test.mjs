@@ -40,6 +40,7 @@ test("la cabecera flotante agrupa navegación, teléfono e idiomas sin cubrir el
     assert.match(header, /<a[^>]*class="[^"]*rounded-full bg-white[^"]*"[^>]*>[\s\S]*?<img[^>]*src="\/logo\.png"/);
     const pill = header.match(/<div class="pointer-events-auto hidden[^"]*rounded-full bg-white[^"]*"[\s\S]*?id="lang-toggle"/)?.[0];
     assert.ok(pill, "navegación y acciones comparten la píldora");
+    assert.match(pill.match(/^<div[^>]*>/)?.[0] ?? "", /\bml-auto\b/, "la píldora queda alineada a la derecha y separada del logo");
     assert.match(pill, /<nav/);
     assert.match(pill, /href="tel:\+34938497022"/);
     assert.match(header, /id="menu-toggle"[^>]*rounded-full bg-white/);
