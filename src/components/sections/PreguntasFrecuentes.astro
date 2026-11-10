@@ -1,9 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
-import { getLangFromUrl } from "@i18n/utils";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 import { homeCopy } from "@i18n/home";
 
-const copy = homeCopy(getLangFromUrl(Astro.url));
+const lang = getLangFromUrl(Astro.url);
+const copy = homeCopy(lang);
+const localizePath = useTranslatedPath(lang);
 ---
 
 <section
@@ -41,7 +43,7 @@ const copy = homeCopy(getLangFromUrl(Astro.url));
       }
     </div>
     <a
-      href="/contacto"
+      href={localizePath("/contacto")}
       class="mt-6 inline-block text-sm font-semibold text-accent underline underline-offset-4"
     >
       {copy.moreFaq}

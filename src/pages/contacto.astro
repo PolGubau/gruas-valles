@@ -5,14 +5,19 @@ import ContactoSection from "../components/sections/ContactoSection.astro";
 import DondeEstamos from "../components/sections/DondeEstamos.astro";
 import PageHero from "../components/ui/PageHero.astro";
 import contacto from "../data/contacto.json";
-import { faqs } from "../data/faqs";
+import { contactCopy } from "@i18n/contact";
+import { homeCopy } from "@i18n/home";
+import { getLangFromUrl } from "@i18n/utils";
 import Page from "../layouts/Page.astro";
 
+const lang = getLangFromUrl(Astro.url);
+const copy = contactCopy(lang);
+const home = homeCopy(lang);
 const garantias = [
-  { icon: "lucide:clock", texto: "Respuesta en menos de 24 h" },
-  { icon: "lucide:file-text", texto: "Presupuesto sin compromiso" },
-  { icon: "lucide:headset", texto: "Asesoramiento técnico incluido" },
-  { icon: "lucide:shield-check", texto: "Emergencias 24 h / 365 días" },
+  { icon: "lucide:clock", texto: copy.guarantees[0] },
+  { icon: "lucide:file-text", texto: copy.guarantees[1] },
+  { icon: "lucide:headset", texto: copy.guarantees[2] },
+  { icon: "lucide:shield-check", texto: copy.guarantees[3] },
 ];
 
 const telHref = `tel:${contacto.telefono.replace(/\s/g, "")}`;
@@ -21,26 +26,26 @@ const emergenciaHref = `tel:+34${contacto.emergencias[0].replace(/\s/g, "")}`;
 const acciones = [
   {
     icon: "lucide:phone",
-    label: "Llámenos",
+    label: copy.call,
     valor: contacto.telefono,
     href: telHref,
-    nota: "Lun-Vie · Atención comercial",
+    nota: copy.commercial,
     valorClase: "text-lg",
   },
   {
     icon: "lucide:mail",
-    label: "Escríbanos",
+    label: copy.write,
     valor: contacto.email,
     href: `mailto:${contacto.email}`,
-    nota: "Respuesta en menos de 24 h",
+    nota: copy.response,
     valorClase: "text-sm sm:text-base",
   },
   {
     icon: "lucide:triangle-alert",
-    label: "Emergencias 24/365",
+    label: copy.emergency,
     valor: contacto.emergencias.join(" · "),
     href: emergenciaHref,
-    nota: "Servicio de urgencia permanente",
+    nota: copy.urgent,
     valorClase: "text-lg",
   },
 ];
@@ -52,7 +57,7 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: "Contacto y presupuesto | Grúas del Vallès",
+    name: `${copy.title} | Grúas del Vallès`,
     url: pageUrl,
     mainEntity: {
       "@type": "Organization",
@@ -81,7 +86,7 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
+    mainEntity: copy.faqs.map((f) => ({
       "@type": "Question",
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -91,14 +96,17 @@ const schema = [
 ---
 
 <Page
-  title="Contacto y presupuesto | Grúas del Vallès"
-  description="Solicite presupuesto sin compromiso para su maniobra. Respuesta en menos de 24 horas. Servicio de emergencia 24/365 en toda Cataluña."
+  title={`${copy.title} | Grúas del Vallès`}
+  description={copy.description}
   schema={schema}
 >
   <PageHero
-    title="Solicite su presupuesto sin compromiso"
-    lede="Cuéntenos su proyecto y nuestro equipo técnico le propondrá la solución de elevación más adecuada."
-    crumbs={[{ label: "Inicio", href: "/" }, { label: "Contacto" }]}
+    title={copy.heading}
+    lede={copy.intro}
+    crumbs={[
+      { label: copy.home, href: lang === "es" ? "/?lang=es" : `/${lang}/` },
+      { label: copy.contact },
+    ]}
   />
 
   <!-- Garantías -->
@@ -166,13 +174,13 @@ const schema = [
             <p
               class="text-xs font-semibold uppercase tracking-wider text-ink-secondary"
             >
-              Horario de atención
+              {copy.hours}
             </p>
             <p class="mt-1 text-sm font-medium">
-              Lunes a viernes · 8:00 - 18:00 h
+              {copy.weekdays}
             </p>
             <p class="mt-1 text-sm font-semibold text-accent">
-              Emergencias: 24 horas / 365 días
+              {copy.emergencyHours}
             </p>
           </div>
         </div>
@@ -188,47 +196,48 @@ const schema = [
             <p
               class="text-xs font-semibold uppercase tracking-wider text-ink-secondary"
             >
-              Cobertura
+              {copy.coverage}
             </p>
-            <p class="mt-1 text-sm font-medium">{contacto.cobertura}</p>
+            <p class="mt-1 text-sm font-medium">{copy.coverageArea}</p>
             <p class="mt-1 text-sm text-ink-secondary">
-              {contacto.referencia} · Accesos {contacto.accesos}
+              {copy.access}
             </p>
           </div>
         </div>
       </div>
     </div>
   </section>
-</Page>
+  <!-- Dónde estamos (Nueva sección con copy antiguo) -->
+  <DondeEstamos />
 
-<!-- Dónde estamos (Nueva sección con copy antiguo) -->
-<DondeEstamos />
+  <!-- Formulario + info (sección reutilizada) -->
+  <ContactoSection />
 
-<!-- Formulario + info (sección reutilizada) -->
-<ContactoSection />
-
-<!-- Preguntas frecuentes -->
-<section class="section-padding bg-surface" aria-labelledby="faq-title">
-  <div class="container-narrow">
-    <h2 id="faq-title" class="mb-8 text-3xl font-black sm:text-4xl">
-      Preguntas frecuentes
-    </h2>
-    <div class="divide-y divide-muted/60 border-y border-muted/60">
-      {
-        faqs.map((f) => (
-          <details class="group py-4">
-            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold">
-              {f.q}
-              <Icon
-                name="lucide:plus"
-                class="h-5 w-5 shrink-0 text-accent transition-transform group-open:rotate-45"
-                aria-hidden="true"
-              />
-            </summary>
-            <p class="mt-3 text-sm leading-relaxed text-ink-secondary">{f.a}</p>
-          </details>
-        ))
-      }
+  <!-- Preguntas frecuentes -->
+  <section class="section-padding bg-surface" aria-labelledby="faq-title">
+    <div class="container-narrow">
+      <h2 id="faq-title" class="mb-8 text-3xl font-black sm:text-4xl">
+        {home.faqTitle}
+      </h2>
+      <div class="divide-y divide-muted/60 border-y border-muted/60">
+        {
+          copy.faqs.map((f) => (
+            <details class="group py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold">
+                {f.q}
+                <Icon
+                  name="lucide:plus"
+                  class="h-5 w-5 shrink-0 text-accent transition-transform group-open:rotate-45"
+                  aria-hidden="true"
+                />
+              </summary>
+              <p class="mt-3 text-sm leading-relaxed text-ink-secondary">
+                {f.a}
+              </p>
+            </details>
+          ))
+        }
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</Page>

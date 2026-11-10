@@ -16,7 +16,7 @@ document.addEventListener("click", (event) => {
   }
 });
 
-if (window.location.pathname === "/") {
+if (window.location.pathname === "/" || /^\/contacto\/?$/.test(window.location.pathname)) {
   const explicit = language(new URLSearchParams(window.location.search).get("lang"));
   let saved: Language | undefined;
   try { saved = language(localStorage.getItem(storageKey)); } catch { /* Use browser preference. */ }
@@ -26,6 +26,6 @@ if (window.location.pathname === "/") {
     try { localStorage.setItem(storageKey, explicit); } catch { /* The query still preserves the choice. */ }
   }
   if (preferred !== "es") {
-    window.location.replace(`/${preferred}/${window.location.search}${window.location.hash}`);
+    window.location.replace(`/${preferred}${window.location.pathname}${window.location.search}${window.location.hash}`);
   }
 }

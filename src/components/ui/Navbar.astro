@@ -4,6 +4,7 @@ import {
   type UiKey,
   getLangFromUrl,
   getRouteFromUrl,
+  hasTranslations,
   useTranslatedPath,
   useTranslations,
 } from "@i18n/utils";
@@ -17,8 +18,8 @@ const localizePath = useTranslatedPath(lang);
 // Ruta actual sin prefijo de idioma, para construir el cambio de idioma.
 const route = getRouteFromUrl(Astro.url);
 const languageHref = (code: keyof typeof languages) => {
-  if (code === "es") return route === "/" ? "/?lang=es" : route;
-  return localizePath("/", code);
+  if (code === "es") return hasTranslations(route) ? `${route}?lang=es` : route;
+  return localizePath(hasTranslations(route) ? route : "/", code);
 };
 
 const links: { href: string; key: UiKey }[] = [
@@ -161,7 +162,7 @@ const isActive = (href: string) =>
           ))
         }
         <a
-          href="/contacto"
+          href={localizePath("/contacto")}
           class="btn btn-sm mt-4 justify-center bg-accent text-white hover:bg-accent-dark"
         >
           {t("cta.presupuesto")}

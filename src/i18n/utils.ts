@@ -32,6 +32,12 @@ export function getRouteFromUrl(url: URL): string {
   return path === '' ? '/' : path;
 }
 
+/** Rutas que cuentan con contenido real en los tres idiomas. */
+export function hasTranslations(path: string): boolean {
+  const route = path.replace(/\/$/, "") || "/";
+  return route === "/" || route === "/contacto";
+}
+
 /**
  * Traductor con fallback al idioma por defecto para claves aún sin traducir.
  */

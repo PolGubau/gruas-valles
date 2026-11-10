@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl } from "@i18n/utils";
+import { getLangFromUrl, getRouteFromUrl, hasTranslations } from "@i18n/utils";
 interface Props {
   title: string;
   description: string;
@@ -15,7 +15,7 @@ const site = Astro.site ?? new URL("https://www.gruasdelvalles.com");
 const canonical = new URL(Astro.url.pathname, site).href;
 const imageUrl = new URL(image, site).href;
 const lang = getLangFromUrl(Astro.url);
-const isHome = /^\/(?:ca\/?|en\/?)?$/.test(Astro.url.pathname);
+const route = getRouteFromUrl(Astro.url).replace(/\/$/, "") || "/";
 const ogLocale = { es: "es_ES", ca: "ca_ES", en: "en_GB" }[lang];
 
 const jsonLd = {
@@ -81,12 +81,12 @@ const jsonLd = {
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 {
-  isHome &&
+  hasTranslations(route) &&
     [
-      { lang: "es", path: "/" },
-      { lang: "ca", path: "/ca/" },
-      { lang: "en", path: "/en/" },
-      { lang: "x-default", path: "/" },
+      { lang: "es", path: route },
+      { lang: "ca", path: `/ca${route}` },
+      { lang: "en", path: `/en${route}` },
+      { lang: "x-default", path: route },
     ].map((entry) => (
       <link
         rel="alternate"

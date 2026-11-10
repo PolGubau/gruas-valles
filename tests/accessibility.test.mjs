@@ -32,15 +32,16 @@ test("los enlaces de descarga de la portada apuntan a PDFs válidos", () => {
   }
 });
 
-test("el sitemap incluye las portadas traducidas, pero no las redirecciones interiores", () => {
+test("el sitemap incluye las traducciones reales, pero no las redirecciones interiores", () => {
   const sitemap = readFileSync(join(dist, "sitemap-0.xml"), "utf8");
   const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]));
   assert.ok(urls.length > 0);
   for (const locale of ["ca", "en"]) {
     assert.ok(urls.some((url) => url.pathname.replace(/\/$/, "") === `/${locale}`));
+    assert.ok(urls.some((url) => url.pathname.replace(/\/$/, "") === `/${locale}/contacto`));
   }
-  assert.ok(urls.every((url) => !/^\/(ca|en)\/.+/.test(url.pathname)));
-  for (const url of urls.filter((item) => item.pathname !== "/" && !/^\/(ca|en)\/?$/.test(item.pathname))) {
+  assert.ok(urls.every((url) => !/^\/(ca|en)\/.+/.test(url.pathname) || /^\/(ca|en)\/contacto\/?$/.test(url.pathname)));
+  for (const url of urls.filter((item) => item.pathname !== "/" && item.pathname.replace(/\/$/, "") !== "/contacto" && !/^\/(ca|en)\//.test(item.pathname) && !/^\/(ca|en)\/?$/.test(item.pathname))) {
     for (const locale of ["ca", "en"]) {
       const redirectPath = join(dist, locale, url.pathname.replace(/^\/+/, ""), "index.html");
       assert.ok(existsSync(redirectPath), `Falta ${locale}${url.pathname}`);

@@ -50,6 +50,33 @@ test("los servicios y trabajos conservan su traducción asociada a cada enlace",
   }
 });
 
+test("contacto tiene contenido, metadatos y navegación en cada idioma", () => {
+  const expected = {
+    es: ["Solicite su presupuesto sin compromiso", "Preguntas frecuentes", "Horario de atención"],
+    ca: ["Demaneu el vostre pressupost sense compromís", "Preguntes freqüents", "Horari d&#39;atenció"],
+    en: ["Request your no-obligation quote", "Frequently asked questions", "Opening hours"],
+  };
+  for (const lang of ["es", "ca", "en"]) {
+    const path = lang === "es" ? "contacto" : `${lang}/contacto`;
+    const html = readFileSync(new URL(`${path}/index.html`, dist), "utf8");
+    assert.match(html, new RegExp(`<html lang="${lang}"`));
+    assert.doesNotMatch(html, /http-equiv="refresh"/);
+    for (const text of expected[lang]) assert.ok(html.includes(text), `${lang}: ${text}`);
+    assert.equal((html.match(/<details\b/g) ?? []).length, 8);
+    const main = html.match(/<main\b[^>]*id="main"[^>]*>[\s\S]*?<\/main>/)?.[0];
+    assert.ok(main?.includes('id="contacto"'));
+    assert.ok(main?.includes('id="donde-estamos"'));
+    assert.ok(main?.includes('id="faq-title"'));
+    for (const [code, target] of [["es", "/contacto"], ["ca", "/ca/contacto"], ["en", "/en/contacto"]]) {
+      assert.ok(html.includes(`hreflang="${code}" href="https://www.gruasdelvalles.com${target}"`));
+      const selector = html.match(new RegExp(`<a href="${target}${code === "es" ? "\\?lang=es" : ""}" data-language="${code}"`));
+      assert.ok(selector, `${lang} selector: ${code}`);
+    }
+    assert.ok(html.includes(`rel="canonical" href="https://www.gruasdelvalles.com/${path}"`));
+    assert.ok(pages[lang].includes(`href="/${path}"`), `${lang}: homepage contact link`);
+  }
+});
+
 test("los enlaces y anclas de cada portada tienen destino generado", () => {
   for (const [lang, html] of Object.entries(pages)) {
     const origin = new URL(lang === "es" ? "/" : `/${lang}/`, "https://www.gruasdelvalles.com");
@@ -87,6 +114,9 @@ test("detección y selección explícita respetan idioma, URL y preferencias", {
   assert.equal(run({ languages: ["en"], saved: "es" }).redirected, undefined);
   assert.equal(run({ languages: ["en"], search: "?lang=es", blocked: true }).redirected, undefined);
   assert.equal(run({ languages: ["en"], pathname: "/ca/" }).redirected, undefined);
+  assert.equal(run({ languages: ["ca"], pathname: "/contacto", search: "?utm=campaign", hash: "#contacto" }).redirected, "/ca/contacto?utm=campaign#contacto");
+  assert.equal(run({ languages: ["en"], pathname: "/contacto", search: "?lang=es", blocked: true }).redirected, undefined);
+  assert.equal(run({ languages: ["en"], pathname: "/servicios" }).redirected, undefined);
   const session = run({ languages: ["es"] });
   session.select("ca");
   assert.equal(session.stored, "ca");

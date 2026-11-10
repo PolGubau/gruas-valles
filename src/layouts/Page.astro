@@ -15,7 +15,7 @@ const { title, description, image, schema } = Astro.props;
 
 <Base title={title} description={description} image={image} schema={schema}>
   <Navbar />
-  <main class="pt-16">
+  <main id="main" class="pt-16">
     <slot />
   </main>
   <Footer />

@@ -26,8 +26,8 @@ export default defineConfig({
   },
   integrations: [
     icon(),
-    // Only the homepages have translations; interior redirects are not indexed.
-    sitemap({ filter: (page) => !/^\/(ca|en)\/.+/.test(new URL(page).pathname) }),
+    // Exclude redirect-only pages; include the translated contact page.
+    sitemap({ filter: (page) => !/^\/(ca|en)\/.+/.test(new URL(page).pathname) || /^\/(ca|en)\/contacto\/?$/.test(new URL(page).pathname) }),
   ],
   vite: {
     plugins: [tailwindcss()],

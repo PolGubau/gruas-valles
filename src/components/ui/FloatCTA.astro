@@ -64,7 +64,7 @@ const href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${enco
   const btn = document.getElementById("float-cta");
 
   // Hide the button entirely when user is already on /contacto
-  if (btn && window.location.pathname.startsWith("/contacto")) {
+  if (btn && /^(?:\/(?:ca|en))?\/contacto\/?$/.test(window.location.pathname)) {
     btn.hidden = true;
   } else if (btn) {
     // Reveal the floating CTA only after the user scrolls past the hero,

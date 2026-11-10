@@ -174,7 +174,7 @@ const legalLinks = [
               empresaLinks.map(({ href, label }) => (
                 <li>
                   <a
-                    href={href}
+                    href={href === "/contacto" ? localizePath(href) : href}
                     class="transition-colors hover:text-accent-light"
                   >
                     {label}
