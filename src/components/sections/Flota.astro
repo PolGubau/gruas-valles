@@ -79,7 +79,9 @@ const destacados = allModels
                     {model.modelo}
                   </h4>
                   {capacidad && (
-                    <p class="novedades-card-cap">{capacidad} Tn</p>
+                    <p class="novedades-card-cap">
+                      {`${capacidad} ${model.capacidad_max_t != null ? "Tn" : "tm"}`}
+                    </p>
                   )}
                   {model.nota && (
                     <p

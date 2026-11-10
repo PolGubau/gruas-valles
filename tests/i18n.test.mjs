@@ -33,12 +33,12 @@ test("cada portada está traducida y declara sus versiones alternativas", () => 
 test("los servicios y trabajos conservan su traducción asociada a cada enlace", () => {
   const expected = {
     ca: {
-      "/servicios/transportes-especiales": "Transports especials",
+      "/servicios/transportes-especiales": "Transports de mercaderies i transports especials",
       "/servicios/montaje-estructuras-prefabricado": "Muntatge d&#39;estructures prefabricades",
       "/blog/desmontaje-mercat-dels-encants": "Desmuntatge al Mercat dels Encants",
     },
     en: {
-      "/servicios/transportes-especiales": "Special transport",
+      "/servicios/transportes-especiales": "Freight and special transport",
       "/servicios/montaje-estructuras-prefabricado": "Precast structure assembly",
       "/blog/desmontaje-mercat-dels-encants": "Dismantling at Mercat dels Encants",
     },
@@ -49,6 +49,26 @@ test("los servicios y trabajos conservan su traducción asociada a cada enlace",
       const card = pages[lang].match(new RegExp(`<a href="${target}"[\\s\\S]*?</a>`))?.[0];
       assert.ok(card?.includes(title), `${lang}: ${href}`);
     }
+  }
+});
+
+test("los servicios traducidos reflejan los textos actuales y mantienen su orden", () => {
+  const services = JSON.parse(readFileSync(new URL("../src/data/servicios.json", import.meta.url), "utf8"));
+  const expected = {
+    es: services.principales,
+    ca: ["camions grua autocàrrega fins a 200 tones", "transport de mercaderies i transports especials", "toros mecànics", "llocs alts o de difícil accés", "Transport i manipulació de maquinària pesant", "Muntatge d&#39;estructures", "Trasllat d&#39;indústries o maquinària", "Servei a tot Catalunya"],
+    en: ["loader cranes up to 200 tonnes", "Freight and special transport services", "mechanical lift trucks", "elevated or hard-to-reach areas", "Transport and handling of heavy machinery", "Assembly of precast concrete structures", "Relocation of industrial facilities or machinery", "Service throughout Catalonia"],
+  };
+  for (const [lang, html] of Object.entries(pages)) {
+    const section = html.match(/<section id="servicios"[\s\S]*?<\/section>/)?.[0];
+    assert.ok(section, lang);
+    const items = [...section.matchAll(/<p class="text-sm font-medium leading-snug text-ink">([\s\S]*?)<\/p>/g)].map((match) => match[1]);
+    assert.equal(items.length, services.principales.length, lang);
+    expected[lang].forEach((text, i) => assert.ok(items[i].includes(text.replaceAll("'", "&#39;")), `${lang}: servicio ${i + 1}`));
+  }
+  for (const [lang, title] of [["ca", "Transports de mercaderies i transports especials"], ["en", "Freight and special transport"]]) {
+    const detail = readFileSync(new URL(`${lang}/servicios/transportes-especiales/index.html`, dist), "utf8");
+    assert.ok(detail.includes(title), `${lang}: ficha de transporte`);
   }
 });
 

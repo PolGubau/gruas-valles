@@ -29,6 +29,24 @@ class Element {
   querySelectorAll() { return []; }
 }
 
+test("la cabecera flotante agrupa navegación, teléfono e idiomas sin cubrir el hero", () => {
+  for (const prefix of ["", "ca/", "en/"]) {
+    const html = readFileSync(new URL(`../dist/${prefix}index.html`, import.meta.url), "utf8");
+    const header = html.match(/<header id="navbar"[\s\S]*?<\/header>/)?.[0];
+    assert.ok(header, prefix || "es");
+    const opening = header.match(/^<header[^>]*>/)?.[0];
+    assert.match(opening, /pointer-events-none/);
+    assert.doesNotMatch(opening, /bg-white|border-b/);
+    assert.match(header, /<a[^>]*class="[^"]*rounded-full bg-white[^"]*"[^>]*>[\s\S]*?<img[^>]*src="\/logo\.png"/);
+    const pill = header.match(/<div class="pointer-events-auto hidden[^"]*rounded-full bg-white[^"]*"[\s\S]*?id="lang-toggle"/)?.[0];
+    assert.ok(pill, "navegación y acciones comparten la píldora");
+    assert.match(pill, /<nav/);
+    assert.match(pill, /href="tel:\+34938497022"/);
+    assert.match(header, /id="menu-toggle"[^>]*rounded-full bg-white/);
+    assert.match(html, /<main id="main">\s*<section id="hero"/);
+  }
+});
+
 test("los menús se cierran con Escape y devuelven el foco al botón", { skip: !nodeModule.stripTypeScriptTypes }, () => {
   const navbarSource = readFileSync(new URL("../src/components/ui/Navbar.astro", import.meta.url), "utf8");
   const script = navbarSource.match(/<script>([\s\S]*?)<\/script>/)?.[1];

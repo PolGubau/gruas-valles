@@ -1,7 +1,12 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
-import { fleetCategory, fleetCopy, fleetNote } from "@i18n/fleet";
+import {
+  fleetCategory,
+  fleetCopy,
+  fleetNote,
+  isAuxiliaryFleetCategory,
+} from "@i18n/fleet";
 import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 import { resolveImage } from "../../lib/images";
 import Badge from "../ui/Badge.astro";
@@ -20,7 +25,8 @@ const capacidad = model.capacidad_max_t ?? model.capacidad_tm;
 <a
   href={localizePath(`/flota/${model.slug}`)}
   data-categoria={model.categoria}
-  data-tonelaje={capacidad ?? 0}
+  data-grupo={isAuxiliaryFleetCategory(model.categoria) ? 1 : 0}
+  data-tonelaje={capacidad ?? ""}
   data-orden={model.orden}
   class="flota-card group relative block border-t-2 border-transparent bg-white p-5 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-card sm:p-6"
 >
@@ -49,7 +55,13 @@ const capacidad = model.capacidad_max_t ?? model.capacidad_tm;
 
   <!-- Badges -->
   <div class="mb-3 flex flex-wrap gap-2">
-    {capacidad && <Badge variant="solid">{capacidad} Tn</Badge>}
+    {
+      capacidad && (
+        <Badge variant="solid">
+          {`${capacidad} ${model.capacidad_max_t != null ? "Tn" : "tm"}`}
+        </Badge>
+      )
+    }
     {model.nuevo && <Badge variant="outline">{copy.new}</Badge>}
     <Badge variant="neutral">{fleetCategory(lang, model.categoria)}</Badge>
   </div>

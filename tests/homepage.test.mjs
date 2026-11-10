@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+import { runInNewContext } from "node:vm";
 
 const dist = new URL("../dist/", import.meta.url);
 const home = readFileSync(new URL("index.html", dist), "utf8");
@@ -57,15 +58,89 @@ test("los rótulos mantienen una presentación sobria y el hero conserva su text
   assert.doesNotMatch(style, /uppercase|tracking-wider|text-accent/);
 });
 
-test("los logos de clientes se muestran una sola vez en una cuadrícula adaptable", () => {
+test("la cinta muestra todos los clientes y oculta la copia visual a lectores de pantalla", () => {
   const start = home.indexOf('aria-labelledby="clientes-title"');
   assert.notEqual(start, -1);
   const clientes = home.slice(start, home.indexOf("</section>", start));
-  assert.match(clientes, /grid-cols-2[^\"]*sm:grid-cols-4[^\"]*lg:grid-cols-7/);
-  assert.ok(!clientes.includes("logos-marquee"));
-  for (const nombre of ["Acciona", "El Corte Inglés", "Elecnor", "Grifols", "Henkel", "Mango", "Mercadona"]) {
+  assert.match(clientes, /class="logos-marquee"/);
+  assert.match(clientes, /<ul class="logos-list" aria-hidden="true"/);
+  for (const nombre of ["Acciona", "El Corte Inglés", "Elecnor", "Grifols", "Henkel", "Mango", "Mercadona", "Hormipresa", "Covestro", "Prenavisa (Molins)", "Memyoc", "Tecnyconta", "Prefabricats Planas", "Port de Barcelona", "Marina 92", "Corbion", "COMSA", "Veolia"]) {
     assert.equal(clientes.split(`alt="Logo de ${nombre}"`).length - 1, 1, nombre);
   }
+  assert.doesNotMatch(clientes, /llerona/i);
+  const lists = [...clientes.matchAll(/<ul class="logos-list"[^>]*>([\s\S]*?)<\/ul>/g)];
+  assert.equal(lists.length, 2);
+  const sources = lists.map(([, list]) => [...list.matchAll(/<img[^>]+src="([^"]+)"/g)].map((match) => match[1]));
+  assert.equal(sources[0].length, 18);
+  assert.deepEqual(sources[1], sources[0]);
+  assert.equal((lists[1][1].match(/\salt(?:="")?(?=\s|>)/g) ?? []).length, 18);
+  for (const src of sources[0]) {
+    assert.ok(existsSync(join(fileURLToPath(dist), decodeURIComponent(src))), src);
+  }
+  assert.match(clientes, /data-pause-label="Pausar logos"/);
+  assert.match(clientes, /data-play-label="Reanudar logos"/);
+});
+
+test("la cinta se puede pausar y respeta la preferencia de movimiento reducido", () => {
+  const component = readFileSync(new URL("../src/components/sections/Clientes.astro", import.meta.url), "utf8");
+  assert.match(component, /prefers-reduced-motion: no-preference/);
+  assert.match(component, /animation: logos-scroll 96s linear infinite/);
+  assert.match(component, /translateX\(-50%\)/);
+  assert.match(component, /data-paused[^}]*animation-play-state: paused/);
+  assert.match(component, /reducedMotion\.addEventListener\("change", updateMotion\)/);
+  assert.match(component, /viewport\.tabIndex = reducedMotion\.matches \? 0 : -1/);
+  for (const [path, pause, play] of [
+    ["ca/index.html", "Aturar logotips", "Reprendre logotips"],
+    ["en/index.html", "Pause logos", "Resume logos"],
+  ]) {
+    const html = readFileSync(new URL(path, dist), "utf8");
+    assert.ok(html.includes(`data-pause-label="${pause}"`));
+    assert.ok(html.includes(`data-play-label="${play}"`));
+  }
+});
+
+test("los controles de la cinta pausarán y reanudarán el movimiento", () => {
+  const script = [...home.matchAll(/<script type="module">([\s\S]*?)<\/script>/g)]
+    .map((match) => match[1]).find((content) => content.includes("data-logos-marquee"));
+  assert.ok(script);
+  const attrs = new Set();
+  const viewport = { scrollLeft: 0, tabIndex: 0 };
+  const button = {
+    dataset: { pauseLabel: "Pausar", playLabel: "Reanudar" },
+    addEventListener(_event, callback) { this.click = callback; },
+  };
+  const media = {
+    matches: false,
+    addEventListener(_event, callback) { this.change = callback; },
+  };
+  const marquee = {
+    querySelector(selector) { return selector === "button" ? button : viewport; },
+    toggleAttribute(name, force = !attrs.has(name)) {
+      if (force) attrs.add(name); else attrs.delete(name);
+      return force;
+    },
+    removeAttribute(name) { attrs.delete(name); },
+  };
+  runInNewContext(script, {
+    document: { querySelectorAll: () => [marquee] },
+    window: { matchMedia: () => media },
+  });
+  assert.ok(attrs.has("data-animated"));
+  assert.equal(button.hidden, false);
+  button.click();
+  assert.ok(attrs.has("data-paused"));
+  assert.equal(button.textContent, "Reanudar");
+  assert.equal(viewport.tabIndex, 0);
+  viewport.scrollLeft = 100;
+  button.click();
+  assert.ok(!attrs.has("data-paused"));
+  assert.equal(viewport.scrollLeft, 0);
+  assert.equal(button.textContent, "Pausar");
+  media.matches = true;
+  media.change();
+  assert.ok(!attrs.has("data-animated"));
+  assert.equal(button.hidden, true);
+  assert.equal(viewport.tabIndex, 0);
 });
 
 test("los trabajos destacados enlazan a artículos e imágenes generadas", () => {

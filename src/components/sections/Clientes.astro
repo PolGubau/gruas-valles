@@ -1,7 +1,6 @@
 ---
 // Logos de clientes — prueba social para mejorar conversión.
-// Los SVG de src/assets/logos se cargan automáticamente; basta con añadir nuevos
-// archivos a esa carpeta para que aparezcan aquí.
+// Los SVG y PNG de src/assets/logos se cargan automáticamente.
 import type { ImageMetadata } from "astro";
 import { getLangFromUrl } from "@i18n/utils";
 import { homeCopy } from "@i18n/home";
@@ -22,26 +21,43 @@ const surface = bg === "alt" ? "bg-surface-alt" : "bg-surface";
 // Nombres legibles por slug de archivo (para alt e indexación SEO).
 const NOMBRES: Record<string, string> = {
   acciona: "Acciona",
+  comsa: "COMSA",
+  corbion: "Corbion",
+  covestro: "Covestro",
   "el-corte-ingles": "El Corte Inglés",
   "elecnor-vector": "Elecnor",
   grifols: "Grifols",
   henkel: "Henkel",
+  hormipresa: "Hormipresa",
   mango: "Mango",
+  "marina-92": "Marina 92",
+  memyoc: "Memyoc",
   mercadona: "Mercadona",
+  "port-de-barcelona": "Port de Barcelona",
+  "prefabricats-planas": "Prefabricats Planas",
+  prenavisa: "Prenavisa (Molins)",
+  tecnyconta: "Tecnyconta",
+  veolia: "Veolia",
 };
 
 const modules = import.meta.glob<{ default: ImageMetadata }>(
-  "../../assets/logos/*.svg",
+  "../../assets/logos/*.{svg,png}",
   { eager: true },
 );
 
 const logos = Object.entries(modules)
   .map(([path, mod]) => {
     const file = path.split("/").pop() ?? path;
-    const slug = file.replace(/\.svg$/, "");
+    const slug = file.replace(/\.(svg|png)$/, "");
     return { src: mod.default.src, nombre: NOMBRES[slug] ?? slug };
   })
   .sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
+
+const controls = {
+  es: { pause: "Pausar logos", play: "Reanudar logos" },
+  ca: { pause: "Aturar logotips", play: "Reprendre logotips" },
+  en: { pause: "Pause logos", play: "Resume logos" },
+}[lang];
 ---
 
 <section
@@ -56,26 +72,117 @@ const logos = Object.entries(modules)
     >
       {title}
     </h2>
-    <ul
-      class="grid grid-cols-2 items-center gap-x-4 gap-y-4 sm:grid-cols-4 lg:grid-cols-7"
-      data-reveal
-      data-reveal-delay="1"
-    >
-      {
-        logos.map((logo) => (
-          <li class="flex h-16 min-w-0 items-center justify-center px-2">
-            <img
-              src={logo.src}
-              alt={`${lang === "en" ? "Logo of" : "Logo de"} ${logo.nombre}`}
-              width="160"
-              height="64"
-              loading="lazy"
-              decoding="async"
-              class="h-12 w-full max-w-32 object-contain"
-            />
-          </li>
-        ))
-      }
-    </ul>
+    <div class="logos-marquee" data-logos-marquee>
+      <div class="logos-viewport" tabindex="0">
+        <div class="logos-track">
+          {
+            [false, true].map((duplicate) => (
+              <ul
+                class="logos-list"
+                aria-hidden={duplicate ? "true" : undefined}
+              >
+                {logos.map((logo) => (
+                  <li class="flex h-16 w-44 shrink-0 items-center justify-center px-4">
+                    <img
+                      src={logo.src}
+                      alt={
+                        duplicate
+                          ? ""
+                          : `${lang === "en" ? "Logo of" : "Logo de"} ${logo.nombre}`
+                      }
+                      width="160"
+                      height="64"
+                      loading="lazy"
+                      decoding="async"
+                      class="h-12 w-full max-w-32 object-contain"
+                    />
+                  </li>
+                ))}
+              </ul>
+            ))
+          }
+        </div>
+      </div>
+      <div class="mt-3 text-center">
+        <button
+          type="button"
+          class="text-xs text-ink-secondary underline underline-offset-4"
+          data-pause-label={controls.pause}
+          data-play-label={controls.play}
+          hidden>{controls.pause}</button
+        >
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  .logos-viewport {
+    overflow-x: auto;
+  }
+  .logos-track,
+  .logos-list {
+    display: flex;
+    width: max-content;
+  }
+  .logos-list[aria-hidden="true"] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .logos-marquee[data-animated] .logos-viewport {
+      overflow: hidden;
+    }
+    .logos-marquee[data-animated] .logos-list[aria-hidden="true"] {
+      display: flex;
+    }
+    .logos-marquee[data-animated] .logos-track {
+      animation: logos-scroll 96s linear infinite;
+    }
+    .logos-marquee[data-paused] .logos-viewport {
+      overflow-x: auto;
+    }
+    .logos-marquee[data-paused] .logos-track {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes logos-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>("[data-logos-marquee]")
+    .forEach((marquee) => {
+      const viewport = marquee.querySelector<HTMLElement>(".logos-viewport");
+      const button = marquee.querySelector<HTMLButtonElement>("button");
+      if (!viewport || !button) return;
+
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
+      const updateMotion = () => {
+        marquee.toggleAttribute("data-animated", !reducedMotion.matches);
+        marquee.removeAttribute("data-paused");
+        viewport.scrollLeft = 0;
+        viewport.tabIndex = reducedMotion.matches ? 0 : -1;
+        button.hidden = reducedMotion.matches;
+        button.textContent = button.dataset.pauseLabel ?? "";
+      };
+
+      button.addEventListener("click", () => {
+        const paused = marquee.toggleAttribute("data-paused");
+        if (!paused) viewport.scrollLeft = 0;
+        viewport.tabIndex = paused ? 0 : -1;
+        button.textContent = paused
+          ? (button.dataset.playLabel ?? "")
+          : (button.dataset.pauseLabel ?? "");
+      });
+      reducedMotion.addEventListener("change", updateMotion);
+      updateMotion();
+    });
+</script>

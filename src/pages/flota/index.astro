@@ -1,6 +1,10 @@
 ---
 import { getCollection } from "astro:content";
-import { fleetCategory, fleetCopy } from "@i18n/fleet";
+import {
+  fleetCategory,
+  fleetCopy,
+  isAuxiliaryFleetCategory,
+} from "@i18n/fleet";
 import { homeCopy } from "@i18n/home";
 import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 import FlotaCard from "../../components/flota/FlotaCard.astro";
@@ -17,7 +21,11 @@ const localizePath = useTranslatedPath(lang);
 const entries = await getCollection("flota");
 const allModels = entries
   .map((e) => ({ slug: e.id, ...e.data }))
-  .sort((a, b) => a.orden - b.orden);
+  .sort(
+    (a, b) =>
+      Number(isAuxiliaryFleetCategory(a.categoria)) -
+        Number(isAuxiliaryFleetCategory(b.categoria)) || a.orden - b.orden,
+  );
 
 const categorias = [...new Set(allModels.map((m) => m.categoria))];
 
@@ -97,7 +105,7 @@ const crumbs = [
         <!-- Separador -->
         <div class="hidden h-6 w-px bg-muted sm:block" aria-hidden="true"></div>
 
-        <!-- Ordenar por tonelaje -->
+        <!-- Ordenar por capacidad dentro de cada grupo -->
         <button
           type="button"
           id="sort-tonelaje"
@@ -203,19 +211,21 @@ const crumbs = [
     const visible = cards.filter((c) => c.style.display !== "none");
     const hidden = cards.filter((c) => c.style.display === "none");
 
-    if (sortOrder === "none") {
-      // Restaurar orden original
-      [...visible, ...hidden]
-        .sort((a, b) => Number(a.dataset.orden) - Number(b.dataset.orden))
-        .forEach((c) => grid.appendChild(c));
-    } else {
-      const sorted = visible.sort((a, b) => {
-        const ta = Number(a.dataset.tonelaje);
-        const tb = Number(b.dataset.tonelaje);
-        return sortOrder === "desc" ? tb - ta : ta - tb;
-      });
-      [...sorted, ...hidden].forEach((c) => grid.appendChild(c));
-    }
+    const sorted = visible.sort((a, b) => {
+      const group = Number(a.dataset.grupo) - Number(b.dataset.grupo);
+      const originalOrder = Number(a.dataset.orden) - Number(b.dataset.orden);
+      if (group || sortOrder === "none") return group || originalOrder;
+
+      const ta = a.dataset.tonelaje;
+      const tb = b.dataset.tonelaje;
+      if (!ta || !tb) return Number(!ta) - Number(!tb) || originalOrder;
+      const difference =
+        sortOrder === "desc"
+          ? Number(tb) - Number(ta)
+          : Number(ta) - Number(tb);
+      return difference || originalOrder;
+    });
+    [...sorted, ...hidden].forEach((c) => grid.appendChild(c));
   }
 
   // Filtros por categoría
