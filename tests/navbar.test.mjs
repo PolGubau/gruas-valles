@@ -48,6 +48,17 @@ test("la cabecera flotante agrupa navegación, teléfono e idiomas sin cubrir el
   }
 });
 
+test("el fondo de las páginas interiores ocupa también el espacio de la cabecera", () => {
+  const layout = readFileSync(new URL("../src/layouts/Page.astro", import.meta.url), "utf8");
+  assert.match(layout, /\.inner-page > :first-child::before\s*\{[^}]*display:\s*block;[^}]*height:\s*4rem;/);
+  for (const prefix of ["", "ca/", "en/"]) {
+    for (const page of ["blog/", "servicios/", "legal/privacidad/"]) {
+      const html = readFileSync(new URL(`../dist/${prefix}${page}index.html`, import.meta.url), "utf8");
+      assert.match(html, /<main id="main" class="inner-page">\s*<section class="[^"]*bg-surface-alt/);
+    }
+  }
+});
+
 test("los menús se cierran con Escape y devuelven el foco al botón", { skip: !nodeModule.stripTypeScriptTypes }, () => {
   const navbarSource = readFileSync(new URL("../src/components/ui/Navbar.astro", import.meta.url), "utf8");
   const script = navbarSource.match(/<script>([\s\S]*?)<\/script>/)?.[1];

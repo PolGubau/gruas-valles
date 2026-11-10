@@ -15,8 +15,17 @@ const { title, description, image, schema } = Astro.props;
 
 <Base title={title} description={description} image={image} schema={schema}>
   <Navbar />
-  <main id="main" class="pt-16">
+  <main id="main" class="inner-page">
     <slot />
   </main>
   <Footer />
 </Base>
+
+<style is:global>
+  /* Reserve space for the fixed navbar inside the first section's background. */
+  .inner-page > :first-child::before {
+    content: "";
+    display: block;
+    height: 4rem;
+  }
+</style>
