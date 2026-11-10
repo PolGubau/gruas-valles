@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import * as nodeModule from "node:module";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -112,6 +112,33 @@ test("contacto tiene contenido, metadatos y navegación en cada idioma", () => {
   }
 });
 
+test("el catálogo y todas las fichas de flota se generan en los tres idiomas", () => {
+  const fleetDir = fileURLToPath(new URL("flota/", dist));
+  const models = readdirSync(fleetDir, { withFileTypes: true }).filter((item) => item.isDirectory()).map((item) => item.name);
+  assert.ok(models.length > 0);
+  const expected = {
+    es: ["unidades propias para cualquier maniobra", "Filtrar flota por categoría", "Capacidad máxima"],
+    ca: ["unitats pròpies per a qualsevol maniobra", "Filtrar la flota per categoria", "Capacitat màxima"],
+    en: ["vehicles in our fleet for every lift", "Filter fleet by category", "Maximum capacity"],
+  };
+  for (const lang of ["es", "ca", "en"]) {
+    const prefix = lang === "es" ? "" : `${lang}/`;
+    const index = readFileSync(new URL(`${prefix}flota/index.html`, dist), "utf8");
+    assert.ok(index.includes(expected[lang][0]) && index.includes(expected[lang][1]));
+    assert.ok(index.includes('data-label-desc='));
+    for (const slug of models) {
+      const html = readFileSync(new URL(`${prefix}flota/${slug}/index.html`, dist), "utf8");
+      assert.match(html, new RegExp(`<html lang="${lang}"`));
+      assert.doesNotMatch(html, /http-equiv="refresh"/);
+      assert.ok(html.includes(`href="/${prefix}flota"`));
+      assert.ok(index.includes(`href="/${prefix}flota/${slug}"`));
+      assert.ok(html.includes(`hreflang="${lang}" href="https://www.gruasdelvalles.com/${prefix}flota/${slug}/"`));
+    }
+    const heavyCrane = readFileSync(new URL(`${prefix}flota/liebherr-ltm-1500-8-1/index.html`, dist), "utf8");
+    assert.ok(heavyCrane.includes(expected[lang][2]));
+  }
+});
+
 test("los enlaces y anclas de cada portada tienen destino generado", () => {
   for (const [lang, html] of Object.entries(pages)) {
     const origin = new URL(lang === "es" ? "/" : `/${lang}/`, "https://www.gruasdelvalles.com");
@@ -153,7 +180,8 @@ test("detección y selección explícita respetan idioma, URL y preferencias", {
   assert.equal(run({ languages: ["en"], pathname: "/contacto", search: "?lang=es", blocked: true }).redirected, undefined);
   assert.equal(run({ languages: ["en"], pathname: "/servicios" }).redirected, "/en/servicios");
   assert.equal(run({ languages: ["ca"], pathname: "/servicios/transportes-especiales" }).redirected, "/ca/servicios/transportes-especiales");
-  assert.equal(run({ languages: ["en"], pathname: "/flota" }).redirected, undefined);
+  assert.equal(run({ languages: ["en"], pathname: "/flota" }).redirected, "/en/flota");
+  assert.equal(run({ languages: ["en"], pathname: "/blog" }).redirected, undefined);
   const session = run({ languages: ["es"] });
   session.select("ca");
   assert.equal(session.stored, "ca");
