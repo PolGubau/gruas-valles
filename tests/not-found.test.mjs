@@ -52,7 +52,7 @@ test("el 404 detecta el idioma y permite cambiarlo sin redirigir", { skip: !node
 test("la política identifica todas las páginas con mapas incrustados", () => {
   const expected = {
     es: "Inicio, Contacto y Nosotros:",
-    ca: "les pàgines d&#39;Inici, Contacte i Nosaltres:",
+    ca: "les pàgines d'Inici, Contacte i Nosaltres:",
     en: "Home, Contact and About us pages:",
   };
   for (const [lang, text] of Object.entries(expected)) {
