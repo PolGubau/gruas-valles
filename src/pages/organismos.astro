@@ -1,64 +1,58 @@
 ---
 import { Icon } from "astro-icon/components";
+import { organizationsCopy } from "@i18n/organizations";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 import creuRojaPdf from "../assets/docs/creu_roja.pdf";
 import CtaBand from "../components/ui/CtaBand.astro";
 import PageHero from "../components/ui/PageHero.astro";
 import Page from "../layouts/Page.astro";
 
+const lang = getLangFromUrl(Astro.url);
+const copy = organizationsCopy(lang);
+const localizePath = useTranslatedPath(lang);
 const organismos = [
   {
     icon: "lucide:building-2",
-    nombre: "ANAGRUAL",
-    nombre_completo:
-      "Agrupación Empresarial Nacional de Alquiladores de Grúas de Servicio Público",
-    descripcion:
-      "Grúas del Vallès desempeña cargos en la Junta Directiva a nivel autonómico dentro de esta agrupación empresarial nacional.",
+    ...copy.organizations.anagrual,
     enlace: "https://www.anagrual.es",
     pdf: null,
   },
   {
     icon: "lucide:truck",
-    nombre: "TRANSCALIT",
-    nombre_completo: "Federación Catalana de Transportes de Barcelona",
-    descripcion:
-      "Miembros de la Federación Catalana de Transportes, entidad de referencia en el sector del transporte en Cataluña.",
+    ...copy.organizations.transcalit,
     enlace: null,
     pdf: null,
   },
   {
     icon: "lucide:heart-handshake",
-    nombre: "CRUZ ROJA",
-    nombre_completo: "Socio Colaborador desde 1997",
-    descripcion:
-      "Grúas del Vallès es socio colaborador de Cruz Roja desde 1997, comprometidos con la responsabilidad social y el apoyo a esta institución sin ánimo de lucro.",
+    ...copy.organizations.redcross,
     enlace: null,
     pdf: creuRojaPdf,
   },
 ];
 ---
 
-<Page
-  title="Organismos y Asociaciones | Grúas del Vallès"
-  description="Grúas del Vallès pertenece a distintas asociaciones empresariales y organismos a nivel nacional y autonómico, además de entidades sin ánimo de lucro como Cruz Roja."
->
+<Page title={`${copy.title} | Grúas del Vallès`} description={copy.description}>
   <PageHero
-    title="Organismos y asociaciones"
-    lede="Grúas del Vallès pertenece a distintas asociaciones empresariales y organismos tanto a nivel nacional como autonómico y forma parte de otras asociaciones sin ánimo de lucro."
-    crumbs={[{ label: "Inicio", href: "/" }, { label: "Organismos" }]}
+    title={copy.title}
+    lede={copy.lede}
+    crumbs={[
+      { label: copy.home, href: localizePath("/") },
+      { label: copy.breadcrumb },
+    ]}
   />
 
   <!-- Intro -->
   <section class="section-padding bg-surface">
     <div class="container-wide max-w-3xl">
       <p class="eyebrow">
-        <span class="h-px w-8 bg-accent"></span>Nuestro compromiso sectorial
+        <span class="h-px w-8 bg-accent"></span>{copy.eyebrow}
       </p>
       <h2 class="mb-6 text-2xl font-black sm:text-3xl">
-        Miembros activos del sector y de la sociedad
+        {copy.heading}
       </h2>
       <p class="leading-relaxed text-ink-secondary">
-        Puede conocer más sobre estas organizaciones pulsando sobre cada uno de
-        los logos o accediendo a los enlaces indicados.
+        {copy.intro}
       </p>
     </div>
   </section>
@@ -76,13 +70,13 @@ const organismos = [
                 aria-hidden="true"
               />
               <div>
-                <h3 class="text-lg font-bold">{o.nombre}</h3>
+                <h3 class="text-lg font-bold">{o.name}</h3>
                 <p class="mt-0.5 text-xs font-medium uppercase tracking-wider text-accent">
-                  {o.nombre_completo}
+                  {o.full}
                 </p>
               </div>
               <p class="flex-1 text-sm leading-relaxed text-ink-secondary">
-                {o.descripcion}
+                {o.description}
               </p>
               <div class="flex flex-col gap-2">
                 {o.enlace && (
@@ -97,7 +91,7 @@ const organismos = [
                       class="h-4 w-4"
                       aria-hidden="true"
                     />
-                    Ver web
+                    {copy.website}
                   </a>
                 )}
                 {o.pdf && (
@@ -112,7 +106,7 @@ const organismos = [
                       class="h-4 w-4"
                       aria-hidden="true"
                     />
-                    Descargar documento acreditativo
+                    {copy.download}
                   </a>
                 )}
               </div>

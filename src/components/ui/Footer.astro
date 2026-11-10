@@ -2,7 +2,11 @@
 import { Icon } from "astro-icon/components";
 import localidades from "../../data/localidades.json";
 import { catalogo } from "../../lib/docs";
-import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
+import {
+  getLangFromUrl,
+  hasTranslations,
+  useTranslatedPath,
+} from "@i18n/utils";
 import { homeCopy } from "@i18n/home";
 
 const lang = getLangFromUrl(Astro.url);
@@ -174,7 +178,7 @@ const legalLinks = [
               empresaLinks.map(({ href, label }) => (
                 <li>
                   <a
-                    href={href === "/contacto" ? localizePath(href) : href}
+                    href={hasTranslations(href) ? localizePath(href) : href}
                     class="transition-colors hover:text-accent-light"
                   >
                     {label}

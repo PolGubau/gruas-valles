@@ -1,0 +1,7 @@
+---
+import CompanyPage from "../nosotros.astro";
+export function getStaticPaths() {
+  return ["ca", "en"].map((locale) => ({ params: { locale } }));
+}
+---
+<CompanyPage />

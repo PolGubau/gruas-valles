@@ -1,5 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
+import { companyCopy } from "@i18n/company";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 import Clientes from "../components/sections/Clientes.astro";
 import NosotrosSection from "../components/sections/NosotrosSection.astro";
 import CtaBand from "../components/ui/CtaBand.astro";
@@ -7,28 +9,34 @@ import PageHero from "../components/ui/PageHero.astro";
 import nosotros from "../data/nosotros.json";
 import Page from "../layouts/Page.astro";
 
+const lang = getLangFromUrl(Astro.url);
+const copy = companyCopy(lang);
+const localizePath = useTranslatedPath(lang);
 const anios = new Date().getFullYear() - nosotros.fundacion;
 const stats = [
-  { valor: `${anios}+`, label: "Años de experiencia" },
-  { valor: "700 Tn", label: "Capacidad máxima" },
-  { valor: "24/365", label: "Servicio de emergencia" },
-  { valor: "5.000 m²", label: "Instalaciones propias" },
+  { valor: `${anios}+`, label: copy.stats[0] },
+  { valor: "700 Tn", label: copy.stats[1] },
+  { valor: "24/365", label: copy.stats[2] },
+  { valor: "5.000 m²", label: copy.stats[3] },
 ];
 const certificaciones = [
   { titulo: "REA", detalle: nosotros.seguridad.rea },
   { titulo: "REIC", detalle: nosotros.seguridad.reic },
-  { titulo: "LOPD", detalle: nosotros.seguridad.lopd },
+  { titulo: "LOPD", detalle: copy.dataProtection },
 ];
 ---
 
 <Page
-  title="Sobre nosotros | Grúas del Vallès"
-  description={`Empresa familiar fundada en 1968 en Granollers. Más de ${anios} años moviendo lo imposible con maquinaria propia y un equipo especializado.`}
+  title={`${copy.title} | Grúas del Vallès`}
+  description={copy.description(anios)}
 >
   <PageHero
-    title="Empresa familiar de referencia en elevación desde 1968"
-    lede="Tres generaciones especializadas en alquiler de grúas y maniobras de gran tonelaje en Cataluña, con maquinaria propia y un compromiso firme con la seguridad."
-    crumbs={[{ label: "Inicio", href: "/" }, { label: "Nosotros" }]}
+    title={copy.hero}
+    lede={copy.lede}
+    crumbs={[
+      { label: copy.home, href: localizePath("/") },
+      { label: copy.about },
+    ]}
   />
 
   <!-- Stats band -->
@@ -58,10 +66,10 @@ const certificaciones = [
     <div class="container-wide">
       <div class="mb-12 max-w-2xl">
         <p class="eyebrow">
-          <span class="h-px w-8 bg-accent"></span>Certificaciones y seguridad
+          <span class="h-px w-8 bg-accent"></span>{copy.certification}
         </p>
         <h2 class="text-3xl font-black leading-tight sm:text-4xl">
-          Trabajamos con todas las garantías
+          {copy.guarantees}
         </h2>
       </div>
       <div class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-4">
@@ -89,14 +97,14 @@ const certificaciones = [
     <div class="container-wide grid gap-12 lg:grid-cols-2">
       <div>
         <p class="eyebrow">
-          <span class="h-px w-8 bg-accent"></span>Instalaciones
+          <span class="h-px w-8 bg-accent"></span>{copy.facilities}
         </p>
         <h2 class="mb-6 text-2xl font-black sm:text-3xl">
-          5.000 m² de medios propios
+          {copy.facilityTitle}
         </h2>
         <ul class="grid gap-2 sm:grid-cols-2">
           {
-            nosotros.instalaciones.map((i: string) => (
+            copy.facilityItems.map((i: string) => (
               <li class="flex items-center gap-2 text-sm text-ink-secondary">
                 <Icon
                   name="lucide:check"
@@ -111,14 +119,14 @@ const certificaciones = [
       </div>
       <div>
         <p class="eyebrow">
-          <span class="h-px w-8 bg-accent"></span>Asociaciones
+          <span class="h-px w-8 bg-accent"></span>{copy.associations}
         </p>
         <h2 class="mb-6 text-2xl font-black sm:text-3xl">
-          Miembros activos del sector
+          {copy.members}
         </h2>
         <ul class="space-y-3">
           {
-            nosotros.organismos.map((o: string) => (
+            copy.associationItems.map((o: string) => (
               <li class="flex items-start gap-3 text-sm leading-relaxed text-ink-secondary">
                 <Icon
                   name="lucide:users"
@@ -139,10 +147,10 @@ const certificaciones = [
     <div class="container-wide grid gap-10 lg:grid-cols-2 lg:items-center">
       <div>
         <p class="eyebrow">
-          <span class="h-px w-8 bg-accent"></span>Dónde estamos
+          <span class="h-px w-8 bg-accent"></span>{copy.location}
         </p>
         <h2 class="mb-6 text-2xl font-black sm:text-3xl">
-          A 2 minutos del Circuit de Montmeló
+          {copy.nearCircuit}
         </h2>
         <dl class="space-y-4 text-sm">
           <div class="flex items-start gap-3">
@@ -159,7 +167,16 @@ const certificaciones = [
               class="mt-0.5 h-4 w-4 shrink-0 text-accent"
               aria-hidden="true"
             />
-            <dd>Accesos directos: {nosotros.ubicacion.accesos}</dd>
+            <dd>
+              {copy.access}: {
+                nosotros.ubicacion.accesos
+                  .replace("Carretera", lang === "en" ? "Road" : "Carretera")
+                  .replace(
+                    " y ",
+                    lang === "ca" ? " i " : lang === "en" ? " and " : " y ",
+                  )
+              }
+            </dd>
           </div>
         </dl>
       </div>
@@ -172,7 +189,7 @@ const certificaciones = [
           allowfullscreen
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          title="Ubicación de Grúas del Vallès en Granollers"></iframe>
+          title={copy.mapTitle}></iframe>
       </div>
     </div>
   </section>

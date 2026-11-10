@@ -1,6 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
+import { companyCopy, companyMilestone } from "@i18n/company";
+import { localitiesCopy } from "@i18n/localities";
+import { getLangFromUrl } from "@i18n/utils";
 import nosotros from "../../data/nosotros.json";
+const lang = getLangFromUrl(Astro.url);
+const copy = companyCopy(lang);
 ---
 
 <section id="nosotros" class="section-padding bg-ink text-white">
@@ -11,29 +16,23 @@ import nosotros from "../../data/nosotros.json";
         <p
           class="mb-2 text-xs font-semibold uppercase tracking-wider text-accent"
         >
-          Quiénes somos
+          {copy.who}
         </p>
         <h2 class="mb-6 text-3xl font-black sm:text-4xl">
-          Más de 55 años<br />
-          <span class="text-accent">moviendo lo imposible</span>
+          {copy.years}<br />
+          <span class="text-accent">{copy.tagline}</span>
         </h2>
         <p class="mb-6 text-muted leading-relaxed max-w-md">
-          A finales de los años 60 nace Grúas del Vallés, fundada por {
-            nosotros.fundador
-          }. Con la voluntad de dar servicio a una necesidad creciente en el
-          sector, la empresa se expandió rápidamente adaptándose a la constante
-          evolución del mercado.
+          {copy.origin(nosotros.fundador)}
         </p>
         <p class="mb-8 text-muted leading-relaxed max-w-md">
-          Hoy somos una de las empresas líderes en alquiler de maquinaria de
-          elevación en Catalunya, brindando asistencia personalizada a cada uno
-          de nuestros clientes desde nuestras instalaciones en Granollers.
+          {copy.today}
         </p>
 
         <!-- Por qué elegirnos -->
         <ul class="space-y-4">
           {
-            nosotros.por_que_elegirnos.map((razon: string) => (
+            localitiesCopy(lang).reasons.map((razon: string) => (
               <li class="flex items-start gap-3 text-sm text-muted">
                 <Icon
                   name="lucide:check-circle-2"
@@ -52,7 +51,7 @@ import nosotros from "../../data/nosotros.json";
             [
               `REA ${nosotros.seguridad.rea}`,
               `REIC ${nosotros.seguridad.reic}`,
-              "Cruz Roja · Colaborador",
+              copy.redCross,
             ].map((cert) => (
               <span class="border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-muted-dark transition-colors hover:border-accent/40 hover:text-white">
                 {cert}
@@ -67,7 +66,7 @@ import nosotros from "../../data/nosotros.json";
         <p
           class="mb-10 text-xs font-semibold uppercase tracking-wider text-muted-dark lg:text-right"
         >
-          Nuestra historia
+          {copy.history}
         </p>
         <div class="relative">
           <!-- Background line -->
@@ -87,7 +86,7 @@ import nosotros from "../../data/nosotros.json";
 
           <ol class="space-y-12 pl-12">
             {
-              nosotros.historia.map((hito: any, i: number) => (
+              nosotros.historia.map((hito) => (
                 <li class="timeline-item relative" data-reveal>
                   <span
                     class="timeline-dot absolute -left-[41px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full border-2 border-accent bg-ink transition-transform duration-500"
@@ -97,19 +96,23 @@ import nosotros from "../../data/nosotros.json";
                   </span>
                   <div class="transition-transform duration-500 hover:translate-x-1">
                     <p class="text-sm font-black text-accent uppercase tracking-widest">
-                      {hito.anio}
+                      {hito.anio === "Actualidad" ? copy.present : hito.anio}
                     </p>
                     <p class="mt-2 text-base font-bold text-white leading-tight">
-                      {hito.hito.split(":")[0]}
+                      {
+                        companyMilestone(lang, hito.anio, hito.hito).split(
+                          ":",
+                        )[0]
+                      }
                     </p>
-                    {hito.hito.includes(":") && (
+                    {companyMilestone(lang, hito.anio, hito.hito).includes(
+                      ":",
+                    ) && (
                       <p class="mt-1 text-sm text-muted leading-relaxed">
-                        {hito.hito.split(":").slice(1).join(":")}
-                      </p>
-                    )}
-                    {!hito.hito.includes(":") && (
-                      <p class="mt-1 text-sm text-muted leading-relaxed">
-                        {hito.hito}
+                        {companyMilestone(lang, hito.anio, hito.hito)
+                          .split(":")
+                          .slice(1)
+                          .join(":")}
                       </p>
                     )}
                   </div>

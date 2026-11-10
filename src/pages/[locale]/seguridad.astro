@@ -1,0 +1,7 @@
+---
+import SafetyPage from "../seguridad.astro";
+export function getStaticPaths() {
+  return ["ca", "en"].map((locale) => ({ params: { locale } }));
+}
+---
+<SafetyPage />

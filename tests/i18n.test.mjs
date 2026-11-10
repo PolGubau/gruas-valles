@@ -139,6 +139,60 @@ test("el catálogo y todas las fichas de flota se generan en los tres idiomas", 
   }
 });
 
+test("seguridad mantiene sus acreditaciones y documentos en cada idioma", () => {
+  const expected = {
+    es: ["La seguridad, en el centro de cada maniobra", "Taller mecánico propio", "Descargar PDF"],
+    ca: ["La seguretat, al centre de cada maniobra", "Taller mecànic propi", "Descarregar PDF"],
+    en: ["Safety at the heart of every lift", "Our own mechanical workshop", "Download PDF"],
+  };
+  for (const lang of ["es", "ca", "en"]) {
+    const prefix = lang === "es" ? "" : `${lang}/`;
+    const html = readFileSync(new URL(`${prefix}seguridad/index.html`, dist), "utf8");
+    assert.match(html, new RegExp(`<html lang="${lang}"`));
+    assert.doesNotMatch(html, /http-equiv="refresh"/);
+    for (const text of expected[lang]) assert.ok(html.includes(text), `${lang}: ${text}`);
+    assert.ok(html.includes("0900006812"));
+    assert.ok(pages[lang].includes(`href="/${prefix}seguridad"`));
+    assert.ok(html.includes(`hreflang="${lang}" href="https://www.gruasdelvalles.com/${prefix}seguridad/"`));
+  }
+});
+
+test("las asociaciones están traducidas y conservan sus enlaces", () => {
+  const expected = {
+    es: ["Organismos y asociaciones", "Socio Colaborador desde 1997", "Descargar documento acreditativo"],
+    ca: ["Organismes i associacions", "Soci col·laborador des de 1997", "Descarregar document acreditatiu"],
+    en: ["Organisations and associations", "Supporting member since 1997", "Download supporting document"],
+  };
+  for (const lang of ["es", "ca", "en"]) {
+    const prefix = lang === "es" ? "" : `${lang}/`;
+    const html = readFileSync(new URL(`${prefix}organismos/index.html`, dist), "utf8");
+    assert.match(html, new RegExp(`<html lang="${lang}"`));
+    assert.doesNotMatch(html, /http-equiv="refresh"/);
+    for (const text of expected[lang]) assert.ok(html.includes(text), `${lang}: ${text}`);
+    assert.ok(html.includes('href="https://www.anagrual.es"'));
+    assert.ok(pages[lang].includes(`href="/${prefix}organismos"`));
+    assert.ok(html.includes(`hreflang="${lang}" href="https://www.gruasdelvalles.com/${prefix}organismos/"`));
+  }
+});
+
+test("la página de empresa traduce historia, instalaciones y navegación", () => {
+  const expected = {
+    es: ["Empresa familiar de referencia", "Nuestra historia", "Taller mecánico", "Actualidad"],
+    ca: ["Empresa familiar de referència", "La nostra història", "Taller mecànic", "Actualitat"],
+    en: ["A family business specialising", "Our history", "Mechanical workshop", "Today"],
+  };
+  for (const lang of ["es", "ca", "en"]) {
+    const prefix = lang === "es" ? "" : `${lang}/`;
+    const html = readFileSync(new URL(`${prefix}nosotros/index.html`, dist), "utf8");
+    assert.match(html, new RegExp(`<html lang="${lang}"`));
+    assert.doesNotMatch(html, /http-equiv="refresh"/);
+    for (const text of expected[lang]) assert.ok(html.includes(text), `${lang}: ${text}`);
+    assert.equal((html.match(/class="timeline-item relative"/g) ?? []).length, 14);
+    assert.ok(pages[lang].includes(`href="/${prefix}nosotros"`));
+    assert.ok(html.includes(`hreflang="${lang}" href="https://www.gruasdelvalles.com/${prefix}nosotros/"`));
+  }
+});
+
 test("localidades y cobertura conservan contenido, enlaces y SEO en cada idioma", () => {
   const locations = JSON.parse(readFileSync(new URL("../src/data/localidades.json", import.meta.url), "utf8"));
   const titles = { es: "Alquiler de grúas", ca: "Lloguer de grues", en: "Crane hire" };
@@ -214,6 +268,7 @@ test("detección y selección explícita respetan idioma, URL y preferencias", {
   assert.equal(run({ languages: ["en"], pathname: "/servicios" }).redirected, "/en/servicios");
   assert.equal(run({ languages: ["ca"], pathname: "/servicios/transportes-especiales" }).redirected, "/ca/servicios/transportes-especiales");
   assert.equal(run({ languages: ["en"], pathname: "/flota" }).redirected, "/en/flota");
+  assert.equal(run({ languages: ["en"], pathname: "/nosotros" }).redirected, "/en/nosotros");
   assert.equal(run({ languages: ["ca"], pathname: "/alquiler-gruas/maresme" }).redirected, "/ca/alquiler-gruas/maresme");
   assert.equal(run({ languages: ["en"], pathname: "/blog" }).redirected, undefined);
   const session = run({ languages: ["es"] });

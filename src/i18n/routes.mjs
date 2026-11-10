@@ -1,6 +1,6 @@
 // A route belongs here only when its content is available in every locale.
 const translatedRoutes = new Set([
-  "/", "/contacto", "/servicios", "/flota", "/alquiler-gruas",
+  "/", "/contacto", "/servicios", "/flota", "/alquiler-gruas", "/nosotros", "/organismos", "/seguridad",
   "/servicios/gruas-moviles-autopropulsadas",
   "/servicios/transportes-especiales",
   "/servicios/montaje-estructuras-prefabricado",

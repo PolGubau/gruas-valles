@@ -40,6 +40,9 @@ test("el sitemap incluye las traducciones reales, pero no las redirecciones inte
   for (const locale of ["ca", "en"]) {
     assert.ok(urls.some((url) => url.pathname.replace(/\/$/, "") === `/${locale}`));
     assert.ok(urls.some((url) => url.pathname.replace(/\/$/, "") === `/${locale}/contacto`));
+    for (const route of ["/nosotros", "/organismos", "/seguridad", "/alquiler-gruas", "/alquiler-gruas/maresme"]) {
+      assert.ok(urls.some((url) => url.pathname.replace(/\/$/, "") === `/${locale}${route}`), `${locale}${route}`);
+    }
   }
   assert.ok(urls.every((url) => !/^\/(ca|en)\//.test(url.pathname) || hasTranslations(url.pathname.replace(/^\/(ca|en)/, ""))));
   for (const url of urls.filter((item) => !hasTranslations(item.pathname) && !/^\/(ca|en)\//.test(item.pathname) && !/^\/(ca|en)\/?$/.test(item.pathname))) {
