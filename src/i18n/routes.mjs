@@ -10,5 +10,5 @@ const translatedRoutes = new Set([
 
 export function hasTranslations(path) {
   const route = path.replace(/\/$/, "") || "/";
-  return translatedRoutes.has(route) || /^\/(?:flota|alquiler-gruas|blog)\/[^/]+$/.test(route);
+  return translatedRoutes.has(route) || /^\/(?:flota|alquiler-gruas|blog|equipo)\/[^/]+$/.test(route);
 }

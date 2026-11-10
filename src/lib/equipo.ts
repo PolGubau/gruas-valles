@@ -8,21 +8,11 @@ export interface Persona {
   slug: string;
 }
 
-/** "Manel Moya" → "manel-moya" (sin tildes ni caracteres no ASCII). */
-export function slugify(nombre: string): string {
-  return nombre
-    .normalize("NFD")
-    .replace(/[\\u0300-\\u036f]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+/** Las rutas son explícitas para que cambiar un nombre no invalide la tarjeta. */
+export const equipo: Persona[] = contacto.contactos;
+if (new Set(equipo.map((p) => p.slug)).size !== equipo.length || equipo.some((p) => !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(p.slug))) {
+  throw new Error("Los contactos deben tener un slug válido y único");
 }
-
-/** Equipo de contacto con slug único derivado del nombre. */
-export const equipo: Persona[] = contacto.contactos.map((p) => ({
-  ...p,
-  slug: slugify(p.nombre),
-}));
 
 /** href telefónico con prefijo internacional: "669 296 949" → "tel:+34669296949". */
 export function telHref(telefono: string): string {
@@ -37,21 +27,36 @@ function vesc(value: string): string {
 }
 
 /** vCard 3.0 para el botón "Guardar contacto" de la tarjeta virtual. */
-export function buildVCard(p: Persona): string {
+export function buildVCard(p: Persona, area: string): string {
   const tel = `+34${p.telefono.replace(/\s/g, "")}`;
   const [nombre, ...apellidos] = p.nombre.split(" ");
   const lines = [
     "BEGIN:VCARD",
     "VERSION:3.0",
-    `N;CHARSET=UTF-8:${vesc(apellidos.join(" "))};${vesc(nombre)};;;`,
-    `FN;CHARSET=UTF-8:${vesc(p.nombre)}`,
-    `ORG;CHARSET=UTF-8:${vesc(contacto.empresa)}`,
-    `TITLE;CHARSET=UTF-8:${vesc(p.area)}`,
+    `N:${vesc(apellidos.join(" "))};${vesc(nombre)};;;`,
+    `FN:${vesc(p.nombre)}`,
+    `ORG:${vesc(contacto.empresa)}`,
+    `TITLE:${vesc(area)}`,
     `TEL;TYPE=WORK,VOICE:${tel}`,
-    `EMAIL;TYPE=WORK:${p.email}`,
-    `ADR;CHARSET=UTF-8;TYPE=WORK:;;${vesc(contacto.direccion)};;;;`,
+    `EMAIL;TYPE=WORK:${vesc(p.email)}`,
+    `ADR;TYPE=WORK:;;${vesc(contacto.direccion)};;;;`,
     `URL:${contacto.web}`,
     "END:VCARD",
   ];
-  return `${lines.join("\r\n")}\r\n`;
+  const encoder = new TextEncoder();
+  const folded = lines.map((line) => {
+    let result = "";
+    let bytes = 0;
+    for (const char of line) {
+      const size = encoder.encode(char).length;
+      if (bytes + size > 75) {
+        result += "\r\n ";
+        bytes = 1;
+      }
+      result += char;
+      bytes += size;
+    }
+    return result;
+  });
+  return `${folded.join("\r\n")}\r\n`;
 }

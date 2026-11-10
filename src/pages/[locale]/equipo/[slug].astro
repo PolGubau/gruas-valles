@@ -1,0 +1,11 @@
+---
+import { equipo } from "../../../lib/equipo";
+import PersonPage from "../../equipo/[slug].astro";
+
+export function getStaticPaths() {
+  return ["ca", "en"].flatMap((locale) => equipo.map((persona) => ({
+    params: { locale, slug: persona.slug }, props: { persona },
+  })));
+}
+---
+<PersonPage persona={Astro.props.persona} />

@@ -9,7 +9,7 @@ const copy = {
     home: "Inicio", contact: "Contacto", guarantees: ["Respuesta en menos de 24 h", "Presupuesto sin compromiso", "Asesoramiento técnico incluido", "Emergencias 24 h / 365 días"],
     call: "Llámenos", write: "Escríbanos", commercial: "Lun-Vie · Atención comercial", response: "Respuesta en menos de 24 h", emergency: "Emergencias 24/365", urgent: "Servicio de urgencia permanente",
     hours: "Horario de atención", weekdays: "Lunes a viernes · 8:00 - 18:00 h", emergencyHours: "Emergencias: 24 horas / 365 días", coverage: "Cobertura", coverageArea: "Toda Catalunya y zonas colindantes", access: "A dos minutos del Circuito de Montmeló · Accesos Carretera N-152 y AP-7",
-    cardEyebrow: "Tarjeta de contacto", callPerson: "Llamar", emailPerson: "Enviar email", saveContact: "Guardar contacto",
+    cardEyebrow: "Tarjeta de contacto", viewCard: "Ver tarjeta", callPerson: "Llamar", emailPerson: "Enviar email", saveContact: "Guardar contacto",
     personMeta: (name: string, area: string) => `${name}, ${area} en Grúas del Vallès. Contacto directo por teléfono o email.`,
   },
   ca: {
@@ -18,7 +18,7 @@ const copy = {
     home: "Inici", contact: "Contacte", guarantees: ["Resposta en menys de 24 h", "Pressupost sense compromís", "Assessorament tècnic inclòs", "Emergències 24 h / 365 dies"],
     call: "Truqueu-nos", write: "Escriviu-nos", commercial: "Dl-Dv · Atenció comercial", response: "Resposta en menys de 24 h", emergency: "Emergències 24/365", urgent: "Servei d'urgència permanent",
     hours: "Horari d'atenció", weekdays: "De dilluns a divendres · 8:00 - 18:00 h", emergencyHours: "Emergències: 24 hores / 365 dies", coverage: "Cobertura", coverageArea: "Tot Catalunya i zones limítrofes", access: "A dos minuts del Circuit de Montmeló · Accessos carretera N-152 i AP-7",
-    cardEyebrow: "Targeta de contacte", callPerson: "Trucar", emailPerson: "Enviar correu", saveContact: "Desar contacte",
+    cardEyebrow: "Targeta de contacte", viewCard: "Veure targeta", callPerson: "Trucar", emailPerson: "Enviar correu", saveContact: "Desar contacte",
     personMeta: (name: string, area: string) => `${name}, ${area} a Grúas del Vallès. Contacte directe per telèfon o correu electrònic.`,
   },
   en: {
@@ -27,7 +27,7 @@ const copy = {
     home: "Home", contact: "Contact", guarantees: ["Response within 24 hours", "No-obligation quote", "Technical advice included", "Emergency service 24/365"],
     call: "Call us", write: "Email us", commercial: "Mon–Fri · Sales enquiries", response: "Response within 24 hours", emergency: "Emergencies 24/365", urgent: "Round-the-clock emergency service",
     hours: "Opening hours", weekdays: "Monday to Friday · 8:00 - 18:00", emergencyHours: "Emergencies: 24 hours / 365 days", coverage: "Coverage", coverageArea: "Throughout Catalonia and neighbouring areas", access: "Two minutes from the Circuit de Montmeló · Access via N-152 and AP-7",
-    cardEyebrow: "Contact card", callPerson: "Call", emailPerson: "Send email", saveContact: "Save contact",
+    cardEyebrow: "Contact card", viewCard: "View card", callPerson: "Call", emailPerson: "Send email", saveContact: "Save contact",
     personMeta: (name: string, area: string) => `${name}, ${area} at Grúas del Vallès. Contact directly by phone or email.`,
   },
 };

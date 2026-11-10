@@ -30,6 +30,7 @@ export default defineConfig({
     // Do not index locale URLs that only redirect to Spanish.
     sitemap({ filter: (page) => {
       const path = new URL(page).pathname;
+      if (path.endsWith('.vcf')) return false;
       const localized = path.match(/^\/(ca|en)(\/.*)?$/);
       return !localized || hasTranslations(localized[2] || '/');
     } }),

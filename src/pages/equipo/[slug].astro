@@ -1,0 +1,71 @@
+---
+import { Icon } from "astro-icon/components";
+import Breadcrumb from "../../components/ui/Breadcrumb.astro";
+import Button from "../../components/ui/Button.astro";
+import contacto from "../../data/contacto.json";
+import { equipo, telHref, type Persona } from "../../lib/equipo";
+import { contactCopy } from "@i18n/contact";
+import { homeCopy } from "@i18n/home";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
+import Page from "../../layouts/Page.astro";
+
+export function getStaticPaths() {
+  return equipo.map((persona) => ({ params: { slug: persona.slug }, props: { persona } }));
+}
+
+interface Props { persona: Persona }
+const { persona } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const copy = contactCopy(lang);
+const area = homeCopy(lang).areas[persona.area] ?? persona.area;
+const localizePath = useTranslatedPath(lang);
+const description = copy.personMeta(persona.nombre, area);
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: persona.nombre,
+  jobTitle: area,
+  email: persona.email,
+  telephone: telHref(persona.telefono).slice(4),
+  worksFor: { "@type": "Organization", name: contacto.empresa, url: contacto.web },
+};
+---
+
+<Page title={`${persona.nombre} | Grúas del Vallès`} description={description} schema={schema}>
+  <section class="section-padding bg-surface-alt">
+    <div class="container-wide">
+      <Breadcrumb class="mb-8" items={[
+        { label: copy.home, href: localizePath("/") },
+        { label: copy.contact, href: localizePath("/contacto") },
+        { label: persona.nombre },
+      ]} />
+      <article class="mx-auto max-w-2xl overflow-hidden rounded-sm bg-surface shadow-sm">
+        <div class="bg-ink p-6 text-white sm:p-10">
+          <p class="text-xs font-semibold uppercase tracking-wider text-accent-light">{copy.cardEyebrow}</p>
+          <h1 class="mt-3 text-3xl font-bold sm:text-4xl">{persona.nombre}</h1>
+          <p class="mt-2 text-lg text-white/80">{area}</p>
+          <p class="mt-6 text-sm font-semibold">{contacto.empresa}</p>
+        </div>
+        <div class="space-y-5 p-6 sm:p-10">
+          <a href={telHref(persona.telefono)} class="flex items-center gap-3 font-semibold text-ink hover:text-accent">
+            <Icon name="lucide:phone" class="h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+            <span><span class="sr-only">{copy.callPerson}: </span>{persona.telefono}</span>
+          </a>
+          <a href={`mailto:${persona.email}`} class="flex items-center gap-3 text-ink hover:text-accent">
+            <Icon name="lucide:mail" class="h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+            <span class="break-all"><span class="sr-only">{copy.emailPerson}: </span>{persona.email}</span>
+          </a>
+          <p class="flex items-start gap-3 text-sm text-ink-secondary">
+            <Icon name="lucide:map-pin" class="h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+            {contacto.direccion}
+          </p>
+          <div class="pt-3">
+            <Button href={localizePath(`/equipo/${persona.slug}.vcf`)} download={`${persona.slug}.vcf`} icon="lucide:download" iconPosition="start">
+              {copy.saveContact}
+            </Button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</Page>

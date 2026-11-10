@@ -13,54 +13,63 @@
     {
       "area": "Gerencia",
       "nombre": "Marc Gelabert",
+      "slug": "marc-gelabert",
       "telefono": "669 296 949",
       "email": "marc@gruasdelvalles.com"
     },
     {
       "area": "Logística",
       "nombre": "Hector Alzate",
+      "slug": "hector-alzate",
       "telefono": "669 296 955",
       "email": "logistica@gruasdelvalles.com"
     },
     {
       "area": "Director técnico",
       "nombre": "Manel Moya",
+      "slug": "manel-moya",
       "telefono": "601 191 042",
       "email": "mmoya@gruasdelvalles.com"
     },
     {
       "area": "Encargado general",
       "nombre": "Cayetano León",
+      "slug": "cayetano-leon",
       "telefono": "669 296 954",
       "email": "cayetano@gruasdelvalles.com"
     },
     {
       "area": "Técnico comercial",
       "nombre": "Xavier Peral",
+      "slug": "xavier-peral",
       "telefono": "669 296 939",
       "email": "comercial@gruasdelvalles.com"
     },
     {
       "area": "Técnico comercial",
       "nombre": "Joan Gubau",
+      "slug": "joan-gubau",
       "telefono": "669 296 950",
       "email": "maresme@gruasdelvalles.com"
     },
     {
       "area": "PRL",
       "nombre": "Daniel Cambrón",
+      "slug": "daniel-cambron",
       "telefono": "938 497 022",
       "email": "prl@gruasdelvalles.com"
     },
     {
       "area": "Contabilidad",
       "nombre": "Rosario Lozano",
+      "slug": "rosario-lozano",
       "telefono": "938 497 132",
       "email": "contabilidad@gruasdelvalles.com"
     },
     {
       "area": "Administración",
       "nombre": "Susana Sánchez",
+      "slug": "susana-sanchez",
       "telefono": "938 497 132",
       "email": "administración@gruasdelvalles.com"
     }
