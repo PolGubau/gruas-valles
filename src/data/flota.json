@@ -3,7 +3,7 @@
     "categoria": "Grúas gran tonelaje",
     "modelos": [
       {
-        "modelo": "LIEBHERR LTM 1500-8.1",
+        "modelo": "LIEBHERR LTM 1650-8.1",
         "capacidad_max_t": 700,
         "nuevo": true,
         "nota": "El mayor vehículo de la flota.",
@@ -15,7 +15,7 @@
         "ancho_m": 3,
         "largo_m": 21.38,
         "imagenes": [
-          "/assets/images/flota-liebherr-ltm1500-8-1-01.avif"
+          "/assets/images/flota-liebherr-ltm1650-8-1-01.avif"
         ]
       },
       {
@@ -54,6 +54,147 @@
         "imagenes": [
           "/assets/images/flota-grove-gmk5250xl-1-01.avif",
           "/assets/images/galeria-eventos-grove-250tn-port-forum-2023.avif"
+        ]
+      }
+    ]
+  },
+  {
+    "categoria": "Camiones y Vehículos auxiliares",
+    "modelos": [
+      {
+        "modelo": "Camión-grúa 200 tm (doble jib)",
+        "nuevo": true,
+        "grua": "PALFINGER PK200002L SH",
+        "capacidad_tm": 200,
+        "tara_kg": 53500,
+        "mma_kg": 53500,
+        "ejes": 5,
+        "altura_maxima_m": 54,
+        "doble_jib_m": 20,
+        "extra": "Cesta homologada",
+        "ancho_m": 2.65,
+        "largo_m": 10.40,
+        "alto_m": 3.90,
+        "imagenes": [
+          "/assets/images/flota-camion-grua-200tm-01.avif"
+        ]
+      },
+      {
+        "modelo": "Camión-grúa 165 tm y 45 m",
+        "camion": "MAN Truck & Bus SE",
+        "grua": "Fassi F1650RAL.2.28 HXE-Dynamic",
+        "capacidad_tm": 165,
+        "pluma_m": 45,
+        "tara_kg": 35060,
+        "mma_kg": 44000,
+        "ejes": 4,
+        "extra": "Cesta homologada",
+        "ancho_m": 2.55,
+        "largo_m": 10.33,
+        "alto_m": 4.10,
+        "imagenes": [
+          "/assets/images/flota-camion-grua-165tm-01.avif"
+        ]
+      },
+      {
+        "modelo": "Camión-grúa 110 tm y 36 m",
+        "camion": "Volvo FM13",
+        "grua": "PALFINGER PK 11002SH",
+        "capacidad_tm": 110,
+        "pluma_m": 36,
+        "tara_kg": 31000,
+        "mma_kg": 44000,
+        "ejes": 4,
+        "extra": "Cesta homologada",
+        "ancho_m": 2.55,
+        "largo_m": 9.55,
+        "imagenes": [
+          "/assets/images/flota-camion-grua-110tm-01.avif"
+        ]
+      },
+      {
+        "modelo": "Camión-grúa 80 tm y 23 m",
+        "camion": "Volvo S-405",
+        "grua": "PALFINGER PK 78002",
+        "capacidad_tm": 80,
+        "pluma_m": 23,
+        "tara_kg": 25280,
+        "mma_kg": 32000,
+        "ejes": 4,
+        "ancho_m": 2.5,
+        "largo_m": 10,
+        "imagenes": [
+          "/assets/images/flota-camion-grua-80tm-01.avif"
+        ]
+      },
+      {
+        "modelo": "Camión-grúa 60 tm y 30 m",
+        "grua": "Palfinger PK 580 TEC",
+        "capacidad_tm": 60,
+        "pluma_jib_m": 30,
+        "tara_kg": 21187,
+        "mma_kg": 36000,
+        "ejes": 3,
+        "ancho_m": 2.55,
+        "largo_m": 8.5,
+        "imagenes": [
+          "/assets/images/flota-camion-grua-60tm-01.avif"
+        ]
+      },
+      {
+        "modelo": "Camión-grúa jib 55 tm y 29 m",
+        "nuevo": true,
+        "camion": "Volvo FM",
+        "grua": "FASSI F545 RA.2.26 XE DYNAMIC",
+        "capacidad_tm": 55,
+        "pluma_con_jib_m": 29,
+        "extra": "Dispone de cabrestante",
+        "tara_kg": 19500,
+        "mma_kg": 29000,
+        "ejes": 3,
+        "ancho_m": 2.55,
+        "largo_m": 8.50,
+        "imagenes": [
+          "/assets/images/flota-camion-grua-jib-55tm-29m-01.avif"
+        ]
+      },
+      {
+        "modelo": "Camión-grúa 55 tm y 30 m",
+        "camion": "Volvo FM",
+        "grua": "FASSI F545 RA2.26",
+        "capacidad_tm": 55,
+        "pluma_con_jib_m": 30,
+        "tara_kg": 19620,
+        "mma_kg": 35000,
+        "ejes": 3,
+        "ancho_m": 2.55,
+        "largo_m": 7.80,
+        "imagenes": [
+          "/assets/images/flota-camion-grua-55tm-30m-01.avif"
+        ]
+      },
+      {
+        "modelo": "Camión-grúa 36 tm y 23 m",
+        "camion": "Volvo FE F3C",
+        "grua": "FASSI F365 RA2.28 DYNAMIC",
+        "capacidad_tm": 36,
+        "pluma_m": 23,
+        "tara_kg": 15695,
+        "mma_kg": 26700,
+        "ejes": 3,
+        "ancho_m": 2.55,
+        "largo_m": 9.92,
+        "imagenes": [
+          "/assets/images/flota-camion-grua-36tm-01.avif"
+        ]
+      },
+      {
+        "modelo": "Carretilla diésel 9 toneladas",
+        "nuevo": true,
+        "modelo_maquina": "Linde H80/900 D",
+        "tipo": "Vehículo auxiliar para descarga de equipos pesados y material diverso",
+        "imagenes": [
+          "/assets/images/flota-carretilla-diesel-9tm-01.avif"
         ]
       }
     ]
@@ -247,147 +388,6 @@
           "/assets/images/flota-liebherr-mk88-4-1-01.avif",
           "/assets/images/flota-liebherr-mk88-4-1-02.avif",
           "/assets/images/flota-liebherr-mk88-4-1-03.avif"
-        ]
-      }
-    ]
-  },
-  {
-    "categoria": "Camiones y Vehículos auxiliares",
-    "modelos": [
-      {
-        "modelo": "Camión-grúa 200 tm (doble jib)",
-        "nuevo": true,
-        "grua": "PALFINGER PK200002L SH",
-        "capacidad_tm": 200,
-        "tara_kg": 53500,
-        "mma_kg": 53500,
-        "ejes": 5,
-        "altura_maxima_m": 54,
-        "doble_jib_m": 20,
-        "extra": "Cesta homologada",
-        "ancho_m": 2.65,
-        "largo_m": 10.40,
-        "alto_m": 3.90,
-        "imagenes": [
-          "/assets/images/flota-camion-grua-200tm-01.avif"
-        ]
-      },
-      {
-        "modelo": "Camión-grúa 165 tm y 45 m",
-        "camion": "MAN Truck & Bus SE",
-        "grua": "Fassi F1650RAL.2.28 HXE-Dynamic",
-        "capacidad_tm": 165,
-        "pluma_m": 45,
-        "tara_kg": 35060,
-        "mma_kg": 44000,
-        "ejes": 4,
-        "extra": "Cesta homologada",
-        "ancho_m": 2.55,
-        "largo_m": 10.33,
-        "alto_m": 4.10,
-        "imagenes": [
-          "/assets/images/flota-camion-grua-165tm-01.avif"
-        ]
-      },
-      {
-        "modelo": "Camión-grúa 110 tm y 36 m",
-        "camion": "Volvo FM13",
-        "grua": "PALFINGER PK 11002SH",
-        "capacidad_tm": 110,
-        "pluma_m": 36,
-        "tara_kg": 31000,
-        "mma_kg": 44000,
-        "ejes": 4,
-        "extra": "Cesta homologada",
-        "ancho_m": 2.55,
-        "largo_m": 9.55,
-        "imagenes": [
-          "/assets/images/flota-camion-grua-110tm-01.avif"
-        ]
-      },
-      {
-        "modelo": "Camión-grúa 80 tm y 23 m",
-        "camion": "Volvo S-405",
-        "grua": "PALFINGER PK 78002",
-        "capacidad_tm": 80,
-        "pluma_m": 23,
-        "tara_kg": 25280,
-        "mma_kg": 32000,
-        "ejes": 4,
-        "ancho_m": 2.5,
-        "largo_m": 10,
-        "imagenes": [
-          "/assets/images/flota-camion-grua-80tm-01.avif"
-        ]
-      },
-      {
-        "modelo": "Camión-grúa 60 tm y 30 m",
-        "grua": "Palfinger PK 580 TEC",
-        "capacidad_tm": 60,
-        "pluma_jib_m": 30,
-        "tara_kg": 21187,
-        "mma_kg": 36000,
-        "ejes": 3,
-        "ancho_m": 2.55,
-        "largo_m": 8.5,
-        "imagenes": [
-          "/assets/images/flota-camion-grua-60tm-01.avif"
-        ]
-      },
-      {
-        "modelo": "Camión-grúa jib 55 tm y 29 m",
-        "nuevo": true,
-        "camion": "Volvo FM",
-        "grua": "FASSI F545 RA.2.26 XE DYNAMIC",
-        "capacidad_tm": 55,
-        "pluma_con_jib_m": 29,
-        "extra": "Dispone de cabrestante",
-        "tara_kg": 19500,
-        "mma_kg": 29000,
-        "ejes": 3,
-        "ancho_m": 2.55,
-        "largo_m": 8.50,
-        "imagenes": [
-          "/assets/images/flota-camion-grua-jib-55tm-29m-01.avif"
-        ]
-      },
-      {
-        "modelo": "Camión-grúa 55 tm y 30 m",
-        "camion": "Volvo FM",
-        "grua": "FASSI F545 RA2.26",
-        "capacidad_tm": 55,
-        "pluma_con_jib_m": 30,
-        "tara_kg": 19620,
-        "mma_kg": 35000,
-        "ejes": 3,
-        "ancho_m": 2.55,
-        "largo_m": 7.80,
-        "imagenes": [
-          "/assets/images/flota-camion-grua-55tm-30m-01.avif"
-        ]
-      },
-      {
-        "modelo": "Camión-grúa 36 tm y 23 m",
-        "camion": "Volvo FE F3C",
-        "grua": "FASSI F365 RA2.28 DYNAMIC",
-        "capacidad_tm": 36,
-        "pluma_m": 23,
-        "tara_kg": 15695,
-        "mma_kg": 26700,
-        "ejes": 3,
-        "ancho_m": 2.55,
-        "largo_m": 9.92,
-        "imagenes": [
-          "/assets/images/flota-camion-grua-36tm-01.avif"
-        ]
-      },
-      {
-        "modelo": "Carretilla diésel 9 toneladas",
-        "nuevo": true,
-        "modelo_maquina": "Linde H80/900 D",
-        "tipo": "Vehículo auxiliar para descarga de equipos pesados y material diverso",
-        "imagenes": [
-          "/assets/images/flota-carretilla-diesel-9tm-01.avif"
         ]
       }
     ]

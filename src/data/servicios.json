@@ -12,17 +12,6 @@
       ]
     },
     {
-      "slug": "transportes-especiales",
-      "titulo": "Transportes especiales",
-      "descripcion": "Especialistas en el transporte de mercancías que superan las medidas y pesos legales. Gestión integral de permisos y coches piloto para traslados en toda la península.",
-      "detalles": [
-        "Góndolas y plataformas de gran capacidad",
-        "Gestión de permisos especiales de circulación",
-        "Servicio de coche piloto propio",
-        "Transporte de maquinaria, depósitos y estructuras"
-      ]
-    },
-    {
       "slug": "montaje-estructuras-prefabricado",
       "titulo": "Montaje de estructuras de prefabricado",
       "descripcion": "Líderes en el montaje de naves, puentes y viaductos mediante elementos prefabricados de hormigón. Coordinamos la logística y la elevación de piezas de gran tonelaje.",
@@ -31,6 +20,17 @@
         "Colocación de jácenas, pilares y paneles",
         "Especialistas en obra civil (viaductos y pasos elevados)",
         "Seguridad garantizada con planes de prevención específicos"
+      ]
+    },
+    {
+      "slug": "transportes-especiales",
+      "titulo": "Transportes de mercancías y transportes especiales",
+      "descripcion": "Especialistas en el transporte de mercancías que superan las medidas y pesos. Gestión integral de permisos y coches piloto para traslados en toda la península.",
+      "detalles": [
+        "Góndolas y plataformas de gran capacidad",
+        "Gestión de permisos especiales de circulación",
+        "Servicio de coche piloto propio",
+        "Transporte de maquinaria, depósitos y estructuras"
       ]
     },
     {
@@ -46,14 +46,13 @@
     }
   ],
   "principales": [
-    "Alquiler de grúas móviles autopropulsadas (de 40 a 700 Tn) y camiones grúa auto-cargante hasta 96 Tn, trailers y otros transportes",
-    "Alquiler de transportes especiales (cargas que superan las medidas genéricas legales)",
+    "Alquiler de grúas móviles autopropulsadas (de 40 a 700 Tn) y camiones grúa auto-cargante hasta 200 Tn, trailers y otros transportes hasta 96 Tn",
+    "Servicios de transportes de mercancías y transportes especiales (cargas que superan las medidas genéricas)",
     "Alquiler de carretillas elevadoras, toros mecánicos, gatos, tanquetas y utillajes para manipulación en interiores",
-    "Alquiler de equipos de montaje (muros, naves e infraestructuras de prefabricado)",
     "Alquiler de cestas homologadas para subir personal a alturas o difícil acceso",
-    "Colocación de maquinaria pesada mediante gatos hidráulicos y tanquetas",
+    "Transporte y manipulación de maquinaria pesada mediante gatos hidráulicos y tanquetas",
     "Montaje de estructuras de prefabricado de hormigón (naves, puentes, viaductos, edificios)",
-    "Desmontaje integral y traslado de industrias o maquinaria",
+    "Traslado de industrias o maquinaria",
     "Servicio en toda Catalunya y zonas colindantes"
   ],
   "departamento_de_estudios": "Técnicos cualificados que presentan opciones de maniobras y emplazamientos. Trabajan con programas CAD/CAM, software de fabricantes y planos 3D, complementado con visitas técnicas personalizadas.",

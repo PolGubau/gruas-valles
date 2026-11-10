@@ -45,7 +45,7 @@ export const ca: HomeCopy = {
     { id: "permisos", q: "Us encarregueu dels permisos i tràmits de la maniobra?", a: "Sí. Gestionem permisos d'ocupació de via pública, permisos especials de circulació, assegurances, el Pla de Seguretat i informes de riscos personalitzats." },
   ],
   contactEyebrow: "Contacte directe", contactTitle: "Parleu amb el nostre equip", contactIntro: "Contacteu directament amb la persona o departament que necessiteu. Truqueu o envieu un correu amb un sol clic.",
-  areas: ["Gerència", "Logística", "Director tècnic", "Encarregat general", "Tècnic comercial", "Prevenció de riscos laborals", "Administració"], offices: "Oficines centrals",
+  areas: { "Gerencia": "Gerència", "Logística": "Logística", "Director técnico": "Director tècnic", "Encargado general": "Encarregat general", "Técnico comercial": "Tècnic comercial", "PRL": "Prevenció de riscos laborals", "Contabilidad": "Contabilitat", "Administración": "Administració" } as Record<string, string>, offices: "Oficines centrals",
   footerDescription: "Empresa de lloguer de grues industrials a Catalunya des de 1968. Cobertura 24 h/365 dies.",
   footerServices: "Serveis", footerCompany: "Empresa", footerCoverage: "Cobertura", footerFleet: "Flota", footerAbout: "Nosaltres", footerSafety: "Seguretat", footerBodies: "Organismes", footerNews: "Notícies", footerJobs: "Treballa amb nosaltres", footerContact: "Contacte", footerCranes: "Grues a", footerAllCoverage: "Veure tota la cobertura", emergencyShort: "Emergències 24/365",
   legalNotice: "Avís legal", privacy: "Política de privacitat", cookies: "Política de galetes", legalLinks: "Enllaços legals", programmed: "Programat per",

@@ -43,7 +43,7 @@ export const en: HomeCopy = {
     { id: "permisos", q: "Do you handle permits and paperwork for the lift?", a: "Yes. We manage public space permits, special transport permits, insurance, safety plans and tailored risk assessments." },
   ],
   contactEyebrow: "Direct contact", contactTitle: "Speak to our team", contactIntro: "Contact the person or department you need directly by phone or email.",
-  areas: ["Management", "Logistics", "Technical director", "General supervisor", "Technical sales", "Occupational risk prevention", "Administration"], offices: "Head office",
+  areas: { "Gerencia": "Management", "Logística": "Logistics", "Director técnico": "Technical director", "Encargado general": "General supervisor", "Técnico comercial": "Technical sales", "PRL": "Occupational risk prevention", "Contabilidad": "Accounting", "Administración": "Administration" } as Record<string, string>, offices: "Head office",
   footerDescription: "Industrial crane hire in Catalonia since 1968. Coverage 24 hours a day, 365 days a year.",
   footerServices: "Services", footerCompany: "Company", footerCoverage: "Coverage", footerFleet: "Fleet", footerAbout: "About us", footerSafety: "Safety", footerBodies: "Organisations", footerNews: "News", footerJobs: "Careers", footerContact: "Contact", footerCranes: "Cranes in", footerAllCoverage: "View all coverage", emergencyShort: "Emergencies 24/365",
   legalNotice: "Legal notice", privacy: "Privacy policy", cookies: "Cookie policy", legalLinks: "Legal links", programmed: "Built by",

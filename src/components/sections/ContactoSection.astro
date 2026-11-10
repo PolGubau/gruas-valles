@@ -4,7 +4,6 @@ import contacto from "../../data/contacto.json";
 import { catalogo } from "../../lib/docs";
 import { getLangFromUrl } from "@i18n/utils";
 import { homeCopy } from "@i18n/home";
-import { es } from "@i18n/home.es";
 
 const copy = homeCopy(getLangFromUrl(Astro.url));
 ---
@@ -27,7 +26,7 @@ const copy = homeCopy(getLangFromUrl(Astro.url));
         contacto.contactos.map((persona) => (
           <article class="flex min-h-48 flex-col rounded-sm bg-surface p-6 sm:p-8">
             <p class="text-xs font-semibold uppercase tracking-wider text-accent">
-              {copy.areas[es.areas.indexOf(persona.area)] ?? persona.area}
+              {copy.areas[persona.area] ?? persona.area}
             </p>
             <h3 class="mt-2 text-xl font-semibold text-ink">
               {persona.nombre}
