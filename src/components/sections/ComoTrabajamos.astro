@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import processImage from "../../assets/images/galeria-industria-ltm1350-2021-01.avif";
 import Button from "../ui/Button.astro";
 import Section from "../ui/Section.astro";
 import { getLangFromUrl } from "@i18n/utils";
@@ -11,24 +13,29 @@ const copy = homeCopy(getLangFromUrl(Astro.url));
   <p slot="intro">
     {copy.processIntro}
   </p>
-  <ol class="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-    {
-      copy.steps.map((paso, i) => (
-        <li class="border-t border-white/20 pt-6">
-          <span
-            class="text-sm font-semibold tracking-[0.12em] text-accent-light"
-            aria-hidden="true"
-          >
-            0{i + 1}
-          </span>
-          <h3 class="mt-6 text-xl font-semibold">{paso.titulo}</h3>
-          <p class="mt-3 text-sm leading-relaxed text-muted">
-            {paso.descripcion}
-          </p>
-        </li>
-      ))
-    }
-  </ol>
+  <div class="grid gap-8 lg:grid-cols-2 lg:gap-12">
+    <ol class="grid gap-x-8 gap-y-8 sm:grid-cols-2">
+      {
+        copy.steps.map((paso, i) => (
+          <li class="border-t border-white/20 pt-6">
+            <span
+              class="text-sm font-semibold tracking-[0.12em] text-accent-light"
+              aria-hidden="true"
+            >
+              0{i + 1}
+            </span>
+            <h3 class="mt-6 text-xl font-semibold">{paso.titulo}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-muted">
+              {paso.descripcion}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="aspect-video overflow-hidden rounded-sm lg:aspect-auto lg:min-h-80">
+      <Image src={processImage} alt="" loading="lazy" widths={[480, 768].filter((width) => width < processImage.width)} sizes="(min-width: 1024px) 50vw, 100vw" class="h-full w-full object-cover" />
+    </div>
+  </div>
   <div class="mt-10 flex flex-wrap items-center gap-5">
     <Button href="#contacto" icon="lucide:arrow-right">{copy.consult}</Button>
     <a

@@ -84,7 +84,7 @@ const slides = await Promise.all(
         />
       ))
     }
-    <div class="hero-overlay pointer-events-none absolute inset-0"></div>
+    <div class="hero-overlay pointer-events-none absolute inset-0 z-30"></div>
   </div>
 
   <div
@@ -166,6 +166,10 @@ const slides = await Promise.all(
   }
   .hero-slide.is-active {
     opacity: 1;
+    z-index: 2;
+  }
+  .hero-slide.is-leaving {
+    z-index: 1;
   }
   .hero-overlay {
     background:
@@ -209,18 +213,43 @@ const slides = await Promise.all(
     const firstPhoto = videos.length;
     let current = firstPhoto;
     let timer: number | undefined;
+    let transitionTimer: number | undefined;
+    let leaving: number | undefined;
     let generation = 0;
     let transitioning = false;
+    const preloaded = new Set<number>();
+
+    const preloadVideo = (index: number) => {
+      if (index >= firstPhoto || preloaded.has(index) || reducedMotion.matches) return;
+      preloaded.add(index);
+      const video = videos[index];
+      video.preload = "auto";
+      if (video.readyState === 0) video.load();
+    };
+
+    const finishTransition = () => {
+      window.clearTimeout(transitionTimer);
+      if (leaving === undefined) return;
+      slides[leaving].classList.remove("is-active", "is-leaving");
+      if (leaving < firstPhoto) videos[leaving].pause();
+      leaving = undefined;
+    };
 
     const show = (index: number) => {
-      slides[current].classList.remove("is-active");
+      finishTransition();
+      if (current === index) return;
+      leaving = current;
+      slides[leaving].classList.add("is-leaving");
       current = index;
       slides[current].classList.add("is-active");
+      if (reducedMotion.matches) finishTransition();
+      else transitionTimer = window.setTimeout(finishTransition, 1500);
     };
 
     const showPhoto = (index: number) => {
       videos.forEach((video) => video.pause());
       show(index);
+      if (index === slides.length - 1) preloadVideo(0);
       if (!reducedMotion.matches) timer = window.setTimeout(advance, interval);
     };
 
@@ -228,8 +257,8 @@ const slides = await Promise.all(
       const attempt = ++generation;
       transitioning = true;
       const video = videos[index];
-      if (current < firstPhoto) videos[current].pause();
       if (video.ended) video.currentTime = 0;
+      preloadVideo(index + 1);
       video
         .play()
         .then(() => {

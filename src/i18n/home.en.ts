@@ -17,7 +17,7 @@ export const en: HomeCopy = {
   },
   mainServices: ["Hire of self-propelled mobile cranes from 40 to 700 tonnes, truck-mounted loader cranes up to 200 tonnes, trailers and other transport up to 96 tonnes", "Freight and special transport services for loads exceeding standard dimensions", "Hire of forklifts, mechanical lift trucks, jacks, machinery skates and equipment for indoor handling", "Hire of approved personnel lifting baskets for elevated or hard-to-reach areas", "Transport and handling of heavy machinery using hydraulic jacks and machinery skates", "Assembly of precast concrete structures: industrial buildings, bridges, viaducts and buildings", "Relocation of industrial facilities or machinery", "Service throughout Catalonia and neighbouring areas"],
   fleetTitle: "Equipment for every lift", fleetIntro: "28 up-to-date self-propelled cranes in our own fleet. If you need a specific configuration,",
-  contactUs: "contact us", fleetSelection: "A selection from our fleet", fleetSubtitle: "Equipment for different lifting requirements", allFleet: "View the full fleet", technicalSheet: "View technical specifications", availability: "Check availability",
+  contactUs: "contact us", fleetSelection: "A selection from our fleet", fleetSubtitle: "Equipment for different lifting requirements", allFleet: "View the full fleet", technicalSheet: "View technical specifications", contactTeam: "Contact our team",
   fleetCategories: ["Heavy-duty cranes", "Self-propelled mobile cranes", "Construction cranes"], fleetNote: "The largest vehicle in the fleet.",
   processTitle: "From enquiry to lift", processIntro: "Planning, maintenance and technical oversight support every operation from assessment to execution.",
   steps: [

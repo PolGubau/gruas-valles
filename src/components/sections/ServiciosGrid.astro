@@ -1,5 +1,11 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import { Icon } from "astro-icon/components";
+import craneImage from "../../assets/images/hero-grua-accion-2024-01.avif";
+import structuresImage from "../../assets/images/maniobra-jacenas-14tn-01.avif";
+import transportImage from "../../assets/images/flota-camion-grua-200tm-01.avif";
+import studiesImage from "../../assets/images/operacion-puerto-2020.avif";
 import servicios from "../../data/servicios.json";
 import Button from "../ui/Button.astro";
 import Section from "../ui/Section.astro";
@@ -16,6 +22,12 @@ const { preview = false } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const copy = homeCopy(lang);
 const localizePath = useTranslatedPath(lang);
+
+const serviceImages: Record<string, ImageMetadata> = {
+  "gruas-moviles-autopropulsadas": craneImage,
+  "montaje-estructuras-prefabricado": structuresImage,
+  "transportes-especiales": transportImage,
+};
 
 const iconos: string[] = [
   "lucide:building-2",
@@ -34,29 +46,32 @@ const iconos: string[] = [
   <!-- Departamento de estudios · servicio destacado -->
   <a
     href={localizePath("/servicios/ingenieria-de-maniobra")}
-    class="group relative mb-4 flex flex-col gap-8 overflow-hidden rounded-sm bg-ink p-6 text-white transition-colors hover:bg-neutral-900 sm:mb-6 sm:p-10 lg:flex-row lg:items-end lg:justify-between lg:gap-12"
+    class="group relative mb-4 block overflow-hidden rounded-sm bg-ink text-white transition-colors hover:bg-neutral-900 sm:mb-6"
     data-reveal
   >
-    <div class="max-w-3xl">
-      <p class="eyebrow text-white/80">
-        {copy.studies}
-      </p>
-      <h3
-        class:list={["text-2xl font-semibold leading-tight tracking-tight sm:text-3xl", { "mb-4": !preview }]}
-      >
-        {copy.engineering}
-      </h3>
-      {!preview && <p class="text-sm leading-relaxed text-muted sm:text-base">{copy.studiesDescription}</p>}
+    <div class="h-48 overflow-hidden sm:h-64">
+      <Image src={studiesImage} alt="" loading="lazy" widths={[480, 768, 1200].filter((width) => width < studiesImage.width)} sizes="(min-width: 1280px) 1200px, 100vw" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transform-none" />
     </div>
-    <span
-      class="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-white"
-    >
-      {copy.details}
-      <Icon
-        name="lucide:move-right"
-        class="h-4 w-4 transition-transform group-hover:translate-x-1"
-      />
-    </span>
+    <div class="flex flex-col gap-8 p-6 sm:p-10 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+      <div class="max-w-3xl">
+        <p class="eyebrow text-white/80">
+          {copy.studies}
+        </p>
+        <h3
+          class:list={["text-2xl font-semibold leading-tight tracking-tight sm:text-3xl", { "mb-4": !preview }]}
+        >
+          {copy.engineering}
+        </h3>
+        {!preview && <p class="text-sm leading-relaxed text-muted sm:text-base">{copy.studiesDescription}</p>}
+      </div>
+      <span class="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-white">
+        {copy.details}
+        <Icon
+          name="lucide:move-right"
+          class="h-4 w-4 transition-transform group-hover:translate-x-1"
+        />
+      </span>
+    </div>
   </a>
 
   <!-- Featured Categories -->
@@ -66,29 +81,30 @@ const iconos: string[] = [
         .filter((cat: any) => cat.slug !== "ingenieria-de-maniobra")
         .map((cat: any) => {
           const translated = copy.categories[cat.slug] ?? cat;
+          const image = serviceImages[cat.slug];
           return (
             <a
               href={localizePath(`/servicios/${cat.slug}`)}
-              class="group relative flex flex-col rounded-sm bg-surface-alt p-6 transition-colors hover:bg-neutral-100 sm:p-8"
+              class="group relative flex flex-col overflow-hidden rounded-sm bg-surface-alt transition-colors hover:bg-neutral-100"
             >
-              <div class="mb-8 flex h-10 w-10 items-center justify-center rounded-sm bg-white text-accent">
-                <Icon
-                  name="lucide:arrow-up-right"
-                  class="h-5 w-5"
-                  aria-hidden="true"
-                />
+              {image && (
+                <div class="aspect-[16/10] overflow-hidden">
+                  <Image src={image} alt="" loading="lazy" widths={[320, 480, 768].filter((width) => width < image.width)} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transform-none" />
+                </div>
+              )}
+              <div class="flex flex-1 flex-col p-6 sm:p-8">
+                <h3 class:list={["text-xl font-semibold leading-tight transition-colors group-hover:text-accent", { "mb-3": !preview }]}>
+                  {translated.titulo}
+                </h3>
+                {!preview && <p class="text-sm leading-relaxed text-ink-secondary">{translated.descripcion}</p>}
+                <span class="mt-auto flex items-center gap-2 pt-8 text-sm font-semibold text-accent">
+                  {copy.details}{" "}
+                  <Icon
+                    name="lucide:move-right"
+                    class="h-3 w-3 transition-transform group-hover:translate-x-1"
+                  />
+                </span>
               </div>
-              <h3 class:list={["text-xl font-semibold leading-tight transition-colors group-hover:text-accent", { "mb-3": !preview }]}>
-                {translated.titulo}
-              </h3>
-              {!preview && <p class="text-sm leading-relaxed text-ink-secondary">{translated.descripcion}</p>}
-              <span class="mt-auto flex items-center gap-2 pt-8 text-sm font-semibold text-accent">
-                {copy.details}{" "}
-                <Icon
-                  name="lucide:move-right"
-                  class="h-3 w-3 transition-transform group-hover:translate-x-1"
-                />
-              </span>
             </a>
           );
         })

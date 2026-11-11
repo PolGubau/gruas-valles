@@ -15,7 +15,7 @@ export const es = {
   mainServices: servicios.principales,
   fleetTitle: "Maquinaria para cualquier maniobra", fleetIntro: "28 grúas propias autopropulsadas siempre actualizadas. Si necesita una configuración específica,",
   contactUs: "consúltenos", fleetSelection: "Una selección de nuestra flota", fleetSubtitle: "Maquinaria para diferentes necesidades de elevación",
-  allFleet: "Ver toda la flota", technicalSheet: "Ver ficha técnica", availability: "Consultar disponibilidad",
+  allFleet: "Ver toda la flota", technicalSheet: "Ver ficha técnica", contactTeam: "Contactar con el equipo",
   fleetCategories: ["Grúas gran tonelaje", "Grúas móviles autopropulsadas", "Grúas para Construcción"],
   fleetNote: "El mayor vehículo de la flota.",
   processTitle: "De la consulta a la maniobra", processIntro: "La planificación, el mantenimiento y el control técnico acompañan cada operación desde su estudio hasta su ejecución.",

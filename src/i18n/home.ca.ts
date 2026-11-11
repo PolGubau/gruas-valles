@@ -19,7 +19,7 @@ export const ca: HomeCopy = {
   mainServices: ["Lloguer de grues mòbils autopropulsades de 40 a 700 tones, camions grua autocàrrega fins a 200 tones, tràilers i altres transports fins a 96 tones", "Serveis de transport de mercaderies i transports especials per a càrregues que superen les mides genèriques", "Lloguer de carretons elevadors, toros mecànics, gats, patins de càrrega i utillatges per a manipulació en interiors", "Lloguer de cistelles homologades per elevar personal a llocs alts o de difícil accés", "Transport i manipulació de maquinària pesant amb gats hidràulics i patins de càrrega", "Muntatge d'estructures de formigó prefabricat: naus, ponts, viaductes i edificis", "Trasllat d'indústries o maquinària", "Servei a tot Catalunya i zones limítrofes"],
   fleetTitle: "Maquinària per a qualsevol maniobra", fleetIntro: "28 grues pròpies autopropulsades sempre actualitzades. Si necessiteu una configuració específica,",
   contactUs: "consulteu-nos", fleetSelection: "Una selecció de la nostra flota", fleetSubtitle: "Maquinària per a diferents necessitats d'elevació",
-  allFleet: "Veure tota la flota", technicalSheet: "Veure fitxa tècnica", availability: "Consultar disponibilitat",
+  allFleet: "Veure tota la flota", technicalSheet: "Veure fitxa tècnica", contactTeam: "Contactar amb l'equip",
   fleetCategories: ["Grues de gran tonatge", "Grues mòbils autopropulsades", "Grues per a construcció"], fleetNote: "El vehicle més gran de la flota.",
   processTitle: "De la consulta a la maniobra", processIntro: "La planificació, el manteniment i el control tècnic acompanyen cada operació des de l'estudi fins a l'execució.",
   steps: [

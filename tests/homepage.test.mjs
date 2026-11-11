@@ -173,6 +173,26 @@ test("los servicios destacados mantienen sus enlaces a las páginas de detalle",
   }
 });
 
+test("las tarjetas de servicios y el proceso muestran fotografías en todos los idiomas", () => {
+  for (const prefix of ["", "ca/", "en/"]) {
+    for (const page of ["index.html", "servicios/index.html"]) {
+      const html = readFileSync(new URL(`${prefix}${page}`, dist), "utf8");
+      for (const { slug } of services.categorias) {
+        const card = html.match(new RegExp(`<a href="/${prefix}servicios/${slug}"[^>]*>[\\s\\S]*?</a>`))?.[0];
+        const image = card?.match(/<img\b[^>]*>/)?.[0];
+        assert.ok(image, `${prefix}${page}: ${slug}`);
+        assert.ok(card.indexOf(image) < card.indexOf("<h3"));
+        assert.match(image, /loading="lazy"/);
+        const src = image.match(/\bsrc="([^"]+)"/)?.[1];
+        assert.ok(src && existsSync(join(fileURLToPath(dist), decodeURIComponent(src))), src);
+      }
+    }
+    const homepage = readFileSync(new URL(`${prefix}index.html`, dist), "utf8");
+    const process = homepage.match(/<section id="como-trabajamos"[\s\S]*?<\/section>/)?.[0];
+    assert.match(process ?? "", /<img\b[^>]*loading="lazy"/);
+  }
+});
+
 test("la portada muestra los títulos de servicios sin descripciones y la página dedicada las conserva", () => {
   for (const prefix of ["", "ca/", "en/"]) {
     const homepage = readFileSync(new URL(`${prefix}index.html`, dist), "utf8");
@@ -198,6 +218,15 @@ test("la portada muestra una selección de flota y enlaza al catálogo completo"
   assert.equal((flota.match(/class="novedades-card group"/g) ?? []).length, 3);
   assert.ok(flota.includes('href="/flota"'));
   assert.ok(!flota.includes('id="flota-filters"'));
+});
+
+test("los CTA de flota indican que llevan al contacto en cada idioma", () => {
+  for (const [prefix, label] of [["", "Contactar con el equipo"], ["ca/", "Contactar amb l&#39;equip"], ["en/", "Contact our team"]]) {
+    for (const [page, href] of [["index.html", "#contacto"], ["flota/index.html", `/${prefix}#contacto`], ["flota/camion-grua-200-tm-doble-jib/index.html", `/${prefix}#contacto`]]) {
+      const html = readFileSync(new URL(`${prefix}${page}`, dist), "utf8");
+      assert.match(html, new RegExp(`<a href="${href}"[^>]*>\\s*${label}`), `${prefix}${page}`);
+    }
+  }
 });
 
 test("las preguntas de la portada también aparecen en contacto", () => {
