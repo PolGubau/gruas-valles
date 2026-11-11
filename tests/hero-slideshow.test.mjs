@@ -6,7 +6,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { runInNewContext } from "node:vm";
 
-const dist = fileURLToPath(new URL("../dist/", import.meta.url));
+const dist = fileURLToPath(new URL(process.env.GV_TEST_DIST ?? "../dist/", import.meta.url));
 const source = readFileSync(new URL("../src/components/sections/Hero.astro", import.meta.url), "utf8");
 
 test("el hero incluye los cuatro vídeos y las tres fotos con variantes responsivas", () => {
@@ -24,9 +24,11 @@ test("el hero incluye los cuatro vídeos y las tres fotos con variantes responsi
     if (index === 0) return;
     const src = video.match(/\bsrc="([^"]+)"/)?.[1];
     assert.ok(src);
+    assert.match(src, /\.mp4$/);
     const built = join(dist, decodeURIComponent(src).replace(/^\//, ""));
     const original = new URL(`../src/assets/videos/${videoNames[index - 1]}`, import.meta.url);
     assert.equal(statSync(built).size, statSync(original).size);
+    assert.ok(statSync(built).size < 50 * 1024 * 1024, `${videoNames[index - 1]} exceeds 50 MiB`);
   });
   assert.ok(existsSync(join(dist, "media/dron/video.mp4")));
   assert.ok(existsSync(join(dist, "media/dron/1.avif")));
