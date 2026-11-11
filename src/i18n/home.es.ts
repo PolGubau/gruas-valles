@@ -29,7 +29,7 @@ export const es = {
   worksIntro: "Descubra las últimas novedades y proyectos de Grúas del Vallès.", moreWorks: "Ver más trabajos y noticias", readMore: "Leer más",
   works: {} as Record<string, { titulo: string; resumen: string }>,
   locationEyebrow: "Ubicación estratégica", locationTitle: "Dónde estamos",
-  locationParagraphs: ["Encontrará las instalaciones de Grúas del Vallès en la avenida Sant Julià 64–66, en el polígono industrial del Congost de Granollers (Barcelona), A diez minutos del Circuito de Montmeló.", "Contamos con acceso desde la N-152 y la AP-7, desde el Vallès Oriental y Occidental, el Barcelonès, Baix Llobregat y Ripollès.", "También atendemos poblaciones cercanas como Mollet, Mataró, Sabadell, Terrassa, Cerdanyola, Sant Cugat, Les Franqueses, La Roca, Cardedeu, Vic, Ripoll, Manresa, Girona y Tarragona."],
+  locationParagraphs: ["Encontrará las instalaciones de Grúas del Vallès en la avenida Sant Julià 64–66, en el polígono industrial del Congost de Granollers (Barcelona), A diez minutos del Circuito de Montmeló.", "Contamos con acceso desde la N-152 y la AP-7, desde el Vallès Oriental y Occidental, el Barcelonès, Baix Llobregat y Ripollès.", "También atendemos poblaciones cercanas como Mollet, Mataró, Sabadell, Terrassa, Cerdanyola, Sant Cugat, El Prat, Cornellà, Cardedeu, Vic, Ripoll, Manresa, Girona y Tarragona."],
   directions: "Cómo llegar", mapTitle: "Ubicación de Grúas del Vallès en Granollers",
   faqEyebrow: "Antes de empezar", faqTitle: "Preguntas frecuentes", moreFaq: "Ver más preguntas y formas de contacto",
   faqs: faqs.filter((faq) => ["informacion", "eleccion", "cobertura", "permisos"].includes(faq.id)),
