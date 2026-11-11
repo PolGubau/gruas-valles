@@ -6,6 +6,7 @@ export interface Persona {
   telefono: string;
   email: string;
   slug: string;
+  foto?: string;
 }
 
 /** Las rutas son explícitas para que cambiar un nombre no invalide la tarjeta. */

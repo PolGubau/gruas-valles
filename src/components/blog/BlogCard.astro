@@ -6,6 +6,7 @@ import { formatBlogDate } from "../../lib/blog";
 import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 import { translatedPost } from "@i18n/blog";
 import { homeCopy } from "@i18n/home";
+import { publicBlogSlug } from "../../lib/blog-slugs.mjs";
 
 interface Props {
   post: CollectionEntry<"blog">["data"] & { slug: string };
@@ -19,7 +20,7 @@ const translated = translatedPost(lang, post.slug) ?? post;
 ---
 
 <a
-  href={localizePath(`/blog/${post.slug}`)}
+  href={localizePath(`/blog/${publicBlogSlug(post.slug)}`)}
   class="group flex flex-col overflow-hidden rounded-sm bg-white transition-shadow hover:shadow-card"
 >
   <div class="aspect-video overflow-hidden bg-surface-alt">

@@ -42,13 +42,11 @@ const iconos: string[] = [
         {copy.studies}
       </p>
       <h3
-        class="mb-4 text-2xl font-semibold leading-tight tracking-tight sm:text-3xl"
+        class:list={["text-2xl font-semibold leading-tight tracking-tight sm:text-3xl", { "mb-4": !preview }]}
       >
         {copy.engineering}
       </h3>
-      <p class="text-sm leading-relaxed text-muted sm:text-base">
-        {copy.studiesDescription}
-      </p>
+      {!preview && <p class="text-sm leading-relaxed text-muted sm:text-base">{copy.studiesDescription}</p>}
     </div>
     <span
       class="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-white"
@@ -80,12 +78,10 @@ const iconos: string[] = [
                   aria-hidden="true"
                 />
               </div>
-              <h3 class="mb-3 text-xl font-semibold leading-tight transition-colors group-hover:text-accent">
+              <h3 class:list={["text-xl font-semibold leading-tight transition-colors group-hover:text-accent", { "mb-3": !preview }]}>
                 {translated.titulo}
               </h3>
-              <p class="text-sm leading-relaxed text-ink-secondary">
-                {translated.descripcion}
-              </p>
+              {!preview && <p class="text-sm leading-relaxed text-ink-secondary">{translated.descripcion}</p>}
               <span class="mt-auto flex items-center gap-2 pt-8 text-sm font-semibold text-accent">
                 {copy.details}{" "}
                 <Icon

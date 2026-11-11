@@ -1,6 +1,6 @@
 ---
-titulo: "Instalación equipos en Hospital de Granollers"
-resumen: "Nuestra empresa participa en la instalación de nuevos equipos de aire en el Hospital de Granollers, con el izado de 3 unidades modernas. Utilizamos nuestra grúa Liebherr LTM 1090 4.2."
+titulo: "Instalación de equipos de climatización"
+resumen: "Izado de tres unidades de climatización con una grúa móvil para su instalación en un edificio."
 fecha: 2025-05-15
 imagenes:
   - /assets/images/blog-hospital-granollers-01.avif
@@ -8,4 +8,4 @@ imagenes:
   - /assets/images/blog-hospital-granollers-03.avif
 ---
 
-Nuestra empresa participa en la instalación de nuevos equipos de aire en el Hospital de Granollers, con el izado de 3 unidades modernas. Utilizamos nuestra grúa Liebherr LTM 1090 4.2.
+Izado de tres unidades de climatización con una grúa móvil para su instalación en un edificio.

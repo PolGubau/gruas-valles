@@ -6,8 +6,9 @@ import { fileURLToPath } from "node:url";
 import test from "node:test";
 import { runInNewContext } from "node:vm";
 import { hasTranslations } from "../src/i18n/routes.mjs";
+import { publicBlogSlug } from "../src/lib/blog-slugs.mjs";
 
-const dist = new URL("../dist/", import.meta.url);
+const dist = process.env.GV_TEST_DIST ? new URL(process.env.GV_TEST_DIST) : new URL("../dist/", import.meta.url);
 const pages = Object.fromEntries(["es", "ca", "en"].map((lang) => [lang, readFileSync(new URL(lang === "es" ? "index.html" : `${lang}/index.html`, dist), "utf8")]));
 
 test("cada portada está traducida y declara sus versiones alternativas", () => {
@@ -144,14 +145,18 @@ test("el catálogo y todas las fichas de flota se generan en los tres idiomas", 
   const models = readdirSync(fleetDir, { withFileTypes: true }).filter((item) => item.isDirectory()).map((item) => item.name);
   assert.ok(models.length > 0);
   const expected = {
-    es: ["unidades propias para cualquier maniobra", "Filtrar flota por categoría", "Capacidad máxima"],
-    ca: ["unitats pròpies per a qualsevol maniobra", "Filtrar la flota per categoria", "Capacitat màxima"],
-    en: ["vehicles in our fleet for every lift", "Filter fleet by category", "Maximum capacity"],
+    es: ["Nuestra Flota", "Filtrar flota por categoría", "Capacidad máxima"],
+    ca: ["La nostra flota", "Filtrar la flota per categoria", "Capacitat màxima"],
+    en: ["Our fleet", "Filter fleet by category", "Maximum capacity"],
   };
   for (const lang of ["es", "ca", "en"]) {
     const prefix = lang === "es" ? "" : `${lang}/`;
     const index = readFileSync(new URL(`${prefix}flota/index.html`, dist), "utf8");
     assert.ok(index.includes(expected[lang][0]) && index.includes(expected[lang][1]));
+    const header = index.match(/<header class="mb-12 max-w-2xl">([\s\S]*?)<\/header>/)?.[1];
+    assert.ok(header, lang);
+    assert.match(header, new RegExp(`<h1[^>]*>\\s*${expected[lang][0]}\\s*</h1>`));
+    assert.doesNotMatch(header, /class="eyebrow/);
     assert.ok(index.includes('data-label-desc='));
     for (const slug of models) {
       const html = readFileSync(new URL(`${prefix}flota/${slug}/index.html`, dist), "utf8");
@@ -166,11 +171,11 @@ test("el catálogo y todas las fichas de flota se generan en los tres idiomas", 
   }
 });
 
-test("seguridad mantiene sus acreditaciones y documentos en cada idioma", () => {
+test("seguridad mantiene sus acreditaciones sin el PDF vacío en cada idioma", () => {
   const expected = {
-    es: ["La seguridad, en el centro de cada maniobra", "Taller mecánico propio", "Descargar PDF"],
-    ca: ["La seguretat, al centre de cada maniobra", "Taller mecànic propi", "Descarregar PDF"],
-    en: ["Safety at the heart of every lift", "Our own mechanical workshop", "Download PDF"],
+    es: ["La seguridad, en el centro de cada maniobra", "Taller mecánico propio"],
+    ca: ["La seguretat, al centre de cada maniobra", "Taller mecànic propi"],
+    en: ["Safety at the heart of every lift", "Our own mechanical workshop"],
   };
   for (const lang of ["es", "ca", "en"]) {
     const prefix = lang === "es" ? "" : `${lang}/`;
@@ -178,6 +183,9 @@ test("seguridad mantiene sus acreditaciones y documentos en cada idioma", () => 
     assert.match(html, new RegExp(`<html lang="${lang}"`));
     assert.doesNotMatch(html, /http-equiv="refresh"/);
     for (const text of expected[lang]) assert.ok(html.includes(text), `${lang}: ${text}`);
+    for (const accreditation of ["REIC", "REA", "LOPD"]) assert.ok(html.includes(accreditation), `${lang}: ${accreditation}`);
+    assert.doesNotMatch(html, /DUNS|Dun &amp; Bradstreet/i);
+    assert.doesNotMatch(html, /certificado_rea|data:application\/pdf;base64,/i);
     assert.ok(html.includes("0900006812"));
     assert.ok(pages[lang].includes(`href="/${prefix}seguridad"`));
     assert.ok(html.includes(`hreflang="${lang}" href="https://www.gruasdelvalles.com/${prefix}seguridad/"`));
@@ -276,7 +284,7 @@ test("empleo y páginas legales tienen contenido y navegación en cada idioma", 
 
 test("todas las noticias están traducidas y enlazadas desde su índice", () => {
   const posts = readdirSync(fileURLToPath(new URL("../src/content/blog/", import.meta.url)))
-    .filter((name) => name.endsWith(".md")).map((name) => name.replace(/^\d{4}-\d{2}-\d{2}-/, "").slice(0, -3));
+    .filter((name) => name.endsWith(".md")).map((name) => publicBlogSlug(name.replace(/^\d{4}-\d{2}-\d{2}-/, "").slice(0, -3)));
   assert.ok(posts.length > 0);
   for (const lang of ["es", "ca", "en"]) {
     const prefix = lang === "es" ? "" : `${lang}/`;

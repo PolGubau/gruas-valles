@@ -4,7 +4,8 @@ import * as nodeModule from "node:module";
 import test from "node:test";
 import { runInNewContext } from "node:vm";
 
-const readPage = (path) => readFileSync(new URL(`../dist/${path}`, import.meta.url), "utf8");
+const dist = process.env.GV_TEST_DIST ? new URL(process.env.GV_TEST_DIST) : new URL("../dist/", import.meta.url);
+const readPage = (path) => readFileSync(new URL(path, dist), "utf8");
 
 test("los mapas de los tres idiomas no tienen src hasta recibir consentimiento", () => {
   for (const prefix of ["", "ca/", "en/"]) {
@@ -12,12 +13,18 @@ test("los mapas de los tres idiomas no tienen src hasta recibir consentimiento",
       const html = readPage(`${prefix}${page}index.html`);
       const frames = [...html.matchAll(/<iframe\b[^>]*>/g)].map((match) => match[0]);
       assert.equal(frames.length, 1, `${prefix}${page}`);
-      assert.match(frames[0], /data-map-src="https:\/\/www\.google\.com\/maps\/embed/);
+      const mapUrl = new URL(frames[0].match(/data-map-src="([^"]+)"/)[1].replaceAll("&amp;", "&"));
+      assert.equal(mapUrl.origin + mapUrl.pathname, "https://www.google.com/maps");
+      assert.equal(mapUrl.searchParams.get("q"), "Grúas del Vallès, Avinguda de Sant Julià 64, Granollers");
+      assert.equal(mapUrl.searchParams.get("output"), "embed");
       assert.doesNotMatch(frames[0], /(?:^|\s)src=/);
       assert.match(frames[0], /\shidden(?:\s|>|=)/);
       assert.match(html, /data-map-allow/);
       assert.match(html, /data-map-deny/);
-      assert.match(html, /data-map-revoke/);
+      const map = html.match(/<div data-map-embed[\s\S]*?<\/iframe>[\s\S]*?<\/div>/)?.[0];
+      const footer = html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
+      assert.match(map, /data-map-revoke/);
+      assert.doesNotMatch(footer, /data-map-revoke|data-map-revoked-status/);
     }
   }
 });
@@ -96,6 +103,7 @@ test("las políticas explican la elección y no presentan navegación como conse
     assert.match(cookies, /gv-language/);
     assert.match(cookies, /gv-map-consent/);
     assert.match(cookies, /180/);
+    assert.match(cookies, new RegExp(`href="/${prefix}#donde-estamos"`));
     assert.match(privacy, /policies\.google\.com\/privacy/);
     assert.doesNotMatch(privacy, /formulario de contacto|formulari de contacte|contact form/i);
   }

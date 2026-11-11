@@ -5,7 +5,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { runInNewContext } from "node:vm";
 
-const dist = new URL("../dist/", import.meta.url);
+const dist = process.env.GV_TEST_DIST ? new URL(process.env.GV_TEST_DIST) : new URL("../dist/", import.meta.url);
 const home = readFileSync(new URL("index.html", dist), "utf8");
 const contact = readFileSync(new URL("contacto/index.html", dist), "utf8");
 const services = JSON.parse(readFileSync(new URL("../src/data/servicios.json", import.meta.url), "utf8"));
@@ -18,10 +18,27 @@ function section(id) {
 }
 
 test("la portada presenta las secciones en el orden comercial previsto", () => {
-  const ids = ["hero", "servicios", "flota", "como-trabajamos", "trabajos", "donde-estamos", "preguntas-frecuentes", "contacto"];
+  const ids = ["hero", "servicios", "flota", "como-trabajamos", "trabajos", "trabaja-con-nosotros", "donde-estamos", "preguntas-frecuentes", "contacto"];
   const positions = ids.map((id) => home.indexOf(`id="${id}"`));
   assert.ok(positions.every((position) => position >= 0));
   assert.ok(positions.every((position, i) => i === 0 || position > positions[i - 1]));
+});
+
+test("la sección de empleo resume la página y enlaza a ella en cada idioma", () => {
+  for (const [prefix, heading, summary, label] of [
+    ["", "Forma parte de nuestro equipo", "Buscamos operadores, mecánicos y técnicos", "Trabaja con nosotros"],
+    ["ca/", "Forma part del nostre equip", "Busquem operadors, mecànics i tècnics", "Treballa amb nosaltres"],
+    ["en/", "Join our team", "We are looking for operators, mechanics and technicians", "Careers"],
+  ]) {
+    const html = readFileSync(new URL(`${prefix}index.html`, dist), "utf8");
+    const start = html.indexOf('id="trabaja-con-nosotros"');
+    assert.notEqual(start, -1, prefix || "es");
+    const section = html.slice(start, html.indexOf("</section>", start));
+    assert.ok(section.includes(heading));
+    assert.ok(section.includes(summary));
+    assert.match(section, new RegExp(`href="/${prefix}trabaja-con-nosotros"[^>]*>\\s*${label}`));
+    assert.ok(existsSync(new URL(`${prefix}trabaja-con-nosotros/index.html`, dist)));
+  }
 });
 
 test("el hero ofrece consulta, llamada y catálogo, con dos cifras visibles en móvil", () => {
@@ -31,9 +48,9 @@ test("el hero ofrece consulta, llamada y catálogo, con dos cifras visibles en m
   assert.match(hero, /download=/);
   assert.match(hero, /grid-cols-2[^\"]*sm:grid-cols-3/);
   assert.equal((hero.match(/hidden sm:flex/g) ?? []).length, 1);
-  assert.match(hero, /<dd[^>]*>\s*28\s*<\/dd>/);
+  assert.match(hero, /<dd[^>]*>\s*\+30\s*<\/dd>/);
   assert.match(hero, /<dd[^>]*>\s*24\/365\s*<\/dd>/);
-  assert.match(hero, /<dd[^>]*>\s*86\s*<\/dd>/);
+  assert.match(hero, /<dd[^>]*>\s*\+90\s*<\/dd>/);
 });
 
 test("los rótulos mantienen una presentación sobria y el hero conserva su texto en cada idioma", () => {
@@ -77,70 +94,57 @@ test("la cinta muestra todos los clientes y oculta la copia visual a lectores de
   for (const src of sources[0]) {
     assert.ok(existsSync(join(fileURLToPath(dist), decodeURIComponent(src))), src);
   }
-  assert.match(clientes, /data-pause-label="Pausar logos"/);
-  assert.match(clientes, /data-play-label="Reanudar logos"/);
+  assert.doesNotMatch(clientes, /<button\b/);
 });
 
-test("la cinta se puede pausar y respeta la preferencia de movimiento reducido", () => {
+test("la cinta respeta la preferencia de movimiento reducido y no muestra controles", () => {
   const component = readFileSync(new URL("../src/components/sections/Clientes.astro", import.meta.url), "utf8");
   assert.match(component, /prefers-reduced-motion: no-preference/);
   assert.match(component, /animation: logos-scroll 96s linear infinite/);
   assert.match(component, /translateX\(-50%\)/);
-  assert.match(component, /data-paused[^}]*animation-play-state: paused/);
   assert.match(component, /reducedMotion\.addEventListener\("change", updateMotion\)/);
   assert.match(component, /viewport\.tabIndex = reducedMotion\.matches \? 0 : -1/);
-  for (const [path, pause, play] of [
-    ["ca/index.html", "Aturar logotips", "Reprendre logotips"],
-    ["en/index.html", "Pause logos", "Resume logos"],
-  ]) {
+  for (const path of ["ca/index.html", "en/index.html"]) {
     const html = readFileSync(new URL(path, dist), "utf8");
-    assert.ok(html.includes(`data-pause-label="${pause}"`));
-    assert.ok(html.includes(`data-play-label="${play}"`));
+    const start = html.indexOf('aria-labelledby="clientes-title"');
+    assert.notEqual(start, -1, path);
+    assert.doesNotMatch(html.slice(start, html.indexOf("</section>", start)), /<button\b/);
   }
 });
 
-test("los controles de la cinta pausarán y reanudarán el movimiento", () => {
+test("la cinta reacciona a los cambios de movimiento reducido", () => {
   const script = [...home.matchAll(/<script type="module">([\s\S]*?)<\/script>/g)]
     .map((match) => match[1]).find((content) => content.includes("data-logos-marquee"));
   assert.ok(script);
   const attrs = new Set();
   const viewport = { scrollLeft: 0, tabIndex: 0 };
-  const button = {
-    dataset: { pauseLabel: "Pausar", playLabel: "Reanudar" },
-    addEventListener(_event, callback) { this.click = callback; },
-  };
   const media = {
     matches: false,
     addEventListener(_event, callback) { this.change = callback; },
   };
   const marquee = {
-    querySelector(selector) { return selector === "button" ? button : viewport; },
+    querySelector(selector) { return selector === ".logos-viewport" ? viewport : null; },
     toggleAttribute(name, force = !attrs.has(name)) {
       if (force) attrs.add(name); else attrs.delete(name);
       return force;
     },
-    removeAttribute(name) { attrs.delete(name); },
   };
   runInNewContext(script, {
     document: { querySelectorAll: () => [marquee] },
     window: { matchMedia: () => media },
   });
   assert.ok(attrs.has("data-animated"));
-  assert.equal(button.hidden, false);
-  button.click();
-  assert.ok(attrs.has("data-paused"));
-  assert.equal(button.textContent, "Reanudar");
-  assert.equal(viewport.tabIndex, 0);
+  assert.equal(viewport.tabIndex, -1);
   viewport.scrollLeft = 100;
-  button.click();
-  assert.ok(!attrs.has("data-paused"));
-  assert.equal(viewport.scrollLeft, 0);
-  assert.equal(button.textContent, "Pausar");
   media.matches = true;
   media.change();
   assert.ok(!attrs.has("data-animated"));
-  assert.equal(button.hidden, true);
+  assert.equal(viewport.scrollLeft, 0);
   assert.equal(viewport.tabIndex, 0);
+  media.matches = false;
+  media.change();
+  assert.ok(attrs.has("data-animated"));
+  assert.equal(viewport.tabIndex, -1);
 });
 
 test("la portada destaca las tres primeras noticias del blog en cada idioma", () => {
@@ -169,12 +173,24 @@ test("los servicios destacados mantienen sus enlaces a las páginas de detalle",
   }
 });
 
-test("las tarjetas de contacto mantienen los enlaces directos de cada departamento", () => {
-  const cards = section("contacto");
-  for (const person of contacts.contactos) {
-    assert.ok(cards.includes(`href="tel:+34${person.telefono.replace(/\s/g, "")}"`), person.nombre);
-    assert.ok(cards.includes(`href="mailto:${person.email}"`), person.nombre);
+test("la portada muestra los títulos de servicios sin descripciones y la página dedicada las conserva", () => {
+  for (const prefix of ["", "ca/", "en/"]) {
+    const homepage = readFileSync(new URL(`${prefix}index.html`, dist), "utf8");
+    const servicePage = readFileSync(new URL(`${prefix}servicios/index.html`, dist), "utf8");
+    const findCard = (html, slug) => html.match(new RegExp(`<a href="/${prefix}servicios/${slug}"[^>]*>[\\s\\S]*?</a>`))?.[0];
+    for (const { slug } of services.categorias) {
+      const preview = findCard(homepage, slug);
+      const full = findCard(servicePage, slug);
+      assert.ok(preview && full, `${prefix}${slug}`);
+      assert.match(preview, /<h3\b[^>]*>\s*[^<]+\s*<\/h3>/);
+      assert.doesNotMatch(preview, /<p class="text-sm leading-relaxed/);
+      assert.match(full, /<p class="text-sm leading-relaxed/);
+    }
   }
+});
+
+test("la sección de contacto ofrece el teléfono general", () => {
+  assert.ok(section("contacto").includes(`href="tel:${contacts.telefono.replace(/\s/g, "")}"`));
 });
 
 test("la portada muestra una selección de flota y enlaza al catálogo completo", () => {

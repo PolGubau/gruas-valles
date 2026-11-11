@@ -1,0 +1,2 @@
+// Google Maps resolves this query to the company's headquarters listing.
+export const headquartersMapUrl = "https://www.google.com/maps?q=Gr%C3%BAas%20del%20Vall%C3%A8s%2C%20Avinguda%20de%20Sant%20Juli%C3%A0%2064%2C%20Granollers&z=16&output=embed";

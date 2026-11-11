@@ -1,10 +1,10 @@
 ---
-titulo: "Traslado de un elefante al Zoo de Barcelona"
-resumen: "Traslado de la elefanta 'Bully' desde el Bioparc de Valencia al Zoo de Barcelona. El traslado se realizó de forma que el animal no sufriera incomodidades. Bully convive con Susi e Yoyo en el recinto del zoo."
+titulo: "Traslado de una elefanta"
+resumen: "Traslado de una elefanta, organizado para evitar incomodidades al animal durante la operación."
 fecha: 2025-05-15
 imagenes:
   - /assets/images/blog-traslado-elefante-zoo-01.avif
   - /assets/images/blog-traslado-elefante-zoo-02.avif
 ---
 
-Traslado de la elefanta 'Bully' desde el Bioparc de Valencia al Zoo de Barcelona. El traslado se realizó de forma que el animal no sufriera incomodidades. Bully convive con Susi e Yoyo en el recinto del zoo.
+Traslado de una elefanta, organizado para evitar incomodidades al animal durante la operación.

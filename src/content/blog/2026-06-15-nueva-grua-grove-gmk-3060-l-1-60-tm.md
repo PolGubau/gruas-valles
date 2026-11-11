@@ -1,10 +1,10 @@
 ---
-titulo: "Nueva Grúa Grove GMK 3060 l-1 (60 TM)"
-resumen: "Nueva adquisición de Grúa Grove GMK 3060 l-1 con 48 mts de pluma telescópica y plumín de 15 metros angulable hidráulicamente a 40º."
+titulo: "Nueva grúa de 60 toneladas"
+resumen: "Incorporación de una grúa de 60 toneladas con 48 metros de pluma telescópica y plumín de 15 metros angulable hidráulicamente a 40º."
 fecha: 2025-06-15
 imagenes:
   - /assets/images/flota-grove-gmk3060l-01.avif
   - /assets/images/flota-grove-gmk3060l-02.avif
 ---
 
-Nueva adquisición de Grúa Grove GMK 3060 l-1 con 48 mts de pluma telescópica y plumín de 15 metros angulable hidráulicamente a 40º.
+Incorporación de una grúa de 60 toneladas con 48 metros de pluma telescópica y plumín de 15 metros angulable hidráulicamente a 40º.

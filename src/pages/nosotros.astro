@@ -9,6 +9,7 @@ import MapEmbed from "../components/ui/MapEmbed.astro";
 import PageHero from "../components/ui/PageHero.astro";
 import nosotros from "../data/nosotros.json";
 import Page from "../layouts/Page.astro";
+import { headquartersMapUrl } from "../lib/location";
 
 const lang = getLangFromUrl(Astro.url);
 const copy = companyCopy(lang);
@@ -183,7 +184,7 @@ const certificaciones = [
       </div>
       <div class="min-h-96 bg-surface-alt">
         <MapEmbed
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2981.5!2d2.2915!3d41.6097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sAvda.%20San%20Juli%C3%A1n%2064-66%2C%20Granollers!5e0!3m2!1ses!2ses!4v1"
+          src={headquartersMapUrl}
           title={copy.mapTitle}
         />
       </div>

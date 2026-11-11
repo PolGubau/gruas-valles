@@ -34,7 +34,7 @@ export const es = {
   faqEyebrow: "Antes de empezar", faqTitle: "Preguntas frecuentes", moreFaq: "Ver más preguntas y formas de contacto",
   faqs: faqs.filter((faq) => ["informacion", "eleccion", "cobertura", "permisos"].includes(faq.id)),
   contactEyebrow: "Contacto directo", contactTitle: "Hable con nuestro equipo",
-  contactIntro: "Contacte directamente con la persona o departamento que necesita. Llame o envíe un email con un solo clic.",
+  contactIntro: "Conozca a nuestro equipo y llame a nuestras oficinas para hablar con el departamento que necesita.",
   areas: { "Gerencia": "Gerencia", "Logística": "Logística", "Director técnico": "Director técnico", "Encargado general": "Encargado general", "Técnico comercial": "Técnico comercial", "PRL": "PRL", "Contabilidad": "Contabilidad", "Administración": "Administración" } as Record<string, string>,
   offices: "Oficinas centrales", footerDescription: "Empresa líder en alquiler de grúas industriales en Cataluña desde 1968. Cobertura 24h/365 días.",
   footerServices: "Servicios", footerCompany: "Empresa", footerCoverage: "Cobertura", footerFleet: "Flota", footerAbout: "Nosotros", footerSafety: "Seguridad", footerBodies: "Organismos", footerNews: "Noticias", footerJobs: "Trabaja con nosotros", footerContact: "Contacto", footerCranes: "Grúas en", footerAllCoverage: "Ver toda la cobertura", emergencyShort: "Emergencias 24/365",

@@ -1,7 +1,6 @@
 ---
 import { languages } from "@i18n/ui";
 import {
-  type UiKey,
   getLangFromUrl,
   getRouteFromUrl,
   hasTranslations,
@@ -9,6 +8,7 @@ import {
   useTranslations,
 } from "@i18n/utils";
 import { Icon } from "astro-icon/components";
+import { careersCopy } from "@i18n/careers";
 import { homeCopy } from "@i18n/home";
 
 const lang = getLangFromUrl(Astro.url);
@@ -22,11 +22,12 @@ const languageHref = (code: keyof typeof languages) => {
   return localizePath(hasTranslations(route) ? route : "/", code);
 };
 
-const links: { href: string; key: UiKey }[] = [
-  { href: "/flota", key: "nav.flota" },
-  { href: "/servicios", key: "nav.servicios" },
-  { href: "/nosotros", key: "nav.nosotros" },
-  { href: "/blog", key: "nav.blog" },
+const links = [
+  { href: "/flota", label: t("nav.flota") },
+  { href: "/servicios", label: t("nav.servicios") },
+  { href: "/nosotros", label: t("nav.nosotros") },
+  { href: "/blog", label: t("nav.blog") },
+  { href: "/trabaja-con-nosotros", label: careersCopy(lang).title },
 ];
 
 const isActive = (href: string) =>
@@ -55,13 +56,13 @@ const isActive = (href: string) =>
     >
       <nav class="flex items-center gap-6" aria-label={copy.primaryNav}>
         {
-          links.map(({ href, key }) => (
+          links.map(({ href, label }) => (
             <a
               href={hasTranslations(href) ? localizePath(href) : href}
               aria-current={isActive(href) ? "page" : undefined}
               class="nav-link relative text-sm font-semibold text-ink-secondary transition-colors hover:text-accent aria-[current=page]:text-accent"
             >
-              {t(key)}
+              {label}
             </a>
           ))
         }
@@ -152,13 +153,13 @@ const isActive = (href: string) =>
         aria-label={copy.mobileNav}
       >
         {
-          links.map(({ href, key }) => (
+          links.map(({ href, label }) => (
             <a
               href={hasTranslations(href) ? localizePath(href) : href}
               aria-current={isActive(href) ? "page" : undefined}
               class="mobile-link border-b border-muted/40 py-3 text-sm font-medium text-ink transition-colors last:border-0 hover:text-accent aria-[current=page]:text-accent"
             >
-              {t(key)}
+              {label}
             </a>
           ))
         }

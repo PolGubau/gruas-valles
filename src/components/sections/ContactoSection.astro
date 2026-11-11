@@ -1,16 +1,14 @@
 ---
 import { Icon } from "astro-icon/components";
 import contacto from "../../data/contacto.json";
-import { equipo, telHref } from "../../lib/equipo";
+import { equipo } from "../../lib/equipo";
 import { catalogo } from "../../lib/docs";
-import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
-import { contactCopy } from "@i18n/contact";
+import { resolveImage } from "../../lib/images";
+import { getLangFromUrl } from "@i18n/utils";
 import { homeCopy } from "@i18n/home";
 
 const lang = getLangFromUrl(Astro.url);
 const copy = homeCopy(lang);
-const cardCopy = contactCopy(lang);
-const localizePath = useTranslatedPath(lang);
 ---
 
 <section id="contacto" class="section-padding bg-surface-alt">
@@ -26,55 +24,8 @@ const localizePath = useTranslatedPath(lang);
       </p>
     </div>
 
-    <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
-      {
-        equipo.map((persona) => (
-          <article class="relative flex min-h-48 flex-col rounded-sm bg-surface p-6 transition-shadow hover:shadow-md sm:p-8">
-            <p class="text-xs font-semibold uppercase tracking-wider text-accent">
-              {copy.areas[persona.area] ?? persona.area}
-            </p>
-            <h3 class="mt-2 text-xl font-semibold text-ink">
-              <a
-                href={localizePath(`/equipo/${persona.slug}/`)}
-                class="hover:text-accent focus-visible:outline-2 focus-visible:outline-accent after:absolute after:inset-0"
-              >
-                {persona.nombre}
-                <span class="mt-2 block text-sm font-medium text-accent">
-                  {cardCopy.viewCard} <span aria-hidden="true">→</span>
-                </span>
-              </a>
-            </h3>
-            <div class="mt-6 space-y-3 text-sm">
-              <a
-                href={telHref(persona.telefono)}
-                class="relative z-10 group flex items-center gap-3 font-semibold text-ink transition-colors hover:text-accent"
-              >
-                <Icon
-                  name="lucide:phone"
-                  class="h-4 w-4 shrink-0 text-accent"
-                  aria-hidden="true"
-                />
-                <span>{persona.telefono}</span>
-              </a>
-              <a
-                href={`mailto:${persona.email}`}
-                class="relative z-10 group flex items-start gap-3 text-ink-secondary transition-colors hover:text-accent"
-              >
-                <Icon
-                  name="lucide:mail"
-                  class="mt-0.5 h-4 w-4 shrink-0 text-accent"
-                  aria-hidden="true"
-                />
-                <span class="break-all">{persona.email}</span>
-              </a>
-            </div>
-          </article>
-        ))
-      }
-    </div>
-
     <aside
-      class="mt-6 grid gap-6 rounded-sm bg-ink p-6 text-white sm:p-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_auto] lg:items-center lg:gap-10"
+      class="mb-6 grid gap-6 rounded-sm bg-ink p-6 text-white sm:p-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_auto] lg:items-center lg:gap-10"
     >
       <div>
         <p
@@ -99,14 +50,17 @@ const localizePath = useTranslatedPath(lang);
           />
           {contacto.telefono}
         </a>
-        <p class="flex items-center gap-2 text-white/75">
+        <a
+          href={`mailto:${contacto.email}`}
+          class="flex items-center gap-2 hover:text-accent-light"
+        >
           <Icon
-            name="lucide:printer"
+            name="lucide:mail"
             class="h-4 w-4 shrink-0 text-accent-light"
             aria-hidden="true"
           />
-          Fax {contacto.fax}
-        </p>
+          <span class="break-all">{contacto.email}</span>
+        </a>
       </div>
       <a
         href={catalogo.url}
@@ -121,5 +75,28 @@ const localizePath = useTranslatedPath(lang);
         {copy.download}
       </a>
     </aside>
+
+    <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
+      {
+        equipo.map((persona) => (
+          <article class="flex min-h-28 overflow-hidden bg-surface">
+            <div class="w-24 shrink-0 bg-surface-alt sm:w-28">
+              <img
+                src={persona.foto ? resolveImage(persona.foto) : "/images/equipo-placeholder.svg"}
+                alt=""
+                class="h-full min-h-28 w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div class="flex min-w-0 flex-col justify-center p-4 sm:p-5">
+              <p class="text-xs font-semibold uppercase tracking-wider text-accent">
+                {copy.areas[persona.area] ?? persona.area}
+              </p>
+              <h3 class="mt-2 text-lg font-semibold text-ink">{persona.nombre}</h3>
+            </div>
+          </article>
+        ))
+      }
+    </div>
   </div>
 </section>

@@ -1,13 +1,44 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
 
-const dist = new URL("../dist/", import.meta.url);
+const dist = process.env.GV_TEST_DIST ? new URL(process.env.GV_TEST_DIST) : new URL("../dist/", import.meta.url);
 const data = JSON.parse(readFileSync(new URL("../src/data/contacto.json", import.meta.url), "utf8"));
 const read = (path) => readFileSync(new URL(path, dist), "utf8");
 const languages = { es: "", ca: "ca/", en: "en/" };
 
-test("cada persona tiene una ficha enlazada y una vCard en los tres idiomas", () => {
+test("las tarjetas muestran nombre, puesto e imagen sin enlaces ni contactos personales", () => {
+  const accounting = { es: "Contabilidad", ca: "Contabilitat", en: "Accounting" };
+  assert.ok(existsSync(new URL("images/equipo-placeholder.svg", dist)));
+  for (const [lang, prefix] of Object.entries(languages)) {
+    for (const page of ["index.html", "contacto/index.html"]) {
+      const html = read(`${prefix}${page}`);
+      const start = html.indexOf('id="contacto"');
+      assert.notEqual(start, -1, `${lang}: ${page}`);
+      const section = html.slice(start, html.indexOf("</section>", start));
+      const cards = [...section.matchAll(/<article\b[\s\S]*?<\/article>/g)].map(([card]) => card);
+      assert.equal(cards.length, data.contactos.length);
+      for (const [i, person] of data.contactos.entries()) {
+        assert.ok(cards[i].includes(person.nombre));
+        const image = cards[i].match(/<img\b[^>]*src="([^"]+)"[^>]*alt=""/)?.[1];
+        assert.ok(image, `${person.nombre}: imagen`);
+        if (person.foto) assert.notEqual(image, "/images/equipo-placeholder.svg");
+        else assert.equal(image, "/images/equipo-placeholder.svg");
+        assert.doesNotMatch(cards[i], /<a\b|mailto:|tel:/);
+        assert.ok(!cards[i].includes(person.email));
+        assert.ok(!cards[i].includes(person.telefono));
+      }
+      assert.ok(section.includes(accounting[lang]));
+      const general = section.match(/<aside\b[\s\S]*?<\/aside>/)?.[0];
+      assert.ok(general && section.indexOf(general) < section.indexOf(cards[0]));
+      assert.ok(general.includes(`href="tel:${data.telefono.replace(/\s/g, "")}"`));
+      assert.ok(general.includes(`href="mailto:${data.email}"`));
+      assert.doesNotMatch(section, /Fax /);
+    }
+  }
+});
+
+test("cada persona conserva su ficha y vCard en los tres idiomas sin enlaces desde las tarjetas", () => {
   assert.equal(new Set(data.contactos.map((person) => person.slug)).size, data.contactos.length);
   for (const [lang, prefix] of Object.entries(languages)) {
     const home = read(`${prefix}index.html`);
@@ -18,8 +49,8 @@ test("cada persona tiene una ficha enlazada y una vCard en los tres idiomas", ()
       const html = read(`${path}/index.html`);
       const card = read(`${path}.vcf`);
       const unfolded = card.replace(/\r\n /g, "");
-      assert.ok(home.includes(`href="/${path}/"`), `${lang}: enlace en portada`);
-      assert.ok(contact.includes(`href="/${path}/"`), `${lang}: enlace en contacto`);
+      assert.ok(!home.includes(`href="/${path}/"`), `${lang}: enlace en portada`);
+      assert.ok(!contact.includes(`href="/${path}/"`), `${lang}: enlace en contacto`);
       assert.ok(html.includes(`<html lang="${lang}"`));
       assert.ok(html.includes(person.nombre));
       assert.ok(html.includes(`href="tel:${phone}"`));

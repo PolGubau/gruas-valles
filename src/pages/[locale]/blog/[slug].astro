@@ -1,9 +1,17 @@
 ---
 import { getCollection } from "astro:content";
 import BlogArticle from "../../blog/[slug].astro";
+import { publicBlogSlug } from "../../../lib/blog-slugs.mjs";
 export async function getStaticPaths() {
   const entries = await getCollection("blog");
-  return ["ca", "en"].flatMap((locale) => entries.map((entry) => ({ params: { locale, slug: entry.id }, props: { entry } })));
+  return ["ca", "en"].flatMap((locale) => entries.flatMap((entry) => {
+    const slug = publicBlogSlug(entry.id);
+    return [
+      { params: { locale, slug }, props: { entry } },
+      ...(slug !== entry.id ? [{ params: { locale, slug: entry.id }, props: { entry, redirectTo: `/${locale}/blog/${slug}` } }] : []),
+    ];
+  }));
 }
+if (Astro.props.redirectTo) return Astro.redirect(Astro.props.redirectTo, 301);
 ---
 <BlogArticle entry={Astro.props.entry} />

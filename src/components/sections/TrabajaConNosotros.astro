@@ -1,0 +1,22 @@
+---
+import { careersCopy } from "@i18n/careers";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
+import Button from "../ui/Button.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const copy = careersCopy(lang);
+const localizePath = useTranslatedPath(lang);
+---
+
+<section id="trabaja-con-nosotros" class="bg-surface px-4 py-14 sm:px-6 sm:py-16 lg:px-8" aria-labelledby="empleo-title">
+  <div class="container-wide flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between">
+    <div class="max-w-2xl">
+      <p class="eyebrow">{copy.title}</p>
+      <h2 id="empleo-title" class="text-3xl font-semibold leading-tight sm:text-4xl">{copy.hero}</h2>
+      <p class="mt-4 text-base leading-relaxed text-ink-secondary">{copy.description}</p>
+    </div>
+    <Button href={localizePath("/trabaja-con-nosotros")} icon="lucide:arrow-right">
+      {copy.title}
+    </Button>
+  </div>
+</section>

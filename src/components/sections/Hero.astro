@@ -3,6 +3,9 @@ import { getImage } from "astro:assets";
 import heroImage from "../../assets/images/hero-grua-accion-2024-01.avif";
 import industrialImage from "../../assets/images/galeria-industria-ltm1350-2021-01.avif";
 import portImage from "../../assets/images/operacion-puerto-2020.avif";
+import droneVideo1 from "../../assets/videos/DJI_0241_00000000.mp4?url";
+import droneVideo2 from "../../assets/videos/DJI_0242_00000265.mp4?url";
+import timelineVideo from "../../assets/videos/Timeline 1.mp4?url";
 import { catalogo } from "../../lib/docs";
 import Button from "../ui/Button.astro";
 import { getLangFromUrl } from "@i18n/utils";
@@ -11,9 +14,15 @@ import { homeCopy } from "@i18n/home";
 const copy = homeCopy(getLangFromUrl(Astro.url));
 
 // ── SLIDESHOW DE HERO ─────────────────────────────────────────────────────────
-// Para cambiar fotos: añade o elimina objetos de este array.
-// Cada foto permanece SLIDE_INTERVAL segundos; el vídeo se reproduce completo.
+// Cada foto permanece SLIDE_INTERVAL segundos; cada vídeo se reproduce completo.
 const SLIDE_INTERVAL = 7; // segundos
+
+const heroVideos = [
+  { src: "/media/dron/video.mp4", poster: "/media/dron/1.avif" },
+  { src: droneVideo1 },
+  { src: droneVideo2 },
+  { src: timelineVideo },
+];
 
 const heroSlides = [
   { src: heroImage },
@@ -46,14 +55,18 @@ const slides = await Promise.all(
     class="absolute inset-0 overflow-hidden"
     data-interval={SLIDE_INTERVAL}
   >
-    <video
-      src="/media/dron/video.mp4"
-      poster="/media/dron/1.avif"
-      class="hero-slide absolute inset-0 h-full w-full object-cover object-center"
-      muted
-      playsinline
-      preload="none"
-      aria-hidden="true"></video>
+    {
+      heroVideos.map((video) => (
+        <video
+          src={video.src}
+          poster={video.poster}
+          class="hero-slide absolute inset-0 h-full w-full object-cover object-center"
+          muted
+          playsinline
+          preload="none"
+          aria-hidden="true"></video>
+      ))
+    }
     {
       slides.map((slide, i) => (
         <img
@@ -127,9 +140,9 @@ const slides = await Promise.all(
     >
       {
         [
-          { value: "28", label: copy.cranes },
+          { value: "+30", label: copy.cranes },
           { value: "24/365", label: copy.emergency },
-          { value: "86", label: copy.vehicles },
+          { value: "+90", label: copy.vehicles },
         ].map(({ value, label }, i) => (
           <div
             class:list={["flex flex-col-reverse", { "hidden sm:flex": i >= 2 }]}
@@ -187,15 +200,17 @@ const slides = await Promise.all(
 <script>
   const container = document.getElementById("hero-slideshow");
   const slides = container?.querySelectorAll<HTMLElement>(".hero-slide");
-  const video = container?.querySelector<HTMLVideoElement>("video.hero-slide");
+  const videos = container?.querySelectorAll<HTMLVideoElement>("video.hero-slide");
   const interval = Number(container?.dataset.interval ?? 7) * 1000;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  if (slides && video && slides.length > 1) {
+  if (slides && videos?.length && slides.length > videos.length) {
     // La primera foto es el respaldo mientras carga el vídeo o si falla.
-    let current = 1;
+    const firstPhoto = videos.length;
+    let current = firstPhoto;
     let timer: number | undefined;
     let generation = 0;
+    let transitioning = false;
 
     const show = (index: number) => {
       slides[current].classList.remove("is-active");
@@ -204,41 +219,57 @@ const slides = await Promise.all(
     };
 
     const showPhoto = (index: number) => {
-      video.pause();
+      videos.forEach((video) => video.pause());
       show(index);
       if (!reducedMotion.matches) timer = window.setTimeout(advance, interval);
     };
 
-    const playVideo = () => {
+    const playVideo = (index: number) => {
       const attempt = ++generation;
+      transitioning = true;
+      const video = videos[index];
+      if (current < firstPhoto) videos[current].pause();
       if (video.ended) video.currentTime = 0;
       video
         .play()
         .then(() => {
-          if (attempt === generation && !reducedMotion.matches) show(0);
+          if (attempt === generation && !reducedMotion.matches) {
+            transitioning = false;
+            show(index);
+          }
         })
         .catch(() => {
-          if (attempt === generation && !reducedMotion.matches) showPhoto(1);
+          if (attempt === generation && !reducedMotion.matches) {
+            transitioning = false;
+            advanceFrom(index);
+          }
         });
     };
 
-    function advance() {
-      if (current === slides.length - 1) playVideo();
-      else showPhoto(current + 1);
+    function advanceFrom(index: number) {
+      const next = (index + 1) % slides.length;
+      if (next < firstPhoto) playVideo(next);
+      else showPhoto(next);
     }
 
-    video.addEventListener("ended", () => {
-      if (current === 0 && !reducedMotion.matches) showPhoto(1);
-    });
-    video.addEventListener("error", () => {
-      if (current === 0 && !reducedMotion.matches) showPhoto(1);
+    function advance() {
+      advanceFrom(current);
+    }
+
+    videos.forEach((video, index) => {
+      const next = () => {
+        if (current === index && !transitioning && !reducedMotion.matches) advance();
+      };
+      video.addEventListener("ended", next);
+      video.addEventListener("error", next);
     });
 
     const updatePlayback = () => {
       window.clearTimeout(timer);
       generation++;
-      if (reducedMotion.matches) showPhoto(1);
-      else playVideo();
+      transitioning = false;
+      if (reducedMotion.matches) showPhoto(firstPhoto);
+      else playVideo(0);
     };
 
     reducedMotion.addEventListener("change", updatePlayback);

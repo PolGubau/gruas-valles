@@ -8,11 +8,9 @@ import {
   useTranslatedPath,
 } from "@i18n/utils";
 import { homeCopy } from "@i18n/home";
-import { mapConsentCopy } from "@i18n/map-consent";
 
 const lang = getLangFromUrl(Astro.url);
 const copy = homeCopy(lang);
-const mapCopy = mapConsentCopy(lang);
 const localizePath = useTranslatedPath(lang);
 const year = new Date().getFullYear();
 
@@ -257,22 +255,7 @@ const legalLinks = [
             </a>
           ))
         }
-        <button
-          type="button"
-          data-map-revoke
-          hidden
-          class="text-left underline hover:text-white">{mapCopy.revoke}</button
-        >
       </nav>
-      <p
-        data-map-revoked-status
-        data-message={mapCopy.revoked}
-        role="status"
-        tabindex="-1"
-        hidden
-        class="max-w-sm text-xs"
-      >
-      </p>
     </div>
 
     <p class="mt-6 text-[10px] opacity-40 transition-opacity hover:opacity-100">

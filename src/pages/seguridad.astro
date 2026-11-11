@@ -2,8 +2,6 @@
 import { Icon } from "astro-icon/components";
 import { safetyCopy } from "@i18n/safety";
 import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
-import reaPdf from "../assets/docs/certificado_rea.pdf";
-import dunsPdf from "../assets/docs/duns.pdf";
 import CtaBand from "../components/ui/CtaBand.astro";
 import PageHero from "../components/ui/PageHero.astro";
 import Page from "../layouts/Page.astro";
@@ -15,27 +13,18 @@ const certificaciones = [
   {
     icon: "lucide:shield-check",
     ...copy.items.reic,
-    pdf: null,
   },
   {
     icon: "lucide:building-2",
     ...copy.items.rea,
-    pdf: reaPdf,
   },
   {
     icon: "lucide:lock",
     ...copy.items.lopd,
-    pdf: null,
-  },
-  {
-    icon: "lucide:badge-check",
-    ...copy.items.duns,
-    pdf: dunsPdf,
   },
   {
     icon: "lucide:wrench",
     ...copy.items.workshop,
-    pdf: null,
   },
 ];
 ---
@@ -95,21 +84,6 @@ const certificaciones = [
               <p class="flex-1 text-sm leading-relaxed text-ink-secondary">
                 {c.description}
               </p>
-              {c.pdf && (
-                <a
-                  href={c.pdf}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:underline"
-                >
-                  <Icon
-                    name="lucide:download"
-                    class="h-4 w-4"
-                    aria-hidden="true"
-                  />
-                  {copy.download}
-                </a>
-              )}
             </div>
           ))
         }

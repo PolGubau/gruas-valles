@@ -6,6 +6,7 @@ import Button from "../../components/ui/Button.astro";
 import Page from "../../layouts/Page.astro";
 import { resolveDoc } from "../../lib/docs";
 import { formatBlogDate } from "../../lib/blog";
+import { publicBlogSlug } from "../../lib/blog-slugs.mjs";
 import { resolveImages } from "../../lib/images";
 import { blogPostingSchema } from "../../lib/schema";
 import { blogCopy, translatedPost } from "@i18n/blog";
@@ -13,14 +14,18 @@ import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 
 export async function getStaticPaths() {
   const entries = await getCollection("blog");
-  return entries.map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry },
-  }));
+  return entries.flatMap((entry) => {
+    const slug = publicBlogSlug(entry.id);
+    return [
+      { params: { slug }, props: { entry } },
+      ...(slug !== entry.id ? [{ params: { slug: entry.id }, props: { entry, redirectTo: `/blog/${slug}` } }] : []),
+    ];
+  });
 }
 
-type Props = { entry: CollectionEntry<"blog"> };
-const { entry } = Astro.props;
+type Props = { entry: CollectionEntry<"blog">; redirectTo?: string };
+const { entry, redirectTo } = Astro.props;
+if (redirectTo) return Astro.redirect(redirectTo, 301);
 const lang = getLangFromUrl(Astro.url);
 const copy = blogCopy(lang);
 const localizePath = useTranslatedPath(lang);
@@ -35,7 +40,7 @@ const documentos = post.documentos.map((doc) => ({
 }));
 
 const description = post.resumen.slice(0, 160);
-const url = localizePath(`/blog/${entry.id}`);
+const url = localizePath(`/blog/${publicBlogSlug(entry.id)}`);
 const schema = blogPostingSchema(
   {
     headline: post.titulo,

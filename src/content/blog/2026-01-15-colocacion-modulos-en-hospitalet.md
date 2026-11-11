@@ -1,9 +1,9 @@
 ---
-titulo: "Colocación módulos en Hospitalet"
-resumen: "Grúas del Vallés colabora en la construcción del edificio de oficinas 'Caixa Catalunya Torre Puig' en l'Hospitalet de Llobregat (obra de Comsa). Se utilizan grúas móviles con plumines especiales para llegar a casi 100 mts de altura para colocar la fachada de vidrio."
+titulo: "Colocación de una fachada de vidrio"
+resumen: "Colocación de módulos de vidrio en una fachada a casi 100 metros de altura con grúas móviles y plumines especiales."
 fecha: 2026-01-15
 imagenes:
   - /assets/images/blog-modulos-hospitalet-01.avif
 ---
 
-Grúas del Vallés colabora en la construcción del edificio de oficinas 'Caixa Catalunya Torre Puig' en l'Hospitalet de Llobregat (obra de Comsa). Se utilizan grúas móviles con plumines especiales para llegar a casi 100 mts de altura para colocar la fachada de vidrio.
+Colocación de módulos de vidrio en una fachada a casi 100 metros de altura con grúas móviles y plumines especiales.

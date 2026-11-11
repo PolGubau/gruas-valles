@@ -4,6 +4,8 @@ import * as nodeModule from "node:module";
 import test from "node:test";
 import { runInNewContext } from "node:vm";
 
+const dist = process.env.GV_TEST_DIST ? new URL(process.env.GV_TEST_DIST) : new URL("../dist/", import.meta.url);
+
 class Element {
   constructor(initial = []) {
     this.classes = new Set(initial);
@@ -31,7 +33,7 @@ class Element {
 
 test("la cabecera flotante agrupa navegación, teléfono e idiomas sin cubrir el hero", () => {
   for (const prefix of ["", "ca/", "en/"]) {
-    const html = readFileSync(new URL(`../dist/${prefix}index.html`, import.meta.url), "utf8");
+    const html = readFileSync(new URL(`${prefix}index.html`, dist), "utf8");
     const header = html.match(/<header id="navbar"[\s\S]*?<\/header>/)?.[0];
     assert.ok(header, prefix || "es");
     const opening = header.match(/^<header[^>]*>/)?.[0];
@@ -48,12 +50,26 @@ test("la cabecera flotante agrupa navegación, teléfono e idiomas sin cubrir el
   }
 });
 
+test("trabaja con nosotros es el último enlace de navegación en los tres idiomas", () => {
+  for (const [prefix, label] of [["", "Trabaja con nosotros"], ["ca/", "Treballa amb nosaltres"], ["en/", "Careers"]]) {
+    const html = readFileSync(new URL(`${prefix}index.html`, dist), "utf8");
+    const header = html.match(/<header id="navbar"[\s\S]*?<\/header>/)?.[0];
+    assert.ok(header, prefix || "es");
+    const navs = [...header.matchAll(/<nav\b[^>]*>([\s\S]*?)<\/nav>/g)];
+    assert.equal(navs.length, 2);
+    for (const [, nav] of navs) {
+      const links = [...nav.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*class="[^"]*(?:nav-link|mobile-link)[^"]*"[^>]*>\s*([^<]+?)\s*<\/a>/g)];
+      assert.deepEqual(links.at(-1)?.slice(1), [`/${prefix}trabaja-con-nosotros`, label]);
+    }
+  }
+});
+
 test("el fondo de las páginas interiores ocupa también el espacio de la cabecera", () => {
   const layout = readFileSync(new URL("../src/layouts/Page.astro", import.meta.url), "utf8");
   assert.match(layout, /\.inner-page > :first-child::before\s*\{[^}]*display:\s*block;[^}]*height:\s*4rem;/);
   for (const prefix of ["", "ca/", "en/"]) {
     for (const page of ["blog/", "servicios/", "legal/privacidad/"]) {
-      const html = readFileSync(new URL(`../dist/${prefix}${page}index.html`, import.meta.url), "utf8");
+      const html = readFileSync(new URL(`${prefix}${page}index.html`, dist), "utf8");
       assert.match(html, /<main id="main" class="inner-page">\s*<section class="[^"]*bg-surface-alt/);
     }
   }

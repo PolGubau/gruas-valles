@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 import { getLangFromUrl } from "@i18n/utils";
 import { homeCopy } from "@i18n/home";
 import MapEmbed from "../ui/MapEmbed.astro";
+import { headquartersMapUrl } from "../../lib/location";
 
 const copy = homeCopy(getLangFromUrl(Astro.url));
 ---
@@ -44,7 +45,7 @@ const copy = homeCopy(getLangFromUrl(Astro.url));
         data-reveal-delay="1"
       >
         <MapEmbed
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2981.58434311002!2d2.290547177241258!3d41.609536871272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4b88616f05971%3A0xe5a3c0e359d9c294!2zR3LDunFzIGRlbCBWYWxsw6hzLCBTLkEu!5e0!3m2!1ses!2ses!4v1717758000000!5m2!1ses!2ses"
+          src={headquartersMapUrl}
           title={copy.mapTitle}
         />
       </div>

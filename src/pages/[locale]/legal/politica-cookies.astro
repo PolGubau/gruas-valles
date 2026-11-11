@@ -136,8 +136,7 @@ const path = useTranslatedPath(lang);
         <p>
           El mapa no es carrega fins que premeu «Acceptar i carregar el mapa».
           Podeu rebutjar-lo sense impedir l'ús del lloc. Per retirar el
-          consentiment, premeu «Retirar el consentiment de Google Maps» al peu
-          de pàgina; això atura la càrrega del mapa, però no elimina
+          consentiment, premeu «Retirar el consentiment de Google Maps» al <a href={path("/#donde-estamos")}>mapa</a>; això atura la càrrega del mapa, però no elimina
           automàticament les galetes que Google ja hagi instal·lat. Les podeu
           eliminar al navegador. Si heu rebutjat el mapa, podeu canviar
           l'elecció al mateix mapa.
@@ -330,7 +329,7 @@ const path = useTranslatedPath(lang);
         <p>
           The map does not load until you select “Accept and load map”. You can
           reject it and still use the site. To withdraw consent, select
-          “Withdraw Google Maps consent” in the footer; this stops the map
+          “Withdraw Google Maps consent” on the <a href={path("/#donde-estamos")}>map</a>; this stops the map
           loading but does not automatically delete cookies already installed by
           Google. You can remove them in your browser. If you rejected the map,
           you can change your choice at the map itself.

@@ -2,8 +2,9 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import * as nodeModule from "node:module";
 import test from "node:test";
+import { publicBlogSlug } from "../src/lib/blog-slugs.mjs";
 
-const dist = new URL("../dist/", import.meta.url);
+const dist = process.env.GV_TEST_DIST ? new URL(process.env.GV_TEST_DIST) : new URL("../dist/", import.meta.url);
 const source = new URL("../src/content/blog/", import.meta.url);
 const read = (path) => readFileSync(new URL(path, dist), "utf8");
 
@@ -15,8 +16,8 @@ test("las noticias se publican por fecha descendente en los tres idiomas", () =>
     const parsedDate = new Date(date);
     assert.ok(!Number.isNaN(parsedDate.getTime()) && parsedDate.toISOString().startsWith(date), `Fecha inválida en ${name}: ${date}`);
     assert.ok(name.startsWith(`${date}-`), `El nombre de ${name} debe empezar por ${date}-`);
-    return { slug: name.slice(date.length + 1, -3), date };
-  }).sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug, "es"));
+    return { id: name.slice(date.length + 1, -3), date };
+  }).sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id, "es"));
   assert.ok(expected.length >= 3);
 
   for (const [lang, prefix] of [["es", ""], ["ca", "ca/"], ["en", "en/"]]) {
@@ -24,7 +25,8 @@ test("las noticias se publican por fecha descendente en los tres idiomas", () =>
     const cards = [...html.matchAll(/<a href="([^"]+)" class="group flex flex-col overflow-hidden rounded-sm bg-white[^>]*>[\s\S]*?<\/a>/g)];
     assert.equal(cards.length, expected.length);
     cards.forEach(([card, href], i) => {
-      const { slug, date } = expected[i];
+      const { id, date } = expected[i];
+      const slug = publicBlogSlug(id);
       assert.equal(href, `/${prefix}blog/${slug}`);
       const formatted = new Intl.DateTimeFormat(lang, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(date));
       assert.ok(card.includes(`datetime="${date}"`) && card.includes(formatted), `${lang}: ${slug}`);
@@ -51,8 +53,8 @@ test("la fecha prevalece sobre cualquier otro orden y los empates son estables",
 
 test("las imágenes del blog en subcarpetas se generan en el índice y el artículo", () => {
   const index = read("blog/index.html");
-  const card = index.match(/<a href="\/blog\/dalmau"[\s\S]*?<\/a>/)?.[0];
-  const article = read("blog/dalmau/index.html");
+  const card = index.match(/<a href="\/blog\/botadura-de-un-barco"[\s\S]*?<\/a>/)?.[0];
+  const article = read("blog/botadura-de-un-barco/index.html");
   const image = card?.match(/<img[^>]+src="([^"]+)"/)?.[1];
   assert.ok(image?.startsWith("/_assets/"));
   assert.ok(existsSync(new URL(image.slice(1), dist)));
