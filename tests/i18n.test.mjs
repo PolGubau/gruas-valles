@@ -31,6 +31,35 @@ test("cada portada está traducida y declara sus versiones alternativas", () => 
   assert.ok(pages.en.includes("Some downloadable documents are only available in Spanish."));
 });
 
+test("el footer separa el correo del catálogo y ofrece redes sociales accesibles", () => {
+  const socials = [
+    ["Instagram", "https://www.instagram.com/gruasdelvalles/", "instagram"],
+    ["LinkedIn", "https://www.linkedin.com/company/gruasdelvalles/", "linkedin"],
+    ["Facebook", "https://www.facebook.com/gruasdelvalles/", "facebook"],
+    ["YouTube", "https://www.youtube.com/channel/UCGAXK9VBR-OSxCsV3k2Ntkg", "youtube"],
+  ];
+  const labels = {
+    es: ["Redes sociales", "pestaña nueva"],
+    ca: ["Xarxes socials", "pestanya nova"],
+    en: ["Social media", "new tab"],
+  };
+  for (const [lang, html] of Object.entries(pages)) {
+    const footer = html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
+    assert.ok(footer, lang);
+    assert.match(footer, /class="flex flex-col items-start gap-4"[\s\S]*?href="mailto:gruasdelvalles@gruasdelvalles\.com"[\s\S]*?\bdownload=/);
+    const nav = footer.match(new RegExp(`<nav[^>]*aria-label="${labels[lang][0]}"[\\s\\S]*?</nav>`))?.[0];
+    assert.ok(nav, `${lang}: navegación social`);
+    for (const [name, href, icon] of socials) {
+      const link = [...nav.matchAll(/<a\b[^>]*>[\s\S]*?<\/a>/g)].map(([tag]) => tag).find((tag) => tag.includes(`href="${href}"`));
+      assert.ok(link, `${lang}: ${name}`);
+      assert.match(link, /target="_blank"/);
+      assert.match(link, /rel="noopener noreferrer"/);
+      assert.ok(link.includes(`aria-label="${name}`) && link.includes(labels[lang][1]), `${lang}: etiqueta de ${name}`);
+      assert.ok(link.includes(`data-icon="lucide:${icon}"`) && link.includes('aria-hidden="true"'), `${lang}: icono de ${name}`);
+    }
+  }
+});
+
 test("los servicios y trabajos conservan su traducción asociada a cada enlace", () => {
   const expected = {
     ca: {

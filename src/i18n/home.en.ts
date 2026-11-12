@@ -44,6 +44,7 @@ export const en: HomeCopy = {
   footerServices: "Services", footerCompany: "Company", footerCoverage: "Coverage", footerFleet: "Fleet", footerAbout: "About us", footerSafety: "Safety", footerBodies: "Organisations", footerNews: "News", footerJobs: "Careers", footerContact: "Contact", footerCranes: "Cranes in", footerAllCoverage: "View all coverage", emergencyShort: "Emergencies 24/365",
   legalNotice: "Legal notice", privacy: "Privacy policy", cookies: "Cookie policy", legalLinks: "Legal links", programmed: "Built by",
   youtubeLabel: "Grúas del Vallès YouTube channel", emailLabel: "Send email", quickContact: "Quick contact", callLabel: "Call", sendEmail: "Send email to",
+  socialLinks: "Social media", opensNewTab: "opens in a new tab",
   quoteEmail: "Request a quote by email", quote: "Request a quote", emailSubject: "Quote request", emailBody: "Hello,\n\nI would like to request a quote for:\n\n- Type of work:\n- Approximate tonnage:\n- Planned date:\n- Location:\n\nThank you.",
   spanishNotice: "Some downloadable documents are only available in Spanish.", primaryNav: "Main navigation", mobileNav: "Mobile navigation",
 };

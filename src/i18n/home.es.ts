@@ -40,6 +40,7 @@ export const es = {
   footerServices: "Servicios", footerCompany: "Empresa", footerCoverage: "Cobertura", footerFleet: "Flota", footerAbout: "Nosotros", footerSafety: "Seguridad", footerBodies: "Organismos", footerNews: "Noticias", footerJobs: "Trabaja con nosotros", footerContact: "Contacto", footerCranes: "Grúas en", footerAllCoverage: "Ver toda la cobertura", emergencyShort: "Emergencias 24/365",
   legalNotice: "Aviso legal", privacy: "Política de privacidad", cookies: "Política de cookies", legalLinks: "Enlaces legales", programmed: "Programado por",
   youtubeLabel: "Canal de YouTube de Grúas del Vallès", emailLabel: "Enviar email", quickContact: "Contacto rápido", callLabel: "Llamar al", sendEmail: "Enviar email a",
+  socialLinks: "Redes sociales", opensNewTab: "abre en una pestaña nueva",
   quoteEmail: "Pedir presupuesto por email", quote: "Pedir presupuesto", emailSubject: "Solicitud de presupuesto",
   emailBody: "Hola,\n\nMe gustaría solicitar un presupuesto para:\n\n- Tipo de trabajo:\n- Tonelaje aproximado:\n- Fecha prevista:\n- Ubicación:\n\nGracias.",
   spanishNotice: "", primaryNav: "Principal", mobileNav: "Móvil",

@@ -35,6 +35,13 @@ const legalLinks = [
   { href: "/legal/privacidad", label: copy.privacy },
   { href: "/legal/politica-cookies", label: copy.cookies },
 ];
+
+const socialLinks = [
+  { href: "https://www.instagram.com/gruasdelvalles/", name: "Instagram", icon: "lucide:instagram" },
+  { href: "https://www.linkedin.com/company/gruasdelvalles/", name: "LinkedIn", icon: "lucide:linkedin" },
+  { href: "https://www.facebook.com/gruasdelvalles/", name: "Facebook", icon: "lucide:facebook" },
+  { href: "https://www.youtube.com/channel/UCGAXK9VBR-OSxCsV3k2Ntkg", name: "YouTube", icon: "lucide:youtube" },
+];
 ---
 
 <footer class="bg-ink text-muted">
@@ -95,52 +102,49 @@ const legalLinks = [
             </a>
           </div>
 
-          <a
-            href="mailto:gruasdelvalles@gruasdelvalles.com"
-            class="inline-flex max-w-full items-center gap-2.5 text-sm transition-colors hover:text-accent-light"
-          >
-            <Icon
-              name="lucide:mail"
-              class="h-4 w-4 shrink-0 text-accent-light"
-              aria-hidden="true"
-            />
-            <span class="min-w-0 wrap-anywhere"
-              >gruasdelvalles@gruasdelvalles.com</span
+          <div class="flex flex-col items-start gap-4">
+            <a
+              href="mailto:gruasdelvalles@gruasdelvalles.com"
+              class="inline-flex max-w-full items-center gap-2.5 text-sm transition-colors hover:text-accent-light"
             >
-          </a>
+              <Icon
+                name="lucide:mail"
+                class="h-4 w-4 shrink-0 text-accent-light"
+                aria-hidden="true"
+              />
+              <span class="min-w-0 wrap-anywhere"
+                >gruasdelvalles@gruasdelvalles.com</span
+              >
+            </a>
 
-          <a
-            href={catalogo.url}
-            download={catalogo.filename}
-            class="btn min-h-11 border-2 border-white/20 px-4 py-2.5 text-sm text-white hover:border-accent-light hover:text-accent-light"
-          >
-            <Icon
-              name="lucide:download"
-              class="h-4 w-4 shrink-0 text-accent-light"
-              aria-hidden="true"
-            />
-            {copy.download}
-          </a>
+            <a
+              href={catalogo.url}
+              download={catalogo.filename}
+              class="btn min-h-11 border-2 border-white/20 px-4 py-2.5 text-sm text-white hover:border-accent-light hover:text-accent-light"
+            >
+              <Icon
+                name="lucide:download"
+                class="h-4 w-4 shrink-0 text-accent-light"
+                aria-hidden="true"
+              />
+              {copy.download}
+            </a>
+          </div>
         </div>
 
-        <div class="mt-8 flex items-center gap-3">
-          <a
-            href="https://www.youtube.com/channel/UCGAXK9VBR-OSxCsV3k2Ntkg"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={copy.youtubeLabel}
-            class="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-muted transition-colors hover:bg-[#FF0000] hover:text-white"
-          >
-            <Icon name="lucide:youtube" class="h-4 w-4" aria-hidden="true" />
-          </a>
-          <a
-            href="mailto:gruasdelvalles@gruasdelvalles.com"
-            aria-label={copy.emailLabel}
-            class="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-muted transition-colors hover:bg-accent hover:text-white"
-          >
-            <Icon name="lucide:mail" class="h-4 w-4" aria-hidden="true" />
-          </a>
-        </div>
+        <nav class="mt-8 flex flex-wrap items-center gap-3" aria-label={copy.socialLinks}>
+          {socialLinks.map(({ href, name, icon }) => (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${name} · Grúas del Vallès (${copy.opensNewTab})`}
+              class="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-muted transition-colors hover:bg-accent hover:text-white"
+            >
+              <Icon name={icon} class="h-5 w-5" aria-hidden="true" />
+            </a>
+          ))}
+        </nav>
       </div>
 
       <!-- Columnas de enlaces -->
