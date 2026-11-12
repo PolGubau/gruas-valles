@@ -52,7 +52,7 @@ const slides = await Promise.all(
   <!-- Slideshow de fondo -->
   <div
     id="hero-slideshow"
-    class="absolute inset-0 overflow-hidden"
+    class="absolute inset-0 z-0 overflow-hidden"
     data-interval={SLIDE_INTERVAL}
   >
     {
@@ -88,10 +88,10 @@ const slides = await Promise.all(
   </div>
 
   <div
-    class="container-wide relative z-10 px-4 pt-36 pb-10 sm:px-6 sm:pt-44 sm:pb-16 lg:px-8 lg:pb-20"
+    class="hero-content container-wide relative z-10 px-4 pt-36 pb-10 sm:px-6 sm:pt-44 sm:pb-16 lg:px-8 lg:pb-20"
   >
     <div class="max-w-3xl">
-      <p class="eyebrow mb-5 text-white/85 sm:mb-7">
+      <p class="eyebrow mb-5 text-white sm:mb-7">
         {copy.heroEyebrow}
       </p>
       <h1
@@ -103,7 +103,7 @@ const slides = await Promise.all(
       </h1>
 
       <p
-        class="mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:mt-7 sm:text-lg"
+        class="mt-6 max-w-xl text-base leading-relaxed text-white sm:mt-7 sm:text-lg"
       >
         {copy.heroDescription}
       </p>
@@ -121,7 +121,7 @@ const slides = await Promise.all(
           variant="outline"
           icon="lucide:phone"
           iconPosition="start"
-          class="min-h-12 w-full rounded-sm border-white/70 text-white normal-case tracking-normal hover:bg-white hover:text-ink! min-[480px]:w-auto"
+          class="min-h-12 w-full rounded-sm border-white/70 bg-ink/35 text-white normal-case tracking-normal hover:bg-white hover:text-ink! min-[480px]:w-auto"
         >
           {copy.call} · 93 849 70 22
         </Button>
@@ -129,7 +129,7 @@ const slides = await Promise.all(
       <a
         href={catalogo.url}
         download={catalogo.filename}
-        class="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-white/85 underline decoration-white/40 underline-offset-4 transition-colors hover:text-white"
+        class="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-white underline decoration-white/70 underline-offset-4"
       >
         {copy.download}
       </a>
@@ -147,7 +147,7 @@ const slides = await Promise.all(
           <div
             class:list={["flex flex-col-reverse", { "hidden sm:flex": i >= 2 }]}
           >
-            <dt class="mt-2 text-sm leading-snug text-white/80">{label}</dt>
+            <dt class="mt-2 text-sm leading-snug text-white">{label}</dt>
             <dd class="text-2xl font-semibold leading-none tracking-tight text-white sm:text-3xl">
               {value}
             </dd>
@@ -175,11 +175,14 @@ const slides = await Promise.all(
     background:
       linear-gradient(
         90deg,
-        rgb(10 10 10 / 0.78) 0%,
-        rgb(10 10 10 / 0.58) 43%,
-        rgb(10 10 10 / 0.16) 100%
+        rgb(10 10 10 / 0.68) 0%,
+        rgb(10 10 10 / 0.48) 43%,
+        rgb(10 10 10 / 0.04) 100%
       ),
-      linear-gradient(0deg, rgb(10 10 10 / 0.78) 0%, rgb(10 10 10 / 0.08) 70%);
+      linear-gradient(0deg, rgb(10 10 10 / 0.42) 0%, transparent 70%);
+  }
+  .hero-content :is(h1, p, dt, dd, a[download]) {
+    text-shadow: 0 2px 8px rgb(0 0 0 / 0.7);
   }
   @media (prefers-reduced-motion: no-preference) {
     img.hero-slide.is-active {

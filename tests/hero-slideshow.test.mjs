@@ -9,6 +9,14 @@ import { runInNewContext } from "node:vm";
 const dist = fileURLToPath(new URL(process.env.GV_TEST_DIST ?? "../dist/", import.meta.url));
 const source = readFileSync(new URL("../src/components/sections/Hero.astro", import.meta.url), "utf8");
 
+test("el degradado queda sobre las imágenes pero detrás del contenido del hero", () => {
+  assert.match(source, /id="hero-slideshow"\s+class="[^"]*\bz-0\b/);
+  assert.match(source, /class="hero-overlay[^\"]*\bz-30\b/);
+  assert.match(source, /class="hero-content[^\"]*\bz-10\b/);
+  assert.match(source, /\.hero-slide\.is-active\s*\{[^}]*z-index: 2/);
+  assert.match(source, /\.hero-content :is\(h1, p, dt, dd, a\[download\]\)\s*\{\s*text-shadow:/);
+});
+
 test("el hero incluye los cuatro vídeos y las tres fotos con variantes responsivas", () => {
   const html = readFileSync(join(dist, "index.html"), "utf8");
   assert.ok(!html.includes('id="hero-motion-toggle"'));
