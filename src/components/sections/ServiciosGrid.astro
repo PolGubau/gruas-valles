@@ -113,26 +113,24 @@ const iconos: string[] = [
 
   <!-- En la landing, este bloque secundario se colapsa en móvil (ver /servicios) -->
   <div
-    class:list={["mb-8 flex items-center gap-4", { "max-sm:hidden": preview }]}
+    class:list={["mb-8 text-center", { "max-sm:hidden": preview }]}
   >
-    <div class="h-px flex-1 bg-muted"></div>
     <span class="text-[10px] font-bold uppercase tracking-wider text-muted-dark"
       >{copy.otherServices}</span
     >
-    <div class="h-px flex-1 bg-muted"></div>
   </div>
 
   <!-- Grid de servicios principales -->
   <div
     class:list={[
-      "grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3",
+      "grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-3",
       { "max-sm:hidden": preview },
     ]}
     data-reveal
   >
     {
       copy.mainServices.map((servicio: string, i: number) => (
-        <div class="flex items-start gap-4 border-t border-muted/50 py-5">
+        <div class="flex items-start gap-4">
           <Icon
             name={iconos[i] ?? iconos[0]}
             class="h-6 w-6 shrink-0 text-accent"
